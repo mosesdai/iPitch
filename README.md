@@ -57,6 +57,11 @@ npx wrangler secret put DEEPSEEK_API_KEY
 
 部署后在 UI **API 设置**填 **Proxy URL**（或页面注入 `window.IPITCH_PROXY_URL`）。验证：`curl {proxy}/health`。详见 `worker/README.md`、`docs/CLOUD_DEPLOYMENT.md`、`docs/ASYNC_WORKFLOW.md`。
 
+
+### GitHub Actions（暂未启用）
+
+仓库内的 CI 定义已归档至 `docs/ci-workflows/`（非 `.github/workflows/`），便于在无 `workflow` scope 的 token 下完成首次 push。需要自动部署 Pages / Worker 时，将 YAML 移回 `.github/workflows/` 并用具备 **workflow** 权限的凭据推送即可。
+
 ## 目录
 
 ```
