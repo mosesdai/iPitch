@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>NIO · 深度研究报告 · cold R1</title>
+<style>
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#4f46e5;--accent-soft:#eef2ff;--border:#e2e8f0;--a:#059669}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC",system-ui,sans-serif;font-size:15px;line-height:1.7;color:var(--text);background:var(--bg)}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 64px}
+header{border-bottom:1px solid var(--border);padding-bottom:20px;margin-bottom:28px}
+h1{font-size:1.6rem;margin:0 0 8px;letter-spacing:-.02em}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;margin-right:6px;background:var(--accent-soft);color:var(--accent)}
+.meta{font-size:13px;color:var(--muted)}
+h2{font-size:1.15rem;margin:32px 0 12px;color:var(--accent);padding-bottom:6px;border-bottom:1px solid var(--border)}
+h3{font-size:1rem;margin:20px 0 8px}
+p{margin:0 0 12px}
+ul{margin:0 0 16px;padding-left:22px}
+li{margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 20px;background:var(--card)}
+th,td{border:1px solid var(--border);padding:8px 12px;text-align:left}
+th{background:var(--accent-soft);font-weight:600}
+.src{font-size:12px;color:var(--muted)}
+.callout{background:var(--accent-soft);border-left:3px solid var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;margin:16px 0}
+.warn{background:#fffbeb;border-left-color:#d97706}
+.fact{color:var(--a);font-weight:600}
+.tension{font-size:17px;font-weight:700;color:var(--accent);margin:16px 0}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <span class="tag">cold R1</span><span class="tag">冰山 · 水下</span><span class="tag">A 源至 2026-05</span>
+  <h1>NIO 蔚来 · 深度研究报告</h1>
+  <p class="meta">/ipitch start NIO · 零碎片输入 · 2026-06-17 · 不进 10min 刀全文</p>
+</header>
+
+<section>
+  <h2>执行摘要</h2>
+  <div class="callout">
+    <strong>此刻最痛的一条张力（T1）：</strong>乐道破圈在加速（5月交付 <span class="fact">12,029</span> 首次破万），蔚来 Spirit 仍在澄清期——<strong>同一套体育叙事会撕裂两个品牌</strong>。
+  </div>
+  <p><strong>3 条可引用事实（A 源）：</strong></p>
+  <ul>
+    <li>2026年5月全品牌交付 <span class="fact">37,705</span>（+62.3% YoY），乐道 <span class="fact">12,029</span>（nio.com 2026-06-01）</li>
+    <li>Q1 Non-GAAP 经营利润 <span class="fact">+0.668 亿</span>，现金 <span class="fact">482 亿</span>（HKEX 2026-05-21）</li>
+    <li>Q1 乐道仅占交付 <span class="fact">16%</span>（13,339/83,465）— 量纲命题在 5 月才出现拐点信号</li>
+  </ul>
+  <p><strong>3 条【待 PRIMARY 核实】：</strong></p>
+  <ul>
+    <li>体育营销预算 owner 与审批链（马麟 / 秦力洪 / 沈斐？）</li>
+    <li>2026 体育 IP 优先级：乐道破圈 vs 蔚来 Spirit vs 萤火虫全球</li>
+    <li>是否已有竞品体育排他洽谈</li>
+  </ul>
+</section>
+
+<section>
+  <h2>1 · 财报与交付（IR）</h2>
+  <h3>2026 Q1（A 源 · HKEX 2026052100996）</h3>
+  <table>
+    <tr><th>指标</th><th>数值</th><th>读法</th></tr>
+    <tr><td>交付</td><td>83,465 (+98.3% YoY)</td><td>同比高增；环比 Q4 有季节切换</td></tr>
+    <tr><td>蔚来 / 乐道 / 萤火虫</td><td>58,543 / 13,339 / 11,583</td><td>乐道仅 16% — Q1 量纲未解</td></tr>
+    <tr><td>整车毛利率</td><td>18.8%</td><td>四年新高；CFO 仍看 ROI</td></tr>
+    <tr><td>Non-GAAP 经营利润</td><td>+0.668 亿</td><td>连续第二季 Non-GAAP 盈</td></tr>
+    <tr><td>GAAP 净亏损</td><td>3.321 亿</td><td>曲玉闸门仍在</td></tr>
+    <tr><td>现金</td><td>482 亿</td><td>有子弹，非乱花理由</td></tr>
+  </table>
+  <p class="src">来源：港交所公告 2026-05-21 ✅</p>
+
+  <h3>2026年5月交付（A 源 · nio.com / SEC 6-K）</h3>
+  <table>
+    <tr><th>品牌</th><th>5月交付</th><th>读法</th></tr>
+    <tr><td>全品牌</td><td><strong>37,705</strong></td><td>2026 迄今最高月；+62.3% YoY，+28.4% MoM</td></tr>
+    <tr><td>蔚来</td><td>20,013</td><td>ES9 5/27 上市，精神 premium 锚</td></tr>
+    <tr><td>乐道 ONVO</td><td><strong>12,029</strong></td><td><strong>首次破万</strong>；4月 5,352 → 近 2.25×</td></tr>
+    <tr><td>萤火虫</td><td>5,663</td><td>稳态，非主矛盾</td></tr>
+  </table>
+  <p>L80 5/15 上市驱动乐道跳升。前五个月累计 150,526 台（+68.7% YoY）。<span class="src">来源：nio.com/news/20260601001 · SEC Form 6-K 2026-06-01 ✅</span></p>
+</section>
+
+<section>
+  <h2>2 · 三品牌战略逻辑</h2>
+  <table>
+    <tr><th>品牌</th><th>Spirit</th><th>2026 行为</th><th>体育/IP 含义</th></tr>
+    <tr><td>蔚来</td><td>敢想有为</td><td>ES9 + 姚明（5/27）</td><td>精神层、价值观先行，非流量</td></tr>
+    <tr><td>乐道</td><td>轻松家庭</td><td>L80/L90；5月破万</td><td>社群体育（申花模板）、Jr./3X 家庭触点</td></tr>
+    <tr><td>萤火虫</td><td>自在发光</td><td>5,663/月稳态</td><td>全球青年文化；出海节奏放慢（C）</td></tr>
+  </table>
+  <p>秦力洪多次强调反「互联网爆款」逻辑（C）— 买的是 <strong>品牌一致性</strong>，不是单次曝光。这与乐道「破圈 urgency」形成张力，是本次 pitch 的主战场。</p>
+</section>
+
+<section>
+  <h2>3 · 体育 / IP 合作史（摘要）</h2>
+  <ul>
+    <li><strong>Formula E</strong>：早期技术背书；已退出 — 精神资产需新载体</li>
+    <li><strong>上海申花</strong>：乐道家庭社群模板 — 「体育 = 社区归属」而非 logo 曝光</li>
+    <li><strong>姚明 × ES9</strong>（2026-05-27）：价值观合作，非交易型代言 — 证明蔚来要「精神」，但单点不可复用到乐道/萤火虫</li>
+  </ul>
+  <p><strong>NBA 接口假设（待会面验证）：</strong>不是第四次买曝光，而是提供 <strong>三品牌分层 OS</strong> — 精神 / 家庭社群 / 青年文化各有一条可调用接口。</p>
+</section>
+
+<section>
+  <h2>4 · 竞品与行业背景（research 级 · 不进刀）</h2>
+  <p>2026年5月行业交付参照（C 源行业稿）：理想约 33,350；小鹏约 32,158；蔚来系三品牌合计 37,705 才略超单一竞品。<strong>不用排名吓唬客户</strong> — 只说明：乐道窗口期短，体育资源必须精准投向家庭破圈，而非分散到三品牌一套叙事。</p>
+  <p>行业处于「决赛圈 + 澄清期」：价格战缓和但毛利指引下调（17–18%）；客户 CFO 频道对大额冠名敏感，<strong>轻试验、可量化、资产化</strong> 是过闸路径。</p>
+</section>
+
+<section>
+  <h2>5 · 权力图 + MEDDIC</h2>
+  <table>
+    <tr><th>人物</th><th>角色</th><th>pitch 频道</th></tr>
+    <tr><td>李斌</td><td>Spirit 最终定义</td><td>长期主义、精神</td></tr>
+    <tr><td>秦力洪</td><td>品牌/用户/销售总裁</td><td>走心、反流量</td></tr>
+    <tr><td>马麟</td><td>BC AVP；姚明案</td><td>执行、共创模板</td></tr>
+    <tr><td>沈斐</td><td>乐道总裁</td><td>家庭破圈 KPI</td></tr>
+    <tr><td>曲玉</td><td>CFO</td><td>ROI、试验上限</td></tr>
+  </table>
+  <div class="callout warn">
+    <strong>冷启动缺口：</strong>无 L0 销售输入 — MEDDIC 中 Economic Buyer、Champion、Paper Process 均为【待核实】。Tier B 规则：<strong>不推断、不装懂</strong>。
+  </div>
+</section>
+
+<section>
+  <h2>6 · 张力诊断（选 1 把刀）</h2>
+  <p class="tension">T1【主刀】Spirit 分层 vs 乐道量纲 urgency</p>
+  <p>主张侧：Spirit 澄清，拒绝流量逻辑。行为侧：5月乐道 12,029 破万，urgency 从叙事变成数据。<strong>后果：</strong>一套体育 IP 打三品牌 → 撕裂 Spirit + 拖累乐道破圈。</p>
+  <p><strong>其他张力（备选）：</strong> T2 姚明单点 vs 体系化；T3 全球叙事 vs 本土回归；T4 盈利拐点 vs CFO 成本闸门。</p>
+</section>
+
+<section>
+  <h2>7 · 证伪摘要（反昏君 · ruthless）</h2>
+  <ul>
+    <li><strong>反证 F1：</strong>乐道破万可能由 L80 单品驱动，非品牌体育需求 — <em>强度：中等</em>；实验：分城市看体育触点 vs 自然增长</li>
+    <li><strong>反证 F2：</strong>姚明已满足精神层，客户可能认为「体育已够用」— <em>强度：中等</em>；需证明体系化 &gt; 单点</li>
+    <li><strong>反证 F3：</strong>CFO 通道下任何体育合作难过大额试点 — <em>强度：严重</em>；出口：一城一试验、可量化</li>
+    <li><strong>不对称审查：</strong>支持 3 : 反证 3 — 未超 2:1，主张力可 CONDITIONAL 推进，须带 PRIMARY 核实计划</li>
+    <li><strong>裁决：</strong>CONDITIONAL — 方向 pitch 可打；试点金额与 owner 必须 L0 后写</li>
+  </ul>
+</section>
+
+<section>
+  <h2>8 · 查了但不说（09_not_for_pitch 摘要）</h2>
+  <ul>
+    <li>3.23 亿粉丝类曝光 KPI</li>
+    <li>竞品具体 IP 赞助金额对比</li>
+    <li>未核实的汽车品类排他条款</li>
+    <li>媒体「全面复苏」叙事（行为数据已够，不需 L3 吓唬）</li>
+  </ul>
+</section>
+
+<footer>
+  <p>MD 真源：<code>cases/nio/</code> · 对照样例 <code>nio/account-v3/</code></p>
+  <p><a href="B_knife.html">→ 10 分钟刀子 HTML</a> · <a href="index.html">索引</a></p>
+  <p>数据溯源见 <code>data_traceability.md</code> · 本报告约 4,500 字（冷启动 R1；完整冰山 ≥8k 见 account-v3/research/）</p>
+</footer>
+</div>
+</body>
+</html>

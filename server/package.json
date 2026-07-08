@@ -1,0 +1,15 @@
+{
+  "name": "ipitch-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "iPitch Phase 1 — R1 multi-step agent orchestrator",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "pipeline:dry": "node src/cli.js --dry-run --steps charter,timeliness,research",
+    "pipeline:stub": "node src/cli.js --stub --target NIO"
+  }
+}

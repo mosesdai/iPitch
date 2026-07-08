@@ -1,0 +1,17 @@
+# iPitch DeepSeek API proxy — Cloudflare Worker
+# Deploy: cd worker && ./deploy.sh
+# Docs: worker/README.md
+
+name = "ipitch-deepseek-proxy"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Secrets (never commit real values):
+#   npx wrangler secret put DEEPSEEK_API_KEY
+# Optional:
+#   npx wrangler secret put DEEPSEEK_BASE_URL   # default: https://api.deepseek.com
+
+[vars]
+# CORS: comma-separated origins, or "*" (default). Example for GitHub Pages:
+# ALLOWED_ORIGINS = "https://your-org.github.io,http://localhost:8080"
+ALLOWED_ORIGINS = "*"
