@@ -1,18 +1,30 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import path from "node:path";
 
 import { parseFileBlocks, formatFileBlock, mergeFiles } from "../lib/parse-file-blocks.js";
 import { buildSystemPrompt, loadKernelBundle } from "../lib/load-kernel.js";
-import { runR1Pipeline } from "../src/orchestrator.js";
+import { loadProtocolSnippets } from "../lib/load-protocols.js";
+import { runR1Pipeline, R1_STEP_ORDER } from "../src/orchestrator.js";
 import {
+  buildStepUserPrompt,
+  expectedOutputsForStep,
+  getStepDefinition,
+  STEP_PROTOCOLS,
+  stubStepResponse
+} from "../src/r1-pipeline.js";
+import {
+  assertPassportShape,
   collectGoldenMetrics,
+  FULL_PIPELINE_FILES,
   GOLDEN_DIR,
   MIN_ICEBERG_CHARS,
   REQUIRED_ROOT_FILES,
-  scoreAgainstGolden
+  scoreAgainstGolden,
+  scoreStepOutputs
 } from "./golden-metrics.js";
+
+const NIO_INPUT = { target: "蔚来 NIO", customer: "", internal: "" };
 
 describe("parseFileBlocks", () => {
   it("parses ===FILE=== blocks like the UI", () => {
@@ -42,13 +54,38 @@ describe("parseFileBlocks", () => {
   });
 });
 
-describe("load-kernel", () => {
-  it("loads KERNEL from ui/js/prompts.js", () => {
+describe("load-kernel (ui/js/prompts.js)", () => {
+  it("loads KERNEL from ui/js/prompts.js without duplication", () => {
     const bundle = loadKernelBundle();
     assert.ok(bundle.kernel.includes("iPitch Studio"));
     assert.ok(bundle.ifalsify.includes("ifalsify"));
+    assert.ok(bundle.grill.includes("Grill"));
+    assert.ok(bundle.outputFormat.includes("===FILE:"));
     const system = buildSystemPrompt();
     assert.ok(system.length > 2000);
+  });
+});
+
+describe("load-protocols (protocols/ + references/)", () => {
+  it("every step protocol path exists on disk", () => {
+    for (const stepId of R1_STEP_ORDER) {
+      const def = getStepDefinition(stepId);
+      const snippets = loadProtocolSnippets(def.protocolPaths);
+      assert.equal(snippets.length, STEP_PROTOCOLS[stepId].length);
+      for (const s of snippets) {
+        assert.ok(s.content.length > 50, `${s.path} too short`);
+      }
+    }
+  });
+
+  it("buildStepUserPrompt injects protocol sources for each step", () => {
+    for (const stepId of R1_STEP_ORDER) {
+      const prompt = buildStepUserPrompt(stepId, NIO_INPUT, []);
+      assert.ok(prompt.includes(`# Step:`), stepId);
+      assert.ok(prompt.includes("## Protocol references"), stepId);
+      assert.ok(prompt.includes("### Source:"), stepId);
+      assert.ok(prompt.includes("蔚来 NIO"), stepId);
+    }
   });
 });
 
@@ -75,33 +112,98 @@ describe("golden reference · nio/account-v3", () => {
   });
 });
 
-describe("R1 pipeline stub (charter → timeliness → research)", () => {
-  it("runs first three steps and accumulates files", async () => {
-    const result = await runR1Pipeline(
-      { target: "蔚来 NIO", customer: "", internal: "" },
-      { steps: ["charter", "timeliness", "research"], useStub: true }
-    );
+describe("stub responses · per-step file contract", () => {
+  for (const stepId of R1_STEP_ORDER) {
+    it(`stub ${stepId} emits expected ===FILE=== blocks`, () => {
+      const raw = stubStepResponse(stepId, NIO_INPUT, []);
+      const files = parseFileBlocks(raw);
+      const score = scoreStepOutputs(stepId, files);
+      assert.equal(
+        score.missing.length,
+        0,
+        `${stepId} missing: ${score.missing.join(", ")}`
+      );
+      assert.ok(files.length >= expectedOutputsForStep(stepId).length);
+    });
+  }
 
-    assert.equal(result.steps.length, 3);
-    assert.ok(result.files.some((f) => f.name === "00_charter.md"));
-    assert.ok(result.files.some((f) => f.name === "source_timeliness.md"));
-    assert.ok(result.files.some((f) => f.name === "research/01_IR_financial.md"));
-
-    const score = scoreAgainstGolden(result.files);
-    assert.ok(score.filesPresent >= 3);
-    assert.ok(score.researchCharCount > 1000, "stub research should have bulk padding");
+  it("files stub quality_passport.json is valid and shaped", () => {
+    const prior = parseFileBlocks(stubStepResponse("research", NIO_INPUT));
+    const raw = stubStepResponse("files", NIO_INPUT, prior);
+    const files = parseFileBlocks(raw);
+    const passport = files.find((f) => f.name === "quality_passport.json");
+    assert.ok(passport);
+    const shape = assertPassportShape(passport.content);
+    assert.equal(shape.ok, true, `missing keys: ${shape.missingKeys.join(", ")}`);
+    assert.ok(shape.data.iceberg_char_count > 0);
   });
 });
 
-describe("pipeline output vs golden (stub — future live)", () => {
-  it("scoreAgainstGolden reports missing files until full pipeline ships", async () => {
-    const result = await runR1Pipeline(
-      { target: "NIO" },
-      { steps: ["charter", "timeliness", "research"], useStub: true }
+describe("R1 pipeline · per-step golden (stub)", () => {
+  for (const stepId of R1_STEP_ORDER) {
+    it(`runs step ${stepId} alone and matches expected outputs`, async () => {
+      const result = await runR1Pipeline(NIO_INPUT, {
+        steps: [stepId],
+        useStub: true,
+        strict: true
+      });
+      assert.equal(result.steps.length, 1);
+      assert.equal(result.steps[0].stepId, stepId);
+      assert.equal(result.warnings.length, 0, result.warnings.join("; "));
+      const score = scoreStepOutputs(stepId, result.steps[0].files);
+      assert.equal(score.missing.length, 0, score.missing.join(", "));
+      for (const name of expectedOutputsForStep(stepId)) {
+        assert.ok(result.files.some((f) => f.name === name), `missing ${name}`);
+      }
+    });
+  }
+});
+
+describe("R1 pipeline · full seven-step stub", () => {
+  it("runs charter → files and accumulates full R1 package", async () => {
+    const result = await runR1Pipeline(NIO_INPUT, {
+      useStub: true,
+      strict: true
+    });
+
+    assert.equal(result.steps.length, R1_STEP_ORDER.length);
+    assert.deepEqual(
+      result.steps.map((s) => s.stepId),
+      [...R1_STEP_ORDER]
     );
-    const score = scoreAgainstGolden(result.files, collectGoldenMetrics());
-    assert.ok(score.missing.includes("B_knife.md"));
-    assert.ok(score.missing.includes("03_tensions.md"));
-    // Placeholder: when all steps live, flip to assert.equal(score.missing.length, 0)
+    assert.equal(result.warnings.length, 0, result.warnings.join("; "));
+
+    for (const name of FULL_PIPELINE_FILES) {
+      assert.ok(
+        result.files.some((f) => f.name === name),
+        `full pipeline missing ${name}`
+      );
+    }
+
+    const score = scoreAgainstGolden(result.files);
+    assert.equal(score.missing.length, 0, `missing: ${score.missing.join(", ")}`);
+    assert.equal(score.gateMissing.length, 0, `gate missing: ${score.gateMissing.join(", ")}`);
+    assert.ok(
+      score.meetsIcebergGate,
+      `stub iceberg ${score.researchCharCount} < ${MIN_ICEBERG_CHARS}`
+    );
+
+    const passport = result.files.find((f) => f.name === "quality_passport.json");
+    const shape = assertPassportShape(passport.content);
+    assert.equal(shape.ok, true);
+    assert.ok(shape.data.iceberg_char_count >= MIN_ICEBERG_CHARS);
+  });
+
+  it("prior steps feed later prompts (knife sees tensions)", async () => {
+    const result = await runR1Pipeline(NIO_INPUT, {
+      steps: ["charter", "tensions", "knife"],
+      useStub: true,
+      strict: true
+    });
+    assert.ok(result.files.some((f) => f.name === "00_charter.md"));
+    assert.ok(result.files.some((f) => f.name === "03_tensions.md"));
+    assert.ok(result.files.some((f) => f.name === "B_knife.md"));
+    const knife = result.files.find((f) => f.name === "B_knife.md");
+    assert.ok(knife.content.includes("明确不说"));
   });
 });

@@ -39,6 +39,7 @@ import {
  * @param {string[]} [options.steps] — subset of step ids; default all
  * @param {(system: string, user: string, ctx: object) => Promise<string>} [options.chatFn]
  * @param {boolean} [options.useStub] — use stub responses instead of chatFn
+ * @param {boolean} [options.strict] — throw if a step misses expected files / invalid passport JSON
  * @param {(event: object) => void} [options.onProgress]
  * @returns {Promise<PipelineResult>}
  */
@@ -64,7 +65,7 @@ export async function runR1Pipeline(input, options = {}) {
 
     let raw;
     if (options.useStub) {
-      raw = stubStepResponse(stepId, input);
+      raw = stubStepResponse(stepId, input, allFiles);
     } else if (options.chatFn) {
       raw = await options.chatFn(systemPrompt, userPrompt, { stepId, input, priorFiles: allFiles });
     } else {
@@ -75,17 +76,43 @@ export async function runR1Pipeline(input, options = {}) {
 
     const files = parseFileBlocks(raw);
     const expected = expectedOutputsForStep(stepId);
+    const missingExpected = [];
 
     for (const name of expected) {
       if (!files.some((f) => f.name === name)) {
-        warnings.push(`Step ${stepId}: missing expected file ${name}`);
+        const msg = `Step ${stepId}: missing expected file ${name}`;
+        warnings.push(msg);
+        missingExpected.push(name);
       }
     }
 
-    steps.push({ stepId, files, raw });
+    if (options.strict && missingExpected.length) {
+      throw new Error(
+        `Strict mode: ${stepId} missing ${missingExpected.join(", ")}`
+      );
+    }
+
+    // files step: quality_passport.json must parse when present
+    const passport = files.find((f) => f.name === "quality_passport.json");
+    if (passport) {
+      try {
+        JSON.parse(passport.content);
+      } catch (err) {
+        const msg = `Step ${stepId}: quality_passport.json is not valid JSON (${err.message})`;
+        warnings.push(msg);
+        if (options.strict) throw new Error(msg);
+      }
+    }
+
+    steps.push({ stepId, files, raw, expected, missingExpected });
     allFiles = mergeFiles(allFiles, files);
 
-    options.onProgress?.({ type: "step_done", stepId, fileCount: files.length });
+    options.onProgress?.({
+      type: "step_done",
+      stepId,
+      fileCount: files.length,
+      missingExpected
+    });
   }
 
   return { steps, files: allFiles, warnings };

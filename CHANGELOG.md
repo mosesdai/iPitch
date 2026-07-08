@@ -1,5 +1,15 @@
 # CHANGELOG · iPitch
 
+## 2026-07-08 · Phase 1 — 完整七步 R1 编排
+
+### server/ 多步 R1（charter → files）
+- 补全 `tensions` / `knife` / `ifalsify` / `files` 的 stub 产出与期望文件契约
+- 编排器：`strict` 模式、passport JSON 校验、步骤进度含 missing 列表
+- 后步 prompt 优先注入关键 prior 文件（刀刃看张力，ifalsify 看刀，files 看门禁）
+- Golden：每步独立 stub 测试 + 全七步累积；对照 `nio/account-v3/` + KERNEL 门禁产物
+- CLI 默认 stub/dry 跑全流水线；仍复用 `ui/js/prompts.js` KERNEL 与 `protocols/` 片段
+- 范围外（Phase 2）：HTTP API、任务队列、UI 切换 live 编排
+
 ## 2026-07-09 · UI 品牌：iPitch 工作台 / iPitch Workbench
 
 - 用户可见显示名：**iPitch 工作台**（中文）/ **iPitch Workbench**（英文）

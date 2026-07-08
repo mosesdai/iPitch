@@ -28,9 +28,7 @@ function parseArgs(argv) {
   }
 
   if (!opts.steps) {
-    opts.steps = opts.stub
-      ? ["charter", "timeliness", "research"]
-      : R1_STEP_ORDER;
+    opts.steps = [...R1_STEP_ORDER];
   }
 
   return opts;
@@ -95,9 +93,15 @@ async function main() {
   const runOpts = {
     steps: opts.steps,
     useStub: opts.stub,
+    strict: opts.stub,
     onProgress: (e) => {
       if (e.type === "step_start") process.stderr.write(`→ ${e.stepId}… `);
-      if (e.type === "step_done") process.stderr.write(`${e.fileCount} files\n`);
+      if (e.type === "step_done") {
+        const miss = e.missingExpected?.length
+          ? ` (missing: ${e.missingExpected.join(", ")})`
+          : "";
+        process.stderr.write(`${e.fileCount} files${miss}\n`);
+      }
     }
   };
 

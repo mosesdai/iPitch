@@ -29,26 +29,30 @@ DeepSeek via Worker proxy    orchestrator.js
 | `ifalsify` | `ifalsify_report.md` | `references/ifalsify_report_template.md` |
 | `files` | `handoff_to_sales.md`, `quality_passport.json` | `references/handoff_to_sales_template.md` |
 
-Steps run sequentially. Each step receives prior file outputs as context and must return `===FILE: …===` blocks (same contract as `ui/js/prompts.js`).
+Steps run sequentially. Each step receives prior file outputs as context (priority files first for later steps) and must return `===FILE: …===` blocks (same contract as `ui/js/prompts.js`).
 
-### Phase 1 scope (this PR)
+System prompt = **KERNEL + Grill + ifalsify + OUTPUT_FORMAT** extracted from `ui/js/prompts.js` (single source of truth — not copied into `server/`).
 
-- ✅ Step definitions + orchestrator skeleton
+### Phase 1 scope
+
+- ✅ Seven-step definitions + orchestrator (`charter` → `files`)
 - ✅ KERNEL loaded from `ui/js/prompts.js`
 - ✅ Protocol snippets loaded from `protocols/` + `references/`
-- ✅ `parseFileBlocks` shared logic (ported from `app.js` / `prompts.js`)
-- ✅ Golden test stub vs `nio/account-v3/` baseline
-- ⏳ Steps `tensions` → `files` (prompt stubs only; no live LLM wiring)
+- ✅ `parseFileBlocks` shared contract with UI
+- ✅ Stub responses for **all** steps (local / CI without API keys)
+- ✅ Per-step + full-pipeline golden tests vs `nio/account-v3/` baseline
+- ✅ Strict mode: missing expected files / invalid passport JSON → fail
 - ⏳ HTTP API / job queue (Phase 2)
 - ⏳ UI integration switch (Phase 2)
+- ⏳ Live LLM quality vs golden (needs `DEEPSEEK_*` secrets)
 
 ## Usage
 
 ```bash
 cd server
-npm test                    # golden baseline + parseFileBlocks
-npm run pipeline:dry        # print step prompts, no API call
-npm run pipeline:stub       # run charter→timeliness→research with stub LLM
+npm test                    # per-step + full stub golden suite
+npm run pipeline:dry        # print all step prompts (KERNEL + protocols), no API
+npm run pipeline:stub       # run full seven-step stub for NIO
 ```
 
 ### Live LLM (local only — no keys in repo)
@@ -56,6 +60,7 @@ npm run pipeline:stub       # run charter→timeliness→research with stub LLM
 ```bash
 export DEEPSEEK_API_KEY=sk-…          # or DEEPSEEK_PROXY_URL=https://….workers.dev
 node src/cli.js --target "蔚来 NIO" --steps charter,timeliness
+node src/cli.js --target "蔚来 NIO"   # all seven steps
 ```
 
 Secrets via environment only. Never commit API keys.
@@ -64,14 +69,16 @@ Secrets via environment only. Never commit API keys.
 
 `nio/account-v3/` is the quality bar:
 
-- Required gate files present
-- `research/` total ≥ ~8000 characters (v3 ≈ 7909)
+- Required gate files present (`00_charter`, timeliness, traceability, tensions, knife, handoff, research/*)
+- Pipeline stub also emits `ifalsify_report.md` + `quality_passport.json` (product KERNEL gates; older golden dir may lack these files on disk)
+- `research/` total ≥ ~8000 characters (v3 ≈ 7909; stub pads to clear the gate)
 - Knife + handoff present
 
-See `test/golden-nio-v3.test.js`.
+See `test/golden-nio-v3.test.js` — one test per step, plus full seven-step accumulation.
 
 ## Related
 
 - Browser UI: `ui/ipitch-studio.html`
 - Worker proxy: `worker/`
 - Protocol kernel: `protocols/ipitch.md`
+- Prompt KERNEL: `ui/js/prompts.js`

@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "node --test test/**/*.test.js",
-    "pipeline:dry": "node src/cli.js --dry-run --steps charter,timeliness,research",
-    "pipeline:stub": "node src/cli.js --stub --target NIO"
+    "pipeline:dry": "node src/cli.js --dry-run",
+    "pipeline:stub": "node src/cli.js --stub --target NIO",
+    "pipeline:stub:step": "node src/cli.js --stub --target NIO --steps"
   }
 }
