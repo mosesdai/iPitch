@@ -10,6 +10,7 @@ import {
   buildStepUserPrompt,
   expectedOutputsForStep,
   getStepDefinition,
+  MARATHON_STEP_ORDER,
   STEP_PROTOCOLS,
   stubStepResponse
 } from "../src/r1-pipeline.js";
@@ -88,6 +89,15 @@ describe("load-protocols (protocols/ + references/)", () => {
       assert.ok(prompt.includes("蔚来 NIO"), stepId);
     }
   });
+
+  it("marathon-only step protocol paths exist", () => {
+    const marathonOnly = MARATHON_STEP_ORDER.filter((id) => !R1_STEP_ORDER.includes(id));
+    for (const stepId of marathonOnly) {
+      const def = getStepDefinition(stepId);
+      const snippets = loadProtocolSnippets(def.protocolPaths);
+      assert.ok(snippets.length > 0, stepId);
+    }
+  });
 });
 
 describe("golden reference · nio/account-v3", () => {
@@ -158,6 +168,19 @@ describe("R1 pipeline · per-step golden (stub)", () => {
       }
     });
   }
+});
+
+describe("R1 pipeline · marathon stub profile", () => {
+  it("runs --profile marathon with source_hunt + grill + split pitchvision", async () => {
+    const result = await runR1Pipeline(
+      { ...NIO_INPUT, outputs: ["research", "knife", "ipod"] },
+      { profile: "marathon", useStub: true, strict: true }
+    );
+    assert.ok(result.files.some((f) => f.name === "research/00_source_hunt.md"));
+    assert.ok(result.files.some((f) => f.name === "grill_report.md"));
+    assert.ok(result.files.some((f) => f.name === "pitchvision/concept-a/03_tension_T5.md"));
+    assert.equal(result.warnings.length, 0, result.warnings.join("; "));
+  });
 });
 
 describe("R1 pipeline · full seven-step stub", () => {

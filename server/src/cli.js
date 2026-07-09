@@ -5,7 +5,7 @@
 
 import { buildSystemPrompt } from "../lib/load-kernel.js";
 import { runR1Pipeline } from "./orchestrator.js";
-import { R1_STEP_ORDER, buildStepUserPrompt } from "./r1-pipeline.js";
+import { MARATHON_STEP_ORDER, R1_STEP_ORDER, buildStepUserPrompt, resolveStepsForOptions } from "./r1-pipeline.js";
 
 function parseArgs(argv) {
   const opts = {
@@ -13,6 +13,7 @@ function parseArgs(argv) {
     customer: "",
     internal: "",
     steps: null,
+    profile: null,
     dryRun: false,
     stub: false
   };
@@ -21,15 +22,14 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === "--dry-run") opts.dryRun = true;
     else if (a === "--stub") opts.stub = true;
+    else if (a === "--profile" && argv[i + 1]) opts.profile = argv[++i];
     else if (a === "--target" && argv[i + 1]) opts.target = argv[++i];
     else if (a === "--steps" && argv[i + 1]) {
       opts.steps = argv[++i].split(",").map((s) => s.trim());
     }
   }
 
-  if (!opts.steps) {
-    opts.steps = [...R1_STEP_ORDER];
-  }
+  opts.steps = resolveStepsForOptions({ steps: opts.steps, profile: opts.profile });
 
   return opts;
 }
@@ -92,6 +92,7 @@ async function main() {
 
   const runOpts = {
     steps: opts.steps,
+    profile: opts.profile,
     useStub: opts.stub,
     strict: opts.stub,
     onProgress: (e) => {

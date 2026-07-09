@@ -1,5 +1,21 @@
 # CHANGELOG · iPitch
 
+## 2026-07-09 · 机制：搜索 + 人工 Grill + Pitchvision 马拉松
+
+### 源猎取（source_hunt）
+- 新步骤 `research/00_source_hunt.md` + 模板 `references/source_hunt_template.md`
+- Worker 可选 `POST /v1/search`（`TAVILY_API_KEY`）；UI 马拉松模式在 source_hunt 步注入结果
+- `/health` 返回 `searchConfigured`
+
+### 人工 Grill
+- 新步骤 `grill` → 可审计 `grill_report.md` + 模板 `references/grill_report_template.md`
+- UI：马拉松模式自动跑 grill 步；「导出 Grill 签核指引」按钮
+
+### Cursor / CLI 长跑
+- 导出包新增 `cursor_runbook.md`、`grill_command.txt`、`cursor_marathon_commands.txt`
+- UI **马拉松模式**：source_hunt → 分步 pitchvision（T5 / job / card）→ grill
+- Server：`--profile marathon`（12 步）；文档 `docs/PITCHVISION_MARATHON.md`
+
 ## 2026-07-09 · 犀利度定义修正：深刻·启发·颠覆性创意（非哗众取宠）
 
 - KERNEL 明确：**犀利 ≠ 哗众取宠**；品质 = 结构性洞察 + disruptive 商业创意（iPod/pitchvision）

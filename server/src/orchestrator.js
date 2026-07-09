@@ -9,6 +9,7 @@ import {
   buildStepUserPrompt,
   expectedOutputsForStep,
   getStepDefinition,
+  resolveStepsForOptions,
   stubStepResponse
 } from "./r1-pipeline.js";
 
@@ -44,9 +45,7 @@ import {
  * @returns {Promise<PipelineResult>}
  */
 export async function runR1Pipeline(input, options = {}) {
-  const stepIds = options.steps?.length
-    ? options.steps.filter((id) => R1_STEP_ORDER.includes(id))
-    : [...R1_STEP_ORDER];
+  const stepIds = resolveStepsForOptions(options);
 
   if (!stepIds.length) {
     throw new Error("No valid steps to run");

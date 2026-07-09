@@ -96,7 +96,8 @@ Cloud Agent / 后台 Agent：在分支上实现 → 自检（gate、lint、/heal
 | 云端长跑开发 | Cursor Cloud Agents（需仓库 + 套餐） |
 | 全自动云端案例库 / 多用户 | 未实现（后续 Phase） |
 
-**你睡觉时可以做的：** 让 Cloud Agent 在分支上推进 Phase 1（例如服务端 Gate、案例同步），并约定「无分叉则直接开 PR」。
+**你睡觉时可以做的：** 让 Cloud Agent 在分支上推进 Phase 1（例如服务端 Gate、案例同步），并约定「无分叉则直接开 PR」。  
+**Pitchvision 马拉松：** 见 `docs/PITCHVISION_MARATHON.md` — UI 导出 `cursor_runbook.md` 或勾选马拉松模式（搜索 + 分步 iPod + Grill 签核）。
 
 **你醒来应检查的：** PR diff、Gate 是否通过、ifalsify 是否 KILL/PIVOT、Proxy `/health` 是否 `keyConfigured: true`。
 

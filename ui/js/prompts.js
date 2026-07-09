@@ -136,13 +136,34 @@ Use .md for markdown. Separate each file clearly. Include ALL files requested fo
     "files"
   ];
 
+  /** Marathon: source_hunt + split pitchvision + explicit grill (see docs/PITCHVISION_MARATHON.md) */
+  const MARATHON_STEP_ORDER = [
+    "charter",
+    "timeliness",
+    "source_hunt",
+    "research",
+    "tensions",
+    "knife",
+    "pitchvision_t5",
+    "pitchvision_job",
+    "pitchvision_card",
+    "grill",
+    "ifalsify",
+    "files"
+  ];
+
   const R1_STEP_LABELS = {
     charter: "Charter / 起手",
     timeliness: "时效 + 溯源账本",
+    source_hunt: "源猎取 · 搜索",
     research: "冰山研究",
     tensions: "张力诊断",
     knife: "10分钟刀刃",
     pitchvision: "iPod 颠覆性创意",
+    pitchvision_t5: "iPod · T5 品类张力",
+    pitchvision_job: "iPod · JTBD / why_now",
+    pitchvision_card: "iPod · Product Card + vision 刀",
+    grill: "Grill · 人工可审",
     ifalsify: "反昏君证伪",
     files: "Handoff + 门禁护照"
   };
@@ -150,6 +171,11 @@ Use .md for markdown. Separate each file clearly. Include ALL files requested fo
   const STEP_MAX_TOKENS = {
     research: 16000,
     pitchvision: 14000,
+    pitchvision_t5: 10000,
+    pitchvision_job: 12000,
+    pitchvision_card: 14000,
+    source_hunt: 10000,
+    grill: 12000,
     default: 12000
   };
 
@@ -176,11 +202,17 @@ Use .md for markdown. Separate each file clearly. Include ALL files requested fo
   function priorFilesSummary(files, stepId, maxChars = 8000) {
     if (!files.length) return "(no prior files)";
     const priority = {
-      tensions: ["00_charter.md", "data_traceability.md", "research/01_IR_financial.md", "research/02_executive_quotes.md", "research/04_competitor_landscape.md", "research/06_power_meddic.md"],
+      source_hunt: ["00_charter.md", "source_timeliness.md", "data_traceability.md"],
+      research: ["research/00_source_hunt.md", "data_traceability.md", "00_charter.md"],
+      tensions: ["00_charter.md", "data_traceability.md", "research/00_source_hunt.md", "research/01_IR_financial.md", "research/02_executive_quotes.md", "research/04_competitor_landscape.md", "research/06_power_meddic.md"],
       knife: ["03_tensions.md", "data_traceability.md", "source_timeliness.md", "research/01_IR_financial.md", "research/02_executive_quotes.md"],
-      ifalsify: ["B_knife.md", "03_tensions.md", "data_traceability.md", "research/04_competitor_landscape.md", "research/09_not_for_pitch.md"],
       pitchvision: ["03_tensions.md", "research/05_industry_context.md", "research/04_competitor_landscape.md", "B_knife.md"],
-      files: ["00_charter.md", "B_knife.md", "03_tensions.md", "ifalsify_report.md", "data_traceability.md", "source_timeliness.md"]
+      pitchvision_t5: ["03_tensions.md", "research/05_industry_context.md", "research/04_competitor_landscape.md"],
+      pitchvision_job: ["pitchvision/concept-a/03_tension_T5.md", "03_tensions.md", "research/06_power_meddic.md"],
+      pitchvision_card: ["pitchvision/concept-a/job_map.md", "pitchvision/concept-a/03_tension_T5.md", "pitchvision/concept-a/product_card.md"],
+      grill: ["B_knife.md", "03_tensions.md", "pitchvision/README.md", "pitchvision/concept-a/B_vision_knife.md", "pitchvision/concept-a/product_card.md"],
+      ifalsify: ["grill_report.md", "B_knife.md", "03_tensions.md", "data_traceability.md", "research/04_competitor_landscape.md", "research/09_not_for_pitch.md"],
+      files: ["00_charter.md", "B_knife.md", "03_tensions.md", "grill_report.md", "ifalsify_report.md", "data_traceability.md", "source_timeliness.md"]
     }[stepId] || [];
 
     const ordered = [
@@ -238,10 +270,24 @@ Produce ONLY:
 简体中文。叙事 vs 行为时间线；Claim | Value | Tier | Source 账本。基于 charter，禁止编造 L0。
 `,
 
+    source_hunt: `
+# Step: source_hunt (WEB SEARCH — 源猎取)
+Produce ONLY:
+- research/00_source_hunt.md
+
+简体中文。按 references/source_hunt_template.md：
+- ≥12 条搜索查询计划（IR、交付、业绩会、竞品、行业、失败先例…）
+- 命中源注册表（ID、URL、Tier、用于哪份 research）
+- 若下方有 Live search results，**优先引用**并标注 Tier；搜不到标【待核实】
+- 给 research 步的明确指令（哪些源进 01_IR / 02_quotes / 04_competitor）
+
+Cursor/Agent：**必须联网搜索**。浏览器：使用注入的 Tavily 结果。
+`,
+
     research: `
 # Step: research (iceberg) — THIS STEP NEEDS DEPTH
 Produce ONLY (简体中文, structured analyst memo style like nio/account-v3):
-- research/README.md (index + per-file 字数)
+- research/README.md (index + per-file 字数；引用 00_source_hunt 的源 ID)
 - research/01_IR_financial.md (≥1200字, tables + 读法)
 - research/02_executive_quotes.md (≥1500字, ≥10 attributed quotes, tiered)
 - research/03_partnership_history.md (≥800字)
@@ -289,6 +335,43 @@ Minimum **one** concept folder under pitchvision/{concept-slug}/:
 战略案可 ≥2 概念，但 **job 必须不同**（非换皮）。
 `,
 
+    pitchvision_t5: `
+# Step: pitchvision_t5 (iPod · 品类张力 T5 only)
+Produce ONLY (简体中文):
+- pitchvision/README.md (概念索引；account 刀 vs iPod 分工)
+- pitchvision/concept-a/03_tension_T5.md
+
+**旧品类结构性失败** → **新品类对立面**。深刻、可证伪，禁止哗众取宠。对标 nio/pitchvision/*/03_tension_T5.md。
+`,
+
+    pitchvision_job: `
+# Step: pitchvision_job (iPod · JTBD)
+Produce ONLY (简体中文):
+- pitchvision/concept-a/job_map.md (struggling moment + 妥协曲线，非 feature 清单)
+- pitchvision/concept-a/early_adopter.md
+- pitchvision/concept-a/why_now.md (三力)
+
+必须有可识别的 early adopter 与真实 struggling moment。
+`,
+
+    pitchvision_card: `
+# Step: pitchvision_card (iPod · Product Card + vision 刀)
+Produce ONLY (简体中文):
+- pitchvision/concept-a/product_card.md (Portfolio Role + Stage + 组件 + 试点/叫停)
+- pitchvision/concept-a/B_vision_knife.md (≤2页，**不得**复述 account B_knife)
+
+可试点、可叫停、可证伪。禁止 L4 市场规模编造。
+`,
+
+    grill: `
+# Step: grill (EXPLICIT — 供人工签核)
+Produce ONLY:
+- grill_report.md
+
+简体中文。按 references/grill_report_template.md：build 摘要 → red-team 攻击清单（≥5 条，含 iPod/account 边界）→ synthesize DoD → **人工签核表（留空待填）**。
+输出可审计报告，不要静默跳过。
+`,
+
     ifalsify: `
 # Step: ifalsify
 Produce ONLY:
@@ -311,6 +394,7 @@ iceberg_char_count = actual sum of research/*.md character counts from prior out
     const map = {
       charter: ["00_charter.md"],
       timeliness: ["source_timeliness.md", "data_traceability.md"],
+      source_hunt: ["research/00_source_hunt.md"],
       research: [
         "research/README.md",
         "research/01_IR_financial.md",
@@ -332,6 +416,17 @@ iceberg_char_count = actual sum of research/*.md character counts from prior out
         "pitchvision/concept-a/product_card.md",
         "pitchvision/concept-a/B_vision_knife.md"
       ],
+      pitchvision_t5: ["pitchvision/README.md", "pitchvision/concept-a/03_tension_T5.md"],
+      pitchvision_job: [
+        "pitchvision/concept-a/job_map.md",
+        "pitchvision/concept-a/early_adopter.md",
+        "pitchvision/concept-a/why_now.md"
+      ],
+      pitchvision_card: [
+        "pitchvision/concept-a/product_card.md",
+        "pitchvision/concept-a/B_vision_knife.md"
+      ],
+      grill: ["grill_report.md"],
       ifalsify: ["ifalsify_report.md"],
       files: ["handoff_to_sales.md", "quality_passport.json"]
     };
@@ -355,25 +450,55 @@ iceberg_char_count = actual sum of research/*.md character counts from prior out
     return steps;
   }
 
+  function getMarathonStepsForData(data) {
+    const wantsResearch = data.outputs.includes("research") || data.round === "R1" || data.round === "full";
+    const wantsKnife = data.outputs.includes("knife") || data.round === "R1" || data.round === "full";
+    const wantsIpod = data.outputs.includes("ipod");
+
+    const steps = ["charter"];
+    if (wantsResearch || wantsKnife || wantsIpod) {
+      steps.push("timeliness", "source_hunt", "research", "tensions");
+    }
+    if (wantsKnife) steps.push("knife");
+    if (wantsIpod) {
+      steps.push("pitchvision_t5", "pitchvision_job", "pitchvision_card");
+    }
+    if (wantsKnife || wantsIpod) steps.push("grill");
+    if (wantsResearch || wantsKnife || wantsIpod) {
+      steps.push("ifalsify", "files");
+    }
+    return steps;
+  }
+
+  function getStepsForData(data) {
+    return data.marathonMode ? getMarathonStepsForData(data) : getR1StepsForData(data);
+  }
+
   function shouldUseMultiStepR1(data) {
     return (data.round === "R1" || data.round === "full") &&
       (data.outputs.includes("research") || data.outputs.includes("knife") || data.outputs.includes("ipod"));
   }
 
-  function buildStepUserPrompt(stepId, data, priorFiles = []) {
+  function buildStepUserPrompt(stepId, data, priorFiles = [], extras = {}) {
     const instr = STEP_INSTRUCTIONS[stepId];
     if (!instr) throw new Error("Unknown step: " + stepId);
-    return [
+    const parts = [
       instr.trim(),
       "",
       buildInputBlock(data),
-      "",
+      ""
+    ];
+    if (extras.searchBlock) {
+      parts.push("## Live search results (Tavily)", extras.searchBlock, "");
+    }
+    parts.push(
       "## Prior outputs from earlier steps",
       priorFilesSummary(priorFiles, stepId),
       "",
       "## Expected files this step",
       expectedOutputsForStep(stepId).map((n) => "- " + n).join("\n")
-    ].join("\n");
+    );
+    return parts.join("\n");
   }
 
   function buildSystemPrompt() {
@@ -447,6 +572,82 @@ iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_t
     return lines.join("\n");
   }
 
+  function buildCursorRunbook(data) {
+    const slug = slugFromTarget(data.target);
+    const steps = getMarathonStepsForData(data);
+    const lines = [
+      "# iPitch Marathon Runbook · " + (data.target || slug),
+      "",
+      "> 交给 **Cursor Cloud Agent** 或本机 Agent，**开启联网搜索**。详见 docs/PITCHVISION_MARATHON.md",
+      "",
+      "## Charter",
+      "```",
+      "/ipitch start " + (data.target || "") + (data.customer ? "\n\n零散要点：\n" + data.customer : "") + (data.internal ? "\n\n内部要求：\n" + data.internal : ""),
+      "```",
+      "",
+      "## 分步命令（推荐一夜长跑）",
+      ""
+    ];
+
+    const cursorCmd = {
+      charter: `/ipitch ${slug} round0  # 或完成 00_charter.md`,
+      timeliness: `/ipitch ${slug} step timeliness`,
+      source_hunt: `/ipitch ${slug} source-hunt  # 必须联网搜索 → research/00_source_hunt.md`,
+      research: `/ipitch ${slug} round1-research  # 冰山 ≥8000 字`,
+      tensions: `/ipitch ${slug} step tensions`,
+      knife: `/ipitch ${slug} account B external 10m`,
+      pitchvision: `/ipitch ${slug} pitchvision both`,
+      pitchvision_t5: `/ipitch ${slug} pitchvision T5  # 03_tension_T5 + README`,
+      pitchvision_job: `/ipitch ${slug} pitchvision job  # job_map · early_adopter · why_now`,
+      pitchvision_card: `/ipitch ${slug} pitchvision card  # product_card · B_vision_knife`,
+      grill: `/ipitch ${slug} grill  # → grill_report.md，人工签核`,
+      ifalsify: `/ifalsify after ${slug}`,
+      files: `/ipitch ${slug} handoff`
+    };
+
+    steps.forEach((stepId, i) => {
+      const label = R1_STEP_LABELS[stepId] || stepId;
+      const expected = expectedOutputsForStep(stepId);
+      lines.push("### " + (i + 1) + ". " + label + " (`" + stepId + "`)");
+      lines.push("```");
+      lines.push(cursorCmd[stepId] || ("# step: " + stepId));
+      lines.push("```");
+      lines.push("期望文件：" + (expected.length ? expected.join(", ") : "(见协议)"));
+      lines.push("");
+    });
+
+    lines.push("## 人工 Grill 签核");
+    lines.push("- 打开 `grill_report.md`，策略/研究/创新各一人签核");
+    lines.push("- 打回则只重跑标注步骤");
+    lines.push("");
+    lines.push("## 品质标杆");
+    lines.push("- account: `nio/account-v3/`");
+    lines.push("- pitchvision: `nio/pitchvision/A_spirit-layer-os/` · `B_family-gravity-engine/`");
+    lines.push("- vision_gate: `protocols/pitchvision.md`（12 项 ≥10 过）");
+
+    return lines.join("\n");
+  }
+
+  function buildGrillHandoff(data, files) {
+    const slug = slugFromTarget(data.target);
+    const grill = files.find((f) => f.name === "grill_report.md");
+    return [
+      "# 人工 Grill 签核指引 · " + slug,
+      "",
+      "1. 打开 `grill_report.md`" + (grill ? "（已生成）" : "（马拉松模式自动生成；或运行 /ipitch " + slug + " grill）"),
+      "2. 策略 / 研究 / 创新（iPod）各填签核表",
+      "3. 全部「通过」或「修改后通过」→ 才可对内预演",
+      "4. 打回 → 注明重跑步骤：source_hunt / research / pitchvision_* / …",
+      "",
+      "## Cursor 命令",
+      "```",
+      "/ipitch " + slug + " grill",
+      "```",
+      "",
+      "模板：`references/grill_report_template.md`"
+    ].join("\n");
+  }
+
   function buildCursorPrompt(data) {
     const slug = slugFromTarget(data.target);
     let cmd = `/ipitch start ${data.target}`;
@@ -460,13 +661,19 @@ iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_t
       full: `/ipitch ${slug} round1\n# then round2, round3`
     };
 
+    const marathon = data.outputs.includes("ipod") || data.marathonMode;
+
     return {
       cursorCmd: cmd + "\n\n# Then:\n" + (roundCmd[data.round] || roundCmd.R1),
+      marathonCmd: marathon ? `/ipitch ${slug} source-hunt\n/ipitch ${slug} pitchvision both\n/ipitch ${slug} grill` : "",
       ifalsifyCmd: `/ifalsify after ${slug}  (ruthless, produce full ifalsify_report.md)`,
-      grillNote: "Grill: build → red-team → synthesize before external use.",
+      grillCmd: `/ipitch ${slug} grill  → grill_report.md + 人工签核`,
+      grillNote: "Grill: 马拉松模式产出可审计 grill_report.md；人工签核见 references/grill_report_template.md",
+      runbook: buildCursorRunbook(data),
+      grillHandoff: buildGrillHandoff(data, []),
       fullPrompt: buildUserPrompt(data),
       systemPrompt: buildSystemPrompt(),
-      qualityNote: "Target: 简体中文 + 深刻洞察 + disruptive iPod（非哗众取宠）+ iceberg ≥8000 (nio/account-v3 + pitchvision bar)."
+      qualityNote: "Marathon: 搜索(source_hunt) + 分步 pitchvision + 人工 grill。标杆 nio/account-v3 + nio/pitchvision。"
     };
   }
 
@@ -505,16 +712,21 @@ iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_t
 
   return {
     R1_STEP_ORDER,
+    MARATHON_STEP_ORDER,
     R1_STEP_LABELS,
     buildSystemPrompt,
     buildUserPrompt,
     buildStepUserPrompt,
     buildCursorPrompt,
+    buildCursorRunbook,
+    buildGrillHandoff,
     parseFileBlocks,
     mergeFiles,
     countResearchChars,
     expectedOutputsForStep,
     getR1StepsForData,
+    getMarathonStepsForData,
+    getStepsForData,
     shouldUseMultiStepR1,
     maxTokensForStep,
     wantsEnglishDeliverables

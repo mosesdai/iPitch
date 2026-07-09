@@ -1,10 +1,10 @@
 /**
- * iPitch DeepSeek API proxy — Cloudflare Worker
- * Holds DEEPSEEK_API_KEY server-side; browser calls this worker instead of api.deepseek.com
+ * iPitch DeepSeek API proxy + optional Tavily search (source_hunt)
  */
 
 const DEFAULT_BASE = "https://api.deepseek.com";
-const MAX_BODY_BYTES = 512 * 1024; // 512 KB
+const MAX_BODY_BYTES = 512 * 1024;
+const TAVILY_URL = "https://api.tavily.com/search";
 
 export default {
   async fetch(request, env) {
@@ -21,18 +21,23 @@ export default {
         ok: true,
         service: "ipitch-deepseek-proxy",
         keyConfigured: !!env.DEEPSEEK_API_KEY,
+        searchConfigured: !!env.TAVILY_API_KEY,
         allowedOrigins: describeAllowedOrigins(env.ALLOWED_ORIGINS),
         timestamp: new Date().toISOString()
       });
+    }
+
+    if (request.method === "POST" && url.pathname === "/v1/search") {
+      return handleSearch(request, env, cors);
     }
 
     if (request.method !== "POST") {
       return json(cors, { error: "Method not allowed" }, 405);
     }
 
-    const path = normalizePath(url.pathname);
+    const path = normalizeChatPath(url.pathname);
     if (!path) {
-      return json(cors, { error: "Path not allowed. Use POST /v1/chat/completions" }, 404);
+      return json(cors, { error: "Path not allowed. Use POST /v1/chat/completions or /v1/search" }, 404);
     }
 
     const apiKey = env.DEEPSEEK_API_KEY;
@@ -77,7 +82,72 @@ export default {
   }
 };
 
-function normalizePath(pathname) {
+async function handleSearch(request, env, cors) {
+  const apiKey = env.TAVILY_API_KEY;
+  if (!apiKey) {
+    return json(cors, { error: "TAVILY_API_KEY not configured on worker" }, 503);
+  }
+
+  let payload;
+  try {
+    payload = await request.json();
+  } catch {
+    return json(cors, { error: "Invalid JSON body" }, 400);
+  }
+
+  const queries = Array.isArray(payload.queries)
+    ? payload.queries
+    : payload.query
+      ? [payload.query]
+      : [];
+
+  if (!queries.length) {
+    return json(cors, { error: "Provide query or queries[]" }, 400);
+  }
+
+  const maxResults = payload.max_results || 6;
+  const limit = Math.min(queries.length, 8);
+
+  try {
+    const hunts = [];
+    for (let i = 0; i < limit; i++) {
+      hunts.push(await tavilySearch(apiKey, String(queries[i]), maxResults));
+    }
+    return json(cors, { ok: true, hunts, queriedAt: new Date().toISOString() });
+  } catch (err) {
+    return json(cors, { error: err.message || "Search failed" }, 502);
+  }
+}
+
+async function tavilySearch(apiKey, query, maxResults) {
+  const res = await fetch(TAVILY_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      api_key: apiKey,
+      query,
+      search_depth: "advanced",
+      max_results: Math.min(maxResults, 10),
+      include_answer: false
+    })
+  });
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error("TAVILY_" + res.status + ": " + text.slice(0, 200));
+  }
+  const data = await res.json();
+  return {
+    query,
+    results: (data.results || []).map((r) => ({
+      title: r.title,
+      url: r.url,
+      content: (r.content || "").slice(0, 1200),
+      score: r.score
+    }))
+  };
+}
+
+function normalizeChatPath(pathname) {
   if (pathname === "/" || pathname === "/v1/chat/completions") {
     return "/v1/chat/completions";
   }

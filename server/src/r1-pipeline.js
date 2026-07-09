@@ -19,6 +19,34 @@ export const R1_STEP_ORDER = [
   "files"
 ];
 
+/** Marathon profile — see docs/PITCHVISION_MARATHON.md */
+export const MARATHON_STEP_ORDER = [
+  "charter",
+  "timeliness",
+  "source_hunt",
+  "research",
+  "tensions",
+  "knife",
+  "pitchvision_t5",
+  "pitchvision_job",
+  "pitchvision_card",
+  "grill",
+  "ifalsify",
+  "files"
+];
+
+export const ALL_STEP_IDS = [...new Set([...R1_STEP_ORDER, ...MARATHON_STEP_ORDER, "pitchvision"])];
+
+export function resolveStepsForOptions(options = {}) {
+  if (options.steps?.length) {
+    return options.steps.filter((id) => ALL_STEP_IDS.includes(id));
+  }
+  if (options.profile === "marathon") {
+    return [...MARATHON_STEP_ORDER];
+  }
+  return [...R1_STEP_ORDER];
+}
+
 const STEP_PROTOCOLS = {
   charter: [
     "references/intake_charter_template.md",
@@ -35,9 +63,18 @@ const STEP_PROTOCOLS = {
     "protocols/ipitch.md",
     "protocols/three_round_flow.md"
   ],
+  source_hunt: [
+    "references/source_hunt_template.md",
+    "references/round1_discover.md",
+    "protocols/ipitch.md"
+  ],
   tensions: ["protocols/ipitch.md", "references/round1_discover.md"],
   knife: ["references/round1_discover.md", "protocols/ipitch.md"],
   pitchvision: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  pitchvision_t5: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  pitchvision_job: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  pitchvision_card: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  grill: ["references/grill_report_template.md", "protocols/ipitch.md"],
   ifalsify: ["references/ifalsify_report_template.md", "protocols/ipitch.md"],
   files: [
     "references/handoff_to_sales_template.md",
@@ -147,6 +184,14 @@ Produce ONLY:
 简体中文正文。Narrative vs behavior timeline; Claim | Value | Tier | Source ledger. Build on charter. Do not fabricate L0.
 `,
 
+    source_hunt: `
+# Step: source_hunt
+Produce ONLY:
+- research/00_source_hunt.md
+
+简体中文。references/source_hunt_template.md — ≥12 queries, source registry, gaps. Web search required when available.
+`,
+
     research: `
 # Step: research (iceberg) — DEPTH REQUIRED
 Produce ONLY (简体中文, nio/account-v3 analyst memo style):
@@ -195,6 +240,36 @@ Minimum one concept under pitchvision/{concept-slug}/:
 禁止哗众取宠、空洞颠覆口号、L4 市场规模编造、与 account 刀混写。
 `,
 
+    pitchvision_t5: `
+# Step: pitchvision_t5
+Produce ONLY:
+- pitchvision/README.md
+- pitchvision/concept-a/03_tension_T5.md
+`,
+
+    pitchvision_job: `
+# Step: pitchvision_job
+Produce ONLY:
+- pitchvision/concept-a/job_map.md
+- pitchvision/concept-a/early_adopter.md
+- pitchvision/concept-a/why_now.md
+`,
+
+    pitchvision_card: `
+# Step: pitchvision_card
+Produce ONLY:
+- pitchvision/concept-a/product_card.md
+- pitchvision/concept-a/B_vision_knife.md
+`,
+
+    grill: `
+# Step: grill
+Produce ONLY:
+- grill_report.md
+
+简体中文。references/grill_report_template.md — red-team + synthesize + 人工签核表。
+`,
+
     ifalsify: `
 # Step: ifalsify
 Produce ONLY:
@@ -228,6 +303,7 @@ export function expectedOutputsForStep(stepId) {
   const map = {
     charter: ["00_charter.md"],
     timeliness: ["source_timeliness.md", "data_traceability.md"],
+    source_hunt: ["research/00_source_hunt.md"],
     research: [
       "research/README.md",
       "research/01_IR_financial.md",
@@ -240,6 +316,24 @@ export function expectedOutputsForStep(stepId) {
     ],
     tensions: ["03_tensions.md"],
     knife: ["B_knife.md"],
+    pitchvision: [
+      "pitchvision/README.md",
+      "pitchvision/concept-a/job_map.md",
+      "pitchvision/concept-a/03_tension_T5.md",
+      "pitchvision/concept-a/product_card.md",
+      "pitchvision/concept-a/B_vision_knife.md"
+    ],
+    pitchvision_t5: ["pitchvision/README.md", "pitchvision/concept-a/03_tension_T5.md"],
+    pitchvision_job: [
+      "pitchvision/concept-a/job_map.md",
+      "pitchvision/concept-a/early_adopter.md",
+      "pitchvision/concept-a/why_now.md"
+    ],
+    pitchvision_card: [
+      "pitchvision/concept-a/product_card.md",
+      "pitchvision/concept-a/B_vision_knife.md"
+    ],
+    grill: ["grill_report.md"],
     ifalsify: ["ifalsify_report.md"],
     files: ["handoff_to_sales.md", "quality_passport.json"]
   };
@@ -298,6 +392,11 @@ export function stubStepResponse(stepId, input, priorFiles = []) {
       )
     ].join("\n\n"),
 
+    source_hunt: formatFileBlock(
+      "research/00_source_hunt.md",
+      `# 00_source_hunt · ${target}（stub）\n\n| 查询计划 | ≥12 条（live 填）|\n| 源注册表 | S01… |\n`
+    ),
+
     research: [
       "research/README.md",
       "research/01_IR_financial.md",
@@ -355,6 +454,27 @@ export function stubStepResponse(stepId, input, priorFiles = []) {
         "- 权益包 / 价格",
         "- 把 L0 装懂"
       ].join("\n")
+    ),
+
+    pitchvision_t5: [
+      formatFileBlock("pitchvision/README.md", `# pitchvision · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/03_tension_T5.md", `# T5 · ${target}（stub）\n\n旧品类结构性失败 → 新品类。\n`)
+    ].join("\n\n"),
+
+    pitchvision_job: [
+      formatFileBlock("pitchvision/concept-a/job_map.md", `# job_map · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/early_adopter.md", `# early_adopter · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/why_now.md", `# why_now · ${target}\n`)
+    ].join("\n\n"),
+
+    pitchvision_card: [
+      formatFileBlock("pitchvision/concept-a/product_card.md", `# product_card · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/B_vision_knife.md", `# B_vision_knife · ${target}\n`)
+    ].join("\n\n"),
+
+    grill: formatFileBlock(
+      "grill_report.md",
+      `# grill_report · ${target}（stub）\n\n## Red-team\n- G1 stub\n\n## 人工签核\n| 策略 | | | 待填 |\n`
     ),
 
     ifalsify: formatFileBlock(

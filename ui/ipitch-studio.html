@@ -116,6 +116,11 @@
       <label class="check-item"><input type="checkbox" name="fmt" value="html"/><span data-i18n="fmtHtml">HTML</span></label>
     </div>
 
+    <label class="check-item" style="margin-top:12px;display:flex;align-items:flex-start;gap:8px">
+      <input type="checkbox" id="marathon-mode" style="margin-top:4px"/>
+      <span><span data-i18n="marathonMode">马拉松模式</span><br/><small data-i18n="marathonHint">源猎取搜索 + 分步 iPod + 可审计 Grill</small></span>
+    </label>
+
     <div class="btn-row">
       <button type="button" class="btn btn-primary" id="generate-btn" data-i18n="generate">生成产出</button>
       <button type="button" class="btn btn-secondary" id="export-btn" data-i18n="exportPrompt">导出 Prompt（无 API）</button>
@@ -134,6 +139,7 @@
       <button type="button" class="btn btn-secondary" id="copy-one-btn" data-i18n="copyOne">复制当前</button>
       <button type="button" class="btn btn-secondary" id="download-all-btn" data-i18n="downloadAll">下载全部</button>
       <button type="button" class="btn btn-secondary" id="export-case-btn" data-i18n="exportCase">导出案例 ZIP</button>
+      <button type="button" class="btn btn-secondary" id="export-grill-btn" data-i18n="exportGrill">导出 Grill 签核指引</button>
     </div>
   </section>
 </main>
@@ -230,6 +236,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/prompts.js"></script>
 <script src="js/api.js"></script>
+<script src="js/search.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

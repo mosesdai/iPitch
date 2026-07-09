@@ -53,6 +53,9 @@
     const formats = [];
     $$('input[name="fmt"]:checked').forEach((cb) => formats.push(cb.value));
 
+    const marathonEl = $("#marathon-mode");
+    const marathonMode = marathonEl ? marathonEl.checked : false;
+
     return {
       target: $("#target").value.trim(),
       customer: $("#customer").value.trim(),
@@ -60,7 +63,8 @@
       round: selectedRound === "full" ? "full" : selectedRound,
       outputs: outputs,
       formats: formats.length ? formats : ["md"],
-      gatesEnforced: wantsResearchOrKnife
+      gatesEnforced: wantsResearchOrKnife,
+      marathonMode: marathonMode
     };
   }
 
@@ -318,21 +322,40 @@
   }
 
   async function generateMultiStepR1(data) {
-    const steps = window.IPitchPrompts.getR1StepsForData(data);
+    const steps = window.IPitchPrompts.getStepsForData(data);
     const system = window.IPitchPrompts.buildSystemPrompt();
     const labels = window.IPitchPrompts.R1_STEP_LABELS;
     let allFiles = [];
     const zh = window.IPITCH_LANG === "zh";
+    let searchCache = null;
 
     for (let i = 0; i < steps.length; i++) {
       const stepId = steps[i];
       const label = labels[stepId] || stepId;
+      const modeTag = data.marathonMode ? (zh ? "马拉松" : "marathon") : (zh ? "多步" : "multi");
       const statusMsg = zh
-        ? `多步 R1 · ${i + 1}/${steps.length}：${label}…`
-        : `R1 step ${i + 1}/${steps.length}: ${label}…`;
+        ? `${modeTag} R1 · ${i + 1}/${steps.length}：${label}…`
+        : `${modeTag} R1 · ${i + 1}/${steps.length}: ${label}…`;
       showStatus(statusMsg, "loading");
 
-      const user = window.IPitchPrompts.buildStepUserPrompt(stepId, data, allFiles);
+      const extras = {};
+      if (stepId === "source_hunt" && window.IPitchSearch) {
+        try {
+          const hunt = await window.IPitchSearch.hunt(data.target);
+          if (hunt.ok) {
+            searchCache = hunt;
+            extras.searchBlock = window.IPitchSearch.formatHuntsForPrompt(hunt.hunts);
+          } else if (hunt.reason === "SEARCH_NOT_CONFIGURED") {
+            extras.searchBlock = zh
+              ? "（Proxy 未配置 TAVILY_API_KEY — 本步请用 Cursor 联网搜索，或 wrangler secret put TAVILY_API_KEY）"
+              : "(TAVILY_API_KEY not on proxy — use Cursor web search)";
+          }
+        } catch (e) {
+          extras.searchBlock = "(search error: " + (e.message || e) + ")";
+        }
+      }
+
+      const user = window.IPitchPrompts.buildStepUserPrompt(stepId, data, allFiles, extras);
       const maxTokens = window.IPitchPrompts.maxTokensForStep(stepId);
 
       const raw = await window.IPitchAPI.chat(system, user, (partial) => {
@@ -359,11 +382,15 @@
       const pack = window.IPitchPrompts.buildCursorPrompt(data);
       const files = [
         { name: "cursor_command.txt", content: pack.cursorCmd },
+        { name: "cursor_marathon_commands.txt", content: pack.marathonCmd || "(勾选 iPod 或马拉松模式时生成)" },
+        { name: "cursor_runbook.md", content: pack.runbook },
+        { name: "grill_handoff.md", content: pack.grillHandoff },
+        { name: "grill_command.txt", content: pack.grillCmd },
         { name: "ifalsify_command.txt", content: pack.ifalsifyCmd },
         { name: "full_prompt.md", content: "# System\n\n" + pack.systemPrompt + "\n\n# User\n\n" + pack.fullPrompt }
       ];
       renderFiles(files, data);
-      showStatus(window.IPITCH_LANG === "zh" ? "Prompt 已导出 — 可在 Cursor 粘贴运行" : "Prompt exported — paste in Cursor", "success");
+      showStatus(window.IPITCH_LANG === "zh" ? "马拉松 Runbook 已导出 — 交给 Cursor Cloud Agent" : "Marathon runbook exported for Cursor", "success");
       return;
     }
 
@@ -488,6 +515,13 @@
     });
   }
 
+  function exportGrillHandoff() {
+    const data = validateForm();
+    if (!data) return;
+    const content = window.IPitchPrompts.buildGrillHandoff(data, currentFiles);
+    downloadFile({ name: "grill_handoff.md", content });
+  }
+
   function init() {
     applyI18n();
     renderHelpLists();
@@ -506,6 +540,7 @@
       };
     });
 
+    $("#export-grill-btn").onclick = exportGrillHandoff;
     $("#generate-btn").onclick = () => generate(true);
     $("#export-btn").onclick = () => generate(false);
     $("#download-all-btn").onclick = downloadAll;
