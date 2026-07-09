@@ -110,6 +110,19 @@
     }
   }
 
+  function countResearchCharsFromFiles(files) {
+    if (window.IPitchPrompts && window.IPitchPrompts.countResearchChars) {
+      return window.IPitchPrompts.countResearchChars(files);
+    }
+    let total = 0;
+    for (const f of files) {
+      if (f.name.startsWith("research/") && f.name.endsWith(".md")) {
+        total += f.content.length;
+      }
+    }
+    return total;
+  }
+
   function renderGateStatus(files, data = {}) {
     const gateEl = $("#gate-status");
     if (!gateEl) return;
@@ -125,19 +138,21 @@
     }
 
     const passport = parseQualityPassport(files);
+    const actualIceberg = countResearchCharsFromFiles(files);
     const zh = window.IPITCH_LANG === "zh";
     const parts = [];
 
     if (passport) {
-      const icebergCount = passport.iceberg_char_count ?? passport.icebergCharCount;
-      if (icebergCount != null) {
-        const low = Number(icebergCount) < 8000;
+      const icebergCount = passport.iceberg_char_count ?? passport.icebergCharCount ?? actualIceberg;
+      const displayCount = actualIceberg > 0 ? actualIceberg : icebergCount;
+      if (displayCount != null) {
+        const low = Number(displayCount) < 8000;
         parts.push(
           (low ? "⚠️" : "✅") +
           (zh ? " 冰山 " : " Iceberg ") +
-          Number(icebergCount).toLocaleString() +
+          Number(displayCount).toLocaleString() +
           (zh ? " 字" : " chars") +
-          (low ? (zh ? "（<8000）" : " (<8000)") : "")
+          (low ? (zh ? "（<8000，品质未达标）" : " (<8000, below bar)") : "")
         );
       }
       const aCount = passport.num_a_tier_facts ?? passport.a_tier_facts ?? passport.aTierFacts;
@@ -170,8 +185,11 @@
       if (!hasFalsify) parts.push(zh ? "⚠️ 缺证伪文件" : "⚠️ Missing ifalsify file");
     }
 
-    const icebergCount = passport && (passport.iceberg_char_count ?? passport.icebergCharCount);
-    const warnLow = icebergCount != null && Number(icebergCount) < 8000;
+    const icebergCount = passport
+      ? (passport.iceberg_char_count ?? passport.icebergCharCount)
+      : null;
+    const effectiveIceberg = actualIceberg > 0 ? actualIceberg : icebergCount;
+    const warnLow = effectiveIceberg != null && Number(effectiveIceberg) < 8000;
 
     gateEl.style.display = "block";
     gateEl.className = warnLow ? "gate-status gate-warn" : "gate-status gate-ok";
@@ -184,7 +202,7 @@
           (zh ? "（文件名推断；未找到 quality_passport.json）" : " (filename fallback; no quality_passport.json)") +
           "</span>") +
       '<span style="margin-left:8px;color:#059669;">' +
-      (zh ? "（冷启动仍应达到 v3 级厚度与严谨度）" : " (cold-start v3 rigor expected)") +
+      (zh ? "（对标 nio/account-v3：简体中文 + 犀利张力 + 不装懂）" : " (bar: nio/account-v3 — Chinese, sharp, auditable)") +
       "</span>";
   }
 
@@ -299,6 +317,38 @@
       "</pre></div>";
   }
 
+  async function generateMultiStepR1(data) {
+    const steps = window.IPitchPrompts.getR1StepsForData(data);
+    const system = window.IPitchPrompts.buildSystemPrompt();
+    const labels = window.IPitchPrompts.R1_STEP_LABELS;
+    let allFiles = [];
+    const zh = window.IPITCH_LANG === "zh";
+
+    for (let i = 0; i < steps.length; i++) {
+      const stepId = steps[i];
+      const label = labels[stepId] || stepId;
+      const statusMsg = zh
+        ? `多步 R1 · ${i + 1}/${steps.length}：${label}…`
+        : `R1 step ${i + 1}/${steps.length}: ${label}…`;
+      showStatus(statusMsg, "loading");
+
+      const user = window.IPitchPrompts.buildStepUserPrompt(stepId, data, allFiles);
+      const maxTokens = window.IPitchPrompts.maxTokensForStep(stepId);
+
+      const raw = await window.IPitchAPI.chat(system, user, (partial) => {
+        showStreamingPreview(
+          (zh ? `[${label}]\n\n` : `[${stepId}]\n\n`) + partial
+        );
+      }, { maxTokens });
+
+      const stepFiles = window.IPitchPrompts.parseFileBlocks(raw);
+      allFiles = window.IPitchPrompts.mergeFiles(allFiles, stepFiles);
+      renderFiles(allFiles, data);
+    }
+
+    return allFiles;
+  }
+
   async function generate(useApi) {
     const data = validateForm();
     if (!data) return;
@@ -331,14 +381,19 @@
     showStreamingPreview("");
 
     try {
-      const system = window.IPitchPrompts.buildSystemPrompt();
-      const user = window.IPitchPrompts.buildUserPrompt(data);
-      const raw = await window.IPitchAPI.chat(system, user, (partial) => {
-        showStatus(window.t("streaming") + "…", "loading");
-        showStreamingPreview(partial);
-      });
-      const files = window.IPitchPrompts.parseFileBlocks(raw);
-      renderFiles(files, data);
+      let files;
+      if (window.IPitchPrompts.shouldUseMultiStepR1(data)) {
+        files = await generateMultiStepR1(data);
+      } else {
+        const system = window.IPitchPrompts.buildSystemPrompt();
+        const user = window.IPitchPrompts.buildUserPrompt(data);
+        const raw = await window.IPitchAPI.chat(system, user, (partial) => {
+          showStatus(window.t("streaming") + "…", "loading");
+          showStreamingPreview(partial);
+        });
+        files = window.IPitchPrompts.parseFileBlocks(raw);
+        renderFiles(files, data);
+      }
       showStatus(window.t("generateDone") + " · " + files.length + " files", "success");
     } catch (err) {
       let msg = err.message || String(err);

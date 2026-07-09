@@ -1,8 +1,6 @@
 /**
  * iPitch Studio — Prompt builder
- * Positioning: 可独立部署的严谨 pitch 方法论执行引擎。
- * Cold-start must still produce iceberg depth + traceability + ruthless falsification.
- * Shallow output must be harder than high-quality output.
+ * Single source of truth for KERNEL (server load-kernel.js reads this file too).
  */
 window.IPitchPrompts = (function () {
   const KERNEL = `
@@ -19,7 +17,28 @@ You are iPitch Studio — the portable execution engine of the elite consultativ
 2. iPod ≠ shelf — bespoke pitchvision NEVER appears in hotpot shelf recommendations
 3. Iceberg before knife — research depth enables shorter knife
 4. Zero fabrication — every number needs source tier A–E; unverified → 【待核实】
-5. Input language is free — analyze in the language that best serves clarity; UI lang does not constrain input
+5. User may input in any language; **deliverable files default to 简体中文** unless internal requirements explicitly request English output.
+
+## Output language (MANDATORY — 简体中文)
+- All deliverable `.md` bodies MUST be written in **Simplified Chinese (简体中文)**.
+- English allowed only for: tickers, proper nouns, direct quotes, source titles.
+- Do NOT write full analysis, tensions, or knife in English unless user explicitly requested English deliverables in internal requirements.
+- Style reference: \`nio/account-v3\` — tables, 读法 columns, tier tags (A/B/C), 会面一句, explicit L0 gaps.
+
+## Sharpness & impressiveness (犀利度)
+- Thin summaries are FAILURES. Iceberg = senior analyst memo, not marketing copy.
+- Total \`research/*.md\` ≥8000 Chinese characters is necessary but NOT sufficient — density of A/B facts and uncomfortable truths matter.
+- Per-file minimums (Chinese characters, research step):
+  - \`01_IR_financial.md\` ≥1200
+  - \`02_executive_quotes.md\` ≥1500 (≥10 attributed quotes with speaker+date+tier)
+  - \`03_partnership_history.md\` ≥800
+  - \`04_competitor_landscape.md\` ≥1200 (steelman — let competitor win first)
+  - \`05_industry_context.md\` ≥800
+  - \`06_power_meddic.md\` ≥800 (mark every L0 gap — do not guess)
+  - \`09_not_for_pitch.md\` ≥400
+- Tensions: claim vs behavior + A/B facts + **会面一句** (sharp, meeting-ready).
+- Knife: ONE tension, ONE live A/B proof, ONE ask; must include 「明确不说」.
+- Prefer uncomfortable truths over flattering narrative. Cold-start: cite verifiable public sources (IR, filings, earnings); if unknown, mark 【待核实】 — never fabricate L0.
 
 ## Quality gates (MANDATORY — NON-NEGOTIABLE)
 When user selects research or knife (or R1/full):
@@ -29,14 +48,14 @@ When user selects research or knife (or R1/full):
   - data_traceability.md (Claim | Number | Tier | Source — ledger style)
   - ifalsify_report.md (standalone, ruthless by default)
 - Iceberg depth (R1):
-  - Total research content MUST reach ≥ 8000 Chinese characters (or equivalent depth).
+  - Total research content MUST reach ≥ 8000 Chinese characters.
   - Structure it as real research, not marketing prose.
   - Use the exact file list below. Do not collapse into one file unless user explicitly asks for minimal.
 - Knife rule: Knife must be short BECAUSE the iceberg is deep. Never paste research into the knife.
 - Before emitting final knife or iPod, run internal Grill (build → red-team → synthesize) and full ifalsify.
-- Output a short Quality Passport (counts, gate verdicts) so the UI can display status.
+- Output quality_passport.json (counts, gate verdicts) so the UI can display status.
 
-If you cannot meet the 8000-char structured iceberg or the ifalsify minimum on cold start, you MUST expand research (use more sources, steelman competitors, hunt disconfirming evidence) until the gates are satisfied. Do not ship thin work.
+If you cannot meet the 8000-char structured iceberg or the ifalsify minimum on cold start, you MUST expand research (more sources, steelman competitors, disconfirming evidence) until gates are satisfied. Do not ship thin work.
 
 ## Source tiers
 - A: IR/exchange PDF, official filings
@@ -61,31 +80,16 @@ Do NOT output the grill transcript unless user asked for debug. Apply correction
 
   const IFALSIFY_PROTOCOL = `
 ## MANDATORY: ifalsify / 反昏君 pass (default ruthless, first-class deliverable)
-This is not optional commentary. ifalsify_report.md is a required, standalone, auditable artifact for any serious R1 (research or knife).
+ifalsify_report.md is required, standalone, auditable — write body in **简体中文**.
 
-1. **Hypothesis** (clear, falsifiable, 1-2 sentences): What exact claim are we selling to the client?
-2. **Disconfirm hunt** — minimum 5 independent, high-quality items (use real search where possible):
-   - Failed precedents (similar pitch/initiative/company that died and why)
-   - Competitor steelman (why the strongest alternative wins, and why we lose)
-   - User/customer behavior vs stated wants (what they actually do)
-   - Structural barriers (regulation, switching cost, channel control, incentives)
-   - Timing counter-evidence (why now is bad or premature)
-   - Pitch-specific: every hard number in the knife must be traced; flag 【待核实】 aggressively
-3. **Asymmetry check**: Count support vs disconfirm. If support:disconfirm > 2:1, explicitly downgrade confidence and state the risk.
-4. **Verdict for each major claim** (especially the main tension and any iPod):
-   - KILL (fatal flaw, do not pitch this angle)
-   - PIVOT (reframe required)
-   - CONDITIONAL (only with explicit 48h–2w validation experiment described)
-5. **No SURVIVES** by default in ruthless mode. CONDITIONAL must name the smallest real-world test.
-
-Output format for the report (standalone file):
-## ifalsify_report.md
-- Hypothesis
-- Disconfirm items (F-1 … with source tier + link or file)
-- Asymmetry analysis
-- Claim verdicts + experiments
-- Overall recommendation for this run (proceed / narrow scope / kill this angle)
-- Confidence level after gates
+1. **Hypothesis** (可证伪，1–2 句中文): 我们向客户兜售的确切主张是什么？
+2. **Disconfirm hunt** — minimum 5 independent items (hunt real counter-evidence):
+   - Failed precedents · Competitor steelman · Behavior vs stated wants
+   - Structural barriers · Timing counter-evidence
+   - Every hard number in knife must be traced; flag 【待核实】 aggressively
+3. **Asymmetry check**: support:disconfirm > 2:1 → downgrade confidence
+4. **Verdict per claim**: KILL / PIVOT / CONDITIONAL (no SURVIVES by default)
+5. CONDITIONAL must name smallest 48h–2w validation experiment
 
 iPod concepts that receive KILL are removed or replaced. Knife claims that fail must be downgraded or removed from client-facing version.
 `;
@@ -98,9 +102,220 @@ Return ONLY file blocks in this exact format — no preamble, no postamble:
 (content here)
 ===END===
 
-Use .md for markdown, .html for HTML deliverables. HTML must be self-contained (inline CSS, no external deps).
-Separate each file clearly. Include ALL files user requested.
+Use .md for markdown. Separate each file clearly. Include ALL files requested for this step.
 `;
+
+  const R1_STEP_ORDER = [
+    "charter",
+    "timeliness",
+    "research",
+    "tensions",
+    "knife",
+    "ifalsify",
+    "files"
+  ];
+
+  const R1_STEP_LABELS = {
+    charter: "Charter / 起手",
+    timeliness: "时效 + 溯源账本",
+    research: "冰山研究",
+    tensions: "张力诊断",
+    knife: "10分钟刀刃",
+    ifalsify: "反昏君证伪",
+    files: "Handoff + 门禁护照"
+  };
+
+  const STEP_MAX_TOKENS = {
+    research: 16000,
+    default: 12000
+  };
+
+  function wantsEnglishDeliverables(data) {
+    const internal = (data.internal || "").toLowerCase();
+    return /english\s+output|英文交付|英文输出|deliverables?\s+in\s+english/i.test(internal);
+  }
+
+  function outputLanguageBlock(data) {
+    if (wantsEnglishDeliverables(data)) {
+      return "## Output language\nWrite deliverables in **English** (user requested in internal requirements).\n";
+    }
+    return "## Output language\nWrite ALL deliverable `.md` bodies in **简体中文**. English only for tickers, proper nouns, direct quotes.\n";
+  }
+
+  function slugFromTarget(target) {
+    return (target || "case")
+      .toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 32) || "case";
+  }
+
+  function priorFilesSummary(files, stepId, maxChars = 8000) {
+    if (!files.length) return "(no prior files)";
+    const priority = {
+      tensions: ["00_charter.md", "data_traceability.md", "research/01_IR_financial.md", "research/02_executive_quotes.md", "research/04_competitor_landscape.md", "research/06_power_meddic.md"],
+      knife: ["03_tensions.md", "data_traceability.md", "source_timeliness.md", "research/01_IR_financial.md", "research/02_executive_quotes.md"],
+      ifalsify: ["B_knife.md", "03_tensions.md", "data_traceability.md", "research/04_competitor_landscape.md", "research/09_not_for_pitch.md"],
+      files: ["00_charter.md", "B_knife.md", "03_tensions.md", "ifalsify_report.md", "data_traceability.md", "source_timeliness.md"]
+    }[stepId] || [];
+
+    const ordered = [
+      ...priority.map((n) => files.find((f) => f.name === n)).filter(Boolean),
+      ...files.filter((f) => !priority.includes(f.name))
+    ];
+
+    let out = "";
+    for (const f of ordered) {
+      const header = `\n--- ${f.name} ---\n`;
+      const body = f.content.slice(0, 2000);
+      const chunk = header + body + (f.content.length > 2000 ? "\n…\n" : "\n");
+      if (out.length + chunk.length > maxChars) {
+        out += `\n--- ${f.name} --- (${f.content.length} chars, truncated)\n`;
+        continue;
+      }
+      out += chunk;
+    }
+    return out;
+  }
+
+  function buildInputBlock(data) {
+    return [
+      "## Target",
+      data.target || "(not specified)",
+      "",
+      "## Customer intel",
+      data.customer || "(none — cold start OK)",
+      "",
+      "## Internal (NBA) requirements",
+      data.internal || "(none)",
+      "",
+      "## Slug",
+      slugFromTarget(data.target),
+      "",
+      outputLanguageBlock(data)
+    ].join("\n");
+  }
+
+  const STEP_INSTRUCTIONS = {
+    charter: `
+# Step: charter
+Produce ONLY:
+- 00_charter.md
+
+简体中文。用 intake charter 模板：用户要 X / 实际要 Y；解析实体（名/代码/别名）；标 tier 假设与唯一 ask 方向。
+`,
+
+    timeliness: `
+# Step: timeliness
+Produce ONLY:
+- source_timeliness.md
+- data_traceability.md
+
+简体中文。叙事 vs 行为时间线；Claim | Value | Tier | Source 账本。基于 charter，禁止编造 L0。
+`,
+
+    research: `
+# Step: research (iceberg) — THIS STEP NEEDS DEPTH
+Produce ONLY (简体中文, structured analyst memo style like nio/account-v3):
+- research/README.md (index + per-file 字数)
+- research/01_IR_financial.md (≥1200字, tables + 读法)
+- research/02_executive_quotes.md (≥1500字, ≥10 attributed quotes, tiered)
+- research/03_partnership_history.md (≥800字)
+- research/04_competitor_landscape.md (≥1200字, steelman competitor)
+- research/05_industry_context.md (≥800字)
+- research/06_power_meddic.md (≥800字, mark L0 gaps 【待核实】)
+- research/09_not_for_pitch.md (≥400字)
+
+Total research/*.md ≥8000 Chinese characters. Every number needs tier; unverified → 【待核实】.
+Use verifiable public sources (IR, filings, earnings). Do NOT ship thin summaries.
+`,
+
+    tensions: `
+# Step: tensions
+Produce ONLY:
+- 03_tensions.md
+
+简体中文。3–5 条张力：主张 vs 行为（ID+层级）+ 后果 + **会面一句**。
+主刀张力须引用 ≥3 条 A/B 级 prior research 事实。L0 标【待核实】勿猜。
+`,
+
+    knife: `
+# Step: knife
+Produce ONLY:
+- B_knife.md
+
+简体中文。10分钟结构：一条张力、一条活证据（A/B）、一个 ask；≤2页。
+必须有「明确不说」。引用 ifalsify 姿态与溯源账本。短因为冰山深。
+`,
+
+    ifalsify: `
+# Step: ifalsify
+Produce ONLY:
+- ifalsify_report.md
+
+简体中文。可证伪假设、≥5 条独立反证、不对称分析、每条 KILL/PIVOT/CONDITIONAL、总体建议与置信度、最大 L0 缺口。
+`,
+
+    files: `
+# Step: files (assembly)
+Produce ONLY:
+- handoff_to_sales.md (简体中文: debate questions, PRIMARY gaps, iPod vs shelf — bespoke iPod NEVER in shelf)
+- quality_passport.json (valid JSON: iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_tension, explicit_gaps)
+
+iceberg_char_count = actual sum of research/*.md character counts from prior outputs.
+`
+  };
+
+  function expectedOutputsForStep(stepId) {
+    const map = {
+      charter: ["00_charter.md"],
+      timeliness: ["source_timeliness.md", "data_traceability.md"],
+      research: [
+        "research/README.md",
+        "research/01_IR_financial.md",
+        "research/02_executive_quotes.md",
+        "research/03_partnership_history.md",
+        "research/04_competitor_landscape.md",
+        "research/05_industry_context.md",
+        "research/06_power_meddic.md",
+        "research/09_not_for_pitch.md"
+      ],
+      tensions: ["03_tensions.md"],
+      knife: ["B_knife.md"],
+      ifalsify: ["ifalsify_report.md"],
+      files: ["handoff_to_sales.md", "quality_passport.json"]
+    };
+    return map[stepId] || [];
+  }
+
+  function getR1StepsForData(data) {
+    const wantsResearch = data.outputs.includes("research") || data.round === "R1" || data.round === "full";
+    const wantsKnife = data.outputs.includes("knife") || data.round === "R1" || data.round === "full";
+    if (!wantsResearch && !wantsKnife) return ["charter"];
+    if (wantsResearch && !wantsKnife) return ["charter", "timeliness", "research"];
+    return [...R1_STEP_ORDER];
+  }
+
+  function shouldUseMultiStepR1(data) {
+    return (data.round === "R1" || data.round === "full") &&
+      (data.outputs.includes("research") || data.outputs.includes("knife"));
+  }
+
+  function buildStepUserPrompt(stepId, data, priorFiles = []) {
+    const instr = STEP_INSTRUCTIONS[stepId];
+    if (!instr) throw new Error("Unknown step: " + stepId);
+    return [
+      instr.trim(),
+      "",
+      buildInputBlock(data),
+      "",
+      "## Prior outputs from earlier steps",
+      priorFilesSummary(priorFiles, stepId),
+      "",
+      "## Expected files this step",
+      expectedOutputsForStep(stepId).map((n) => "- " + n).join("\n")
+    ].join("\n");
+  }
 
   function buildSystemPrompt() {
     return KERNEL + GRILL_PROTOCOL + IFALSIFY_PROTOCOL + OUTPUT_FORMAT;
@@ -109,12 +324,7 @@ Separate each file clearly. Include ALL files user requested.
   function buildUserPrompt(data) {
     const lines = [];
     lines.push("# iPitch generation request\n");
-    lines.push("## Target");
-    lines.push(data.target || "(not specified)");
-    lines.push("\n## Customer intel (unstructured — interpret and route to charter/research/MEDDIC)");
-    lines.push(data.customer || "(none — cold start OK)");
-    lines.push("\n## Internal (NBA) requirements");
-    lines.push(data.internal || "(none)");
+    lines.push(buildInputBlock(data));
     lines.push("\n## Round");
     lines.push(data.round);
     lines.push("\n## Requested deliverables");
@@ -122,111 +332,59 @@ Separate each file clearly. Include ALL files user requested.
     lines.push("\n## Formats");
     lines.push(data.formats.join(", ") || "markdown");
 
+    if (shouldUseMultiStepR1(data)) {
+      lines.push("\n## Mode");
+      lines.push("Prefer multi-step R1 pipeline (charter → … → files) when runtime supports it.");
+    }
+
     lines.push("\n## Round-specific instructions");
 
     if (data.round === "R1" || data.round === "full") {
       lines.push(`
-R1 deliverables — SERIOUS / AUDITABLE package (even on cold start with only company name):
+R1 deliverables — SERIOUS / AUDITABLE package (even on cold start with only company name).
+**All .md bodies in 简体中文** unless internal requirements say otherwise.
 
-MANDATORY gate files (always produce these when research or knife is requested):
-- 00_charter.md
-- source_timeliness.md (timeline of claims vs real behavior events)
-- data_traceability.md (ledger format: Claim | Value | Tier A-E | Exact source)
-- ifalsify_report.md (full ruthless report as described above — standalone)
+MANDATORY gate files (when research or knife requested):
+- 00_charter.md · source_timeliness.md · data_traceability.md · ifalsify_report.md
 
-Iceberg research (MANDATORY depth):
-- Total research content ≥ 8000 Chinese characters equivalent.
-- Use this structure (do not collapse):
-  - research/README.md (index with anchors and word counts)
-  - research/01_IR_financial.md (numbers + interpretation)
-  - research/02_executive_quotes.md (≥8-12 attributed quotes, tiered)
-  - research/03_partnership_history.md
-  - research/04_competitor_landscape.md (steelman the best competitor)
-  - research/05_industry_context.md
-  - research/06_power_meddic.md (explicitly mark every L0 gap — do not guess)
-  - research/09_not_for_pitch.md (what you checked but will not use)
-- 03_tensions.md — 3–5 tensions. The chosen main tension for the knife must be backed by at least 3 A/B tier facts.
+Iceberg research (MANDATORY depth, ≥8000 汉字 total, per-file minimums in KERNEL):
+- research/README.md · 01_IR · 02_quotes (≥10条) · 03_partnership · 04_competitor (steelman)
+- 05_industry · 06_power_meddic · 09_not_for_pitch
 
-Knife:
-- B_knife.md — exactly ONE tension, ONE live proof (A/B preferred), ONE ask.
-- ≤2 pages when printed. 10-minute spoken structure.
-- Must contain a visible “明确不说” section.
-- Must explicitly reference the ifalsify verdict and traceability.
-
-Other:
-- pitchvision/ only if genuinely warranted (≥1, strategic ≥2). Never put iPod into shelf.
-- handoff_to_sales.md — debate questions + PRIMARY gaps + iPod vs shelf separation note.
-- Run full Grill + ifalsify before emitting final knife or iPod.
+- 03_tensions.md — 3–5 tensions, main tension backed by ≥3 A/B facts, 会面一句
+- B_knife.md — ONE tension, ONE A/B proof, ONE ask, 「明确不说」
+- handoff_to_sales.md · quality_passport.json
 `);
     }
 
     if (data.round === "R2" || data.round === "full") {
       lines.push(`
-R2 deliverables:
-- R2_evolved_report.md — product narrative evolved with sales context
-- R2_shelf_recommendations.md — 2–3 combos from hotpot shelf logic (Component/套餐); NO bespoke iPod
-- Embedded: 5 opening questions for next client meeting
-- Explicit exclusion note: R1 iPod NOT in shelf table
+R2 deliverables (简体中文正文):
+- R2_evolved_report.md · R2_shelf_recommendations.md (2–3 combos, NO bespoke iPod)
 `);
     }
 
     if (data.round === "R3" || data.round === "full") {
       lines.push(`
-R3 deliverables:
-- R3_close_pack.md — budget reality, iPod exception narrative, dual-track table (shelf vs iPod), single ask
+R3 deliverables (简体中文正文):
+- R3_close_pack.md — budget, iPod exception, dual-track, single ask
 `);
     }
 
     if (data.outputs.includes("talking")) {
-      lines.push("- Include talking points / 首问 5 句 in appropriate file");
-    }
-
-    if (data.formats.includes("html")) {
-      lines.push(`
-
-HTML deliverables (self-contained, premium craft):
-- html/index.html (clean navigation to all outputs)
-- html/B_knife.html (client-facing 10-min version)
-- html/research/iceberg.html (FULL iceberg, ≥8000 chars equivalent, with citations and structure)
-- html/research/index.html (research index)
-- html/ifalsify_report.html (or keep as .md if too long; must be prominent)
-- Optional: html/quality_passport.html summarizing gates passed (word counts, source coverage, ifalsify verdict)
-
-Every HTML must feel serious and professional — restrained design, clear source links, no marketing fluff.
-`);
+      lines.push("- Include 首问 5 句 in appropriate file");
     }
 
     lines.push(`
-## Additional mandatory instruction for this run
-After generating the main files, also produce a small machine-readable summary called quality_passport.json (or at top of one file) containing:
-- iceberg_char_count (approximate)
-- num_a_tier_facts
-- num_b_tier_facts
-- ifalsify_verdict (overall)
-- main_tension
-- explicit_gaps (list of biggest L0 holes)
-This helps the UI surface visible gate status to the user.
+## quality_passport.json (mandatory when knife or research requested)
+iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_tension, explicit_gaps
 `);
-
-
-    lines.push("\n## Slug");
-    const slug = (data.target || "case")
-      .toLowerCase()
-      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 32) || "case";
-    lines.push(slug);
 
     return lines.join("\n");
   }
 
   function buildCursorPrompt(data) {
-    const slug = (data.target || "case")
-      .toLowerCase()
-      .replace(/[^a-z0-9\u4e00-\u9fff]+/g, "-")
-      .replace(/^-|-$/g, "")
-      .slice(0, 32) || "case";
-
+    const slug = slugFromTarget(data.target);
     let cmd = `/ipitch start ${data.target}`;
     if (data.customer) cmd += `\n\n零散要点：\n${data.customer}`;
     if (data.internal) cmd += `\n\n内部要求：\n${data.internal}`;
@@ -241,10 +399,10 @@ This helps the UI surface visible gate status to the user.
     return {
       cursorCmd: cmd + "\n\n# Then:\n" + (roundCmd[data.round] || roundCmd.R1),
       ifalsifyCmd: `/ifalsify after ${slug}  (ruthless, produce full ifalsify_report.md)`,
-      grillNote: "Grill: use _playbook/templates/grill-template.md on knife + iPod before external use. Run build → red-team → synthesize.",
+      grillNote: "Grill: build → red-team → synthesize before external use.",
       fullPrompt: buildUserPrompt(data),
       systemPrompt: buildSystemPrompt(),
-      qualityNote: "Target: iceberg ≥8000 chars structured + full traceability ledger + standalone ifalsify_report with KILL/PIVOT/CONDITIONAL + experiments. Knife must be short because iceberg is deep."
+      qualityNote: "Target: 简体中文 + iceberg ≥8000 + traceability + ifalsify + short sharp knife (nio/account-v3 bar)."
     };
   }
 
@@ -261,10 +419,40 @@ This helps the UI surface visible gate status to the user.
     return files;
   }
 
+  function mergeFiles(existing, incoming) {
+    const map = new Map(existing.map((f) => [f.name, f]));
+    for (const f of incoming) map.set(f.name, f);
+    return [...map.values()];
+  }
+
+  function countResearchChars(files) {
+    let total = 0;
+    for (const f of files) {
+      if (f.name.startsWith("research/") && f.name.endsWith(".md")) {
+        total += f.content.length;
+      }
+    }
+    return total;
+  }
+
+  function maxTokensForStep(stepId) {
+    return STEP_MAX_TOKENS[stepId] || STEP_MAX_TOKENS.default;
+  }
+
   return {
+    R1_STEP_ORDER,
+    R1_STEP_LABELS,
     buildSystemPrompt,
     buildUserPrompt,
+    buildStepUserPrompt,
     buildCursorPrompt,
-    parseFileBlocks
+    parseFileBlocks,
+    mergeFiles,
+    countResearchChars,
+    expectedOutputsForStep,
+    getR1StepsForData,
+    shouldUseMultiStepR1,
+    maxTokensForStep,
+    wantsEnglishDeliverables
   };
 })();

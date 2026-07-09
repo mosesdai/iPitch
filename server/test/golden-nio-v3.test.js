@@ -58,6 +58,7 @@ describe("load-kernel (ui/js/prompts.js)", () => {
   it("loads KERNEL from ui/js/prompts.js without duplication", () => {
     const bundle = loadKernelBundle();
     assert.ok(bundle.kernel.includes("iPitch Studio"));
+    assert.ok(bundle.kernel.includes("简体中文"));
     assert.ok(bundle.ifalsify.includes("ifalsify"));
     assert.ok(bundle.grill.includes("Grill"));
     assert.ok(bundle.outputFormat.includes("===FILE:"));

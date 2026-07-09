@@ -87,6 +87,13 @@ function priorFilesSummary(files, stepId, maxChars = 6000) {
 }
 
 function buildInputBlock(input) {
+  const wantsEn = /english\s+output|英文交付|英文输出|deliverables?\s+in\s+english/i.test(
+    (input.internal || "").toLowerCase()
+  );
+  const langBlock = wantsEn
+    ? "## Output language\nWrite deliverables in **English** (user requested).\n"
+    : "## Output language\nWrite ALL deliverable `.md` bodies in **简体中文**. English only for tickers, proper nouns, direct quotes.\n";
+
   return [
     "## Target",
     input.target || "(not specified)",
@@ -98,7 +105,9 @@ function buildInputBlock(input) {
     input.internal || "(none)",
     "",
     "## Slug",
-    slugFromTarget(input.target)
+    slugFromTarget(input.target),
+    "",
+    langBlock
   ].join("\n");
 }
 
@@ -125,7 +134,7 @@ export function buildStepUserPrompt(stepId, input, priorFiles = []) {
 Produce ONLY:
 - 00_charter.md
 
-Use the intake charter template. Resolve target entity (name, ticker, alias). State user want vs real problem. Mark tier assumptions and the single ask direction.
+简体中文正文。Use intake charter template. Resolve entity. User want vs real problem. Tier assumptions + single ask direction.
 `,
 
     timeliness: `
@@ -134,23 +143,22 @@ Produce ONLY:
 - source_timeliness.md
 - data_traceability.md
 
-Narrative vs behavior timeline; claim registry with tiers A–E. Ledger format: Claim | Value | Tier | Source.
-Build on charter context. Do not fabricate L0 facts.
+简体中文正文。Narrative vs behavior timeline; Claim | Value | Tier | Source ledger. Build on charter. Do not fabricate L0.
 `,
 
     research: `
-# Step: research (iceberg)
-Produce ONLY these research files (structured iceberg, ≥8000 Chinese characters total across research/*.md):
-- research/README.md
-- research/01_IR_financial.md
-- research/02_executive_quotes.md (≥8 attributed quotes, tiered)
-- research/03_partnership_history.md
-- research/04_competitor_landscape.md (steelman best competitor)
-- research/05_industry_context.md
-- research/06_power_meddic.md (mark every L0 gap — do not guess)
-- research/09_not_for_pitch.md
+# Step: research (iceberg) — DEPTH REQUIRED
+Produce ONLY (简体中文, nio/account-v3 analyst memo style):
+- research/README.md (index + per-file 字数)
+- research/01_IR_financial.md (≥1200字, tables + 读法)
+- research/02_executive_quotes.md (≥1500字, ≥10 attributed quotes, tiered)
+- research/03_partnership_history.md (≥800字)
+- research/04_competitor_landscape.md (≥1200字, steelman competitor)
+- research/05_industry_context.md (≥800字)
+- research/06_power_meddic.md (≥800字, L0 gaps 【待核实】)
+- research/09_not_for_pitch.md (≥400字)
 
-Depth over brevity. Every number needs source tier; unverified → 【待核实】.
+Total research/*.md ≥8000 Chinese characters. Every number tiered; unverified → 【待核实】. No thin summaries.
 `,
 
     tensions: `
@@ -158,9 +166,7 @@ Depth over brevity. Every number needs source tier; unverified → 【待核实�
 Produce ONLY:
 - 03_tensions.md
 
-3–5 tensions. Each: claim side + behavior/facts (IDs + tiers) + consequence + meeting one-liner.
-Main tension for knife must cite ≥3 A/B tier facts from prior research.
-Mark L0 gaps explicitly — do not invent.
+简体中文。3–5 tensions: claim vs behavior (ID+tier) + consequence + **会面一句**. Main tension: ≥3 A/B facts from prior research.
 `,
 
     knife: `
@@ -168,9 +174,7 @@ Mark L0 gaps explicitly — do not invent.
 Produce ONLY:
 - B_knife.md
 
-Exactly ONE tension, ONE live proof (A/B preferred), ONE ask. ≤2 printed pages / 10-minute spoken structure.
-Must include 「明确不说」 section.
-Reference ifalsify posture (pending or prior) and data_traceability — knife stays short because iceberg is deep.
+简体中文。ONE tension, ONE A/B proof, ONE ask; 10-min structure; 「明确不说」. Short because iceberg is deep.
 `,
 
     ifalsify: `
@@ -178,16 +182,14 @@ Reference ifalsify posture (pending or prior) and data_traceability — knife st
 Produce ONLY:
 - ifalsify_report.md
 
-Ruthless standalone report per template: falsifiable hypothesis, ≥5 disconfirm items (tiered), asymmetry check, KILL/PIVOT/CONDITIONAL per claim (no SURVIVES by default), overall recommendation + confidence + biggest L0 gaps.
+简体中文。Hypothesis, ≥5 disconfirms, asymmetry, KILL/PIVOT/CONDITIONAL per claim, overall recommendation.
 `,
 
     files: `
 # Step: files (assembly)
 Produce ONLY:
-- handoff_to_sales.md (debate questions, PRIMARY gaps, iPod vs shelf note — bespoke iPod NEVER in shelf)
-- quality_passport.json (machine-readable: iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_tension, explicit_gaps)
-
-Summarize gates from all prior files. JSON must be valid.
+- handoff_to_sales.md (简体中文: debate, PRIMARY gaps, iPod vs shelf)
+- quality_passport.json (iceberg_char_count from actual research/*.md sum, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_tension, explicit_gaps)
 `
   };
 

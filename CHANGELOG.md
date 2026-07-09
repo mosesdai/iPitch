@@ -1,5 +1,15 @@
 # CHANGELOG · iPitch
 
+## 2026-07-09 · 输出品质：简体中文 + 多步 R1 + 犀利度门禁
+
+### 根因修复（用户反馈：英文输出、内容薄、不够犀利）
+- **语言**：`ui/js/prompts.js` KERNEL 强制 R1 交付物默认**简体中文**（对标 `nio/account-v3`）；仅内部要求显式「英文交付」时例外
+- **厚度**：UI「生成产出」对 R1 研究/刀刃改为**七步多步编排**（每步独立 API 调用），避免单次 16k token 装不下 ≥8000 字冰山
+- **犀利度**：KERNEL 增加单文件最低字数、steelman、会面一句、读法列、L0【待核实】等硬约束
+- Gate Status 用实际 `research/*.md` 字数校验，未达标显示「品质未达标」
+- `server/` 步骤 prompt 与 KERNEL 同步简体中文 + 单文件最低字数
+- API `temperature` 略降至 0.35；research 步 `max_tokens` 16000
+
 ## 2026-07-08 · Phase 1 — 完整七步 R1 编排
 
 ### server/ 多步 R1（charter → files）

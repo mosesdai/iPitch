@@ -67,9 +67,10 @@ window.IPitchAPI = (function () {
     if (!cfg.apiKey) throw new Error("NO_API_KEY");
   }
 
-  async function chat(systemPrompt, userPrompt, onChunk) {
+  async function chat(systemPrompt, userPrompt, onChunk, options) {
     const cfg = loadConfig();
     assertConfigured(cfg);
+    const opts = options || {};
 
     const url = resolveEndpoint(cfg);
     const body = {
@@ -79,8 +80,8 @@ window.IPitchAPI = (function () {
         { role: "user", content: userPrompt }
       ],
       stream: !!onChunk,
-      temperature: 0.4,
-      max_tokens: 16000
+      temperature: opts.temperature != null ? opts.temperature : 0.35,
+      max_tokens: opts.maxTokens || 16000
     };
 
     const res = await fetch(url, {
