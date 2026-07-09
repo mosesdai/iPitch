@@ -113,7 +113,7 @@ window.IPITCH_I18N = {
     helpDeployText: "本工具是纯静态 HTML，可部署到 GitHub Pages、Netlify 或公司内部静态服务器。团队访问同一 URL 即可；每人用自己的 API Key（存在本机浏览器）。如需隐藏 Key，可部署一个轻量 API 代理（Cloudflare Worker / Vercel Serverless）。",
     close: "关闭",
     qualityBadge: "强制冰山 + 溯源 + 反昏君",
-    langNote: "R1 报告默认简体中文（对标 nio/account-v3）；多步编排提升厚度与犀利度"
+    langNote: "R1 默认中文；追求深刻洞察与颠覆性 iPod 创意，不是哗众取宠"
   },
   en: {
     appTitle: "iPitch Studio",
@@ -228,7 +228,7 @@ window.IPITCH_I18N = {
     helpDeployText: "Static HTML — deploy to GitHub Pages, Netlify, or internal static host. Each user stores their own API key locally. For hidden keys, add a lightweight proxy (Cloudflare Worker / Vercel Serverless).",
     close: "Close",
     qualityBadge: "Forced iceberg + traceability + ifalsify",
-    langNote: "R1 deliverables default to Simplified Chinese (nio/account-v3 bar); multi-step pipeline for depth"
+    langNote: "R1 in Chinese; profound insight & disruptive iPod creativity — not sensationalism"
   }
 };
 

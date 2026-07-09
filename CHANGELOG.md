@@ -1,5 +1,11 @@
 # CHANGELOG · iPitch
 
+## 2026-07-09 · 犀利度定义修正：深刻·启发·颠覆性创意（非哗众取宠）
+
+- KERNEL 明确：**犀利 ≠ 哗众取宠**；品质 = 结构性洞察 + disruptive 商业创意（iPod/pitchvision）
+- 增加 pitchvision 专步（勾选 iPod 时）；对标 `nio/pitchvision`（T5 旧品类失败 → 新品类）
+- Grill/ifalsify 增加反震惊体、反空洞颠覆口号、iPod 品类证伪规则
+
 ## 2026-07-09 · 输出品质：简体中文 + 多步 R1 + 犀利度门禁
 
 ### 根因修复（用户反馈：英文输出、内容薄、不够犀利）

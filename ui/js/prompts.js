@@ -25,10 +25,31 @@ You are iPitch Studio — the portable execution engine of the elite consultativ
 - Do NOT write full analysis, tensions, or knife in English unless user explicitly requested English deliverables in internal requirements.
 - Style reference: \`nio/account-v3\` — tables, 读法 columns, tier tags (A/B/C), 会面一句, explicit L0 gaps.
 
-## Sharpness & impressiveness (犀利度)
-- Thin summaries are FAILURES. Iceberg = senior analyst memo, not marketing copy.
-- Total \`research/*.md\` ≥8000 Chinese characters is necessary but NOT sufficient — density of A/B facts and uncomfortable truths matter.
-- Per-file minimums (Chinese characters, research step):
+## Depth, insight & disruptive creativity (深刻 · 启发 · 颠覆性商业创意)
+
+**「犀利」≠ 哗众取宠。** 不是震惊体、不是空洞金句、不是未经验证的「颠覆」口号。
+品质标准是 **真深刻 + 真创意 + 真启发** — 读者感到「原来如此」的结构性洞察；尤其是 **disruptive 商业创意（iPod / pitchvision）** 能让人看见**新品类**，而非换皮 slogan。
+
+### Account 线（知彼 · 刀刃）
+- 冰山：从事实中提炼 **非显而易见的因果与矛盾**（主张 vs 行为），不是百科罗列。
+- 张力：每条是 **可讨论的结构性洞察**；会面一句 = 让同行低调点头、愿意往下聊，**不是** headline 或挑衅。
+- 刀刃：短因为冰山深；一条张力、一条活证据、一个 ask。「明确不说」= 专业克制，不是没见识。
+
+### Pitchvision 线（iPod · 颠覆性商业创意）— 用户勾选 iPod 时必跑
+- 定义 **旧品类的结构性失败**（T5），再给出 **新品类对立面** — 超越「赞助/曝光包」式采购思维。
+- 每概念一套（简体中文）：\`job_map\`（struggling moment，非 feature 清单）、\`early_adopter\`、\`why_now\`（三力）、\`03_tension_T5.md\`、\`product_card\`、\`B_vision_knife.md\`（≤2页，**不是** account 刀复述）。
+- 创意须 **可试点、可叫停、可证伪**；禁止 L4 编造市场规模；多概念时 **job 必须不同**（非换皮）。
+- 标杆：\`nio/pitchvision/A_spirit-layer-os\`、\`B_family-gravity-engine\` — 品类级洞察 + 可执行 Product Card。
+
+### 严禁（品质红灯）
+- 哗众取宠、震惊体、标题党、未经 A/B 支撑的大胆断言
+- 「颠覆」「重塑」「范式转移」等词 **无品类定义 + 旧品类失败机制** 支撑时
+- account 刀与 pitchvision 混写；bespoke iPod 进货架
+- 薄摘要冒充研究；marketing fluff 冒充 insight
+
+### 研究厚度（必要但不充分）
+- Total \`research/*.md\` ≥8000 Chinese characters is necessary but NOT sufficient — need **insight density** (非显而易见结论), not word padding.
+- Per-file minimums (充实论证，非凑字数):
   - \`01_IR_financial.md\` ≥1200
   - \`02_executive_quotes.md\` ≥1500 (≥10 attributed quotes with speaker+date+tier)
   - \`03_partnership_history.md\` ≥800
@@ -36,9 +57,7 @@ You are iPitch Studio — the portable execution engine of the elite consultativ
   - \`05_industry_context.md\` ≥800
   - \`06_power_meddic.md\` ≥800 (mark every L0 gap — do not guess)
   - \`09_not_for_pitch.md\` ≥400
-- Tensions: claim vs behavior + A/B facts + **会面一句** (sharp, meeting-ready).
-- Knife: ONE tension, ONE live A/B proof, ONE ask; must include 「明确不说」.
-- Prefer uncomfortable truths over flattering narrative. Cold-start: cite verifiable public sources (IR, filings, earnings); if unknown, mark 【待核实】 — never fabricate L0.
+- Cold-start: cite verifiable public sources; if unknown, mark 【待核实】 — never fabricate L0.
 
 ## Quality gates (MANDATORY — NON-NEGOTIABLE)
 When user selects research or knife (or R1/full):
@@ -72,7 +91,7 @@ User may provide company name, brand, ticker (NYSE:NIO), alias, or mixed. Resolv
 Run silently, then apply fixes to deliverables:
 
 **Build round**: Produce complete draft per user round selection.
-**Red-team round**: Attack every claim — logic jumps, unverified numbers, overconfidence, political blind spots, shelf/iPod boundary violations, flattering narrative.
+**Red-team round**: Attack every claim — logic jumps, unverified numbers, overconfidence, **哗众取宠/震惊体/空洞颠覆口号**, shelf/iPod boundary violations, flattering narrative, **pitchvision 与 account 混写**, **无 struggling moment 的 feature 清单式 iPod**.
 **Synthesize round**: Shorter, harder, executable version. Mark what changed from red-team. Include DoD checklist per file.
 
 Do NOT output the grill transcript unless user asked for debug. Apply corrections to final files.
@@ -90,6 +109,7 @@ ifalsify_report.md is required, standalone, auditable — write body in **简体
 3. **Asymmetry check**: support:disconfirm > 2:1 → downgrade confidence
 4. **Verdict per claim**: KILL / PIVOT / CONDITIONAL (no SURVIVES by default)
 5. CONDITIONAL must name smallest 48h–2w validation experiment
+6. **iPod 证伪**：对 disruptive 创意用 **品类能否成立** 检验，不是用「够不够炸」检验。KILL 须有结构性理由；创意被 KILL 须替换或收窄，不得留空洞口号。
 
 iPod concepts that receive KILL are removed or replaced. Knife claims that fail must be downgraded or removed from client-facing version.
 `;
@@ -111,6 +131,7 @@ Use .md for markdown. Separate each file clearly. Include ALL files requested fo
     "research",
     "tensions",
     "knife",
+    "pitchvision",
     "ifalsify",
     "files"
   ];
@@ -121,12 +142,14 @@ Use .md for markdown. Separate each file clearly. Include ALL files requested fo
     research: "冰山研究",
     tensions: "张力诊断",
     knife: "10分钟刀刃",
+    pitchvision: "iPod 颠覆性创意",
     ifalsify: "反昏君证伪",
     files: "Handoff + 门禁护照"
   };
 
   const STEP_MAX_TOKENS = {
     research: 16000,
+    pitchvision: 14000,
     default: 12000
   };
 
@@ -156,6 +179,7 @@ Use .md for markdown. Separate each file clearly. Include ALL files requested fo
       tensions: ["00_charter.md", "data_traceability.md", "research/01_IR_financial.md", "research/02_executive_quotes.md", "research/04_competitor_landscape.md", "research/06_power_meddic.md"],
       knife: ["03_tensions.md", "data_traceability.md", "source_timeliness.md", "research/01_IR_financial.md", "research/02_executive_quotes.md"],
       ifalsify: ["B_knife.md", "03_tensions.md", "data_traceability.md", "research/04_competitor_landscape.md", "research/09_not_for_pitch.md"],
+      pitchvision: ["03_tensions.md", "research/05_industry_context.md", "research/04_competitor_landscape.md", "B_knife.md"],
       files: ["00_charter.md", "B_knife.md", "03_tensions.md", "ifalsify_report.md", "data_traceability.md", "source_timeliness.md"]
     }[stepId] || [];
 
@@ -235,7 +259,7 @@ Use verifiable public sources (IR, filings, earnings). Do NOT ship thin summarie
 Produce ONLY:
 - 03_tensions.md
 
-简体中文。3–5 条张力：主张 vs 行为（ID+层级）+ 后果 + **会面一句**。
+简体中文。3–5 条张力：主张 vs 行为（ID+层级）+ **结构性后果** + **会面一句**（深刻、可讨论，**禁止哗众取宠/震惊体**）。
 主刀张力须引用 ≥3 条 A/B 级 prior research 事实。L0 标【待核实】勿猜。
 `,
 
@@ -245,7 +269,24 @@ Produce ONLY:
 - B_knife.md
 
 简体中文。10分钟结构：一条张力、一条活证据（A/B）、一个 ask；≤2页。
-必须有「明确不说」。引用 ifalsify 姿态与溯源账本。短因为冰山深。
+洞察来自冰山提炼，**不是**口号堆砌。必须有「明确不说」。短因为冰山深。
+`,
+
+    pitchvision: `
+# Step: pitchvision (iPod · disruptive business creativity)
+Produce ONLY (简体中文, 深刻·启发·可试点 — 对标 nio/pitchvision/):
+
+Minimum **one** concept folder under pitchvision/{concept-slug}/:
+- pitchvision/README.md (本步概念索引；何时用 account 刀 vs iPod)
+- pitchvision/{concept-slug}/job_map.md (struggling moment + 妥协曲线，**非** feature 清单)
+- pitchvision/{concept-slug}/early_adopter.md (可识别·可接触·有预算)
+- pitchvision/{concept-slug}/why_now.md (三力：技术/行为/监管或品类)
+- pitchvision/{concept-slug}/03_tension_T5.md (**旧品类结构性失败** → 新品类对立面)
+- pitchvision/{concept-slug}/product_card.md (Portfolio Role + Stage + 组件 + 试点/叫停)
+- pitchvision/{concept-slug}/B_vision_knife.md (≤2页 vision 刀，**不得**复述 account B_knife)
+
+**禁止**：哗众取宠、空洞「颠覆」、无 T5 的 slogan、L4 编造市场规模、与 account 刀混写。
+战略案可 ≥2 概念，但 **job 必须不同**（非换皮）。
 `,
 
     ifalsify: `
@@ -282,6 +323,15 @@ iceberg_char_count = actual sum of research/*.md character counts from prior out
       ],
       tensions: ["03_tensions.md"],
       knife: ["B_knife.md"],
+      pitchvision: [
+        "pitchvision/README.md",
+        "pitchvision/concept-a/job_map.md",
+        "pitchvision/concept-a/early_adopter.md",
+        "pitchvision/concept-a/why_now.md",
+        "pitchvision/concept-a/03_tension_T5.md",
+        "pitchvision/concept-a/product_card.md",
+        "pitchvision/concept-a/B_vision_knife.md"
+      ],
       ifalsify: ["ifalsify_report.md"],
       files: ["handoff_to_sales.md", "quality_passport.json"]
     };
@@ -291,14 +341,23 @@ iceberg_char_count = actual sum of research/*.md character counts from prior out
   function getR1StepsForData(data) {
     const wantsResearch = data.outputs.includes("research") || data.round === "R1" || data.round === "full";
     const wantsKnife = data.outputs.includes("knife") || data.round === "R1" || data.round === "full";
-    if (!wantsResearch && !wantsKnife) return ["charter"];
-    if (wantsResearch && !wantsKnife) return ["charter", "timeliness", "research"];
-    return [...R1_STEP_ORDER];
+    const wantsIpod = data.outputs.includes("ipod");
+
+    const steps = ["charter"];
+    if (wantsResearch || wantsKnife || wantsIpod) {
+      steps.push("timeliness", "research", "tensions");
+    }
+    if (wantsKnife) steps.push("knife");
+    if (wantsIpod) steps.push("pitchvision");
+    if (wantsResearch || wantsKnife || wantsIpod) {
+      steps.push("ifalsify", "files");
+    }
+    return steps;
   }
 
   function shouldUseMultiStepR1(data) {
     return (data.round === "R1" || data.round === "full") &&
-      (data.outputs.includes("research") || data.outputs.includes("knife"));
+      (data.outputs.includes("research") || data.outputs.includes("knife") || data.outputs.includes("ipod"));
   }
 
   function buildStepUserPrompt(stepId, data, priorFiles = []) {
@@ -351,8 +410,13 @@ Iceberg research (MANDATORY depth, ≥8000 汉字 total, per-file minimums in KE
 - research/README.md · 01_IR · 02_quotes (≥10条) · 03_partnership · 04_competitor (steelman)
 - 05_industry · 06_power_meddic · 09_not_for_pitch
 
-- 03_tensions.md — 3–5 tensions, main tension backed by ≥3 A/B facts, 会面一句
+- 03_tensions.md — 结构性洞察（非哗众取宠），主张力 ≥3 A/B 事实
 - B_knife.md — ONE tension, ONE A/B proof, ONE ask, 「明确不说」
+${data.outputs.includes("ipod") ? `
+Pitchvision / iPod（颠覆性商业创意，深刻·启发·可证伪）:
+- pitchvision/README.md + 每概念 job_map · early_adopter · why_now · 03_tension_T5 · product_card · B_vision_knife
+- 标杆 nio/pitchvision；禁止空洞颠覆口号与 account 刀混写
+` : ""}
 - handoff_to_sales.md · quality_passport.json
 `);
     }
@@ -402,7 +466,7 @@ iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_t
       grillNote: "Grill: build → red-team → synthesize before external use.",
       fullPrompt: buildUserPrompt(data),
       systemPrompt: buildSystemPrompt(),
-      qualityNote: "Target: 简体中文 + iceberg ≥8000 + traceability + ifalsify + short sharp knife (nio/account-v3 bar)."
+      qualityNote: "Target: 简体中文 + 深刻洞察 + disruptive iPod（非哗众取宠）+ iceberg ≥8000 (nio/account-v3 + pitchvision bar)."
     };
   }
 

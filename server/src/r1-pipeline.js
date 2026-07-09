@@ -37,6 +37,7 @@ const STEP_PROTOCOLS = {
   ],
   tensions: ["protocols/ipitch.md", "references/round1_discover.md"],
   knife: ["references/round1_discover.md", "protocols/ipitch.md"],
+  pitchvision: ["protocols/pitchvision.md", "protocols/ipitch.md"],
   ifalsify: ["references/ifalsify_report_template.md", "protocols/ipitch.md"],
   files: [
     "references/handoff_to_sales_template.md",
@@ -166,7 +167,8 @@ Total research/*.md ≥8000 Chinese characters. Every number tiered; unverified 
 Produce ONLY:
 - 03_tensions.md
 
-简体中文。3–5 tensions: claim vs behavior (ID+tier) + consequence + **会面一句**. Main tension: ≥3 A/B facts from prior research.
+简体中文。3–5 条张力：主张 vs 行为 + **结构性后果** + 会面一句（深刻、可讨论，**禁止哗众取宠/震惊体**）。
+主刀张力须 ≥3 条 A/B 级 prior research 事实。
 `,
 
     knife: `
@@ -174,7 +176,23 @@ Produce ONLY:
 Produce ONLY:
 - B_knife.md
 
-简体中文。ONE tension, ONE A/B proof, ONE ask; 10-min structure; 「明确不说」. Short because iceberg is deep.
+简体中文。ONE tension, ONE A/B proof, ONE ask；洞察来自冰山提炼，**非**口号堆砌；「明确不说」。
+`,
+
+    pitchvision: `
+# Step: pitchvision (iPod · disruptive business creativity)
+Produce ONLY (简体中文, 深刻·启发·可试点 — 对标 nio/pitchvision/):
+
+Minimum one concept under pitchvision/{concept-slug}/:
+- pitchvision/README.md
+- pitchvision/{concept-slug}/job_map.md (struggling moment, 非 feature 清单)
+- pitchvision/{concept-slug}/early_adopter.md
+- pitchvision/{concept-slug}/why_now.md
+- pitchvision/{concept-slug}/03_tension_T5.md (旧品类结构性失败 → 新品类)
+- pitchvision/{concept-slug}/product_card.md
+- pitchvision/{concept-slug}/B_vision_knife.md (≤2页, 不得复述 account B_knife)
+
+禁止哗众取宠、空洞颠覆口号、L4 市场规模编造、与 account 刀混写。
 `,
 
     ifalsify: `

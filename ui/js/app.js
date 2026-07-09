@@ -202,7 +202,7 @@
           (zh ? "（文件名推断；未找到 quality_passport.json）" : " (filename fallback; no quality_passport.json)") +
           "</span>") +
       '<span style="margin-left:8px;color:#059669;">' +
-      (zh ? "（对标 nio/account-v3：简体中文 + 犀利张力 + 不装懂）" : " (bar: nio/account-v3 — Chinese, sharp, auditable)") +
+      (zh ? "（深刻洞察 + 颠覆性 iPod 创意；非哗众取宠）" : " (profound insight + disruptive iPod; not sensationalism)") +
       "</span>";
   }
 
