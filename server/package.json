@@ -11,6 +11,6 @@
     "test": "node --test test/**/*.test.js",
     "pipeline:dry": "node src/cli.js --dry-run",
     "pipeline:stub": "node src/cli.js --stub --target NIO",
-    "pipeline:stub:step": "node src/cli.js --stub --target NIO --steps"
+    "pipeline:marathon:stub": "node src/cli.js --stub --profile marathon --target NIO"
   }
 }
