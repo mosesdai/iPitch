@@ -4,8 +4,9 @@
  */
 
 import { buildSystemPrompt } from "../lib/load-kernel.js";
+import { createChatFn } from "../lib/chat.js";
 import { runR1Pipeline } from "./orchestrator.js";
-import { MARATHON_STEP_ORDER, R1_STEP_ORDER, buildStepUserPrompt, resolveStepsForOptions } from "./r1-pipeline.js";
+import { buildStepUserPrompt, resolveStepsForOptions } from "./r1-pipeline.js";
 
 function parseArgs(argv) {
   const opts = {
@@ -32,46 +33,6 @@ function parseArgs(argv) {
   opts.steps = resolveStepsForOptions({ steps: opts.steps, profile: opts.profile });
 
   return opts;
-}
-
-async function createChatFn() {
-  const proxyUrl = process.env.DEEPSEEK_PROXY_URL?.replace(/\/$/, "");
-  const apiKey = process.env.DEEPSEEK_API_KEY;
-  const baseUrl = (process.env.DEEPSEEK_BASE_URL || "https://api.deepseek.com").replace(/\/$/, "");
-  const model = process.env.DEEPSEEK_MODEL || "deepseek-chat";
-
-  const endpoint = proxyUrl
-    ? `${proxyUrl}/v1/chat/completions`
-    : `${baseUrl}/v1/chat/completions`;
-
-  const headers = { "Content-Type": "application/json" };
-  if (!proxyUrl) {
-    if (!apiKey) {
-      throw new Error("Set DEEPSEEK_API_KEY or DEEPSEEK_PROXY_URL for live runs");
-    }
-    headers.Authorization = `Bearer ${apiKey}`;
-  }
-
-  return async (system, user) => {
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        model,
-        messages: [
-          { role: "system", content: system },
-          { role: "user", content: user }
-        ],
-        stream: false
-      })
-    });
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(`DeepSeek ${res.status}: ${text.slice(0, 300)}`);
-    }
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || "";
-  };
 }
 
 async function main() {

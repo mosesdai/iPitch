@@ -321,6 +321,22 @@
       "</pre></div>";
   }
 
+  async function generateViaServerR1(data) {
+    const zh = window.IPITCH_LANG === "zh";
+    let lastMsg = "";
+
+    const files = await window.IPitchServerAPI.runPipeline(data, (event) => {
+      if (event.type === "status" && event.message) {
+        lastMsg = event.message;
+        showStatus(event.message, "loading");
+      }
+    });
+
+    if (lastMsg) showStatus(lastMsg, "loading");
+    renderFiles(files, data);
+    return files;
+  }
+
   async function generateMultiStepR1(data) {
     const steps = window.IPitchPrompts.getStepsForData(data);
     const system = window.IPitchPrompts.buildSystemPrompt();
@@ -396,7 +412,11 @@
 
     const cfg = window.IPitchAPI.loadConfig();
     const viaProxy = window.IPitchAPI.usesProxy(cfg);
-    if (!viaProxy && !cfg.apiKey) {
+    const viaServer = window.IPitchServerAPI &&
+      window.IPitchServerAPI.isConfigured() &&
+      window.IPitchPrompts.shouldUseMultiStepR1(data);
+
+    if (!viaServer && !viaProxy && !cfg.apiKey) {
       alert(window.t("noApiKey"));
       openModal("settings-modal");
       return;
@@ -409,7 +429,9 @@
 
     try {
       let files;
-      if (window.IPitchPrompts.shouldUseMultiStepR1(data)) {
+      if (viaServer) {
+        files = await generateViaServerR1(data);
+      } else if (window.IPitchPrompts.shouldUseMultiStepR1(data)) {
         files = await generateMultiStepR1(data);
       } else {
         const system = window.IPitchPrompts.buildSystemPrompt();
@@ -446,10 +468,16 @@
 
   function updateApiStatus() {
     const cfg = window.IPitchAPI.loadConfig();
+    const serverCfg = window.IPitchServerAPI ? window.IPitchServerAPI.loadConfig() : { serverUrl: "" };
     const el = $("#api-status-badge");
     if (!el) return;
     const viaProxy = window.IPitchAPI.usesProxy(cfg);
-    if (viaProxy) {
+    const viaServer = window.IPitchServerAPI && window.IPitchServerAPI.isConfigured(serverCfg);
+    if (viaServer) {
+      el.className = "api-status ok";
+      const host = serverCfg.serverUrl.replace(/^https?:\/\//, "").split("/")[0];
+      el.innerHTML = '<span class="dot"></span> Server · ' + host;
+    } else if (viaProxy) {
       el.className = "api-status ok";
       const host = cfg.proxyUrl.replace(/^https?:\/\//, "").split("/")[0];
       el.innerHTML = '<span class="dot"></span> Proxy · ' + host;
@@ -470,6 +498,11 @@
       model: $("#api-model").value
     };
     window.IPitchAPI.saveConfig(cfg);
+    if (window.IPitchServerAPI) {
+      window.IPitchServerAPI.saveConfig({
+        serverUrl: $("#api-server").value.trim()
+      });
+    }
     updateApiStatus();
     alert(window.t("saved"));
   }
@@ -480,6 +513,11 @@
     $("#api-base").value = cfg.baseUrl || window.IPitchAPI.DEFAULTS.baseUrl;
     $("#api-proxy").value = cfg.proxyUrl || "";
     $("#api-model").value = cfg.model || "deepseek-chat";
+    if (window.IPitchServerAPI) {
+      const serverCfg = window.IPitchServerAPI.loadConfig();
+      const serverEl = $("#api-server");
+      if (serverEl) serverEl.value = serverCfg.serverUrl || "";
+    }
   }
 
   async function testApi() {
@@ -493,7 +531,18 @@
         proxyUrl: $("#api-proxy").value.trim(),
         model: $("#api-model").value
       });
-      await window.IPitchAPI.testConnection();
+      if (window.IPitchServerAPI) {
+        window.IPitchServerAPI.saveConfig({
+          serverUrl: $("#api-server").value.trim()
+        });
+      }
+
+      const serverUrl = $("#api-server")?.value.trim();
+      if (serverUrl && window.IPitchServerAPI) {
+        await window.IPitchServerAPI.checkHealth(serverUrl);
+      } else {
+        await window.IPitchAPI.testConnection();
+      }
       alert(window.t("testOk"));
       updateApiStatus();
     } catch (err) {

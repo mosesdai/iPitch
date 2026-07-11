@@ -33,6 +33,7 @@ chmod +x deploy.sh
 | Name | Where | Description |
 |------|-------|-------------|
 | `DEEPSEEK_API_KEY` | `wrangler secret put` | DeepSeek API key (`sk-...`) — **required** |
+| `TAVILY_API_KEY` | `wrangler secret put` | Tavily search for marathon `source_hunt` — **optional** |
 
 ## Optional configuration
 
@@ -71,12 +72,14 @@ Expected response:
   "ok": true,
   "service": "ipitch-deepseek-proxy",
   "keyConfigured": true,
+  "searchConfigured": false,
   "allowedOrigins": "*",
   "timestamp": "2026-07-09T12:00:00.000Z"
 }
 ```
 
 - `keyConfigured: false` → run `wrangler secret put DEEPSEEK_API_KEY`
+- `searchConfigured: false` → optional; run `wrangler secret put TAVILY_API_KEY` for UI marathon source_hunt
 - HTTP 200 + `ok: true` → worker is live
 
 Test chat path (minimal):
@@ -106,9 +109,26 @@ Priority: UI saved `proxyUrl` overrides `window.IPITCH_PROXY_URL`.
 
 | Path | Method | Description |
 |------|--------|-------------|
-| `/health` | GET | Liveness + `keyConfigured` status |
+| `/health` | GET | Liveness + `keyConfigured` + `searchConfigured` |
 | `/v1/chat/completions` | POST | Proxied to DeepSeek (streaming supported) |
+| `/v1/search` | POST | Tavily search proxy for marathon `source_hunt` (needs `TAVILY_API_KEY`) |
 | `/` | POST | Same as `/v1/chat/completions` |
+
+### `/v1/search` (optional)
+
+Used by `ui/js/search.js` during marathon mode `source_hunt` step.
+
+```bash
+curl -s -X POST "https://ipitch-deepseek-proxy.<account>.workers.dev/v1/search" \
+  -H "Content-Type: application/json" \
+  -d '{"query":"NIO EV market share 2025","max_results":5}'
+```
+
+Configure Tavily:
+
+```bash
+npx wrangler secret put TAVILY_API_KEY
+```
 
 ## Security notes
 

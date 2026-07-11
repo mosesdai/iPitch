@@ -1,5 +1,20 @@
 # CHANGELOG · iPitch
 
+## 2026-07-11 · Phase 2 — HTTP API + UI 服务端编排
+
+### server/ HTTP API
+- `src/http.js`：`GET /health`、`POST /v1/r1/jobs`（异步）、`GET /v1/r1/jobs/:id`（轮询）、`POST /v1/r1/run`（同步）
+- `lib/job-store.js`：内存任务队列（单进程）
+- `lib/chat.js`：CLI 与 HTTP 共享 DeepSeek `chatFn`
+- `lib/pipeline-request.js`：HTTP body → profile / steps / input
+- `npm run serve`（默认 `http://127.0.0.1:3921`）
+- `test/http-api.test.js`：health、同步 stub、异步 job 完成
+
+### UI 集成
+- `ui/js/server-api.js`：配置 Server URL 后，多步 R1 / 马拉松跑在服务端
+- 设置页新增 **Server URL**；状态栏显示 `Server · host`
+- 请求体携带与浏览器多步相同的 `steps` 列表
+
 ## 2026-07-09 · 机制：搜索 + 人工 Grill + Pitchvision 马拉松
 
 ### 源猎取（source_hunt）

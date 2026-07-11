@@ -93,13 +93,16 @@ Cloud Agent / 后台 Agent：在分支上实现 → 自检（gate、lint、/heal
 | 浏览器绕过 CORS + 隐藏 Key | Cloudflare Worker（`worker/`） |
 | 流式生成 + Gate 显示 | `ui/js/app.js` Phase 0 |
 | 案例 ZIP 导出 | `cases/{slug}/` 结构 |
+| **服务端多步 R1（可关浏览器）** | `server/` Phase 2 HTTP API + `ui/js/server-api.js` |
 | 云端长跑开发 | Cursor Cloud Agents（需仓库 + 套餐） |
 | 全自动云端案例库 / 多用户 | 未实现（后续 Phase） |
 
 **你睡觉时可以做的：** 让 Cloud Agent 在分支上推进 Phase 1（例如服务端 Gate、案例同步），并约定「无分叉则直接开 PR」。  
 **Pitchvision 马拉松：** 见 `docs/PITCHVISION_MARATHON.md` — UI 导出 `cursor_runbook.md` 或勾选马拉松模式（搜索 + 分步 iPod + Grill 签核）。
 
-**你醒来应检查的：** PR diff、Gate 是否通过、ifalsify 是否 KILL/PIVOT、Proxy `/health` 是否 `keyConfigured: true`。
+**Phase 2 服务端编排：** `cd server && npm run serve` → UI 设置 **Server URL**（默认 `http://127.0.0.1:3921`）→ 多步 R1 在服务端跑，浏览器轮询 job 状态；适合长跑、关笔记本。
+
+**你醒来应检查的：** PR diff、Gate 是否通过、ifalsify 是否 KILL/PIVOT、Proxy `/health` 是否 `keyConfigured: true`、Server `/health` 是否 `keyViaEnv: true`（若用 live 模式）。
 
 ---
 
@@ -109,8 +112,9 @@ Cloud Agent / 后台 Agent：在分支上实现 → 自检（gate、lint、/heal
 2. [ ] **GitHub Pages** 启用（或 merge `deploy-pages.yml` 后首次 push）
 3. [ ] **Cloudflare Worker** 部署 + `DEEPSEEK_API_KEY` secret
 4. [ ] UI **Proxy URL** 或 `window.IPITCH_PROXY_URL` 指向 Worker
-5. [ ] （可选）GitHub Secrets：`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ACCOUNT_ID` → Worker CI
-6. [ ] （可选）**Cursor Cloud Agents** 开启，默认从 `main` 拉分支干活
+5. [ ] （可选）**Server** `npm run serve` + UI **Server URL** → 长跑 R1 不绑浏览器
+6. [ ] （可选）GitHub Secrets：`CLOUDFLARE_API_TOKEN`、`CLOUDFLARE_ACCOUNT_ID` → Worker CI
+7. [ ] （可选）**Cursor Cloud Agents** 开启，默认从 `main` 拉分支干活
 
 完成后：
 
