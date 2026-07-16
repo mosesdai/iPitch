@@ -141,6 +141,13 @@ window.IPitchServerAPI = (function () {
   async function runPipeline(data, onProgress) {
     const cfg = loadConfig();
     const created = await createJob(data, cfg);
+    onProgress?.({
+      type: "created",
+      jobId: created.jobId,
+      status: created.status,
+      stepsTotal: created.stepsTotal,
+      profile: created.profile
+    });
     const result = await waitForJob(created.jobId, (summary) => {
       const zh = window.IPITCH_LANG === "zh";
       const step = summary.currentStep;
@@ -151,7 +158,12 @@ window.IPitchServerAPI = (function () {
       onProgress?.({ type: "status", message: msg, summary });
     }, cfg);
 
-    return result.files;
+    return {
+      jobId: created.jobId,
+      profile: created.profile,
+      stepsTotal: created.stepsTotal,
+      files: result.files
+    };
   }
 
   return {

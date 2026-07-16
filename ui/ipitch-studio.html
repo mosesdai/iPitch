@@ -130,6 +130,35 @@
   <!-- Output -->
   <section class="output-section card" id="output-section">
     <h2 class="card-title" data-i18n="filesLabel">产出文件</h2>
+    <div id="run-center" class="run-center" style="display:none;">
+      <div class="run-center-head">
+        <div>
+          <div class="run-center-kicker" data-i18n="runCenter">Run Center</div>
+          <div id="run-title" class="run-center-title">—</div>
+        </div>
+        <span id="run-status-pill" class="run-status-pill">idle</span>
+      </div>
+      <div class="run-meta-grid">
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runMode">运行模式</span>
+          <strong id="run-mode">—</strong>
+        </div>
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runStage">当前阶段</span>
+          <strong id="run-stage">—</strong>
+        </div>
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runProgress">进度</span>
+          <strong id="run-progress">—</strong>
+        </div>
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runJobId">Run / Job ID</span>
+          <strong id="run-job-id">—</strong>
+        </div>
+      </div>
+      <div class="run-progress-bar"><span id="run-progress-bar"></span></div>
+      <div id="run-steps" class="run-steps"></div>
+    </div>
     <div id="gate-status" class="gate-status" style="display:none;"></div>
     <div id="status-bar" class="status-bar" style="display:none"></div>
     <div class="file-tabs" id="file-tabs"></div>

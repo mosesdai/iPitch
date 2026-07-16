@@ -1,5 +1,12 @@
 # CHANGELOG · iPitch
 
+## 2026-07-16 · Run Center + Gate Panel（借鉴 Agent 工作流心智）
+
+- UI 输出区新增 **Run Center**：显示运行模式、当前阶段、进度、jobId、step chips
+- `ui/js/server-api.js` 把 async job 的 `created/status` 事件暴露给前端，Run Center 可显示真实服务端 job
+- `Gate Status` 升级为 **验收明细面板**：必需文件、冰山字数、溯源账本、ifalsify、A/B 计数、main tension 分项显示 `PASS / REPAIR / WARN`
+- 交互目标从“生成一段文本”更明确转向“观察一个可追踪 run”
+
 ## 2026-07-11 · Phase 2 — HTTP API + UI 服务端编排
 
 ### server/ HTTP API

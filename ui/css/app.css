@@ -378,9 +378,126 @@ input::placeholder {
 .status-bar.error { background: #fef2f2; color: var(--danger); }
 .status-bar.success { background: #ecfdf5; color: var(--success); }
 
+.run-center {
+  margin-bottom: 14px;
+  padding: 16px;
+  background: linear-gradient(180deg, #f8faff, #f5f7ff);
+  border: 1px solid #c7d2fe;
+  border-radius: var(--radius);
+}
+
+.run-center-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.run-center-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.run-center-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.run-status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.run-status-pill.status-running { background: #eef2ff; color: var(--accent); border-color: #c7d2fe; }
+.run-status-pill.status-done { background: #ecfdf5; color: var(--success); border-color: #86efac; }
+.run-status-pill.status-failed { background: #fef2f2; color: var(--danger); border-color: #fca5a5; }
+.run-status-pill.status-queued { background: #fffbeb; color: var(--warning); border-color: #fcd34d; }
+
+.run-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.run-meta-card {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.run-meta-label {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.run-meta-card strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.run-progress-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.run-progress-bar span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), #818cf8);
+  transition: width 0.2s ease;
+}
+
+.run-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.run-step-chip {
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.run-step-chip.is-done {
+  background: #ecfdf5;
+  border-color: #86efac;
+  color: var(--success);
+}
+
+.run-step-chip.is-active {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+  color: var(--accent);
+}
+
 .gate-status {
   margin-bottom: 12px;
-  padding: 10px 14px;
+  padding: 14px;
   border-radius: var(--radius-sm);
   font-size: 13px;
   line-height: 1.5;
@@ -392,6 +509,67 @@ input::placeholder {
 .gate-status.gate-warn {
   background: #fffbeb;
   border: 1px solid var(--warning);
+}
+
+.gate-status-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.gate-summary {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.gate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.gate-item {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.gate-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.gate-item strong {
+  font-size: 13px;
+}
+
+.gate-badge {
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.gate-badge.pass { background: #dcfce7; color: #166534; }
+.gate-badge.repair { background: #fef3c7; color: #92400e; }
+.gate-badge.warn { background: #fee2e2; color: #991b1b; }
+
+.gate-item-detail {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.gate-footnote {
+  margin-top: 10px;
+  color: var(--text-secondary);
+  font-size: 12px;
 }
 
 .stream-preview {
@@ -656,4 +834,6 @@ textarea:hover {
   .header-inner { flex-wrap: wrap; }
   .btn-row { flex-direction: column; }
   .btn-primary { width: 100%; }
+  .run-meta-grid,
+  .gate-grid { grid-template-columns: 1fr; }
 }
