@@ -130,6 +130,35 @@
   <!-- Output -->
   <section class="output-section card" id="output-section">
     <h2 class="card-title" data-i18n="filesLabel">产出文件</h2>
+    <div id="run-center" class="run-center" style="display:none;">
+      <div class="run-center-head">
+        <div>
+          <div class="run-center-kicker" data-i18n="runCenter">Run Center</div>
+          <div id="run-title" class="run-center-title">—</div>
+        </div>
+        <span id="run-status-pill" class="run-status-pill">idle</span>
+      </div>
+      <div class="run-meta-grid">
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runMode">运行模式</span>
+          <strong id="run-mode">—</strong>
+        </div>
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runStage">当前阶段</span>
+          <strong id="run-stage">—</strong>
+        </div>
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runProgress">进度</span>
+          <strong id="run-progress">—</strong>
+        </div>
+        <div class="run-meta-card">
+          <span class="run-meta-label" data-i18n="runJobId">Run / Job ID</span>
+          <strong id="run-job-id">—</strong>
+        </div>
+      </div>
+      <div class="run-progress-bar"><span id="run-progress-bar"></span></div>
+      <div id="run-steps" class="run-steps"></div>
+    </div>
     <div id="gate-status" class="gate-status" style="display:none;"></div>
     <div id="status-bar" class="status-bar" style="display:none"></div>
     <div class="file-tabs" id="file-tabs"></div>
@@ -207,6 +236,11 @@
           <input type="text" id="api-proxy" data-i18n-placeholder="apiProxyPlaceholder" placeholder="https://ipitch-deepseek-proxy.xxx.workers.dev"/>
         </div>
         <div class="field">
+          <label for="api-server" data-i18n="apiServerLabel">Server URL（Phase 2 编排）</label>
+          <p class="field-hint" data-i18n="apiServerHint">填写后 R1 多步跑在服务端（可关浏览器）。本地：npm run serve（默认 3921）</p>
+          <input type="text" id="api-server" data-i18n-placeholder="apiServerPlaceholder" placeholder="http://127.0.0.1:3921"/>
+        </div>
+        <div class="field">
           <label for="api-key" data-i18n="apiKeyLabel">DeepSeek API Key</label>
           <p class="field-hint" data-i18n="apiKeyHint">密钥仅保存在本机</p>
           <input type="password" id="api-key" data-i18n-placeholder="apiKeyPlaceholder" placeholder="sk-…" autocomplete="off"/>
@@ -236,6 +270,7 @@
 <script src="js/i18n.js"></script>
 <script src="js/prompts.js"></script>
 <script src="js/api.js"></script>
+<script src="js/server-api.js"></script>
 <script src="js/search.js"></script>
 <script src="js/app.js"></script>
 </body>

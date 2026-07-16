@@ -7,6 +7,18 @@
   let currentFiles = [];
   let activeFileIndex = 0;
   let selectedRound = "R1";
+  let currentRunState = {
+    visible: false,
+    mode: "idle",
+    profile: null,
+    status: "idle",
+    title: "",
+    jobId: "",
+    currentStep: "",
+    steps: [],
+    stepsDone: 0,
+    stepsTotal: 0
+  };
 
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => document.querySelectorAll(sel);
@@ -29,6 +41,8 @@
     $("#lang-zh").classList.toggle("active", window.IPITCH_LANG === "zh");
     $("#lang-en").classList.toggle("active", window.IPITCH_LANG === "en");
     updateApiStatus();
+    updateRunCenter();
+    if (currentFiles.length) renderGateStatus(currentFiles, getFormData());
   }
 
   function setLang(lang) {
@@ -96,6 +110,74 @@
     $("#status-bar").style.display = "none";
   }
 
+  function escapeHtml(text) {
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function runStatusLabel(status) {
+    const map = {
+      idle: "runStatusIdle",
+      queued: "runStatusQueued",
+      running: "runStatusRunning",
+      done: "runStatusDone",
+      failed: "runStatusFailed"
+    };
+    return window.t(map[status] || map.idle);
+  }
+
+  function formatRunMode(mode, profile) {
+    const base = window.t(
+      mode === "server" ? "runModeServer" :
+      mode === "browser" ? "runModeBrowser" :
+      mode === "cursor" ? "runModeCursor" :
+      "runModeBrowser"
+    );
+    if (!profile) return base;
+    const profileLabel = profile === "marathon" ? window.t("runModeMarathon") : window.t("runModeQuick");
+    return `${base} · ${profileLabel}`;
+  }
+
+  function updateRunCenter(patch = {}) {
+    currentRunState = { ...currentRunState, ...patch };
+    const root = $("#run-center");
+    if (!root) return;
+    if (!currentRunState.visible) {
+      root.style.display = "none";
+      return;
+    }
+
+    root.style.display = "block";
+    $("#run-title").textContent = currentRunState.title || $("#target").value.trim() || "iPitch";
+    $("#run-mode").textContent = formatRunMode(currentRunState.mode, currentRunState.profile);
+    $("#run-stage").textContent = currentRunState.currentStep
+      ? (window.IPitchPrompts?.R1_STEP_LABELS?.[currentRunState.currentStep] || currentRunState.currentStep)
+      : "—";
+    $("#run-progress").textContent = currentRunState.stepsTotal
+      ? `${currentRunState.stepsDone || 0} / ${currentRunState.stepsTotal}`
+      : "—";
+    $("#run-job-id").textContent = currentRunState.jobId || "—";
+
+    const pill = $("#run-status-pill");
+    pill.textContent = runStatusLabel(currentRunState.status);
+    pill.className = "run-status-pill status-" + currentRunState.status;
+
+    const pct = currentRunState.stepsTotal
+      ? Math.max(0, Math.min(100, Math.round(((currentRunState.stepsDone || 0) / currentRunState.stepsTotal) * 100)))
+      : 0;
+    $("#run-progress-bar").style.width = pct + "%";
+
+    const labels = window.IPitchPrompts?.R1_STEP_LABELS || {};
+    $("#run-steps").innerHTML = (currentRunState.steps || []).map((stepId, idx) => {
+      const done = idx < (currentRunState.stepsDone || 0);
+      const active = stepId === currentRunState.currentStep && currentRunState.status !== "done";
+      const cls = done ? "run-step-chip is-done" : active ? "run-step-chip is-active" : "run-step-chip";
+      return `<span class="${cls}">${escapeHtml(labels[stepId] || stepId)}</span>`;
+    }).join("");
+  }
+
   function slugFromTarget(target) {
     return (target || "case")
       .toLowerCase()
@@ -145,6 +227,9 @@
     const actualIceberg = countResearchCharsFromFiles(files);
     const zh = window.IPITCH_LANG === "zh";
     const parts = [];
+    const aCount = passport ? (passport.num_a_tier_facts ?? passport.a_tier_facts ?? passport.aTierFacts) : null;
+    const bCount = passport ? (passport.num_b_tier_facts ?? passport.b_tier_facts ?? passport.bTierFacts) : null;
+    const verdict = passport ? (passport.ifalsify_verdict ?? passport.ifalsify_overall_verdict ?? passport.ifalsifyVerdict) : null;
 
     if (passport) {
       const icebergCount = passport.iceberg_char_count ?? passport.icebergCharCount ?? actualIceberg;
@@ -159,8 +244,6 @@
           (low ? (zh ? "（<8000，品质未达标）" : " (<8000, below bar)") : "")
         );
       }
-      const aCount = passport.num_a_tier_facts ?? passport.a_tier_facts ?? passport.aTierFacts;
-      const bCount = passport.num_b_tier_facts ?? passport.b_tier_facts ?? passport.bTierFacts;
       if (aCount != null || bCount != null) {
         parts.push(
           "✅ " + (zh ? "溯源 A/B" : "Sources A/B") + ": " +
@@ -168,7 +251,6 @@
           (bCount != null ? "B=" + bCount : "B=?")
         );
       }
-      const verdict = passport.ifalsify_verdict ?? passport.ifalsify_overall_verdict ?? passport.ifalsifyVerdict;
       if (verdict) {
         const v = String(verdict).toUpperCase();
         const icon = v === "KILL" ? "🔴" : v === "PIVOT" ? "🟡" : v === "CONDITIONAL" ? "🟢" : "✅";
@@ -195,19 +277,82 @@
     const effectiveIceberg = actualIceberg > 0 ? actualIceberg : icebergCount;
     const warnLow = effectiveIceberg != null && Number(effectiveIceberg) < 8000;
 
+    const checks = [];
+    const filePass = hasIceberg && hasTrace && hasFalsify;
+    checks.push({
+      label: window.t("gateCheckFiles"),
+      outcome: filePass ? "pass" : "repair",
+      detail: filePass
+        ? (zh ? "门禁所需文件均已生成" : "All mandatory gate files are present")
+        : (zh ? "缺少冰山 / 溯源 / 证伪中的至少一个" : "Missing one or more mandatory gate files")
+    });
+    checks.push({
+      label: window.t("gateCheckIceberg"),
+      outcome: warnLow ? "repair" : "pass",
+      detail: effectiveIceberg != null
+        ? `${Number(effectiveIceberg).toLocaleString()} ${zh ? "字" : "chars"}`
+        : (zh ? "未找到可计数字段" : "No count found")
+    });
+    checks.push({
+      label: window.t("gateCheckTraceability"),
+      outcome: hasTrace ? "pass" : "repair",
+      detail: hasTrace
+        ? (zh ? "source_timeliness / data_traceability 可见" : "Traceability artifacts visible")
+        : (zh ? "缺少溯源账本或时效说明" : "Missing ledger or timeliness file")
+    });
+    checks.push({
+      label: window.t("gateCheckIfalsify"),
+      outcome: hasFalsify ? "pass" : "repair",
+      detail: verdict
+        ? `ifalsify: ${String(verdict).toUpperCase()}`
+        : (hasFalsify ? (zh ? "报告存在，待人工读裁决" : "Report exists; inspect verdict") : (zh ? "缺少 ifalsify 报告" : "ifalsify report missing"))
+    });
+    checks.push({
+      label: window.t("gateCheckSources"),
+      outcome: (aCount != null || bCount != null) ? "pass" : "warn",
+      detail: (aCount != null || bCount != null)
+        ? `A=${aCount != null ? aCount : "?"} · B=${bCount != null ? bCount : "?"}`
+        : (zh ? "quality_passport 未给出 A/B 计数" : "No A/B counts in passport")
+    });
+    checks.push({
+      label: window.t("gateCheckTension"),
+      outcome: passport?.main_tension ? "pass" : "warn",
+      detail: passport?.main_tension
+        ? String(passport.main_tension).slice(0, 90)
+        : (zh ? "未在 passport 中写出 main_tension" : "main_tension missing in passport")
+    });
+
     gateEl.style.display = "block";
     gateEl.className = warnLow ? "gate-status gate-warn" : "gate-status gate-ok";
     gateEl.innerHTML =
-      "<strong>" + window.t("gateStatus") + "</strong>：" +
-      parts.join(" · ") +
+      '<div class="gate-status-head">' +
+      `<strong>${escapeHtml(window.t("gateDetailTitle"))}</strong>` +
+      `<span class="gate-summary">${escapeHtml(parts.join(" · "))}</span>` +
+      "</div>" +
+      '<div class="gate-grid">' +
+      checks.map((item) => {
+        const badgeKey = item.outcome === "pass"
+          ? "gateOutcomePass"
+          : item.outcome === "repair"
+            ? "gateOutcomeRepair"
+            : "gateOutcomeWarn";
+        return (
+          '<div class="gate-item">' +
+            '<div class="gate-item-head">' +
+              `<strong>${escapeHtml(item.label)}</strong>` +
+              `<span class="gate-badge ${item.outcome}">${escapeHtml(window.t(badgeKey))}</span>` +
+            "</div>" +
+            `<div class="gate-item-detail">${escapeHtml(item.detail)}</div>` +
+          "</div>"
+        );
+      }).join("") +
+      "</div>" +
+      `<div class="gate-footnote">${escapeHtml(window.t("gateRepairHint"))}` +
       (passport
         ? ""
-        : '<span style="margin-left:8px;color:var(--muted);">' +
-          (zh ? "（文件名推断；未找到 quality_passport.json）" : " (filename fallback; no quality_passport.json)") +
-          "</span>") +
-      '<span style="margin-left:8px;color:#059669;">' +
-      (zh ? "（深刻洞察 + 颠覆性 iPod 创意；非哗众取宠）" : " (profound insight + disruptive iPod; not sensationalism)") +
-      "</span>";
+        : ` ${escapeHtml(zh ? "未找到 quality_passport.json，部分检查为文件名推断。" : "No quality_passport.json found; some checks use filename fallback.")}`) +
+      ` ${escapeHtml(zh ? "深刻洞察 + 颠覆性 iPod 创意，不是哗众取宠。" : "Profound insight + disruptive iPod, not sensationalism.")}` +
+      "</div>";
   }
 
   function renderFiles(files, data = {}) {
@@ -321,6 +466,60 @@
       "</pre></div>";
   }
 
+  async function generateViaServerR1(data) {
+    let lastMsg = "";
+
+    const result = await window.IPitchServerAPI.runPipeline(data, (event) => {
+      if (event.type === "created") {
+        updateRunCenter({
+          visible: true,
+          mode: "server",
+          profile: event.profile === "marathon" ? "marathon" : "quick",
+          status: event.status || "queued",
+          title: data.target,
+          jobId: event.jobId,
+          currentStep: "",
+          steps: window.IPitchPrompts.getStepsForData(data),
+          stepsDone: 0,
+          stepsTotal: event.stepsTotal || window.IPitchPrompts.getStepsForData(data).length
+        });
+      }
+      if (event.type === "status" && event.message) {
+        lastMsg = event.message;
+        showStatus(event.message, "loading");
+        const summary = event.summary || {};
+        updateRunCenter({
+          visible: true,
+          mode: "server",
+          profile: summary.profile === "marathon" ? "marathon" : "quick",
+          status: summary.status || "running",
+          title: summary.target || data.target,
+          jobId: summary.id || currentRunState.jobId,
+          currentStep: summary.currentStep || "",
+          steps: window.IPitchPrompts.getStepsForData(data),
+          stepsDone: summary.stepsDone || 0,
+          stepsTotal: summary.stepsTotal || window.IPitchPrompts.getStepsForData(data).length
+        });
+      }
+    });
+
+    if (lastMsg) showStatus(lastMsg, "loading");
+    updateRunCenter({
+      visible: true,
+      mode: "server",
+      profile: result.profile === "marathon" ? "marathon" : "quick",
+      status: "done",
+      title: data.target,
+      jobId: result.jobId,
+      currentStep: "",
+      steps: window.IPitchPrompts.getStepsForData(data),
+      stepsDone: result.stepsTotal || window.IPitchPrompts.getStepsForData(data).length,
+      stepsTotal: result.stepsTotal || window.IPitchPrompts.getStepsForData(data).length
+    });
+    renderFiles(result.files, data);
+    return result.files;
+  }
+
   async function generateMultiStepR1(data) {
     const steps = window.IPitchPrompts.getStepsForData(data);
     const system = window.IPitchPrompts.buildSystemPrompt();
@@ -328,6 +527,18 @@
     let allFiles = [];
     const zh = window.IPITCH_LANG === "zh";
     let searchCache = null;
+    updateRunCenter({
+      visible: true,
+      mode: "browser",
+      profile: data.marathonMode ? "marathon" : "quick",
+      status: "running",
+      title: data.target,
+      jobId: "browser-session",
+      currentStep: "",
+      steps,
+      stepsDone: 0,
+      stepsTotal: steps.length
+    });
 
     for (let i = 0; i < steps.length; i++) {
       const stepId = steps[i];
@@ -337,6 +548,11 @@
         ? `${modeTag} R1 · ${i + 1}/${steps.length}：${label}…`
         : `${modeTag} R1 · ${i + 1}/${steps.length}: ${label}…`;
       showStatus(statusMsg, "loading");
+      updateRunCenter({
+        currentStep: stepId,
+        stepsDone: i,
+        stepsTotal: steps.length
+      });
 
       const extras = {};
       if (stepId === "source_hunt" && window.IPitchSearch) {
@@ -366,9 +582,20 @@
 
       const stepFiles = window.IPitchPrompts.parseFileBlocks(raw);
       allFiles = window.IPitchPrompts.mergeFiles(allFiles, stepFiles);
+      updateRunCenter({
+        currentStep: stepId,
+        stepsDone: i + 1,
+        stepsTotal: steps.length
+      });
       renderFiles(allFiles, data);
     }
 
+    updateRunCenter({
+      status: "done",
+      currentStep: "",
+      stepsDone: steps.length,
+      stepsTotal: steps.length
+    });
     return allFiles;
   }
 
@@ -379,6 +606,18 @@
     updateSteps(data.round);
 
     if (!useApi) {
+      updateRunCenter({
+        visible: true,
+        mode: "cursor",
+        profile: data.marathonMode ? "marathon" : "quick",
+        status: "done",
+        title: data.target,
+        jobId: "cursor-export",
+        currentStep: "",
+        steps: window.IPitchPrompts.getStepsForData(data),
+        stepsDone: window.IPitchPrompts.getStepsForData(data).length,
+        stepsTotal: window.IPitchPrompts.getStepsForData(data).length
+      });
       const pack = window.IPitchPrompts.buildCursorPrompt(data);
       const files = [
         { name: "cursor_command.txt", content: pack.cursorCmd },
@@ -396,7 +635,11 @@
 
     const cfg = window.IPitchAPI.loadConfig();
     const viaProxy = window.IPitchAPI.usesProxy(cfg);
-    if (!viaProxy && !cfg.apiKey) {
+    const viaServer = window.IPitchServerAPI &&
+      window.IPitchServerAPI.isConfigured() &&
+      window.IPitchPrompts.shouldUseMultiStepR1(data);
+
+    if (!viaServer && !viaProxy && !cfg.apiKey) {
       alert(window.t("noApiKey"));
       openModal("settings-modal");
       return;
@@ -406,10 +649,24 @@
     $("#generate-btn").disabled = true;
     $("#output-section").classList.add("visible");
     showStreamingPreview("");
+    updateRunCenter({
+      visible: true,
+      mode: viaServer ? "server" : "browser",
+      profile: data.marathonMode ? "marathon" : "quick",
+      status: viaServer ? "queued" : "running",
+      title: data.target,
+      jobId: viaServer ? "pending" : "browser-session",
+      currentStep: "",
+      steps: window.IPitchPrompts.shouldUseMultiStepR1(data) ? window.IPitchPrompts.getStepsForData(data) : [],
+      stepsDone: 0,
+      stepsTotal: window.IPitchPrompts.shouldUseMultiStepR1(data) ? window.IPitchPrompts.getStepsForData(data).length : 0
+    });
 
     try {
       let files;
-      if (window.IPitchPrompts.shouldUseMultiStepR1(data)) {
+      if (viaServer) {
+        files = await generateViaServerR1(data);
+      } else if (window.IPitchPrompts.shouldUseMultiStepR1(data)) {
         files = await generateMultiStepR1(data);
       } else {
         const system = window.IPitchPrompts.buildSystemPrompt();
@@ -422,6 +679,7 @@
         renderFiles(files, data);
       }
       showStatus(window.t("generateDone") + " · " + files.length + " files", "success");
+      updateRunCenter({ status: "done" });
     } catch (err) {
       let msg = err.message || String(err);
       if (msg === "NO_API_KEY") msg = window.t("noApiKey");
@@ -430,6 +688,7 @@
           ? " — 浏览器 CORS 限制。请用「导出 Prompt」或部署 API 代理。"
           : " — Browser CORS. Use Export Prompt or deploy an API proxy.");
       }
+      updateRunCenter({ status: "failed" });
       showStatus(window.t("generateError") + ": " + msg, "error");
     } finally {
       $("#generate-btn").disabled = false;
@@ -446,10 +705,16 @@
 
   function updateApiStatus() {
     const cfg = window.IPitchAPI.loadConfig();
+    const serverCfg = window.IPitchServerAPI ? window.IPitchServerAPI.loadConfig() : { serverUrl: "" };
     const el = $("#api-status-badge");
     if (!el) return;
     const viaProxy = window.IPitchAPI.usesProxy(cfg);
-    if (viaProxy) {
+    const viaServer = window.IPitchServerAPI && window.IPitchServerAPI.isConfigured(serverCfg);
+    if (viaServer) {
+      el.className = "api-status ok";
+      const host = serverCfg.serverUrl.replace(/^https?:\/\//, "").split("/")[0];
+      el.innerHTML = '<span class="dot"></span> Server · ' + host;
+    } else if (viaProxy) {
       el.className = "api-status ok";
       const host = cfg.proxyUrl.replace(/^https?:\/\//, "").split("/")[0];
       el.innerHTML = '<span class="dot"></span> Proxy · ' + host;
@@ -470,6 +735,11 @@
       model: $("#api-model").value
     };
     window.IPitchAPI.saveConfig(cfg);
+    if (window.IPitchServerAPI) {
+      window.IPitchServerAPI.saveConfig({
+        serverUrl: $("#api-server").value.trim()
+      });
+    }
     updateApiStatus();
     alert(window.t("saved"));
   }
@@ -480,6 +750,11 @@
     $("#api-base").value = cfg.baseUrl || window.IPitchAPI.DEFAULTS.baseUrl;
     $("#api-proxy").value = cfg.proxyUrl || "";
     $("#api-model").value = cfg.model || "deepseek-chat";
+    if (window.IPitchServerAPI) {
+      const serverCfg = window.IPitchServerAPI.loadConfig();
+      const serverEl = $("#api-server");
+      if (serverEl) serverEl.value = serverCfg.serverUrl || "";
+    }
   }
 
   async function testApi() {
@@ -493,7 +768,18 @@
         proxyUrl: $("#api-proxy").value.trim(),
         model: $("#api-model").value
       });
-      await window.IPitchAPI.testConnection();
+      if (window.IPitchServerAPI) {
+        window.IPitchServerAPI.saveConfig({
+          serverUrl: $("#api-server").value.trim()
+        });
+      }
+
+      const serverUrl = $("#api-server")?.value.trim();
+      if (serverUrl && window.IPitchServerAPI) {
+        await window.IPitchServerAPI.checkHealth(serverUrl);
+      } else {
+        await window.IPitchAPI.testConnection();
+      }
       alert(window.t("testOk"));
       updateApiStatus();
     } catch (err) {

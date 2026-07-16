@@ -1,5 +1,27 @@
 # CHANGELOG · iPitch
 
+## 2026-07-16 · Run Center + Gate Panel（借鉴 Agent 工作流心智）
+
+- UI 输出区新增 **Run Center**：显示运行模式、当前阶段、进度、jobId、step chips
+- `ui/js/server-api.js` 把 async job 的 `created/status` 事件暴露给前端，Run Center 可显示真实服务端 job
+- `Gate Status` 升级为 **验收明细面板**：必需文件、冰山字数、溯源账本、ifalsify、A/B 计数、main tension 分项显示 `PASS / REPAIR / WARN`
+- 交互目标从“生成一段文本”更明确转向“观察一个可追踪 run”
+
+## 2026-07-11 · Phase 2 — HTTP API + UI 服务端编排
+
+### server/ HTTP API
+- `src/http.js`：`GET /health`、`POST /v1/r1/jobs`（异步）、`GET /v1/r1/jobs/:id`（轮询）、`POST /v1/r1/run`（同步）
+- `lib/job-store.js`：内存任务队列（单进程）
+- `lib/chat.js`：CLI 与 HTTP 共享 DeepSeek `chatFn`
+- `lib/pipeline-request.js`：HTTP body → profile / steps / input
+- `npm run serve`（默认 `http://127.0.0.1:3921`）
+- `test/http-api.test.js`：health、同步 stub、异步 job 完成
+
+### UI 集成
+- `ui/js/server-api.js`：配置 Server URL 后，多步 R1 / 马拉松跑在服务端
+- 设置页新增 **Server URL**；状态栏显示 `Server · host`
+- 请求体携带与浏览器多步相同的 `steps` 列表
+
 ## 2026-07-09 · 机制：搜索 + 人工 Grill + Pitchvision 马拉松
 
 ### 源猎取（source_hunt）

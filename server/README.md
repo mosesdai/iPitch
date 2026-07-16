@@ -1,13 +1,14 @@
-# iPitch Server — Phase 1 Agent Runtime
+# iPitch Server — Phase 1–2 Agent Runtime
 
 Node.js orchestrator that splits **R1** into discrete LLM steps instead of one monolithic browser prompt.
 
 ## Architecture
 
 ```
-ui/ipitch-studio.html (Phase 0)          server/ (Phase 1)
+ui/ipitch-studio.html (Phase 0)          server/ (Phase 1–2)
      │                              │
-     │  single chat completion      │  multi-step pipeline
+     │  browser multi-step OR       │  HTTP jobs + CLI
+     │  server-api.js offload       │
      ▼                              ▼
 DeepSeek via Worker proxy    orchestrator.js
                                     │
@@ -17,7 +18,7 @@ DeepSeek via Worker proxy    orchestrator.js
               (prompts.js)   (protocols/)     (shared w/ UI)
 ```
 
-### R1 pipeline steps
+### R1 pipeline steps (quick profile)
 
 | Step | Outputs | Protocol / template sources |
 |------|---------|----------------------------|
@@ -29,56 +30,95 @@ DeepSeek via Worker proxy    orchestrator.js
 | `ifalsify` | `ifalsify_report.md` | `references/ifalsify_report_template.md` |
 | `files` | `handoff_to_sales.md`, `quality_passport.json` | `references/handoff_to_sales_template.md` |
 
-Steps run sequentially. Each step receives prior file outputs as context (priority files first for later steps) and must return `===FILE: …===` blocks (same contract as `ui/js/prompts.js`).
+**Marathon profile** (`--profile marathon` or UI marathon mode): adds `source_hunt`, split `pitchvision_*`, and `grill` — see `docs/PITCHVISION_MARATHON.md`.
 
-System prompt = **KERNEL + Grill + ifalsify + OUTPUT_FORMAT** extracted from `ui/js/prompts.js` (single source of truth — not copied into `server/`).
+Steps run sequentially. Each step receives prior file outputs as context and must return `===FILE: …===` blocks (same contract as `ui/js/prompts.js`).
 
-### Phase 1 scope
+System prompt = **KERNEL + Grill + ifalsify + OUTPUT_FORMAT** extracted from `ui/js/prompts.js` (single source of truth).
+
+### Phase scope
 
 - ✅ Seven-step definitions + orchestrator (`charter` → `files`)
+- ✅ Marathon profile (12 steps)
 - ✅ KERNEL loaded from `ui/js/prompts.js`
-- ✅ Protocol snippets loaded from `protocols/` + `references/`
-- ✅ `parseFileBlocks` shared contract with UI
-- ✅ Stub responses for **all** steps (local / CI without API keys)
-- ✅ Per-step + full-pipeline golden tests vs `nio/account-v3/` baseline
-- ✅ Strict mode: missing expected files / invalid passport JSON → fail
-- ⏳ HTTP API / job queue (Phase 2)
-- ⏳ UI integration switch (Phase 2)
+- ✅ Protocol snippets from `protocols/` + `references/`
+- ✅ Stub responses for all steps (local / CI without API keys)
+- ✅ Per-step + full-pipeline golden tests vs `nio/account-v3/`
+- ✅ **HTTP API** — async jobs + sync run (`src/http.js`)
+- ✅ **UI integration** — `ui/js/server-api.js` offloads multi-step R1 when Server URL is set
 - ⏳ Live LLM quality vs golden (needs `DEEPSEEK_*` secrets)
 
 ## Usage
 
 ```bash
 cd server
-npm test                    # per-step + full stub golden suite
-npm run pipeline:dry        # print all step prompts (KERNEL + protocols), no API
-npm run pipeline:stub       # run full seven-step stub for NIO
+npm test                         # golden + HTTP API tests
+npm run pipeline:dry             # print all step prompts, no API
+npm run pipeline:stub            # full seven-step stub for NIO
+npm run pipeline:marathon:stub   # marathon profile stub
+npm run serve                    # HTTP API on http://127.0.0.1:3921
 ```
 
-### Live LLM (local only — no keys in repo)
+### HTTP API (Phase 2)
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET` | `/health` | Liveness + `keyViaEnv` |
+| `POST` | `/v1/r1/jobs` | Create async job → `{ jobId, poll }` |
+| `GET` | `/v1/r1/jobs` | List recent jobs |
+| `GET` | `/v1/r1/jobs/:id` | Poll status; `result` when `done` |
+| `POST` | `/v1/r1/run` | Synchronous run (blocking) |
+
+Request body (JSON):
+
+```json
+{
+  "target": "蔚来 NIO",
+  "customer": "",
+  "internal": "",
+  "profile": "marathon",
+  "marathonMode": true,
+  "steps": ["charter", "timeliness", "research"],
+  "stub": false
+}
+```
+
+- `steps` — optional subset; UI sends the same list as browser multi-step mode
+- `stub: true` — CI / local without API keys
+
+Environment for live runs:
 
 ```bash
 export DEEPSEEK_API_KEY=sk-…          # or DEEPSEEK_PROXY_URL=https://….workers.dev
-node src/cli.js --target "蔚来 NIO" --steps charter,timeliness
-node src/cli.js --target "蔚来 NIO"   # all seven steps
+export PORT=3921                       # optional
+node src/http.js
 ```
 
-Secrets via environment only. Never commit API keys.
+### UI offload
+
+1. Start server: `npm run serve`
+2. In **API 设置**, set **Server URL** → `http://127.0.0.1:3921`
+3. Click **测试连接** (checks `/health`)
+4. **生成产出** — multi-step R1 runs on server; browser polls job status
+
+Server holds `DEEPSEEK_*` env vars; UI does not need a browser API key when using server-only mode for R1.
+
+### CLI
+
+```bash
+export DEEPSEEK_API_KEY=sk-…
+node src/cli.js --target "蔚来 NIO" --steps charter,timeliness
+node src/cli.js --target "蔚来 NIO"                    # all seven steps
+node src/cli.js --stub --profile marathon --target NIO   # marathon stub
+```
 
 ## Golden reference
 
-`nio/account-v3/` is the quality bar:
-
-- Required gate files present (`00_charter`, timeliness, traceability, tensions, knife, handoff, research/*)
-- Pipeline stub also emits `ifalsify_report.md` + `quality_passport.json` (product KERNEL gates; older golden dir may lack these files on disk)
-- `research/` total ≥ ~8000 characters (v3 ≈ 7909; stub pads to clear the gate)
-- Knife + handoff present
-
-See `test/golden-nio-v3.test.js` — one test per step, plus full seven-step accumulation.
+`nio/account-v3/` is the quality bar. See `test/golden-nio-v3.test.js`.
 
 ## Related
 
-- Browser UI: `ui/ipitch-studio.html`
+- Browser UI: `ui/ipitch-studio.html`, `ui/js/server-api.js`
 - Worker proxy: `worker/`
 - Protocol kernel: `protocols/ipitch.md`
 - Prompt KERNEL: `ui/js/prompts.js`
