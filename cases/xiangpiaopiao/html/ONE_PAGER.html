@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>香飘飘 · 会前关键信息</title>
+<style>
+:root{
+  --ink:#152028;
+  --muted:#5a6a76;
+  --line:#c9d2da;
+  --bg:#eef2f4;
+  --paper:#fbfcfd;
+  --panel:#ffffff;
+  --accent:#1f6b63;
+  --accent-soft:#e4f0ee;
+  --warn:#8a5a12;
+  --warn-soft:#f7efd9;
+  --kill:#9b2c2c;
+  --kill-soft:#f8e8e8;
+  --ok:#1a6b45;
+  --chip:#dce6ec;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 500px at 8% -10%, #d9e8e5 0%, transparent 55%),
+    radial-gradient(900px 420px at 100% 0%, #d7dde4 0%, transparent 50%),
+    var(--bg);
+  font-size:12.2px;
+  line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+.page{
+  max-width:1180px;
+  margin:18px auto 28px;
+  padding:18px 20px 16px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  box-shadow:0 10px 36px rgba(21,32,40,.06);
+}
+.top{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px 18px;
+  align-items:end;
+  padding-bottom:12px;
+  margin-bottom:12px;
+  border-bottom:2px solid var(--ink);
+}
+.brand{
+  font-size:22px;
+  font-weight:750;
+  letter-spacing:.02em;
+  margin:0;
+  line-height:1.15;
+}
+.brand span{color:var(--accent);font-weight:650;font-size:15px;margin-left:8px}
+.sub{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:11.5px;
+}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.badge{
+  font-size:10.5px;font-weight:700;letter-spacing:.04em;
+  padding:4px 8px;border:1px solid var(--line);background:var(--chip);color:var(--ink);
+}
+.badge.cond{background:var(--warn-soft);border-color:#e0c788;color:var(--warn)}
+.badge.kill{background:var(--kill-soft);border-color:#e3b4b4;color:var(--kill)}
+.verdict{
+  grid-column:1 / -1;
+  background:linear-gradient(90deg, var(--accent-soft), #f3f6f8 70%);
+  border-left:3px solid var(--accent);
+  padding:8px 12px;
+  font-size:12.5px;
+  font-weight:600;
+}
+.grid{
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:14px 16px;
+}
+.col{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  min-width:0;
+}
+.block{
+  background:var(--panel);
+  border:1px solid var(--line);
+  padding:9px 11px 10px;
+}
+.block h2{
+  margin:0 0 7px;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:750;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.block h2::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:var(--line);
+}
+.block p{margin:0 0 6px}
+.block ul{margin:0;padding-left:16px}
+.block li{margin:0 0 3px}
+table{width:100%;border-collapse:collapse;font-size:11.3px}
+th,td{
+  border-bottom:1px solid var(--line);
+  padding:3.5px 5px;
+  text-align:left;
+  vertical-align:top;
+}
+th{color:var(--muted);font-weight:650;font-size:10.5px}
+tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{
+  display:inline-block;
+  font-size:9.5px;font-weight:700;
+  padding:1px 4px;margin-left:3px;
+  border:1px solid var(--line);color:var(--muted);background:#f4f7f9;
+  vertical-align:middle;
+}
+.tag.a{color:var(--ok);border-color:#b7d8c6;background:#edf7f1}
+.tag.b{color:#355f8a;border-color:#b9cfe3;background:#eef5fb}
+.tag.c{color:var(--warn);border-color:#e0c788;background:var(--warn-soft)}
+.tag.w{color:var(--warn);border-color:#e0c788;background:var(--warn-soft)}
+.em{font-weight:700}
+.down{color:var(--kill)}
+.up{color:var(--ok)}
+.matrix{
+  display:grid;
+  grid-template-columns:56px 1fr 1fr;
+  gap:4px;
+  font-size:11px;
+}
+.matrix .h,.matrix .r{
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-weight:700;
+  padding:5px 6px;
+  text-align:center;
+}
+.matrix .cell{
+  border:1px solid var(--line);
+  padding:6px 7px;
+  background:#fff;
+  min-height:52px;
+}
+.matrix .lab{font-weight:750;color:var(--accent);font-size:10px;margin-bottom:2px}
+.swot{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:5px;
+}
+.swot div{
+  border:1px solid var(--line);
+  padding:6px 7px;
+  background:#fff;
+  min-height:48px;
+}
+.swot strong{display:block;font-size:10.5px;color:var(--accent);margin-bottom:2px}
+.t1{
+  background:var(--ink);
+  color:#f3f6f8;
+  padding:9px 11px;
+  border:none;
+}
+.t1 h2{color:#9fd0c8}
+.t1 h2::after{background:rgba(255,255,255,.18)}
+.t1 .line{font-size:13px;font-weight:700;line-height:1.4;margin:0 0 8px}
+.asks{margin:0;padding-left:16px}
+.asks li{margin:0 0 4px}
+.killbox{
+  background:var(--kill-soft);
+  border:1px solid #e3b4b4;
+  padding:7px 9px;
+  font-size:11px;
+}
+.killbox strong{color:var(--kill)}
+.l0{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:4px 10px;
+  font-size:11px;
+}
+.l0 span{color:var(--muted)}
+.foot{
+  margin-top:10px;
+  padding-top:8px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  color:var(--muted);
+  font-size:10.5px;
+}
+.use{
+  background:var(--accent-soft);
+  border:1px solid #bdd6d2;
+  padding:7px 10px;
+  font-size:11.5px;
+}
+.use strong{color:var(--accent)}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .top{grid-template-columns:1fr}
+  .badges{justify-content:flex-start}
+  .l0,.swot{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff}
+  .page{
+    max-width:none;margin:0;padding:8mm;
+    border:none;box-shadow:none;
+  }
+  .block,.t1,.use,.killbox{break-inside:avoid}
+  @page{size:A4 landscape;margin:8mm}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 class="brand">香飘飘<span>会前关键信息</span></h1>
+      <p class="sub">SH 603711 · 时间锚 2025 年报 + 2026Q1 · 真源 ONE_PAGER.md · 非会面话术稿 / 不写权益包</p>
+    </div>
+    <div class="badges">
+      <span class="badge cond">证伪核查：有条件推进</span>
+      <span class="badge">数据以公司官方公告为准</span>
+      <span class="badge kill">禁编三年预测</span>
+    </div>
+    <div class="verdict">
+      一句话裁决：三套代言人资产已切开；1,703 经销商未必有三套打法；费用收缩年宜先小试验 —— <span class="em">禁用一厢情愿的话术</span>（拿广告费−62%催大赞助 / 拿Q1反弹催花钱 / 劝再签第四个明星）。
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- LEFT -->
+    <div class="col">
+      <section class="block">
+        <h2>01 · 使命 / 愿景 / 阶段</h2>
+        <p><span class="em">使命</span> 让人们更享受生活 <span class="tag a">A</span>
+          · <span class="em">愿景</span> 全球知名食品饮料品牌企业 <span class="tag a">A</span></p>
+        <p><span class="em">生命周期</span> 成熟基本盘 × 二次/三次创业转型（冲泡守盘 + 即饮第二曲线 + 体验试验）；挂 2025 收缩年，非纯高速成长 <span class="tag">推断</span></p>
+        <p>治理：2024-10 职业经理人总经理辞任，蒋建琪重回总经理 → 重大合作权重或上收 <span class="tag a">A</span></p>
+      </section>
+
+      <section class="block">
+        <h2>02 · 三年实绩 + 费用迁移</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>2023</th><th>2024</th><th>2025</th><th>2026Q1</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>营收</td>
+              <td class="num">36.25 亿</td>
+              <td class="num">32.87 亿</td>
+              <td class="num"><span class="em down">29.26 亿 −11%</span></td>
+              <td class="num"><span class="em up">8.78 亿 +51%</span> <span class="tag w">日历</span></td>
+            </tr>
+            <tr>
+              <td>归母净利</td>
+              <td class="num">2.80 亿</td>
+              <td class="num">2.53 亿</td>
+              <td class="num"><span class="em down">0.95 亿 −62%</span></td>
+              <td class="num"><span class="em up">0.93 亿扭亏</span> <span class="tag w">日历</span></td>
+            </tr>
+            <tr>
+              <td>销售费用</td>
+              <td class="num">—</td>
+              <td class="num">7.61 亿</td>
+              <td class="num"><span class="em">6.98 亿 −8.3%</span></td>
+              <td class="num">—</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px">广告费 <span class="num">1.05→<span class="down em">0.79 亿 ↓</span></span>
+          · 市场推广费 <span class="num">2.42→<span class="up em">2.57 亿 ↑</span></span>
+          <span class="tag a">A 附注</span>
+          · 公司解释：职工薪酬 + 广告投入减少</p>
+        <p>未来三年预测：【无公司指引进正文】· 卖方共识【待核实】——<span class="em">宁空不编</span></p>
+      </section>
+
+      <section class="block">
+        <h2>03 · 收入结构 · 产品 × 渠道</h2>
+        <table>
+          <thead><tr><th>切刀</th><th>2025</th><th>读法</th></tr></thead>
+          <tbody>
+            <tr><td>冲泡</td><td class="num">18.81 亿 <span class="down">−17%</span> · 毛利 43.8%</td><td>基本盘收缩，仍现金牛 <span class="tag a">A</span></td></tr>
+            <tr><td>即饮</td><td class="num">10.05 亿 <span class="up">+3%</span> · 毛利 25.0%</td><td>第二曲线；拉低综合毛利 <span class="tag a">A</span></td></tr>
+            <tr><td>Meco 果茶</td><td class="num">8.83 亿 <span class="up">+13%</span></td><td>即饮主引擎（约 87.9% 推算）</td></tr>
+            <tr><td>经销商</td><td class="num">25.17 亿 <span class="down">−15%</span> · <span class="em">1,703 家</span></td><td>创收与执行中枢 <span class="tag a">A</span></td></tr>
+            <tr><td>电商/直营/出口</td><td class="num">+8% / +72% / +78%</td><td>增速高、体量小 <span class="tag a">A</span></td></tr>
+          </tbody>
+        </table>
+        <p>连续 <span class="em">14 年</span>杯装冲泡第一 <span class="tag a">A</span> · 精确市占%【待核实】
+          · 2024 对照：冲泡 22.71 / 即饮 9.73 / Meco 7.80</p>
+      </section>
+
+      <section class="block">
+        <h2>04 · 三套代言人资产分层</h2>
+        <table>
+          <thead><tr><th>线</th><th>代言人</th><th>语言 / 人群</th><th>价格</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>原叶现泡</td>
+              <td><span class="em">孙颖莎</span> 2025-10</td>
+              <td>健康奶茶=原叶</td>
+              <td>【待核实】 <span class="tag c">C</span></td>
+            </tr>
+            <tr>
+              <td>Meco</td>
+              <td><span class="em">TNT</span> 2025-05</td>
+              <td>茶饮店外第二选择 · 年轻/校园</td>
+              <td>【待核实】 <span class="tag a">A</span><span class="tag b">B</span></td>
+            </tr>
+            <tr>
+              <td>名优轻乳</td>
+              <td><span class="em">侯佩岑</span> 2025-06</td>
+              <td>原料甄选</td>
+              <td>升级带 <span class="tag b">B</span></td>
+            </tr>
+            <tr>
+              <td>兰芳园</td>
+              <td>港味资产</td>
+              <td>声量弱于上三</td>
+              <td>【待核实】</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>读法：勿再教育「要年轻」——问的是切开后 KPI / 预算 / 经销商物料是否仍「一套香飘飘」。</p>
+      </section>
+
+      <section class="block">
+        <h2>05 · 渠道 + 过往营销</h2>
+        <p>经销商主渠 · 礼品价盘承压控货龄 <span class="tag a">A</span>
+          · 量贩/餐饮定制 · 杭州店 <span class="em">四家</span>（拓店仍需验证）<span class="tag a">A</span>
+          · 线上=孵化，禁打穿价盘 <span class="tag c">C</span>
+          · 泰国工厂预计 2026 建设 <span class="tag a">A</span></p>
+        <p>硬广「绕地球」→ 内容闭环 → 快闪→杭州店；偶像+运动明星+名优甄选并行；
+          <span class="em">未见</span>系统级赛事赞助体系（代言 ≠ 赛事 OS）。</p>
+      </section>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="col">
+      <section class="block">
+        <h2>06 · 他们说的 vs 实际发生的（春节错位纪律）</h2>
+        <table>
+          <thead><tr><th>他们说的</th><th>实际发生的</th><th>用法</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Q1「开门红」</td>
+              <td>冲泡 <span class="up em">+85%</span>；公司自述春节窗口拉长</td>
+              <td><span class="em down">禁</span>当全面反转</td>
+            </tr>
+            <tr>
+              <td>内容营销升级</td>
+              <td>广告↓ 推广↑</td>
+              <td>投放真在转移；效果账本外部看不到，需当面问</td>
+            </tr>
+            <tr>
+              <td>双轮驱动</td>
+              <td>即饮占比升、毛利被压</td>
+              <td>谈增长懂利润账</td>
+            </tr>
+            <tr>
+              <td>年轻化</td>
+              <td>三套代言已落地</td>
+              <td>勿再教育年轻</td>
+            </tr>
+            <tr>
+              <td>全球化一步</td>
+              <td>泰国 2026 建设计划</td>
+              <td>或挤国内营销预算</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="block">
+        <h2>07 · SWOT（一句证据）</h2>
+        <div class="swot">
+          <div><strong>S</strong>14 年冲泡第一；毛利 43.8%；三品牌×三套代言人已落地 <span class="tag a">A</span></div>
+          <div><strong>W</strong>冲泡量 −17%；净利 −62%；即饮毛利 25%；利润绑 Q4/Q1 窗口</div>
+          <div><strong>O</strong>原叶/古方升级；Meco 情绪；量贩餐饮新渠；体验反哺研发</div>
+          <div><strong>T</strong>现制改写日常；饮料大盘 +0.2%；价盘战；出海 CapEx</div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>08 · TOWS → 会面动作</h2>
+        <div class="matrix">
+          <div class="h"></div>
+          <div class="h">O</div>
+          <div class="h">T</div>
+          <div class="r">S</div>
+          <div class="cell"><div class="lab">SO</div>原叶/古方 + 莎莎灯塔守礼赠升级</div>
+          <div class="cell"><div class="lab">ST</div>杯装差异 + 经销商伙伴挡现制（忌行业课）</div>
+          <div class="r">W</div>
+          <div class="cell"><div class="lab">WO</div>试点城市小规模验证内容/场景 ROI，不达标即停</div>
+          <div class="cell"><div class="lab">WT</div>费用年禁大额；日历年禁假 urgency</div>
+        </div>
+      </section>
+
+      <section class="block t1">
+        <h2>09 · 会面主打矛盾点（T1）+ 三问</h2>
+        <p class="line">代言人资产已分层 × 执行系统可能仍「一套香飘飘」——缺的是各产品线可复制、可核销的打法，不是第四个明星。</p>
+        <p style="margin:0 0 6px;font-size:11.5px;opacity:.9">可谈：分品牌打法系统 + 试点城市小额试验（不达标随时叫停）· 核查结论：有条件推进（若对方已分账则此点降级）</p>
+        <ol class="asks">
+          <li>莎莎 / TNT / 侯佩岑，KPI 与预算是不是<strong>三条线</strong>？</li>
+          <li>经销商考核里，代言算<strong>品牌分</strong>还是<strong>出货分</strong>？</li>
+          <li>泰国工厂投资年，国内营销试验是<strong>冻结</strong>还是<strong>单列</strong>？</li>
+        </ol>
+      </section>
+
+      <section class="killbox">
+        <strong>禁用话术（一厢情愿的说法）</strong>
+        「再签一个明星就能增长」· 「−62% 所以要大赞助」· 「Q1 证明全面反转，可大胆花钱」· 「你们缺年轻化教育」
+      </section>
+
+      <section class="block">
+        <h2>10 · 只能当面问客户的信息（不装懂）</h2>
+        <div class="l0">
+          <div>• Economic Buyer / 预算上限 <span>无则只诊断</span></div>
+          <div>• 三套代言是否已分账 <span>决定主打矛盾点强弱</span></div>
+          <div>• 经销商对 2025 代言评价 <span>决定试点城市怎么设计</span></div>
+          <div>• 代言排他 / 费用 <span>禁谈权益包前</span></div>
+          <div>• 精确市占% / 区域细拆 <span>年报未给</span></div>
+          <div>• 未来三年共识预测 <span>宁空不编</span></div>
+        </div>
+      </section>
+
+      <section class="use">
+        <strong>会前 30 秒：</strong>
+        ①扫三年表+费用迁移+三套代言人
+        → ②盯「说的 vs 做的」（尤其 Q1 春节错位）
+        → ③进门只带主打矛盾点 + 三问；细节回完整研报
+      </section>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>cases/xiangpiaopiao · 超越 Max「业务现状」：决策层 + 溯源 + 会面用法</span>
+    <span>打印：A4 横向 · 单文件自含 CSS</span>
+  </footer>
+</div>
+</body>
+</html>

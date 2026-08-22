@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Pitch Studio · 路演</title>
+<style>
+:root {
+  --bg: #e8eef2;
+  --paper: #fff;
+  --text: #142029;
+  --muted: #5a6a76;
+  --line: #c5d0d8;
+  --accent: #1d4ed8;
+  --soft: #eef4ff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  background:
+    radial-gradient(900px 420px at 12% -10%, #d7e6f5 0%, transparent 55%),
+    radial-gradient(700px 360px at 100% 0%, #e4efe8 0%, transparent 50%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 20px 56px;
+}
+.brand {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+h1 {
+  font-size: 1.75rem;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  font-weight: 800;
+}
+.lead {
+  margin: 0 0 28px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.cmd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin: 0 0 12px;
+  overflow-x: auto;
+}
+.grid { display: grid; gap: 10px; }
+a.card {
+  display: block;
+  padding: 14px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+a.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+a.card.primary {
+  background: var(--soft);
+  border-color: #bfd0f5;
+}
+a.card strong {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+a.card span {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 28px 0 10px;
+}
+.steps {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 0 0 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.steps ol { margin: 8px 0 0; padding-left: 1.2em; }
+.steps li { margin-bottom: 4px; }
+.note {
+  margin-top: 28px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.note a { color: var(--accent); }
+.warn {
+  font-size: 12px;
+  color: #b45309;
+  margin: 0 0 20px;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="brand">Pitch Studio</p>
+  <h1>路演入口</h1>
+  <p class="lead">输入 → 高品质会前包 → 再讲公司要 token。平时双击同目录 <code>开路演.command</code> 即可。</p>
+
+  <pre class="cmd">双击 开路演.command　或　python3 -m engine.serve</pre>
+  <p class="warn">必须用下方 http 链接。Finder 双击 HTML（file://）会空白。</p>
+
+  <h2>开场（点这里）</h2>
+  <div class="grid">
+    <a class="card primary" href="http://127.0.0.1:8765/ui/PitchStudio刀刃.html?demo=nestle#product-run">
+      <strong>Pitch Studio · 填表生成会前包</strong>
+      <span>主秀。已预填雀巢 → 点「生成会前包」→ 打开一页关键 + 研报。</span>
+    </a>
+  </div>
+
+  <div class="steps">
+    <strong>12 分钟讲法</strong>
+    <ol>
+      <li>界面：这是以后 sales 自己用的 Pitch Studio</li>
+      <li>生成：点按钮 → 打开一页关键与冰山</li>
+      <li>资源：今天靠个人算力；全员推广要公司 token</li>
+    </ol>
+  </div>
+
+  <h2>备用投屏（本目录）</h2>
+  <div class="grid">
+    <a class="card" href="雀巢/ONE_PAGER.html"><strong>雀巢 · 一页关键</strong><span>投屏备用</span></a>
+    <a class="card" href="雀巢/research/iceberg.html"><strong>雀巢 · 冰山</strong><span>投屏备用</span></a>
+    <a class="card" href="香飘飘/ONE_PAGER.html"><strong>香飘飘 · 一页关键</strong><span>标准源头</span></a>
+  </div>
+
+  <p class="note">讲法：<a href="README.md">README.md</a></p>
+</div>
+</body>
+</html>

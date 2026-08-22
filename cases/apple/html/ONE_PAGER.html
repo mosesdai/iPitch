@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Apple · 会前关键信息</title>
+<style>
+:root{
+  --ink:#152028;--muted:#5a6a76;--line:#c9d2da;--bg:#eef2f4;--paper:#fbfcfd;--panel:#ffffff;
+  --accent:#1d4ed8;--accent-soft:#dbeafe;--warn:#8a5a12;--warn-soft:#f7efd9;
+  --kill:#9b2c2c;--kill-soft:#f8e8e8;--ok:#1a6b45;--chip:#dce6ec;
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 500px at 8% -10%, #d9e4f5 0%, transparent 55%),radial-gradient(900px 420px at 100% 0%, #d7dde4 0%, transparent 50%),var(--bg);
+  font-size:12.2px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.page{max-width:1180px;margin:18px auto 28px;padding:18px 20px 16px;background:var(--paper);border:1px solid var(--line);box-shadow:0 10px 36px rgba(21,32,40,.06)}
+.top{display:grid;grid-template-columns:1fr auto;gap:12px 18px;align-items:end;padding-bottom:12px;margin-bottom:12px;border-bottom:2px solid var(--ink)}
+.brand{font-size:22px;font-weight:750;margin:0;line-height:1.15}
+.brand span{color:var(--accent);font-weight:650;font-size:15px;margin-left:8px}
+.sub{margin:5px 0 0;color:var(--muted);font-size:11.5px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.badge{font-size:10.5px;font-weight:700;padding:4px 8px;border:1px solid var(--line);background:var(--chip)}
+.badge.cond{background:var(--warn-soft);border-color:#e0c788;color:var(--warn)}
+.badge.kill{background:var(--kill-soft);border-color:#e3b4b4;color:var(--kill)}
+.verdict{grid-column:1/-1;background:linear-gradient(90deg,var(--accent-soft),#f3f6f8 70%);border-left:3px solid var(--accent);padding:8px 12px;font-size:12.5px;font-weight:600}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:14px 16px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.block{background:var(--panel);border:1px solid var(--line);padding:9px 11px 10px}
+.block h2{margin:0 0 7px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:750;display:flex;align-items:center;gap:8px}
+.block h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.block p{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;font-size:11.3px}
+th,td{border-bottom:1px solid var(--line);padding:3.5px 5px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:650;font-size:10.5px}
+tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 4px;margin-left:3px;border:1px solid var(--line);color:var(--muted);background:#f4f7f9}
+.tag.a{color:var(--ok);border-color:#b7d8c6;background:#edf7f1}
+.tag.w{color:var(--warn);border-color:#e0c788;background:var(--warn-soft)}
+.em{font-weight:700}.down{color:var(--kill)}.up{color:var(--ok)}
+.matrix{display:grid;grid-template-columns:56px 1fr 1fr;gap:4px;font-size:11px}
+.matrix .h,.matrix .r{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:5px 6px;text-align:center}
+.matrix .cell{border:1px solid var(--line);padding:6px 7px;background:#fff;min-height:52px}
+.matrix .lab{font-weight:750;color:var(--accent);font-size:10px;margin-bottom:2px}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.swot div{border:1px solid var(--line);padding:6px 7px;background:#fff;min-height:48px}
+.swot strong{display:block;font-size:10.5px;color:var(--accent);margin-bottom:2px}
+.t1{background:var(--ink);color:#f3f6f8;padding:9px 11px;border:none}
+.t1 h2{color:#93c5fd}.t1 h2::after{background:rgba(255,255,255,.18)}
+.t1 .line{font-size:13px;font-weight:700;line-height:1.4;margin:0 0 8px}
+.asks{margin:0;padding-left:16px}.asks li{margin:0 0 4px}
+.killbox{background:var(--kill-soft);border:1px solid #e3b4b4;padding:7px 9px;font-size:11px}
+.killbox strong{color:var(--kill)}
+.l0{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:11px}.l0 span{color:var(--muted)}
+.foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10.5px}
+.use{background:var(--accent-soft);border:1px solid #bfdbfe;padding:7px 10px;font-size:11.5px}.use strong{color:var(--accent)}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.top{grid-template-columns:1fr}.badges{justify-content:flex-start}.l0,.swot{grid-template-columns:1fr}}
+@media print{body{background:#fff}.page{max-width:none;margin:0;padding:8mm;border:none;box-shadow:none}.block,.t1,.use,.killbox{break-inside:avoid}@page{size:A4 landscape;margin:8mm}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 class="brand">Apple Inc.<span>会前关键信息</span></h1>
+      <p class="sub">AAPL · FY2023–25 + FY26Q1 · Greater China=大陆+港+台 · 真源 ONE_PAGER.md · 非话术稿 / 不写权益包 · ifalsify CONDITIONAL</p>
+    </div>
+    <div class="badges">
+      <span class="badge cond">证伪核查：有条件推进</span>
+      <span class="badge">数据以 Apple IR / 8-K 为准</span>
+      <span class="badge kill">禁编三年预测</span>
+    </div>
+    <div class="verdict">
+      一句话裁决：全球已有 MLS/FNB 体育 OS；大中华连续承压后现单季窗口 —— 缺中国高频篮球 × Services/零售可核销拉动力，不是下一场曝光。
+      <span class="em">禁用</span>：美媒权恐吓 · 「中国没了」 · 用 +38% 催大赞助 · 卖曝光包 · 编 CAGR · 粉丝开场。
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="col">
+      <section class="block">
+        <h2>01 · 阶段 / 治理</h2>
+        <p><span class="em">生命周期</span> 硬件平台成熟 × Services 第二引擎抬升 × 大中华为波动型战略市场 <span class="tag a">A</span></p>
+        <p><span class="em">治理</span> CEO Tim Cook · CFO Kevan Parekh（FY25）</p>
+        <p>GC 口径必须含港台；禁止口误成仅大陆或私拆数字 <span class="tag a">A</span></p>
+      </section>
+
+      <section class="block">
+        <h2>02 · 三年实绩（集团）</h2>
+        <table>
+          <thead><tr><th></th><th>FY23</th><th>FY24</th><th>FY25</th><th>FY26Q1</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>总净销售</td>
+              <td class="num">$383.3B</td>
+              <td class="num">$391.0B</td>
+              <td class="num"><span class="em">$416.2B</span> +6.4%</td>
+              <td class="num">—</td>
+            </tr>
+            <tr>
+              <td>Services</td>
+              <td class="num">—</td>
+              <td class="num">$96.2B</td>
+              <td class="num"><span class="em up">$109.2B</span> +13.5%</td>
+              <td class="num">—</td>
+            </tr>
+            <tr>
+              <td>Greater China</td>
+              <td class="num">$72.6B</td>
+              <td class="num">$67.0B</td>
+              <td class="num"><span class="em down">$64.4B</span> −3.8%</td>
+              <td class="num"><span class="em up">$25.5B</span> ≈+38% <span class="tag w">≠反转</span></td>
+            </tr>
+            <tr>
+              <td>毛利 / 营业利润</td>
+              <td class="num">—</td>
+              <td class="num">$180.7B / $123.2B</td>
+              <td class="num">$195.2B / $133.1B</td>
+              <td class="num">—</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px">Services 增量与 Products 同量级（≈+$13B）= 体育 OS 叙事财务底座 <span class="tag a">A</span></p>
+        <p>未来三年中国预测：【无单独指引进正文】——<span class="em">宁空不编</span></p>
+      </section>
+
+      <section class="block">
+        <h2>03 · 结构 · 产品 × 地理</h2>
+        <table>
+          <thead><tr><th>切刀</th><th>FY25</th><th>读法</th></tr></thead>
+          <tbody>
+            <tr><td>iPhone</td><td class="num">$209.6B</td><td>主力 +4.2% <span class="tag a">A</span></td></tr>
+            <tr><td>Services</td><td class="num">$109.2B</td><td>利润质量；体育是子集</td></tr>
+            <tr><td>Mac / iPad</td><td class="num">$33.7B / $28.0B</td><td>Mac 强复苏</td></tr>
+            <tr><td>Wearables…</td><td class="num">$35.7B</td><td>负增长；勿喊饱和</td></tr>
+            <tr><td>GC 占集团</td><td class="num">~15.5%</td><td>战略重要非生死线</td></tr>
+            <tr><td>渠道中国占比</td><td colspan="2"><span class="em">【需当面问】</span></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px">GC 序列 FY22→25：$74.2 → $72.6 → $67.0 → <span class="em">$64.4B</span>（连续三年下滑）</p>
+      </section>
+
+      <section class="block">
+        <h2>04 · 品牌 × 体育资产</h2>
+        <table>
+          <thead><tr><th>线</th><th>资产</th><th>边界</th></tr></thead>
+          <tbody>
+            <tr><td>Apple TV+ Sports</td><td><span class="em">MLS Season Pass</span> 十年</td><td>联盟级 Services 产品，非 logo 墙 <span class="tag a">A</span></td></tr>
+            <tr><td>直播产品</td><td><span class="em">Friday Night Baseball</span></td><td>周更；不可直接平移中国</td></tr>
+            <tr><td>NBA 美媒主包</td><td>未拿</td><td><span class="em">开场禁止嘲讽</span> <span class="tag">C</span></td></tr>
+            <tr><td>中国篮球 OS</td><td>公开空白</td><td>机会/风险 → L0</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="block">
+        <h2>05 · 他们说的 vs 实际发生的</h2>
+        <table>
+          <thead><tr><th>说的</th><th>发生的</th></tr></thead>
+          <tbody>
+            <tr><td>中国将回归增长</td><td>FY25 GC 仍低于 FY24；FY22 起连滑 <span class="tag a">A</span></td></tr>
+            <tr><td>Q1 中国强</td><td>≈+38% 窗口；<span class="em">禁催大单</span></td></tr>
+            <tr><td>Services 忠诚</td><td>全球高增；中国篮球场景未对齐</td></tr>
+            <tr><td>纪录财年</td><td>全球强 / 大中华波动</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="block">
+        <h2>06 · 竞争力 vs 危机</h2>
+        <div class="swot">
+          <div><strong>S</strong>安装基数；Services 毛利；零售到店；全球联盟体育产品</div>
+          <div><strong>W</strong>GC 承压；中国体育叙事弱；试验权【待核实】</div>
+          <div><strong>O</strong>篮球文化；内容翻译；一城小切口</div>
+          <div><strong>T</strong>赞助红海；合规；全球模板冲突；logo 墙被 CFO 否</div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>07 · TOWS → 会面动作</h2>
+        <div class="matrix">
+          <div class="h"></div><div class="h">O</div><div class="h">T</div>
+          <div class="r">S</div>
+          <div class="cell"><div class="lab">SO</div>一城：零售到店 × TV/内容场景 OS</div>
+          <div class="cell"><div class="lab">ST</div>避开饮品硬广脸；接口落 Apple 产品</div>
+          <div class="r">W</div>
+          <div class="cell"><div class="lab">WO</div>KPI（到店/订阅）不达标即停</div>
+          <div class="cell"><div class="lab">WT</div>禁 +38% 假紧迫；禁美媒权恐吓</div>
+        </div>
+      </section>
+
+      <section class="block t1">
+        <h2>08 · 会面主打矛盾点（T1）+ 三问</h2>
+        <p class="line">Services 体育 OS 已在全球验证 × 大中华仍常被讲成硬件周期故事——缺的是可核销场景拉动力，不是下一场曝光。</p>
+        <p style="margin:0 0 6px;font-size:11.5px;opacity:.9">可谈：一城试验 + 产品接口 · 核查：有条件推进</p>
+        <ol class="asks">
+          <li>大中华 Services 更想靠<strong>换机红利</strong>还是<strong>可复用场景引擎</strong>？</li>
+          <li>MLS / FNB 逻辑，有没有人负责<strong>中国翻译</strong>——还是默认不做？</li>
+          <li>一城试验预算科目算 <strong>Retail / Services / Marketing</strong> 哪条？</li>
+        </ol>
+      </section>
+
+      <section class="killbox">
+        <strong>禁用话术</strong>
+        「你们输了 NBA 美媒权」· 「中国没了」· 「Q1 +38% 所以要大赞助」· 「我们来卖曝光包」· 编三年中国 CAGR · 粉丝数开场
+      </section>
+
+      <section class="block">
+        <h2>09 · 只能当面问（销售 checklist 摘要）</h2>
+        <div class="l0">
+          <div>• Economic Buyer / 预算上限 <span>无则只诊断</span></div>
+          <div>• initiator / veto <span>中国 vs 库比蒂诺</span></div>
+          <div>• 法务对直播/UGC 红线 <span>缩方案</span></div>
+          <div>• 与全球 Sports 边界 <span>模板冲突</span></div>
+          <div>• Fitness+ 中国可用性 <span>钩子强弱</span></div>
+          <div>• 对 MLS/MLB 在中国的真实评价 <span>禁装懂</span></div>
+        </div>
+        <p style="margin-top:6px;font-size:11px">完整 72h 勾选表 → <span class="em">PRIMARY_REQUIRED.md</span></p>
+      </section>
+
+      <section class="use">
+        <strong>会前 30 秒：</strong>
+        ①扫 FY25 双引擎 + GC 连滑 + Q1 窗口
+        → ②盯「说的 vs 做的」（尤其 +38%≠反转）
+        → ③进门只带主打矛盾点 + 三问；细节回完整研报
+      </section>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>cases/apple · 对齐雀巢/香飘飘会前标准：决策层 + 溯源 + 销售三问 + CONDITIONAL · ONE_PAGER v2.0</span>
+    <span>打印：A4 横向 · 单文件自含 CSS · <a href="research/iceberg.html">完整研报</a></span>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 ---
 name: ipitch
 description: >-
-  iPitch at Eliam-Code/_ipitch: three-round UX (company + fragments → deep
+  iPitch at Eliam-Code/_pitch.刀刃: three-round UX (company + fragments → deep
   report + knife/iPod → sales debate + hotpot shelf → budget close). Kernel
   grillable via account/pitchvision. Shelf excludes bespoke iPod. Use /ipitch
   start [company] or /ipitch [slug] round1|round2|round3.
@@ -10,10 +10,11 @@ disable-model-invocation: true
 
 # iPitch
 
-**真源**：`/Users/Eliam-Code/_ipitch/`  
+**真源**：`/Users/Eliam-Code/_pitch.刀刃/`  
 **体验流**：`protocols/three_round_flow.md`  
 **内核**：`protocols/ipitch.md`  
-**Playbook**：`/Users/Eliam-Code/_playbook/pitch-sop/`  
+**Playbook**：`/Users/Eliam-Code/_play.打法/pitch-sop/`（v1.6：`12_会前双材料与销售清单标准.md`）  
+**UI 演示壳**：`ui/PitchStudio刀刃.html`（样例廊 + 导出 Prompt→Cursor；一键生成=草稿）  
 **火锅货架**：`references/shelf/`（**不含 iPod**）
 
 ## 教条
@@ -34,7 +35,7 @@ disable-model-invocation: true
 /ipitch [slug] round3 [预算档]         → R3 close_pack 双轨交付
 ```
 
-打开体验入口：`index.html` 或 `ui/start.html`
+打开体验入口：`ui/PitchStudio刀刃.html`（或根 `index.html` 跳转）
 
 ---
 
@@ -80,8 +81,8 @@ NIO 样例：
 
 | mode | 用于 | 路径 |
 |------|------|------|
-| account | R1 知彼刀 | `protocols/ipitch.md` · `nio/account-v3/` |
-| pitchvision | R1 iPod | `protocols/pitchvision.md` · `nio/pitchvision/` |
+| account | R1 知彼刀 | `protocols/ipitch.md` · `cases/nio/`（橱窗）· `archive/nio/account-v3/`（旧金标） |
+| pitchvision | R1 iPod | `protocols/pitchvision.md` · `cases/apple/pitchvision/` · `archive/nio/pitchvision/` |
 | compose | R2 货架 | `references/round2_compose.md` |
 | close | R3 收口 | `references/round3_close.md` |
 

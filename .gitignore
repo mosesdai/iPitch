@@ -4,3 +4,4 @@
 .env.*
 worker/.dev.vars
 node_modules/
+runs/

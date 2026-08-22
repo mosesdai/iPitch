@@ -3,76 +3,92 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NIO · 10 分钟刀子 · cold R1</title>
+<title>蔚来 NIO · 10 分钟刀子 · v1.6</title>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--accent:#4f46e5;--accent-soft:#eef2ff;--border:#e5e7eb}
+:root{--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--accent:#1d4ed8;--accent-soft:#dbeafe;--border:#e5e7eb;--kill:#9b2c2c;--kill-soft:#f8e8e8}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Noto Sans SC","PingFang SC",system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--text);background:var(--bg)}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC",system-ui,sans-serif;font-size:16px;line-height:1.65;color:var(--text);background:var(--bg);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .wrap{max-width:720px;margin:0 auto;padding:28px 20px 48px}
 header{border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:20px}
 .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-right:6px}
-h1{font-size:1.5rem;margin:12px 0 0;line-height:1.35;letter-spacing:-.02em}
-.hero{margin:20px 0;padding:20px 22px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.hero p{margin:0;font-size:18px;font-weight:600;color:var(--accent);line-height:1.5}
+.tag.cond{background:#f7efd9;color:#8a5a12}
+h1{font-size:1.45rem;margin:12px 0 0;line-height:1.35;letter-spacing:-.02em}
+.hero{margin:20px 0;padding:20px 22px;background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.hero p{margin:0;font-size:17px;font-weight:600;color:var(--accent);line-height:1.5}
 .quote{margin:16px 0;padding:16px 18px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:16px;font-weight:600}
-h2{font-size:15px;font-weight:700;color:var(--accent);margin:28px 0 10px;text-transform:uppercase;letter-spacing:.04em}
+h2{font-size:15px;font-weight:700;color:var(--accent);margin:28px 0 10px;letter-spacing:.04em}
 ol{padding-left:22px;margin:0 0 16px}
 li{margin-bottom:8px}
 .tension{font-size:17px;font-weight:700;color:var(--accent);margin:12px 0}
 .evidence{font-size:13px;color:var(--muted)}
-table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;background:var(--card);border-radius:8px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;background:var(--card)}
 th,td{border:1px solid var(--border);padding:10px 12px;text-align:left}
 th{background:var(--accent-soft);font-weight:600}
 .ask{margin:24px 0;padding:18px 20px;background:var(--accent);color:#fff;border-radius:12px;text-align:center}
 .ask p{margin:0;font-size:17px;font-weight:700}
 .mute{font-size:12px;color:var(--muted);margin-top:20px}
+.killbox{margin:18px 0;padding:12px 14px;background:var(--kill-soft);border:1px solid #e3b4b4;border-radius:10px;font-size:13px;color:var(--kill)}
 a{color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <span class="tag">cold R1</span><span class="tag">Tier B</span><span class="tag">2026-05 A 源</span>
-  <h1>乐道破万了。<br/>体育 IP 必须分层。</h1>
+  <span class="tag">v1.6</span><span class="tag cond">ifalsify：CONDITIONAL</span><span class="tag">Q2-2026 交付 A 源</span>
+  <h1>交付斜率是真的。<br/>乐道破万，没变成台阶。</h1>
 </header>
 
 <div class="hero">
-  <p>NBA = <strong>三品牌分层 OS</strong>：精神 / 家庭社群 / 青年文化 — 不是第四次买曝光。</p>
+  <p>NBA = <strong>三品牌分层 OS</strong>（精神 / 家庭社群 / 青年文化）— 不是下一张代言合同。<br/><span style="font-size:13px;font-weight:500">证伪：有条件推进 · 进门先三问 · <strong>本轮不报价</strong></span></p>
 </div>
 
 <div class="quote">
-  「姚明 + 申花 = 两种体育逻辑。今天只聊：能不能变成三条线各能用、且不打架的体系？」
+  「姚明的 ES9、乐道的申花——你们已经在用<strong>两种</strong>体育逻辑：一个是精神，一个是家庭社群。<br/>今天只聊一件事：<strong>能不能变成三条线各自能用、又互不打架的一套体系？</strong>」
 </div>
 
-<h2>替他说操心什么</h2>
+<h2>替他说操心什么（只用 A / B 源）</h2>
 <ol>
-  <li><strong>精打细算</strong> — Q1 Non-GAAP +0.668 亿 · GAAP 仍亏 · 现金 482 亿</li>
-  <li><strong>Spirit 澄清期</strong> — 一致性 &gt; 流量</li>
-  <li><strong>乐道窗口</strong> — 5月 <strong>12,029</strong>（4月 5,352）· L80 驱动</li>
+  <li><strong>交付是真的，但花钱仍要过闸</strong> — Q2 <strong>107,658</strong>（自算 YoY +49.4%）；同期 Q1 GAAP 仍亏 <strong>3.321 亿</strong>；全年整车毛利指引 17%–18%（B）</li>
+  <li><strong>三条线在往不同方向走</strong> — 6 月：蔚来 <strong>21,908</strong>（+9.5%）· 乐道 <strong>11,743</strong>（<strong>−2.4%</strong>）· 萤火虫 <strong>6,946</strong>（+22.7%）（均自算）</li>
+  <li><strong>新车效应给峰值，不给台阶</strong> — L80 五月上市即冲 12,029，六月回落；同期全盘 37,705 → 40,597 <strong>在涨</strong></li>
 </ol>
 
-<h2>张力 · 1 条</h2>
-<p class="tension">「乐道破圈在加速，Spirit 在澄清 — 同一套体育叙事会撕裂两个品牌。」</p>
-<p class="evidence">证据（A）：Q1 乐道占交付 16% · 5月首次破万 12,029 / 37,705</p>
+<h2>张力 · 1 条（T1）</h2>
+<p class="tension">「乐道破万的峰值没有变成台阶，而蔚来正在澄清自己的 Spirit —— 同一套体育叙事同时服务这两个品牌，一定有一边被伤到。」</p>
+<p class="evidence">证据（A · 可当场演算）：5 月 12,029 → 6 月 11,743（11,743 ÷ 12,029 − 1 = −2.4%）；同月全品牌 37,705 → 40,597。<strong>全盘在涨，第二品牌在落。</strong></p>
+
+<h2>销售三问 · 先于任何报价</h2>
+<ol>
+  <li>乐道<strong>家庭破圈</strong>的预算和 KPI，是跟申花一条线，还是<strong>另有 owner</strong>？</li>
+  <li>姚明这条，成功定义是 <strong>ES9 单点</strong>，还是<strong>三品牌各有一条可复用模板</strong>？</li>
+  <li>做体育，先过的是<strong>金额上限</strong>，还是 <strong>Spirit 一致性</strong>？</li>
+</ol>
 
 <h2>分层 · 不展开 SKU</h2>
 <table>
-  <tr><th>品牌</th><th>Spirit</th><th>NBA 接口</th></tr>
-  <tr><td>蔚来</td><td>敢想有为</td><td>精神 + 姚明桥</td></tr>
-  <tr><td>乐道</td><td>轻松家庭</td><td>申花模板 × Jr./3X</td></tr>
-  <tr><td>萤火虫</td><td>自在发光</td><td>全球青年文化</td></tr>
+  <tr><th>品牌</th><th>Spirit</th><th>NBA 接口</th><th>现状</th></tr>
+  <tr><td>蔚来</td><td>敢想有为</td><td>精神层 + 姚明桥延伸</td><td>已有<strong>单点</strong></td></tr>
+  <tr><td>乐道</td><td>轻松家庭</td><td><strong>申花模板换项目</strong>：青少年 / 家庭日</td><td>形态<strong>已验证</strong></td></tr>
+  <tr><td>萤火虫</td><td>自在发光</td><td>街头 / 青年文化触点</td><td><strong>全空</strong></td></tr>
 </table>
+<p>不打架的技术含义：<strong>架构复用，素材不复用</strong>；成功指标各自独立。</p>
 
-<p>价值观先行（姚明模板）→ <strong>一城一试验</strong> → 用户可参与 → 数据说话。<br/><strong>不谈金额</strong> — 冷启动无 L0。</p>
+<h2>合作方式</h2>
+<p>价值观先行（<strong>沿用姚明那条流程</strong>）→ <strong>一城一试</strong>（默认乐道，备选萤火虫）→ 用户可参与 → 指标由你们定，<strong>不达标即停</strong>。<br/>
+<strong>任一层可以单独做</strong> —— 不要求打包三层。<strong>本页不谈金额</strong>（L0 未闭环）。</p>
 
 <div class="ask">
-  <p>「分层服务三品牌 — <strong>方向认不认？</strong>」<br/><span style="font-size:14px;font-weight:500;opacity:.9">认 → 30 分钟对齐试验边界</span></p>
+  <p>「用一套 NBA 资产分层服务三个品牌 — <strong>方向认不认？</strong>」<br/><span style="font-size:14px;font-weight:500;opacity:.9">认 → 一起定 30 分钟对齐试验边界</span></p>
+</div>
+
+<div class="killbox">
+  <strong>明确不说</strong>：粉丝规模 / CPM · 「你们连自己的指引都没达到」（事实为真，说法是审判）· 「现金 482 亿所以能上大赞助」· 「交付新高 = 全面复苏」· 「乐道需要帮助」· 竞品排名与「决赛圈会死一批」· 具体权益包与赞助价 · 任何未核实的汽车品类排他
 </div>
 
 <p class="mute">
-  明确不说：粉丝量/CPM · 竞品恐吓 · 具体权益价 · 未核实排他<br/>
-  节奏：0:20 结论 → 1:00 操心 → 2:30 张力 → 4:30 分层 → 7:00 ask<br/>
-  <a href="research.html">← 深度研究报告</a> · <a href="index.html">索引</a>
+  节奏：0:20 结论 → 1:00 操心 + 三条线数字 → 2:30 张力 → 4:00 三问 → 5:30 分层 → 7:00 合作方式 → 8:00 ask → 8:30 留白<br/>
+  证伪状态 <strong>CONDITIONAL</strong>；最大未解反证 = F-6「2020–2025 体育安静期说明可能没有预算基线」。若三问 #3 答「体育不在预算表里」→ 转诊断会面，不报价。<br/>
+  <a href="ONE_PAGER.html">会前一页</a> · <a href="research/iceberg.html">冰山研报</a> · <a href="index.html">索引</a>
 </p>
 </div>
 </body>

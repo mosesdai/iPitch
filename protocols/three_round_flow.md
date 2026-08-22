@@ -131,7 +131,7 @@ cases/{slug}/
 └── html/                      可交付页
 ```
 
-参考样例（仅 account 轨）：`nio/account-v3/`
+参考样例（仅 account 轨）：`cases/nio/`（橱窗）· `archive/nio/account-v3/`（旧金标）
 
 ---
 

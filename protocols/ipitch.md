@@ -1,6 +1,6 @@
 # iPitch 协议（内核）
 
-**真源**：`/Users/Eliam-Code/_ipitch/`  
+**真源**：`/Users/Eliam-Code/_pitch.刀刃/`  
 **对外体验**：三轮对话（见 `three_round_flow.md`）  
 **内部 grill**：本文件 + account / pitchvision 子协议
 
@@ -46,16 +46,21 @@
 
 ---
 
-## account 流水线（R1）
+## account 流水线（R1 · v1.6）
 
 ```
-charter → source_timeliness + traceability → research/（≥8000字）→ tensions →
-PRIMARY? → B_knife → A/C/D → frame_pack → handoff（标 R2 待填项）→ html/
+charter → source_timeliness + traceability → research/（厚冰山，默认对标香飘飘）→
+ifalsify → PRIMARY_REQUIRED + MAX_GAP_AUDIT + ONE_PAGER → tensions →
+B_knife（印证伪）→ A/C/D → handoff → html/（双材料 index）
 ```
 
-Gate：charter · timeliness · iceberg 14/18 · primary（tier）· knife_gate
+Gate：iceberg_gate → **sales_gate** → research_gate → knife_gate  
+权威：`_play.打法/pitch-sop/12_会前双材料与销售清单标准.md`  
+覆盖：`references/max_angle_coverage.md` + 会前 `ONE_PAGER`（非刀子）  
+BD 可读性：`references/plain_language_glossary.md`  
+UI：`ui/PitchStudio刀刃.html` 样例廊 + 导出 Prompt→Cursor（同档主路径）
 
-样例：`nio/account-v3/`
+样例：`cases/nestle/`（v1.6 标杆）· `cases/xiangpiaopiao/` · `cases/nio/`（刀子历史样板）
 
 ---
 

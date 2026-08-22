@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>传音控股 · 冰山深度研究 · v1.0</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--text:#1a2332;--muted:#5c6b7a;--accent:#0f4c81;--accent-soft:#e8f1f8;--border:#d8e0e8;--warn:#9a6700;--soft-warn:#fff8e8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+header{border-bottom:1px solid var(--border);padding-bottom:22px;margin-bottom:8px}
+h1{font-size:1.75rem;margin:0 0 10px;letter-spacing:-.02em;font-weight:700}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:4px;margin:0 6px 6px 0;background:var(--accent-soft);color:var(--accent)}
+.tag.warn{background:var(--soft-warn);color:var(--warn)}
+.meta{font-size:13px;color:var(--muted);margin:8px 0 0}
+nav.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:24px 0 8px;position:sticky;top:0;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+nav.toc strong{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+nav.toc a{color:var(--accent);text-decoration:none;font-size:13.5px;margin-right:14px;white-space:nowrap;line-height:2}
+nav.toc a:hover{text-decoration:underline}
+section{margin-top:36px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px 28px}
+h2.file-title{font-size:1.25rem;margin:0 0 14px;color:var(--accent);padding-bottom:8px;border-bottom:1px solid var(--border)}
+h3{font-size:1.05rem;margin:22px 0 10px;color:#243447}h4{font-size:1rem;margin:18px 0 8px}
+p{margin:0 0 12px}ul,ol{margin:0 0 16px;padding-left:22px}li{margin-bottom:7px}
+blockquote{margin:12px 0;padding:10px 14px;background:#f0f4f8;border-left:3px solid var(--accent);color:#334}
+blockquote p{margin:0 0 6px}blockquote p:last-child{margin:0}
+.table-wrap{overflow-x:auto;margin:12px 0 20px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.box{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);padding:14px 16px;margin:18px 0}
+.muted{color:var(--muted);font-size:13px}code{font-size:12.5px;background:#eef2f6;padding:1px 5px;border-radius:3px}
+a{color:var(--accent)}footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+pre.muted{margin:0 0 16px;font-size:12px;white-space:pre-wrap;background:#f0f4f8;padding:12px;border-radius:6px}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+@media print{body{background:#fff}nav.toc{position:static}section{break-inside:auto}@page{size:A4;margin:12mm}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>冰山深度研究 · 传音控股</h1>
+<span class="tag">v1.0</span>
+<span class="tag warn">ifalsify CONDITIONAL</span>
+<span class="tag">CJK ≈27,532</span>
+<span class="tag">12 章全文镜像</span>
+<p class="meta">时间锚：<strong>FY2023–25 年报</strong>（约 2026-03-28）· TECNO×非洲杯 · 张艺兴续约<br/>
+MD 真源 <code>../../research/</code> · 会前主材料优先 <a href="../传音控股_一页关键信息.html">一页关键</a> · <a href="../传音控股_会前双材料入口.html">入口</a> · <a href="../传音控股_10分钟刀子.html">10 分钟刀子</a></p>
+</header>
+<div class="box">
+<strong>一句话：</strong>非洲杯灯塔已立；利润腰斩年仍加销售/研发费用；年报要中高端与跨市场复制 —— 缺可绑 ASP/SKU 的熔断文化 OS，不是再买一张赛事 Logo。<br/>
+<span class="muted">禁句：「非洲崩了」· 拿 −53% 催大包 · 混用 IDC 40% 与 Omdia 48% · 球迷数/CPM · 贬低非洲杯 · 编三年预测。</span>
+</div>
+<div class="box">
+<strong>最小真源（A）· 财务三刀</strong>
+<div class="table-wrap"><table>
+<tr><th>口径</th><th>2024</th><th>2025</th><th>备注</th></tr>
+<tr><td>营业收入</td><td>687.15 亿</td><td><strong>655.91 亿（−4.55%）</strong></td><td>年报</td></tr>
+<tr><td>归母净利润</td><td>55.49 亿</td><td><strong>25.81 亿（−53.49%）</strong></td><td>存储+竞争+费用</td></tr>
+<tr><td>销售 / 研发费用</td><td>48.36 / 25.17 亿</td><td><strong>52.04（+7.61%）/ 29.50（+17.23%）</strong></td><td>利润年仍加码</td></tr>
+<tr><td>手机收入 / 毛利率</td><td>—</td><td><strong>584.48 亿 / 18.43%（−2.19ppt）</strong></td><td>主引擎</td></tr>
+<tr><td>非洲 / 亚洲等</td><td>—</td><td><strong>+9.90% / −11.58%</strong></td><td>区域分叉</td></tr>
+<tr><td>非洲智能机市占</td><td>—</td><td><strong>约 40%，第 1</strong></td><td>IDC·年报；勿与 Omdia 48% 混称</td></tr>
+</table></div>
+</div>
+<nav class="toc"><strong>目录 · 完整研报（各章全文镜像）</strong>
+<a href="#ch01">01 · 财报与交付精读（IR）</a> <a href="#ch02">02 · 高管原话库</a> <a href="#ch03">03 · 体育与 IP 合作史</a> <a href="#ch04">04 · 竞品格局</a> <a href="#ch05">05 · 行业与政策语境</a> <a href="#ch06">06 · 权力图 + MEDDIC</a> <a href="#ch07">07 · 组织 / 创始人 / 生命周期</a> <a href="#ch08">08 · 横纵交汇分析</a> <a href="#ch09">09 · 查了但会面不说</a> <a href="#ch10">10 · 产品 × 人群矩阵</a> <a href="#ch11">11 · 营销 / 体育 / PR 边界</a> <a href="#ch12">12 · 行业大盘与定位</a>
+</nav>
+
+<section id="ch01">
+<h2 class="file-title">01 · IR / 财务精读 · 传音控股</h2>
+<blockquote><p><strong>A 源</strong>：深圳传音控股股份有限公司 <strong>2025 年年度报告</strong>（巨潮 <code>1225047544.PDF</code>，披露约 2026-03-28）</p><p><strong>时间锚</strong>：FY2023 / FY2024 / FY2025</p><p><strong>纪律</strong>：三年预测宁空；市占口径并陈；禁止把媒体「少卖 3200 万部」当唯一叙事而不回链年报出货。</p></blockquote>
+<hr/>
+<h3>1. 公司身份</h3>
+<div class="table-wrap"><table><tr><th>项</th><th>内容</th><th>级</th></tr><tr><td>全称</td><td>深圳传音控股股份有限公司</td><td>A</td></tr><tr><td>代码</td><td>688036.SH（科创板）</td><td>A</td></tr><tr><td>注册地</td><td>深圳市南山区…传音大厦</td><td>A</td></tr><tr><td>董事长兼总经理</td><td>竺兆江</td><td>A</td></tr><tr><td>主业</td><td>以手机为核心的智能终端设计、研发、生产、销售与品牌运营</td><td>A</td></tr><tr><td>手机品牌</td><td><strong>TECNO</strong>、<strong>itel</strong>、<strong>Infinix</strong>（功能机+智能机）</td><td>A</td></tr><tr><td>其他品牌</td><td>oraimo（配件）、Carlcare（售后）、Syinix（家电）等</td><td>A</td></tr><tr><td>销售区域</td><td>非洲、南亚、东南亚、中东、拉美等新兴市场</td><td>A</td></tr><tr><td>OS</td><td>HiOS、itelOS 等自研（年报叙述）</td><td>A</td></tr></table></div>
+<hr/>
+<h3>2. 三年核心财务（合并 · 人民币）</h3>
+<div class="table-wrap"><table><tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>25 vs 24</th></tr><tr><td>营业收入</td><td>622.95 亿</td><td>687.15 亿</td><td><strong>655.91 亿</strong></td><td><strong>−4.55%</strong></td></tr><tr><td>归母净利润</td><td>55.37 亿</td><td>55.49 亿</td><td><strong>25.81 亿</strong></td><td><strong>−53.49%</strong></td></tr><tr><td>扣非归母净利</td><td>51.34 亿</td><td>45.41 亿</td><td><strong>19.72 亿</strong></td><td><strong>−56.58%</strong></td></tr><tr><td>经营现金流净额</td><td>118.90 亿</td><td>28.48 亿</td><td><strong>14.20 亿</strong></td><td><strong>−50.13%</strong></td></tr><tr><td>归母净资产（末）</td><td>180.55 亿</td><td>202.30 亿</td><td><strong>205.25 亿</strong></td><td>+1.46%</td></tr><tr><td>总资产（末）</td><td>461.21 亿</td><td>450.62 亿</td><td><strong>443.82 亿</strong></td><td>−1.51%</td></tr><tr><td>研发投入/营收</td><td>—</td><td>3.66%</td><td><strong>4.50%</strong></td><td>↑</td></tr><tr><td>基本 EPS</td><td>—</td><td>—</td><td>年报披露同比约 −57%（文内）</td><td>—</td></tr></table></div>
+<p><strong>来源</strong>：年报「主要会计数据」表与管理层讨论 [A]。</p>
+<h4>利润腰斩的官方归因（必须原样带走）</h4>
+<p>年报明确：（1）<strong>市场竞争及供应链成本</strong>，存储等元器件价格上涨 → 营收与<strong>毛利率下降</strong>；（2）加大研发 → <strong>研发费用↑</strong>；加大市场开拓与<strong>品牌宣传</strong> → <strong>销售费用↑</strong>。</p>
+<div class="table-wrap"><table><tr><th>费用科目</th><th>2024</th><th>2025</th><th>YoY</th><th>级</th></tr><tr><td>销售费用</td><td>48.36 亿</td><td><strong>52.04 亿</strong></td><td><strong>+7.61%</strong></td><td>A</td></tr><tr><td>研发费用</td><td>25.17 亿</td><td><strong>29.50 亿</strong></td><td><strong>+17.23%</strong></td><td>A</td></tr><tr><td>管理费用</td><td>17.33 亿</td><td>16.78 亿</td><td>−3.20%</td><td>A</td></tr></table></div>
+<blockquote><p><strong>Pitch 含义</strong>：这不是「费用已砍光」的年份；是<strong>利润塌了仍在加码品牌与研发</strong>的年份——试验必须可熔断，忌用「你们很穷」羞辱开场。</p></blockquote>
+<hr/>
+<h3>3. 分产品 / 分地区（主营）</h3>
+<h4>分产品（2025）</h4>
+<div class="table-wrap"><table><tr><th>分产品</th><th>营业收入</th><th>YoY</th><th>毛利率</th><th>毛利率变动</th><th>级</th></tr><tr><td><strong>手机</strong></td><td><strong>584.48 亿</strong></td><td><strong>−7.51%</strong></td><td><strong>18.43%</strong></td><td><strong>−2.19 ppt</strong></td><td>A</td></tr><tr><td>其他</td><td>60.78 亿</td><td><strong>+42.70%</strong></td><td>27.47%</td><td>−2.06 ppt</td><td>A</td></tr><tr><td>主营合计</td><td>645.26 亿</td><td>−4.34%</td><td>19.28%</td><td>−2.06 ppt</td><td>A</td></tr></table></div>
+<blockquote><p>「其他」含扩品类/移动互联等打包口径；<strong>禁止</strong>把 +42.7% 说成「第二曲线已定乾坤」而不问结构。</p></blockquote>
+<h4>分地区（2025）</h4>
+<div class="table-wrap"><table><tr><th>地区</th><th>营业收入</th><th>YoY</th><th>毛利率</th><th>毛利率变动</th><th>级</th></tr><tr><td><strong>非洲</strong></td><td><strong>249.68 亿</strong></td><td><strong>+9.90%</strong></td><td><strong>24.93%</strong></td><td><strong>−3.66 ppt</strong></td><td>A</td></tr><tr><td><strong>亚洲等其他地区</strong></td><td><strong>395.57 亿</strong></td><td><strong>−11.58%</strong></td><td><strong>15.72%</strong></td><td>−1.94 ppt</td><td>A</td></tr></table></div>
+<p><strong>行为读法</strong>：非洲量/价仍撑住收入增长，但毛利也被存储与竞争咬掉；亚洲及其他是拖累主战场（媒体转述管理层：巴基斯坦约 −18%、印度销量约 −24% — <strong>C 转述，当面回验</strong>）。</p>
+<hr/>
+<h3>4. 出货与市占（口径并陈）</h3>
+<div class="table-wrap"><table><tr><th>指标</th><th>2025 年报口径</th><th>级</th><th>注意</th></tr><tr><td>手机整体出货</td><td>约 <strong>1.69 亿部</strong></td><td>A</td><td>媒体推算较上年少约 3200 万部 → C，不进刀子铁事实除非回验</td></tr><tr><td>全球手机市占</td><td><strong>12.3%</strong>，品牌排名 <strong>第 3</strong></td><td>A（IDC·年报引用）</td><td></td></tr><tr><td>全球智能机市占</td><td><strong>7.9%</strong>，排名 <strong>第 6</strong></td><td>A</td><td></td></tr><tr><td>非洲智能机市占</td><td>约 <strong>40%</strong>，第 1</td><td>A（IDC·年报）</td><td></td></tr><tr><td>巴基斯坦智能机</td><td><strong>&gt;40%</strong>，第 1</td><td>A</td><td></td></tr><tr><td>孟加拉智能机</td><td><strong>35.0%</strong>，第 1</td><td>A</td><td></td></tr><tr><td>印度智能机</td><td><strong>4.0%</strong>，第 8</td><td>A</td><td></td></tr><tr><td>非洲智能手机出货份额</td><td>约 <strong>48%</strong>（Omdia 等媒体）</td><td>C</td><td><strong>禁止与年报 40% 混称「一个数」</strong></td></tr></table></div>
+<hr/>
+<h3>5. 分红与现金流</h3>
+<ul><li>年报预案：每 10 股派 <strong>9.00 元</strong>（含税）；叠加半年度已派，全年分红占归母净利比例年报给出约 <strong>75.50%</strong>（含中期）[A]。</li><li>经营现金流 −50%：收入收款减少 + 采购付款增加 [A]。</li><li><strong>Pitch 禁说</strong>：「分红大方所以营销预算无限」——现金流与净利同步承压。</li></ul>
+<hr/>
+<h3>6. 卖方 / 会面 10 问（财务侧）</h3>
+<ol><li>2026 存储成本是否已部分转嫁？ASP 目标区间？</li><li>「减少低端占比、加码 200 美元以上」是否已写入内部 OKR？（媒体有，年报措辞以产品升级/中高端为准）</li><li>销售费用 +7.6% 中，品牌宣传 vs 渠道 vs 人员拆分？</li><li>TECNO / Infinix / itel 收入或毛利是否内部分账可给？</li><li>非洲收入 +9.9% vs 毛利 −3.66ppt：量还是结构？</li><li>印度 4% 市占：是阶段性收缩还是战略降权？</li><li>「其他」+42.7%：oraimo / 家电 / 互联各占多少？</li><li>H 股进度与募资用途对营销预算的挤出/加持？</li><li>经销商约 2,000 家：核心国家 Top 贡献集中度？</li><li>移动互联 MAU&gt;1000 万的合作应用：变现 KPI 是什么？</li></ol>
+<hr/>
+<h3>7. 不进刀子的数字</h3>
+<ul><li>精确分品牌营收占比（年报未给 →【待核实】）</li><li>2026–28 收入/利润指引（无 → 宁空）</li><li>把 Omdia 48% 与 IDC 40% 合成「将近一半」而不标注来源</li></ul>
+<hr/>
+<h3>8. 三年财务的结构化读法</h3>
+<p>三年表最重要的不是单独记住某个下降比例，而是识别经营状态的切换。2023 与 2024 的收入继续上升，归母净利润都处在约 55 亿的量级；2025 收入回落到 655.91 亿，归母净利润降到 25.81 亿，扣非归母净利润降到 19.72 亿。由此能确认的只有：利润对收入波动的敏感度明显放大。至于是单纯的存储成本周期、价格竞争、产品结构、区域结构，还是费用投入共同作用，必须沿年报已给的归因拆解，不能自行分配贡献比例。</p>
+<div class="table-wrap"><table><tr><th>观察层</th><th>已知事实</th><th>可以形成的判断</th><th>仍需验证</th></tr><tr><td>收入</td><td>2025 营收同比下降</td><td>需求或结构承压已经进入报表</td><td>品牌、机型、国家分别贡献多少</td></tr><tr><td>毛利</td><td>手机毛利率下降，非洲毛利率也下降</td><td>强势市场同样没有免疫成本与竞争</td><td>成本转嫁、促销、产品组合各自影响</td></tr><tr><td>费用</td><td>销售与研发费用均增长</td><td>公司没有以全面收缩应对压力</td><td>新增费用投向及内部回报门槛</td></tr><tr><td>现金</td><td>经营现金流继续下降</td><td>对大额、长周期、不可退出项目会更谨慎</td><td>预算审批是否因此收紧</td></tr><tr><td>第二曲线</td><td>其他收入较快增长</td><td>手机之外确有扩张信号</td><td>业务构成、利润和现金贡献</td></tr></table></div>
+<h4>8.1 收入下降与利润下降不可混为一谈</h4>
+<p>收入同比下降是经营结果，利润降幅更大是经营杠杆和成本结构的结果。销售提案若只说“营收下滑”，会低估董事会真正担心的利润质量；若只说“利润腰斩”，又容易让对方感觉被唱衰。更准确的表达是：主业收入承压、毛利率下降，同时公司仍继续投入研发和市场，因此新增合作必须有阶段性证据与退出机制。</p>
+<h4>8.2 销售费用增长不等于体育预算增长</h4>
+<p>销售费用包含的具体构成在本研究中未完成拆分。52.04 亿是会计科目，不是可供某一个品牌或某一项赛事使用的预算池。不能由销售费用增长直接推出“品牌预算充裕”，也不能推断某个合作负责人拥有独立决策权。会面必须问：费用增长中，渠道开拓、人员、广告宣传、终端活动分别如何分配；新的合作是增量预算、替代预算，还是区域预算重排。</p>
+<h4>8.3 研发投入增长给合作提出更高要求</h4>
+<p>研发费用增至 29.50 亿，年报又强调中高端价值点和 AI 场景。这意味着外部文化资产不能与产品开发分离。若活动只形成曝光，不帮助用户理解具体机型价值，也不帮助国家团队验证价格接受度，就难以与持续增加的研发投入形成闭环。反过来，营销合作也不能承诺解决产品本身的问题；它最多帮助一个已经存在的产品价值点被看见、被体验、被渠道记录。</p>
+<hr/>
+<h3>9. 四季度序列：只作节奏观察</h3>
+<p>以下季度数据来自年报季度表或公开媒体对年报的转述，使用时应再次回到年报表格核对口径。Q1 营收 130.04 亿、归母净利 4.90 亿；Q2 为 160.74 亿、7.23 亿；Q3 为 204.66 亿、9.35 亿；Q4 为 160.48 亿、4.33 亿。</p>
+<p>季度序列能支持“经营表现并非全年均匀”的观察，但不能仅凭四个季度推断季节性规律，也不能把 Q4 利润较低自动归因于某次营销活动。营销项目的发生时间、费用确认时间、渠道压货与真实零售时间均【待核实】。会面若讨论试点，应要求建立活动前基线、活动中周度看板和活动后复盘窗口，而不是拿公司季度利润做项目归因。</p>
+<hr/>
+<h3>10. 财务侧风险树</h3>
+<div class="table-wrap"><table><tr><th>风险</th><th>触发信号</th><th>对合作的影响</th><th>可控动作</th></tr><tr><td>成本继续上行</td><td>存储等元器件价格压力延续</td><td>中端机型促销空间被压缩</td><td>试点预算分阶段，不预付长期承诺</td></tr><tr><td>价格竞争</td><td>手机毛利率继续承压</td><td>曝光未必转化为提价能力</td><td>绑定在售机型与可比较卖点</td></tr><tr><td>区域分化</td><td>非洲增长、亚洲等地区下降</td><td>全球一套方案容易失真</td><td>只选一个样板国，明确对照市场</td></tr><tr><td>费用问责</td><td>销售费用增长而利润下降</td><td>财务更关注可归因与停止条件</td><td>预先约定指标、数据责任人和熔断线</td></tr><tr><td>现金约束</td><td>经营现金流下降</td><td>审批周期可能拉长</td><td>拆成诊断、验证、扩张三段</td></tr><tr><td>第二曲线误判</td><td>其他收入增长但构成未明</td><td>错把配件或互联当成统一营销对象</td><td>先核业务归属和品牌边界</td></tr></table></div>
+<hr/>
+<h3>11. 财务反模式</h3>
+<ol><li><strong>把相关性当归因</strong>：销售费用增长与净利润下降同时发生，不代表品牌宣传导致利润下降。</li><li><strong>把会计科目当预算池</strong>：销售费用不是赛事预算，也不是 TECNO 单品牌预算。</li><li><strong>把地区收入当销量</strong>：非洲收入增长可能包含量、价与结构，未拆分前不得只选一种解释。</li><li><strong>把市占当盈利</strong>：非洲智能机第一与非洲毛利率下降可以同时成立。</li><li><strong>把“其他”当成熟第二曲线</strong>：没有收入构成与利润贡献，不能宣称已经接棒手机。</li><li><strong>拿年度报表评价单一活动</strong>：缺活动时间、地区和机型数据时，不能做因果判断。</li><li><strong>编未来三年模型</strong>：公司未给量化指引，本轮不自行预测收入、利润或预算。</li></ol>
+<hr/>
+<h3>12. 会面含义：财务负责人要听见什么</h3>
+<p>财务负责人不需要再听一遍“品牌很重要”，而需要知道项目如何避免成为新的固定成本。建议把讨论收束为四个问题：第一，试点服务哪一个品牌和哪一个在售机型；第二，经销商能提供什么基线与核销数据；第三，达到什么证据才进入下一阶段；第四，什么信号出现时停止。只有这四项能被明确，利润压力才是设计纪律，而不是压价话术。</p>
+<h4>会后必须索取的最小数据</h4>
+<ul><li>样板国目标机型活动前的周度 sell-in 与 sell-out 口径；</li><li>目标门店与对照门店清单；</li><li>品牌费用、渠道费用与促销让利的归属规则；</li><li>退货、缺货和价格变动记录；</li><li>项目指标的内部 Owner 与财务复核人；</li><li>品牌健康度指标是否已有固定调查方法；</li><li>扩大、暂停、终止分别由谁签字。</li></ul>
+<p>以上均为索取清单，不代表公司已经具备或愿意提供；拿不到时应降低项目承诺，而不是用曝光量替代。</p>
+</section>
+<section id="ch02">
+<h2 class="file-title">02 · 管理层原话库 · 传音控股</h2>
+<blockquote><p>用途：刀子/ONE_PAGER 只抽 1–2 条「活证据」；本库保留原意，禁止改写成口号。</p><p>级：<strong>A</strong> = 年报正文；<strong>C</strong> = 媒体对管理层转述（须回验）。</p></blockquote>
+<hr/>
+<h3>A · 年报战略与自我叙事（≥10）</h3>
+<ol><li><strong>主业边界</strong>：「主要从事以手机为核心的智能终端的设计、研发、生产、销售和品牌运营。」[A]</li><li><strong>区域</strong>：「销售区域主要集中在非洲、南亚、东南亚、中东和拉美等全球新兴市场国家。」[A]</li><li><strong>出货</strong>：「2025 年，公司手机整体出货量约 1.69 亿部。」[A]</li><li><strong>非洲地位</strong>：「2025 年公司在非洲智能机市场占有率约为 40%，排名第一。」（IDC·年报）[A]</li><li><strong>利润归因</strong>：「受市场竞争及供应链成本影响，存储等元器件价格上涨较多，公司营业收入和毛利率有所下降。」[A]</li><li><strong>费用方向</strong>：「加大产品等研发投入……研发费用较上年同期增加；同时……加大市场开拓及品牌宣传推广力度，销售费用较上年同期增加。」[A]</li><li><strong>中高端取向</strong>：「加大中高端领域研发资源投入，强化中高端产品价值点选择。」[A]</li><li><strong>AI 场景</strong>：「将 AI 能力深度融入社交、出行、健康、教育等高频场景，让技术从『可用』变为『真实可感』。」[A]</li><li><strong>营销变革</strong>：「持续深化数字化营销变革与渠道创新，扩大在非洲的体系化竞争优势，并将多品牌协同策略和深度用户洞察能力向其他新兴市场复制。」[A]</li><li><strong>本地化口号</strong>：「Think Globally，Act Locally」（全球化视野、本地化创新）。[A]</li><li><strong>多品牌壁垒</strong>：「多品牌战略覆盖了非洲不同的消费群，对进入非洲的单一品牌而言，形成了坚固的竞争壁垒。」[A]</li><li><strong>生态叙事</strong>：「手机+移动互联网服务+扩品类」口碑与互动闭环。[A]</li><li><strong>非洲适配举例</strong>：停电/温差/防汗 USB；深肤色 Camera；本地音乐低音与收音机功能等。[A]</li><li><strong>渠道</strong>：「与超过 2,000 家具有丰富销售经验的经销商客户建立了密切的合作关系。」[A]</li><li><strong>覆盖</strong>：「产品销售覆盖全球超过 70 个国家和地区。」[A]</li><li><strong>oraimo</strong>：African Business「最受非洲消费者喜爱品牌」百强 <strong>第 73</strong>，较 2024 升 8 位。[A]</li><li><strong>互联合作</strong>：「与网易、腾讯等多家……出海战略合作」；多款合作应用 <strong>MAU&gt;1000 万</strong>。[A]</li><li><strong>组织研发</strong>：「产品开发、技术研发和基础研究三级研发体系」；AI2D 专项；IPD。[A]</li></ol>
+<hr/>
+<h3>C · 媒体/路演转述（须回验）</h3>
+<div class="table-wrap"><table><tr><th>#</th><th>转述要点</th><th>用途</th><th>风险</th></tr><tr><td>C1</td><td>减少低端销售占比，大幅加码 <strong>200 美元以上</strong> 市场</td><td>支持「ASP 升级」张力</td><td>非年报原句 → 当面问</td></tr><tr><td>C2</td><td>巴基斯坦营收约 −18%；印度销量约 −24%</td><td>亚洲拖累细节</td><td>媒体转述</td></tr><tr><td>C3</td><td>TECNO 为非洲杯官方全球合作伙伴（第 35/36 届）</td><td>体育资产边界</td><td>以 CAF/品牌官宣为准</td></tr><tr><td>C4</td><td>张艺兴为 TECNO 全球代言人/大使并续约</td><td>娱乐资产</td><td>以品牌官宣为准</td></tr><tr><td>C5</td><td>H 股更新申请、募资投向 AI/品牌等</td><td>资本叙事</td><td>以港交所文件为准</td></tr></table></div>
+<hr/>
+<h3>会面可用「原话钩」候选（仍须 ifalsify）</h3>
+<ul><li>「你们自己写：存储涨价 + 竞争压毛利，同时销售费用和研发费用还在加。」</li><li>「你们自己写：要把多品牌与用户洞察<strong>复制到其他新兴市场</strong>——复制的是体系，不是再刷一面墙。」</li><li>「非洲智能机约 40% 第一已经写进年报；印度 4%、第八——同一套多品牌，结果为什么分叉？」</li></ul>
+<hr/>
+<h3>4. 原话的语义分组</h3>
+<p>管理层原话不能只作为漂亮引语使用。把原话按“经营事实、战略意图、能力主张、组织动作”分组，才能避免把愿景当成结果。</p>
+<div class="table-wrap"><table><tr><th>语义组</th><th>对应原话</th><th>它证明了什么</th><th>它没有证明什么</th></tr><tr><td>经营事实</td><td>出货、区域、成本与竞争</td><td>公司承认主业边界及压力来源</td><td>各因素的精确贡献</td></tr><tr><td>战略意图</td><td>中高端、AI 高频场景</td><td>管理层愿意继续产品升级</td><td>用户愿意为此付费</td></tr><tr><td>能力主张</td><td>本地化、多品牌、用户洞察</td><td>公司把这些视为护城河</td><td>能力已在所有区域复制成功</td></tr><tr><td>组织动作</td><td>研发体系、数字营销、渠道创新</td><td>公司正在投入体系建设</td><td>部门之间已经形成闭环</td></tr><tr><td>生态叙事</td><td>手机、互联与扩品类</td><td>公司希望扩大用户价值边界</td><td>各业务已经形成同一利润模型</td></tr></table></div>
+<p>最关键的纪律是：原话只证明“公司这样说”，不能自动证明“市场已经这样回应”。例如，“让技术真实可感”是一项方向，不是用户体验已经改善的量化结论；“复制到其他新兴市场”是一项管理目标，不是复制已经成功。</p>
+<hr/>
+<h3>5. “他们说的”与“报表发生的”</h3>
+<div class="table-wrap"><table><tr><th>他们说的</th><th>报表或市场位置</th><th>可讨论的张力</th><th>禁止下的结论</th></tr><tr><td>加大中高端研发资源</td><td>手机收入和毛利率下降</td><td>价值点如何被渠道和用户感知</td><td>中高端战略失败</td></tr><tr><td>加大品牌宣传推广</td><td>销售费用增长、利润下降</td><td>费用如何被验证和熔断</td><td>营销造成利润下降</td></tr><tr><td>复制多品牌和洞察能力</td><td>非洲强、印度位置较弱</td><td>哪些能力可复制，哪些依赖本地条件</td><td>印度失败全因营销</td></tr><tr><td>手机+互联+扩品类</td><td>其他收入增长较快</td><td>第二曲线结构和协同规则</td><td>生态已完成</td></tr><tr><td>Think Globally，Act Locally</td><td>覆盖超过 70 个国家和地区</td><td>全球资产如何由国家团队转译</td><td>一套内容全球通用</td></tr></table></div>
+<p>这一组张力适合内部研究，不应把所有内容塞进首面。首面最多选择一个矛盾，并以问句结束，让客户补足内部事实。</p>
+<hr/>
+<h3>6. 原话使用卡片</h3>
+<h4>卡片 A：复制能力</h4>
+<ul><li><strong>原话锚</strong>：把多品牌协同和深度用户洞察向其他新兴市场复制。</li><li><strong>可问</strong>：你们内部判断“可复制”的最小单元是什么——品牌框架、产品定义、渠道打法，还是内容资产？</li><li><strong>为何重要</strong>：若最小单元不清楚，全球合作容易变成总部签约、区域自找用途。</li><li><strong>不可说</strong>：你们的复制已经失败。公开数据只显示区域结果分化，不足以归因。</li></ul>
+<h4>卡片 B：中高端价值点</h4>
+<ul><li><strong>原话锚</strong>：加大中高端领域研发资源投入，强化价值点选择。</li><li><strong>可问</strong>：价值点由产品团队定义后，品牌和经销商用什么证据判断消费者听懂了？</li><li><strong>为何重要</strong>：合作若不能接到具体价值点，就只是独立的注意力采购。</li><li><strong>不可说</strong>：一个赛事资产能够直接提高 ASP。ASP、售价和品牌溢价之间仍缺内部数据。</li></ul>
+<h4>卡片 C：数字化营销变革</h4>
+<ul><li><strong>原话锚</strong>：持续深化数字化营销变革与渠道创新。</li><li><strong>可问</strong>：数字化在你们内部是投放数字化、用户数据、门店核销，还是预算决策数字化？</li><li><strong>为何重要</strong>：同一句话可能对应完全不同的能力边界。</li><li><strong>不可说</strong>：公司过去营销粗放。年报没有给出这种评价。</li></ul>
+<h4>卡片 D：真实可感的 AI</h4>
+<ul><li><strong>原话锚</strong>：让 AI 从可用变为真实可感。</li><li><strong>可问</strong>：当前最希望被用户感知的是哪一个场景，是否已有目标机型和国家？</li><li><strong>为何重要</strong>：文化资产只有在帮助用户体验既有功能时才有产品意义。</li><li><strong>不可说</strong>：AI 是体育合作的天然理由。两者没有自动关系。</li></ul>
+<hr/>
+<h3>7. 原话可信度与复核规则</h3>
+<ol><li>年报正文可以作为 A 源证明公司正式表达，但引用时仍应保留原意，不能把多个段落拼成一句“管理层原话”。</li><li>媒体对管理层的转述只能作为线索。涉及价格带、地区下降、融资用途等内容，首面应使用“我们看到公开转述，想向你们回验”的句式。</li><li>品牌官宣能够证明合作关系和公开身份，但不能证明财务回报、内部续约原因或排他边界。</li><li>若原话与最新经营动作出现冲突，应并陈，不替客户解释。</li><li>若客户在会面中纠正公开表述，以客户本场原话作为 L0 线索记录，但仍需在会后获取可复核材料。</li></ol>
+<hr/>
+<h3>8. 卖方十问：围绕原话追到机制</h3>
+<ol><li>“中高端价值点选择”最终由产品、品牌还是区域团队拍板？</li><li>一个价值点进入营销素材前，需要经过哪些用户验证？</li><li>“数字化营销变革”目前最想解决的是触达、归因还是渠道协同？</li><li>多品牌协同有哪些共同资产，哪些必须严格隔离？</li><li>从非洲向其他市场复制时，过去最难复制的是渠道、产品还是文化语境？</li><li>超过 2,000 家经销商如何参与品牌活动反馈，是否存在统一字段？</li><li>AI 高频场景中，哪一项最接近商业化与用户复购目标？</li><li>手机、互联和扩品类之间，用户身份是否已经打通【待核实】？</li><li>非洲杯资产的内部成功定义是什么，是否分品牌和国家复盘？</li><li>管理层对新增文化合作最担心的失败方式是什么？</li></ol>
+<hr/>
+<h3>9. 原话反模式</h3>
+<ul><li><strong>断章取义</strong>：只摘“中高端”而忽略成本、竞争和区域差异。</li><li><strong>愿景结果化</strong>：把“要复制”写成“已复制”，把“深化”写成“已完成”。</li><li><strong>合成引语</strong>：将年报不同段落拼接后加引号。</li><li><strong>身份偷换</strong>：把 TECNO 的品牌合作说成传音全品牌共同资产。</li><li><strong>来源升级</strong>：把媒体转述标成管理层 A 源原话。</li><li><strong>用客户原话替我方方案背书</strong>：年报提 AI，不等于客户认可任何 AI 或体育合作。</li></ul>
+<h3>10. 会面记录模板</h3>
+<div class="table-wrap"><table><tr><th>客户现场原话</th><th>说话人/角色</th><th>对应公开原话</th><th>一致或冲突</th><th>需补材料</th><th>对假说影响</th></tr><tr><td>【待会面】</td><td>【待核实】</td><td>中高端/复制/数字营销等</td><td>【待核实】</td><td>【待核实】</td><td>保留/削弱/推翻</td></tr></table></div>
+<p>记录时尽量逐字，不要在现场把解释写进引号。客户若只说“可以看看”，不能记录成“认可试点”；若说“预算不归我”，这是决策流程证据，不是拒绝合作本身。</p>
+</section>
+<section id="ch03">
+<h2 class="file-title">03 · 合作史与断裂 · 传音控股</h2>
+<blockquote><p>目标：钉死<strong>已有体育/娱乐资产边界</strong>，避免「你们缺体育」外行开场。</p><p>级：A=年报；C=品牌/媒体官宣。</p></blockquote>
+<hr/>
+<h3>1. 品牌合作光谱（已知）</h3>
+<div class="table-wrap"><table><tr><th>资产</th><th>品牌</th><th>形态</th><th>时间窗（公开）</th><th>级</th><th>Pitch 读法</th></tr><tr><td><strong>非洲杯（AFCON）</strong></td><td>TECNO</td><td>从「独家手机合作伙伴」升级为<strong>官方全球合作伙伴</strong>（第 35/36 届等公开叙述）</td><td>近年连续</td><td>C</td><td><strong>足球赛事体系级</strong>，非单次刷 Logo</td></tr><tr><td><strong>梦想球场</strong></td><td>TECNO</td><td>社区球场改造/公益</td><td>与非洲杯叙事绑定</td><td>C</td><td>长期主义/本地回馈叙事</td></tr><tr><td><strong>张艺兴</strong></td><td>TECNO</td><td>全球代言人/大使；公开有续约报道</td><td>约 2022 起，2024–25 续</td><td>C</td><td><strong>娱乐/华人偶像</strong>出海心智</td></tr><tr><td>英超等球队赞助</td><td>历史线索</td><td>媒体提及早期赞助英超球队</td><td>早期</td><td>C/D</td><td>不进铁事实除非官宣回链</td></tr><tr><td><strong>NBA / 篮球联赛</strong></td><td>—</td><td><strong>未见</strong>公司级或 TECNO 主赞助公开铁证</td><td>—</td><td>—</td><td><strong>缺口</strong>；不可假装已有或「必须有」</td></tr><tr><td>网易/腾讯出海应用</td><td>集团互联</td><td>战略合作、多款 MAU&gt;1000 万</td><td>截至 2025 末</td><td>A</td><td>软硬协同，非体育</td></tr></table></div>
+<hr/>
+<h3>2. 「已做过什么」vs「没做过什么」</h3>
+<h4>已证明（对销售有用）</h4>
+<ol><li><strong>愿意为非洲顶级足球赛事付体系级赞助</strong>（全球合作伙伴级别公开叙事）。</li><li><strong>愿意用华人顶流做全球代言</strong>（张艺兴）。</li><li><strong>公益+赛事</strong>绑定（梦想球场），不是纯曝光购买。</li><li>年报层：持续加码<strong>品牌宣传</strong>与<strong>数字化营销变革</strong>。</li></ol>
+<h4>未证明 / 断裂</h4>
+<ol><li><strong>篮球/NBA 资产</strong>：公开材料未见体系合作 → 冷启动不可假设「他们讨厌篮球」或「他们急需 NBA」。</li><li><strong>分品牌体育分工</strong>：TECNO 足球灯塔清晰；<strong>Infinix / itel</strong> 体育资产公开厚度弱于 TECNO →【待核实】是否刻意分层。</li><li><strong>亚洲市场文化复制</strong>：年报要「复制到其他新兴市场」，但印度市占仅 4% —— <strong>文化资产是否随渠道一起失灵</strong>是会面真问题。</li><li><strong>赞助 → sell-out 归因</strong>：年报不披露非洲杯 ROI；经销商侧核销机制【需当面问】。</li></ol>
+<hr/>
+<h3>3. 合作决策可能落点（假说 · 非事实）</h3>
+<div class="table-wrap"><table><tr><th>可能 Owner</th><th>为何可能</th><th>验证</th></tr><tr><td>品牌中心 / TECNO brand</td><td>非洲杯、代言属品牌资产</td><td>问 initiator</td></tr><tr><td>区域国家总经理</td><td>本地赛事与渠道联动</td><td>样板国是否有 veto</td></tr><tr><td>财务 / 董事长线</td><td>利润 −53% 年对大额赞助敏感</td><td>Economic Buyer</td></tr><tr><td>产品/中高端项目组</td><td>ASP 升级要「价值点」故事</td><td>是否接受绑 SKU</td></tr></table></div>
+<hr/>
+<h3>4. 断裂清单（进 09 也进此处）</h3>
+<ul><li>不可把「非洲之王」神话化成无竞争：年报自己写市占与毛利承压。</li><li>不可把张艺兴=年轻化闭环完成。</li><li>不可把非洲杯=全品类体育需求已满足（尤其亚洲扩张）。</li><li>早期「刷墙」传奇（媒体）≠ 2026 品牌操作系统。</li></ul>
+<hr/>
+<h3>5. 合作资产分层：身份、激活、转化</h3>
+<p>研究合作史时，必须把“拥有一个身份”与“把身份用起来”分开。TECNO 是非洲杯官方全球合作伙伴，证明品牌愿意进入顶级足球赛事体系；梦想球场证明它也愿意把赛事叙事延伸到社区；张艺兴合作证明品牌使用全球代言人。但公开材料并不能自动证明每一层都与具体机型、经销商或销售结果建立了稳定关系。</p>
+<div class="table-wrap"><table><tr><th>层级</th><th>已知资产</th><th>已经证明</th><th>尚未证明</th></tr><tr><td>身份层</td><td>非洲杯官方全球合作伙伴</td><td>TECNO 有大型足球赛事合作经验</td><td>权益利用率与续约回报</td></tr><tr><td>社区层</td><td>梦想球场</td><td>品牌愿意连接公益与本地文化</td><td>社区参与者向用户或购买者的转化</td></tr><tr><td>人物层</td><td>张艺兴全球代言与续约</td><td>品牌有娱乐化全球传播能力</td><td>各区域受众匹配与产品贡献</td></tr><tr><td>渠道层</td><td>超过 2,000 家经销商</td><td>公司具备广泛市场执行网络</td><td>合作活动是否进入统一经销商看板</td></tr><tr><td>产品层</td><td>中高端与 AI 价值点方向</td><td>公司希望产品升级</td><td>既有合作是否绑定具体机型</td></tr><tr><td>新运动层</td><td>未见 NBA 体系合作</td><td>公开版图存在空白</td><td>空白是否代表需求</td></tr></table></div>
+<p>“未见”只是一项研究结论，不是客户痛点。NBA 空白可能意味着机会，也可能意味着预算、受众、权益冲突或战略选择。必须通过会面问题确认。</p>
+<hr/>
+<h3>6. 非洲杯资产应被尊重的原因</h3>
+<p>第一，它与传音最强势的区域相连，而不是脱离业务基本盘的随机赞助。第二，足球在非洲的文化语境与品牌本地化叙事相容。第三，梦想球场让资产具有社区层延伸。无论我方最终建议是否涉及篮球，都不能通过贬低足球来制造需求。</p>
+<p>更有效的诊断是：现有足球资产在哪些国家、品牌线和机型上已经工作得很好；又在哪些目标上没有被设计来解决。例如，它可能适合 TECNO 的非洲品牌身份，却不必然承担印度、其他品牌或不同年轻文化场景的任务。这个边界需要客户确认。</p>
+<hr/>
+<h3>7. 合作史的“连续性—断裂”检查</h3>
+<div class="table-wrap"><table><tr><th>检查维度</th><th>连续性线索</th><th>断裂线索</th><th>会面验证</th></tr><tr><td>区域</td><td>非洲长期经营与足球资产一致</td><td>向亚洲等地区复制效果不明</td><td>哪些资产可以跨区域</td></tr><tr><td>品牌</td><td>TECNO 资产最清晰</td><td>Infinix、itel 的分工【待核实】</td><td>是否刻意隔离品牌预算</td></tr><tr><td>产品</td><td>中高端方向明确</td><td>合作与具体机型关系未披露</td><td>是否已有产品绑定机制</td></tr><tr><td>渠道</td><td>经销商网络广</td><td>核销与反馈机制未披露</td><td>经销商看什么指标</td></tr><tr><td>时间</td><td>非洲杯与代言有持续性</td><td>续约判断依据未披露</td><td>续约是品牌、区域还是销售决策</td></tr><tr><td>数据</td><td>年报强调数字化营销</td><td>单个合作 ROI 未披露</td><td>数据归属与复盘节奏</td></tr></table></div>
+<hr/>
+<h3>8. 假说矩阵：为什么可能合作，为什么可能不合作</h3>
+<h4>支持合作的假说</h4>
+<ol><li>公司仍在增加品牌宣传投入，说明市场建设没有被完全冻结。</li><li>管理层要求中高端和向其他新兴市场复制，可能需要新的文化场景测试。</li><li>现有足球资产已经占据体系高位，新增合作若足够小、足够可测，可能补充而非替代。</li><li>经销商网络为样板国零售验证提供潜在执行基础。</li></ol>
+<h4>反对合作的假说</h4>
+<ol><li>利润与现金流压力可能让任何新增体育资产都被视为非必要支出。</li><li>非洲杯已覆盖核心体育心智，新增篮球合作的边际价值不足。</li><li>目标国家或目标品牌受众与 NBA 相关文化不匹配【待核实】。</li><li>总部品牌、区域团队与经销商之间没有可用的数据闭环，试点即使执行也无法证明。</li><li>客户更需要产品、渠道或价格动作，而不是文化资产。</li></ol>
+<p>会面目的不是证明支持假说，而是让反对假说尽快暴露。若客户明确表示体育账户关闭，应立即转向产品体验、非赛事内容或停止推进，不把异议理解成“需要更多权益介绍”。</p>
+<hr/>
+<h3>9. 合作前置条件</h3>
+<p>任何新增文化或体育试点至少需要以下条件：</p>
+<ul><li>明确只服务一个品牌，不能默认 TECNO 资产可供集团全品牌共享；</li><li>明确一个国家或一个可管理的市场单元；</li><li>明确一个在售机型或一个已存在的产品价值点；</li><li>明确经销商或零售端能够记录的行为；</li><li>明确对照基线和复盘窗口；</li><li>明确未达证据时暂停；</li><li>明确不替代非洲杯，不暗示排他；</li><li>明确数据、内容、法务和预算的责任人。</li></ul>
+<p>任何一项缺失都不代表绝对不能合作，但会降低可验证性，必须相应缩小承诺。</p>
+<hr/>
+<h3>10. 卖方十问：合作史追问</h3>
+<ol><li>非洲杯合作最初由总部、区域还是品牌团队发起？</li><li>续约时最重要的三类证据是什么【待核实】？</li><li>梦想球场与赛事权益是同一预算和同一团队管理吗？</li><li>张艺兴合作在不同市场是否使用同一内容策略？</li><li>TECNO、Infinix、itel 是否有明确的体育与娱乐资产分工？</li><li>经销商能否看到并使用总部合作权益，还是由国家团队二次申请？</li><li>大型合作复盘以品牌指标、渠道指标还是销售指标为主？</li><li>是否有过因未达目标而缩小或停止的营销项目【待核实】？</li><li>对篮球或 NBA 的主要顾虑是受众、预算、权益冲突还是执行复杂度？</li><li>若不增加任何新资产，现有非洲杯体系下一步最需要补的环节是什么？</li></ol>
+<hr/>
+<h3>11. 合作史反模式</h3>
+<ul><li>把“官方全球合作伙伴”改写为未经核实的排他身份；</li><li>把社区公益项目当成销售转化项目；</li><li>用“未见 NBA”推导“客户一定需要 NBA”；</li><li>把品牌官宣的合作续约推导为 ROI 已被证明；</li><li>将 TECNO 的动作上升为集团全部品牌共同策略；</li><li>把历史赞助线索当作当前有效合同；</li><li>贬低既有足球资产来制造篮球紧迫感；</li><li>在不知道预算 Owner 时先报大包。</li></ul>
+<h3>12. 会面含义</h3>
+<p>最可信的开场不是“你们还缺一块体育资产”，而是“你们已经把足球身份、社区项目和全球代言做得很完整；我们想确认，下一阶段最难的是继续放大既有资产，还是把文化投入接到中高端机型和国家零售证据。”这句话承认客户已做的工作，也把讨论从资产采购转向经营机制。</p>
+</section>
+<section id="ch04">
+<h2 class="file-title">04 · 竞品景观 · 传音控股</h2>
+<blockquote><p>竞品按<strong>新兴市场智能机</strong>真实对手选，不按中国国内安卓内战幻觉选。</p></blockquote>
+<hr/>
+<h3>1. 直接对手（非洲 / 新兴市场）</h3>
+<div class="table-wrap"><table><tr><th>对手</th><th>公开位置</th><th>对传音的压力点</th><th>级</th></tr><tr><td><strong>三星</strong></td><td>非洲智能机常居第二档；中高端与 Galaxy A 系列</td><td>品牌溢价、渠道、中端夹击；Omdia 等报道 Q4 增长</td><td>C+行业</td></tr><tr><td><strong>小米</strong></td><td>非洲份额上升叙述常见；印度基本盘强</td><td>性价比+生态；印度战场传音仅 4%</td><td>C</td></tr><tr><td><strong>荣耀 / OPPO / vivo 等</strong></td><td>中东、东南亚、部分非洲渗透</td><td>中端外观与营销节奏</td><td>C</td></tr><tr><td><strong>本地/白牌</strong></td><td>超低端功能机与入门智能机</td><td>价格战、侵蚀 itel 护城河</td><td>C</td></tr></table></div>
+<p>年报风险段自承：新兴市场竞争加剧 → 毛利率与市场地位下滑风险 [A]。</p>
+<hr/>
+<h3>2. 「非洲之王」护城河 vs 裂缝</h3>
+<div class="table-wrap"><table><tr><th>护城河（年报自称）</th><th>裂缝（2025 证据）</th></tr><tr><td>多品牌覆盖阶层</td><td>手机收入 −7.51%；出货压力（媒体称少约 3200 万）</td></tr><tr><td>本地化产品（深肤色影像、续航、防汗等）</td><td>存储涨价下本地化难完全对冲 BOM</td></tr><tr><td>2000+ 经销商网络</td><td>亚洲等地区收入 −11.58%</td></tr><tr><td>售后 Carlcare</td><td>扩品类增，但利润主引擎仍是手机毛利下滑</td></tr><tr><td>足球文化嵌入（TECNO×非洲杯）</td><td>三星等加大中端与营销时，足球灯塔≠ ASP 自动上升</td></tr></table></div>
+<hr/>
+<h3>3. 竞品营销对照（体育/内容）</h3>
+<div class="table-wrap"><table><tr><th>玩家</th><th>典型动作</th><th>对会面含义</th></tr><tr><td>传音 TECNO</td><td>非洲杯全球合作伙伴 + 张艺兴</td><td><strong>已有体系级足球</strong>；再推「你们缺大赞助」是外行</td></tr><tr><td>三星</td><td>全球体育矩阵厚（具体非洲执行因市场而异）</td><td>中高端心智战</td></tr><tr><td>小米</td><td>性价比+米粉/数字营销；体育因市场而异</td><td>印度等市场节奏不同</td></tr><tr><td>中国安卓国内大战</td><td>代言人军备竞赛</td><td><strong>不可直接复制到非洲经销商模型</strong></td></tr></table></div>
+<hr/>
+<h3>4. 横向：同属「中国品牌出海硬件」</h3>
+<div class="table-wrap"><table><tr><th>对照</th><th>相似</th><th>不同</th></tr><tr><td>小米集团</td><td>多品牌、出海、互联</td><td>传音更依赖非洲渠道与本地化硬件；国内品牌心智弱</td></tr><tr><td>联想手机史</td><td>新兴市场起伏</td><td>传音非洲份额仍第一（年报）</td></tr><tr><td>家电出海品牌</td><td>本地化+渠道</td><td>手机迭代更快、BOM 波动更狠</td></tr></table></div>
+<hr/>
+<h3>5. 竞品结论（进 A/ONE_PAGER 用）</h3>
+<ol><li><strong>真正的仗</strong>：不是「再找一个中国明星」，而是 <strong>BOM + 中端夹击 + 亚洲复制失败</strong>。</li><li><strong>营销差</strong>：对手用中端产品故事打 ASP；传音有足球灯塔，但 <strong>灯塔与 $200+ 价值点是否咬合</strong>未在 IR 证明。</li><li><strong>我方角度</strong>：若谈合作，必须绑 <strong>中高端 SKU / 样板国 sell-out</strong>，否则与三星小米的军备竞赛同质。</li></ol>
+<hr/>
+<h3>6. 竞争不是一张全球排行榜</h3>
+<p>传音覆盖超过 70 个国家和地区，竞争对手组合不会在每个市场完全相同。非洲、巴基斯坦、孟加拉和印度的市场位置已经明显分化，因此不能用一张“全球竞品表”替代国家诊断。三星、小米、荣耀、OPPO、vivo、本地品牌和白牌可能分别在品牌、价格、渠道、售后或产品节奏上构成压力，但各自权重【待核实】。</p>
+<div class="table-wrap"><table><tr><th>战场</th><th>传音已知位置</th><th>可能的竞争轴</th><th>研究纪律</th></tr><tr><td>非洲</td><td>智能机份额领先，收入增长</td><td>守份额、提结构、抗毛利压力</td><td>不把第一写成垄断</td></tr><tr><td>巴基斯坦</td><td>智能机市占超过 40%</td><td>领先地位维护与产品升级</td><td>不用媒体下降数字作铁事实</td></tr><tr><td>孟加拉</td><td>智能机市占 35%</td><td>渠道深度与价格带管理</td><td>竞品细分【待核实】</td></tr><tr><td>印度</td><td>智能机市占 4%、第八</td><td>小米、三星及其他安卓品牌夹击</td><td>不把弱势归因于单一营销因素</td></tr><tr><td>其他新兴市场</td><td>公司积极拓展</td><td>本地渠道与品牌认知重建</td><td>逐国验证，不做全球平均</td></tr></table></div>
+<hr/>
+<h3>7. 竞争能力拆解</h3>
+<h4>7.1 产品适配</h4>
+<p>传音年报列举深肤色影像、续航、防汗接口、本地音乐等适配，这些是长期本地洞察的具体表现。竞品压力不是简单复制这些功能，而可能通过更强芯片、影像叙事、系统生态、品牌信任或价格节奏重新定义比较标准。具体对手机型与功能差异【待核实】，本研究不编配置表。</p>
+<h4>7.2 多品牌覆盖</h4>
+<p>TECNO、Infinix、itel 可以覆盖不同消费层级，但多品牌也带来资源分配、渠道冲突与内部定位漂移风险。竞品若以单一品牌集中打一个价格带，可能在传播一致性上更简单。传音的优势是覆盖，管理难点是每个品牌必须说清楚“为谁、凭什么、在哪卖”。</p>
+<h4>7.3 渠道与售后</h4>
+<p>超过 2,000 家经销商与 Carlcare 是难以短期复制的基础设施。但渠道广不等于新品升级自然成功。价格敏感市场中，经销商会比较周转、毛利、返利、售后与退货风险。任何品牌合作若增加门店工作却不改善这些指标，可能遭遇隐性否决。</p>
+<h4>7.4 品牌与文化资产</h4>
+<p>TECNO 已有非洲杯和张艺兴，说明竞争并不是从零建立知名度。新增资产必须回答“为什么现有资产不能完成这项任务”。若答案只是更多曝光，就会进入与三星、小米等对手都能参与的注意力竞价；若答案是某个品牌、国家、机型的可测行为，则有机会形成更窄的差异。</p>
+<hr/>
+<h3>8. 竞品反应情景</h3>
+<div class="table-wrap"><table><tr><th>我方/传音动作</th><th>对手可能反应</th><th>风险</th><th>预先设计</th></tr><tr><td>推出文化联名试点</td><td>同期降价或加渠道激励</td><td>活动效果被价格动作覆盖</td><td>记录竞品价格与促销</td></tr><tr><td>强化中高端故事</td><td>对手放大配置或品牌背书</td><td>价值点失焦</td><td>只选一个可体验功能</td></tr><tr><td>扩大年轻内容</td><td>对手加 KOL 与数字投放</td><td>进入曝光军备竞赛</td><td>用门店行为而非播放量判定</td></tr><tr><td>复制到新国家</td><td>本地主导品牌强化渠道</td><td>总部内容落地受阻</td><td>国家团队与经销商先签执行条件</td></tr><tr><td>跨品牌协同</td><td>对手集中攻击品牌定位</td><td>用户认知混乱</td><td>品牌之间严格区隔</td></tr></table></div>
+<p>这些是竞争情景，不是已发生事实。用途是让试点保留对照与解释空间，而不是预测对手一定采取某项动作。</p>
+<hr/>
+<h3>9. 竞品研究缺口</h3>
+<ul><li>目标样板国的实际前三竞品与重点机型【待核实】；</li><li>同价格带零售成交价与促销节奏【待核实】；</li><li>经销商推荐某品牌的主要理由【待核实】；</li><li>售后、退货、备件和维修时效对成交的影响【待核实】；</li><li>对手在当地体育、音乐、游戏和创作者资产的最新动作【待核实】；</li><li>对手是否将内容权益绑定具体 SKU【待核实】；</li><li>目标用户换机时真正比较的品牌集合【待核实】。</li></ul>
+<p>这些缺口不能靠桌面研究完全关闭，需由国家团队、经销商访谈与门店观察补足。</p>
+<hr/>
+<h3>10. 卖方十问：竞争侧</h3>
+<ol><li>目标国家里，消费者最常把 TECNO 与哪两个品牌比较？</li><li>经销商更愿意推荐竞品时，最常见理由是什么？</li><li>中高端机型输单主要发生在认知、到店、体验还是价格环节？</li><li>三个手机品牌是否在同一门店争夺陈列与促销资源？</li><li>竞品降价时，国家团队有什么快速响应权限？</li><li>哪一项本地化能力最难被竞品复制，证据是什么？</li><li>非洲杯资产是否帮助销售人员处理与三星或小米的比较？</li><li>印度位置较弱的核心约束是渠道、产品、品牌还是资源优先级？</li><li>对手营销效果内部如何监测，是否有固定竞品看板？</li><li>若只能选择一个竞争指标做试点，客户会选份额、成交、价格守住还是品牌偏好？</li></ol>
+<hr/>
+<h3>11. 竞品分析反模式</h3>
+<ol><li>用中国市场经验替代非洲和南亚实地竞争。</li><li>罗列全球赞助资产，却不解释其在目标国家的作用。</li><li>把竞品“品牌更强”写成无法检验的空话。</li><li>未核实具体机型、售价和权益，就制作精确对比。</li><li>把传音份额领先解释为不需要继续建设品牌。</li><li>把印度弱势解释为营销失败，忽略渠道、产品和战略优先级。</li><li>建议客户复制对手动作，而不检查自身多品牌和经销商结构。</li></ol>
+<h3>12. 会面含义</h3>
+<p>竞品页不应拿来“教育客户谁是对手”，而应验证决策标准。最有价值的问题是：在目标国家的真实输单中，用户为什么从传音品牌切到另一品牌；这项原因能否由文化合作影响；如果不能，就不应把合作包装成竞争解法。只有客户能指出一个具体、可影响的输单环节，后续方案才有资格继续。</p>
+</section>
+<section id="ch05">
+<h2 class="file-title">05 · 行业与政策语境 · 传音控股</h2>
+<hr/>
+<h3>1. 行业结构（年报口径）</h3>
+<ul><li>手机：技术迭代快、同质化、AI 功能向中低端下沉 [A]。</li><li>新兴市场：人口基数大；仍存在 <strong>功能机→智能机</strong> 结构性升级 [A]。</li><li>5G 在新兴市场逐步成为主流/标配趋势叙述 [A]。</li><li>AIGC / 大模型进入终端体验竞争 [A]。</li></ul>
+<hr/>
+<h3>2. 2025 特有冲击：存储周期</h3>
+<div class="table-wrap"><table><tr><th>机制</th><th>对传音</th><th>证据</th></tr><tr><td>DRAM/NAND 涨价</td><td>BOM↑，难完全转嫁给价格敏感用户</td><td>年报归因 [A]</td></tr><tr><td>价格敏感市场</td><td>提价失量；不提价失利</td><td>毛利率下降 [A]</td></tr><tr><td>竞争加剧</td><td>份额与费用双杀风险</td><td>手机收入↓ + 销售费用↑</td></tr></table></div>
+<blockquote><p><strong>行业课禁止进刀子</strong>；刀子只用一句：「存储年，毛利被咬，还在加品牌费。」</p></blockquote>
+<hr/>
+<h3>3. 区域市场分化</h3>
+<div class="table-wrap"><table><tr><th>区域</th><th>结构事实</th><th>品牌含义</th></tr><tr><td>非洲</td><td>智能机份额领先；收入仍增</td><td>守城 + ASP 升级试验田</td></tr><tr><td>南亚（巴/孟）</td><td>市占第一档</td><td>巩固</td></tr><tr><td>印度</td><td>仅 4%、第八</td><td>是否值得继续烧品牌？</td></tr><tr><td>中东/拉美/东南亚</td><td>年报「积极拓展」</td><td>复制成本高</td></tr></table></div>
+<p>非洲智能手机市场 2025 出货增长（Omdia 等称约 +13%）与传音高份额并存 [C]——<strong>大盘增长 ≠ 利润增长</strong>（传音净利腰斩）。</p>
+<hr/>
+<h3>4. 渠道与支付</h3>
+<ul><li>经销商为主销售模式 [A]。</li><li>新兴市场常见：分期购机、运营商/金融合作（行业常识，细节【待核实】）。</li><li>售后网点体系（含第三方）是信任资产 [A]。</li></ul>
+<hr/>
+<h3>5. 政策 / 地缘风险（年报风险段摘要）</h3>
+<ul><li>境外子公司管控、关税、认证、政治经济波动 [A]。</li><li>出口退税等税收优惠变动风险 [A]。</li><li>标准必要专利风险 [A]。</li><li><strong>不进 pitch 恐吓</strong>；备答用。</li></ul>
+<hr/>
+<h3>6. 董事会会问的行业题（预演）</h3>
+<ol><li>AI 功能下沉后，中低端差异化还剩什么？</li><li>存储若继续贵，产品组合如何切？</li><li>非洲份额见顶后的第二增长极是区域还是品类？</li><li>品牌费 ROI 如何在经销商报表里看见？</li></ol>
+<hr/>
+<h3>7. 行业价值链：压力如何传导</h3>
+<pre class="muted">存储等元器件成本与供应
+        ↓
+产品配置、成本与上市节奏
+        ↓
+品牌定价与渠道进货条件
+        ↓
+经销商推荐、库存与促销
+        ↓
+消费者到店比较和换机
+        ↓
+售后、复购与口碑</pre>
+<p>品牌合作只直接作用于这条链中的部分环节。它可以影响认知、兴趣、体验动机与门店话术，却不能替代采购、配置、库存和售后。若目标机型缺货、定价失去竞争力或经销商没有动力，文化资产无法独立修复。因此试点立项前必须确认产品可供、价格稳定和经销商参与。</p>
+<hr/>
+<h3>8. 功能机向智能机升级的双面性</h3>
+<p>年报把新兴市场的功能机向智能机升级视为结构机会。机会的一面是潜在用户仍在进入智能终端；风险的一面是首次智能机用户可能高度关注价格、耐用、续航、网络、售后和使用门槛。对这类用户，赛事或明星未必能承担价格溢价，更可能承担信任、体验教育或到店触发。</p>
+<p>因此需要区分两类任务：</p>
+<ul><li><strong>首次智能机转换</strong>：重点是降低风险感，内容应帮助用户理解实际使用价值；</li><li><strong>智能机换机升级</strong>：重点是与三星、小米等候选进行体验和身份比较，中高端故事才更可能发挥作用。</li></ul>
+<p>两类用户的比例、渠道和内容偏好【待核实】。不能用同一个“年轻人”标签覆盖。</p>
+<hr/>
+<h3>9. AI 下沉：功能存在不等于价值被感知</h3>
+<p>公司提出把 AI 融入社交、出行、健康、教育等高频场景，并从“可用”走向“真实可感”。行业层面，AI 功能向更多价格带下沉会迅速削弱“有 AI”本身的差异。竞争会转向：功能是否适配本地语言与场景、是否稳定、是否容易演示、是否值得用户为目标机型选择。</p>
+<p>对营销合作的约束是：</p>
+<ol><li>不宣传一个尚未稳定或未在目标机型提供的功能；</li><li>不把抽象 AI 口号当作年轻化内容；</li><li>选择用户能当场体验的单一场景；</li><li>由产品团队确认功能与合规边界；</li><li>把“体验完成”“愿意推荐”“门店转化”等分开记录。</li></ol>
+<p>具体 AI 功能、支持语言、目标机型与使用数据均【待核实】。</p>
+<hr/>
+<h3>10. 渠道经济是行业研究的盲区</h3>
+<p>公开年报能够确认经销商模式和覆盖广度，却无法告诉我们单个经销商为什么推荐某一机型。真实决策可能受库存周转、返利、账期、售后、促销、门店陈列和销售人员熟悉度共同影响。若不访问经销商，品牌提案容易只解决总部传播问题。</p>
+<h4>经销商访谈最小提纲</h4>
+<ul><li>哪些品牌和机型周转最快，为什么；</li><li>顾客进店前有明确品牌偏好，还是主要听导购推荐；</li><li>中高端机型最常见的拒绝理由；</li><li>活动权益是否增加门店成交，还是只增加执行负担；</li><li>缺货、价格变化和竞品促销如何记录；</li><li>品牌总部提供的数据和物料是否可直接使用；</li><li>经销商愿意为试点提供哪些数据，哪些不能提供。</li></ul>
+<p>所有回答都应记录国家、城市、门店类型和受访者角色，不能把一个经销商的观点外推到所有市场。</p>
+<hr/>
+<h3>11. 区域复制的模块化框架</h3>
+<p>“复制到其他新兴市场”不应理解为把非洲内容翻译后搬走。可复制能力至少应拆成五类：</p>
+<div class="table-wrap"><table><tr><th>模块</th><th>可能可复制</th><th>必须本地重做</th></tr><tr><td>品牌架构</td><td>多品牌分层原则</td><td>品牌认知与竞品集合</td></tr><tr><td>用户洞察</td><td>研究方法和字段</td><td>文化语境与真实需求</td></tr><tr><td>产品</td><td>平台能力</td><td>网络、语言、影像、耐用等适配</td></tr><tr><td>渠道</td><td>经销商管理框架</td><td>伙伴结构、利益与法规</td></tr><tr><td>营销</td><td>测试与复盘机制</td><td>体育、娱乐、内容和节日资产</td></tr></table></div>
+<p>我方若提出文化合作，价值不应是“把一个全球 IP 带到所有国家”，而应是提供一个可复用的试验协议，让不同国家在共同纪律下验证不同表达。</p>
+<hr/>
+<h3>12. 政策与地缘风险如何进入项目设计</h3>
+<p>年报列示关税、认证、政治经济波动、境外子公司管控、税收优惠和专利等风险。首面不应以这些风险制造焦虑，但项目设计需预留：</p>
+<ul><li>市场与法务对内容、肖像、促销和数据使用的审批；</li><li>国家政策变化导致活动延期或取消的处理条款；</li><li>产品上市节奏与认证延迟时的替代方案；</li><li>不跨市场混用未经授权的用户数据；</li><li>不承诺无法由当地团队执行的权益。</li></ul>
+<p>具体国家规则必须由当地法务核实，本研究不提供法律结论。</p>
+<hr/>
+<h3>13. 卖方十问：行业与渠道</h3>
+<ol><li>目标国家目前更重要的是首次智能机用户，还是换机升级用户？</li><li>存储成本变化如何影响目标机型配置、定价和促销？</li><li>AI 价值点中，用户最容易当场体验的是哪一项？</li><li>5G 对目标用户是购买理由还是基础门槛【待核实】？</li><li>经销商推荐权在不同国家有多大差异？</li><li>国家团队可以自主调整哪些内容和渠道激励？</li><li>目标机型是否存在供货、认证或售后瓶颈？</li><li>从非洲复制到其他区域，过去最容易失真的模块是什么？</li><li>品牌活动数据能否与门店库存和成交数据对齐？</li><li>哪类政策或合规问题最容易让全球项目在本地停摆？</li></ol>
+<hr/>
+<h3>14. 行业研究反模式</h3>
+<ul><li>用宏观人口机会掩盖公司利润压力；</li><li>把功能机升级用户等同于中高端用户；</li><li>把“AI 下沉”当作自动差异化；</li><li>用大盘增长推断传音必然增长；</li><li>把经销商当作被动执行终端；</li><li>把非洲经验原样复制到亚洲；</li><li>在不了解国家法规时承诺统一活动；</li><li>把体育合作写成能解决供应链或定价问题。</li></ul>
+<h3>15. 会面含义</h3>
+<p>行业页的作用是排除伪问题。若客户当前主要约束是成本、供货或渠道利益，品牌合作必须让位；若产品、价格和供货已具备，而中高端价值点在目标人群与门店之间失真，文化试验才可能成立。首面应让客户指出链条断点，而不是向客户讲一堂手机行业课。</p>
+</section>
+<section id="ch06">
+<h2 class="file-title">06 · 权力地图 + MEDDIC · 传音控股</h2>
+<blockquote><p>冷启动：全部为<strong>可检验假说</strong>，禁止写成已证实组织图。</p></blockquote>
+<hr/>
+<h3>1. 公开治理锚点</h3>
+<div class="table-wrap"><table><tr><th>角色</th><th>姓名</th><th>含义</th><th>级</th></tr><tr><td>董事长兼总经理</td><td><strong>竺兆江</strong></td><td>Economic Buyer 高概率落点；波导系创业团队</td><td>A</td></tr><tr><td>董事会/高管</td><td>杨宏、叶伟强、张祺、雷伟国、肖永辉（财务）等</td><td>经营层深</td><td>A/官网</td></tr><tr><td>组织叙事</td><td>总部–区域–国家三级；本地化「铁三角」等（公开材料）</td><td>国家 GM 有执行权</td><td>C/A 混</td></tr><tr><td>经销商</td><td>&gt;2000 家</td><td><strong>否决执行</strong>的隐形权力</td><td>A</td></tr></table></div>
+<hr/>
+<h3>2. MEDDIC 冷启动表</h3>
+<div class="table-wrap"><table><tr><th>项</th><th>现状</th><th>缺口</th></tr><tr><td><strong>Metrics</strong></td><td>净利 −53%；手机毛利 18.43%；非洲收入 +9.9%</td><td>客户内部品牌 KPI：份额 vs ASP vs 品牌健康度？</td></tr><tr><td><strong>Economic Buyer</strong></td><td>疑似竺兆江/财务/品牌负责人</td><td><strong>未触达</strong></td></tr><tr><td><strong>Decision Criteria</strong></td><td>年报强调中高端价值点、数字化营销、可复制到其他市场</td><td>是否接受「绑 SKU 核销」？</td></tr><tr><td><strong>Decision Process</strong></td><td>总部品牌 vs 区域国家预算？</td><td>【待核实】</td></tr><tr><td><strong>Identify Pain</strong></td><td>BOM+竞争+亚洲下滑；同时要升级品牌</td><td>痛在利润还是份额？</td></tr><tr><td><strong>Champion</strong></td><td>无</td><td>需品牌或中高端项目侧</td></tr><tr><td><strong>Competition</strong></td><td>三星/小米/费用机会成本（把钱给渠道返利）</td><td>体育合作 vs 渠道让利</td></tr></table></div>
+<hr/>
+<h3>3. Paper Process（假想路径）</h3>
+<pre class="muted">品牌/区域发起 → 财务看试验上限 → 样板国经销商试点 → 复盘 sell-out
+→ 才谈扩大（非洲杯级预算不在首面）</pre>
+<p><strong>红线</strong>：首面不谈非洲杯替代或NBA总冠名。</p>
+<hr/>
+<h3>4. 权力风险剧本</h3>
+<div class="table-wrap"><table><tr><th>剧本</th><th>信号</th><th>动作</th></tr><tr><td>品牌热、财务冷</td><td>「先做诊断」</td><td>只要试验上限数字</td></tr><tr><td>区域热、总部冷</td><td>某国总经理感兴趣</td><td>锁定样板国，不上全国</td></tr><tr><td>经销商冷</td><td>「又是活动不带货」</td><td>方案必须含经销商利润表一页</td></tr><tr><td>「我们有非洲杯了」</td><td>体育账户关闭</td><td>PIVOT：问亚洲/中高端是否共用足球资产；或谈非赛事年轻人日历</td></tr></table></div>
+<hr/>
+<h3>5. 会面分工建议</h3>
+<ul><li>主谈：懂硬件出海与 ASP，不卖球迷数。</li><li>禁：NBA 中国赛门票思维、CPM、未核实排他。</li></ul>
+<hr/>
+<h3>6. 权力不是组织架构，而是对项目的实际影响</h3>
+<p>公开资料能确认竺兆江担任董事长兼总经理，也能确认经销商网络广泛，但不能据此画出具体营销审批组织图。对项目而言，应区分五种权力：</p>
+<div class="table-wrap"><table><tr><th>权力</th><th>可能角色</th><th>能决定什么</th><th>当前状态</th></tr><tr><td>发起权</td><td>品牌、区域或产品团队</td><td>是否把议题带入内部</td><td>【待核实】</td></tr><tr><td>预算权</td><td>财务、品牌负责人、经营层</td><td>是否提供预算与上限</td><td>【待核实】</td></tr><tr><td>设计权</td><td>品牌、产品、国家团队</td><td>选品牌、机型、国家与表达</td><td>【待核实】</td></tr><tr><td>执行权</td><td>国家团队、经销商、代理伙伴</td><td>门店和内容能否落地</td><td>【待核实】</td></tr><tr><td>否决权</td><td>经营层、法务、财务、区域或经销商</td><td>项目能否停止或缩小</td><td>【待核实】</td></tr></table></div>
+<p>同一个人可能拥有多种权力，也可能只有职位而没有相关预算。销售不能把“见到高层”当成 MEDDIC 已关闭，也不能把品牌团队的兴趣当成财务批准。</p>
+<hr/>
+<h3>7. MEDDIC 深化：每一格的关闭证据</h3>
+<h4>Metrics</h4>
+<p>公开指标只构成公司级背景。真正的项目指标必须由客户定义，可能包括目标机型成交、门店动销、价格守住、体验完成、品牌偏好或经销商参与。至少需要基线、目标、数据源、频率和 Owner；缺任何一项，都不能宣称 Metrics 已关闭。</p>
+<h4>Economic Buyer</h4>
+<p>董事长兼总经理是高概率经营决策锚点，但具体试点可能无需上升到董事长，也可能由财务或品牌负责人掌握预算。关闭证据不是“我们猜是竺兆江”，而是客户明确说明谁能批准试验上限、谁能批准扩大。</p>
+<h4>Decision Criteria</h4>
+<p>年报提供了方向性标准：中高端价值点、数字营销、渠道创新和可复制。内部标准还可能包括品牌匹配、数据可得、执行复杂度、法务风险和预算回收。应请客户按优先级排序，不替客户排序。</p>
+<h4>Decision Process</h4>
+<p>需要知道立项、评审、合同、法务、预算、执行和复盘的先后顺序，以及每一步所需材料。若流程跨总部、区域、国家和经销商，时间与责任都必须显式化。</p>
+<h4>Identify Pain</h4>
+<p>“利润下降”是公司背景，不一定是见面人的工作痛点。品牌负责人可能担心中高端心智，区域团队可能担心 sell-out，经销商可能担心周转，产品团队可能担心价值点无法被理解。只有对方用自己的语言确认，Pain 才从外部假说升级。</p>
+<h4>Champion</h4>
+<p>Champion 不是态度友好的人，而是愿意提供内部信息、帮我们理解流程、引荐关键人并承担推进风险的人。冷启动目前没有 Champion。</p>
+<h4>Competition</h4>
+<p>竞争不仅是其他体育 IP，也包括非洲杯既有预算、数字投放、渠道返利、价格促销、产品体验和“不做任何项目”。机会成本必须进入比较。</p>
+<hr/>
+<h3>8. 决策流程的三种可能模型</h3>
+<h4>模型一：总部品牌主导</h4>
+<p>总部决定资产与品牌方向，区域和国家负责激活。优点是身份一致，风险是国家团队缺少预算或执行动力。验证问题：国家团队能否拒绝、调整或延后总部项目？</p>
+<h4>模型二：区域或国家主导</h4>
+<p>国家团队基于本地销售问题发起，总部做品牌和法务把关。优点是贴近市场，风险是难形成可复制体系。验证问题：国家预算上限和总部审批阈值是什么【待核实】？</p>
+<h4>模型三：产品项目主导</h4>
+<p>围绕某一中高端机型，由产品、品牌和区域共同立项。优点是容易绑定产品价值，风险是上市节奏短、协作复杂。验证问题：目标机型负责人是否拥有营销资源与数据权限？</p>
+<p>当前不能选择其一作为事实。首面应确认真实模型，之后再设计材料。</p>
+<hr/>
+<h3>9. 首面三问与追问树</h3>
+<h4>问一：你们最希望新增文化投入改变哪个经营结果？</h4>
+<ul><li>若答品牌认知：追问目标品牌、人群、国家与测量方法；</li><li>若答销量：追问机型、渠道、基线与价格因素；</li><li>若答中高端：追问具体价值点和用户比较对象；</li><li>若答探索：追问可接受的试验成本和停止条件；</li><li>若无法回答：不进入权益讨论。</li></ul>
+<h4>问二：这类项目谁发起、谁出预算、谁有权停止？</h4>
+<ul><li>若三者同一：确认执行与数据 Owner；</li><li>若三者不同：画出审批与否决路径；</li><li>若对方不清楚：把组织确认列为会后前置任务；</li><li>若预算未定：只做诊断，不报长期方案。</li></ul>
+<h4>问三：非洲杯已经承担什么，明确不需要新增资产承担什么？</h4>
+<ul><li>若现有资产已覆盖全部需求：PIVOT 或停止；</li><li>若存在品牌、国家、机型空白：继续核实是否值得试验；</li><li>若客户不愿比较：尊重既有资产，转向内部机制问题。</li></ul>
+<hr/>
+<h3>10. 72 小时推进清单</h3>
+<ul><li>[ ] 获取客户原话版 business problem；</li><li>[ ] 确认见面人对项目的实际权力；</li><li>[ ] 标出发起、预算、执行、数据和否决角色；</li><li>[ ] 确认目标品牌、国家、机型是否存在；</li><li>[ ] 获取至少一个可量化基线或确认数据不可得；</li><li>[ ] 确认非洲杯和新增合作的边界；</li><li>[ ] 确认预算是增量、替代还是未形成；</li><li>[ ] 确认法务、采购与合同路径；</li><li>[ ] 确认下一次会议需要出现的角色；</li><li>[ ] 若核心信息仍缺失，将状态保持在发现阶段。</li></ul>
+<hr/>
+<h3>11. 常见异议与合格响应</h3>
+<div class="table-wrap"><table><tr><th>异议</th><th>不合格响应</th><th>合格响应</th></tr><tr><td>我们已经有非洲杯</td><td>强调篮球更年轻</td><td>先确认现有资产覆盖目标，必要时停止</td></tr><tr><td>今年费用很紧</td><td>立刻打折</td><td>询问是否存在可验证的小试验与预算上限</td></tr><tr><td>先发权益包</td><td>发送完整目录</td><td>先用一页列明假说、边界和待确认项</td></tr><tr><td>无法提供销量数据</td><td>用曝光替代</td><td>降低承诺，寻找可审计的近端行为指标</td></tr><tr><td>总部感兴趣，区域未定</td><td>默认可以全球推</td><td>只推进一个区域验证，不越过执行权</td></tr></table></div>
+<hr/>
+<h3>12. 权力与 MEDDIC 反模式</h3>
+<ul><li>把公开高管名单当成项目组织图；</li><li>把职位最高的人自动当 Economic Buyer；</li><li>把一次会面中的兴趣当 Champion；</li><li>用公司级净利润代替项目 Metrics；</li><li>忽略经销商的执行否决；</li><li>未确认预算来源就谈大型权益；</li><li>没有停止条件却把试点称为可熔断；</li><li>把采购流程留到方案完成以后。</li></ul>
+<h3>13. 当前裁决</h3>
+<p>MEDDIC 仍处于早期：公司级压力与战略方向有 A 源，项目级 Pain、Metrics、Economic Buyer、Decision Process 和 Champion 均未关闭。销售可以请求一次问题发现会，不能把机会写成已进入方案采购。任何提案都应带【待核实】字段，并允许客户明确说“不需要新增体育合作”。</p>
+</section>
+<section id="ch07">
+<h2 class="file-title">07 · 组织 / 创始人 / 生命周期 · 传音控股</h2>
+<hr/>
+<h3>1. 生命周期粗判</h3>
+<div class="table-wrap"><table><tr><th>阶段</th><th>特征</th><th>证据</th></tr><tr><td>创立与非洲扎根</td><td>2006 前后；波导系团队；聚焦非洲</td><td>公开公司史 C</td></tr><tr><td>多品牌巩固</td><td>TECNO / itel / Infinix + 配件家电售后</td><td>A</td></tr><tr><td>资本化</td><td>2019 科创板上市 688036</td><td>A</td></tr><tr><td>高峰利润</td><td>2023–24 归母净利约 55 亿量级</td><td>A</td></tr><tr><td><strong>压力年</strong></td><td><strong>2025 净利腰斩、手机收入下滑、费用仍增</strong></td><td>A</td></tr><tr><td>下一跳叙事</td><td>中高端/AI/扩品类/互联；H 股融资窗口（公开）</td><td>A+C</td></tr></table></div>
+<p><strong>生命周期一句话</strong>：从「非洲份额神话」进入「份额仍在、利润不再神话」的成熟压力期。</p>
+<hr/>
+<h3>2. 创始人 / 班子文化线索</h3>
+<ul><li>竺兆江长期董事长兼总经理：决策集中度可能较高 [A]。</li><li>核心团队多源自波导等国产手机早期：懂功能机时代渠道与性价比 [公开履历]。</li><li>年报强调境外经验与新兴市场理解 [A]。</li><li>2025 人力材料提及五年组织人才规划、平台型/生态型组织演进【公开材料，细节待核】。</li></ul>
+<p><strong>会面含义</strong>：对方可能对「又来一个中国市场玩法」过敏；应讲<strong>新兴市场经销商可执行</strong>的语言。</p>
+<hr/>
+<h3>3. 组织张力（假说）</h3>
+<div class="table-wrap"><table><tr><th>张力</th><th>表现</th><th>对合作</th></tr><tr><td>总部品牌 vs 国家 P&amp;L</td><td>非洲杯全球合约 vs 各国销量 KPI</td><td>样板国必须双边签字</td></tr><tr><td>多品牌协同 vs 资源争夺</td><td>TECNO 吃体育预算？</td><td>问清预算池</td></tr><tr><td>硬件利润 vs 互联故事</td><td>手机毛利↓，互联仍小</td><td>勿用「流量变现」空话开场</td></tr><tr><td>分红与投资</td><td>分红仍积极 vs 经营现金流↓</td><td>大额承诺难</td></tr></table></div>
+<hr/>
+<h3>4. 决策流素描（待证实）</h3>
+<pre class="muted">国家洞察 → 区域汇总 → 总部品牌/产品立项 → 财务预算闸口 → 经销商执行</pre>
+<p>体育大赛事可能反向：总部先签全球权益，再向下拆激活任务。</p>
+<hr/>
+<h3>5. 生命周期不是“衰退”，而是经营命题切换</h3>
+<p>2025 的财务压力不能直接定义公司进入衰退。传音仍有全球出货、非洲领先地位、广泛渠道和多品牌资产，也继续增加研发与销售费用。更准确的生命周期判断是：公司从以覆盖、份额和本地化建立优势的阶段，进入需要证明利润质量、产品结构和跨区域复制效率的阶段。</p>
+<div class="table-wrap"><table><tr><th>过去更重要的问题</th><th>当前新增的问题</th></tr><tr><td>能否进入足够多的新兴市场</td><td>每个市场的投入能否形成可持续回报</td></tr><tr><td>能否覆盖不同价格敏感人群</td><td>多品牌资源是否清晰分工</td></tr><tr><td>能否建立经销商和售后网络</td><td>网络能否支持中高端与数据闭环</td></tr><tr><td>能否做出本地适配产品</td><td>价值点能否被用户感知并愿意付费</td></tr><tr><td>能否建立非洲品牌身份</td><td>能力能否复制到其他区域</td></tr></table></div>
+<p>这类阶段转换通常要求组织从经验驱动增加机制驱动，但传音内部具体变化【待核实】。不能仅凭年报措辞断言组织已经完成转型。</p>
+<hr/>
+<h3>6. 创始人长期领导的双面假说</h3>
+<p>竺兆江长期担任董事长兼总经理，可以确认公司经营领导核心稳定。由此可提出但不能写死的两面假说：</p>
+<ul><li><strong>可能优势</strong>：战略连续、对新兴市场和渠道历史理解深、重大资源配置一致；</li><li><strong>可能风险</strong>：重大合作可能需要更高层级共识，中层难以单独承诺，外部伙伴容易误判授权。</li></ul>
+<p>会面不应围绕创始人性格做心理分析，而应问具体机制：什么规模的项目需要上升经营层；经营层看哪些证据；试点阶段谁能决定停止。</p>
+<hr/>
+<h3>7. 多品牌组织的协作难题</h3>
+<p>多品牌不只是消费者定位，也意味着组织资源边界。TECNO 已有较清晰的非洲杯与代言资产，Infinix 和 itel 的体育文化分工【待核实】。可能出现的组织问题包括：</p>
+<ol><li>共同渠道服务多个品牌，但品牌预算与素材分开；</li><li>同一国家团队同时承担多个品牌的销量目标；</li><li>全球资产由总部签署，本地激活预算由区域承担；</li><li>产品上市节奏与赛事赛历不一致；</li><li>经销商更关心周转，不愿执行复杂品牌区隔。</li></ol>
+<p>以上均为组织设计假说。验证时应要求客户画出一个真实项目的流程，而不是让对方评价抽象组织能力。</p>
+<hr/>
+<h3>8. 总部—区域—国家—经销商四层检查</h3>
+<div class="table-wrap"><table><tr><th>层级</th><th>可能关注</th><th>可能掌握</th><th>可能否决理由</th></tr><tr><td>总部</td><td>品牌一致、战略、合规、长期资产</td><td>全球身份、品牌规范、部分预算</td><td>与现有资产冲突</td></tr><tr><td>区域</td><td>国家组合、资源效率、复制</td><td>区域优先级和协调</td><td>无法跨国复用</td></tr><tr><td>国家</td><td>机型、渠道、竞品、节奏</td><td>本地执行与部分预算</td><td>不解决当前销售问题</td></tr><tr><td>经销商</td><td>周转、利润、返利、售后</td><td>门店推荐与数据</td><td>增加工作、不带成交</td></tr></table></div>
+<p>一个合格试点应明确四层中哪些必须参与。若只得到总部品牌认可，却没有国家产品和经销商执行，项目可能停在内容发布；若只有国家兴趣，没有总部品牌授权，项目也可能无法使用核心资产。</p>
+<hr/>
+<h3>9. 组织能力验证实验</h3>
+<p>与其问“你们跨部门协同好吗”，不如用一个小型试点验证：</p>
+<ul><li>是否能在有限时间内确定一个品牌和机型；</li><li>是否能由产品团队提供一个已验证价值点；</li><li>是否能由国家团队确认供货与价格；</li><li>是否能由经销商提供基线和活动后数据；</li><li>是否能由财务确认试验上限；</li><li>是否能在复盘时共同解释结果并作出继续或停止决定。</li></ul>
+<p>如果这些最小动作都无法完成，扩大文化资产只会放大组织摩擦。此时我方应把问题定义为准备度不足，而不是继续增加创意。</p>
+<hr/>
+<h3>10. 卖方十问：组织与生命周期</h3>
+<ol><li>当前从本地洞察到产品立项的正式流程是什么？</li><li>多品牌共享哪些团队和数据，哪些严格隔离？</li><li>全球合作由谁管理，国家激活由谁出预算？</li><li>经销商反馈如何进入总部产品与品牌决策？</li><li>中高端项目是否有跨产品、品牌、区域的单一 Owner？</li><li>哪类试点可以在国家层批准，哪类必须上升经营层？</li><li>利润压力后，营销项目的审批标准发生了什么变化【待核实】？</li><li>复制到其他新兴市场时，谁对“复制成功”负责？</li><li>复盘失败项目时，公司更关注假说错误还是执行错误？</li><li>一个外部伙伴怎样才会被视为帮助组织学习，而非增加协调成本？</li></ol>
+<hr/>
+<h3>11. 生命周期风险</h3>
+<div class="table-wrap"><table><tr><th>风险</th><th>表现</th><th>对销售的约束</th></tr><tr><td>成功经验固化</td><td>非洲打法被当作默认答案</td><td>先问可复制边界</td></tr><tr><td>资源分散</td><td>多品牌、多区域、多品类同时投入</td><td>试点只选一个单元</td></tr><tr><td>高层集中</td><td>中层兴趣无法转化授权</td><td>尽早确认批准人</td></tr><tr><td>数据断层</td><td>总部品牌指标与门店数据分离</td><td>立项前定数据责任</td></tr><tr><td>压力下短期化</td><td>更重促销，忽视品牌积累</td><td>同时设近端与学习指标</td></tr><tr><td>叙事超前</td><td>AI、生态、中高端快于经营证明</td><td>不替客户宣告成功</td></tr></table></div>
+<hr/>
+<h3>12. 组织研究反模式</h3>
+<ul><li>依据创始人履历推断个人偏好；</li><li>把“铁三角”等公开概念当作当前精确组织结构；</li><li>认为总部签约即可自动驱动国家执行；</li><li>忽略经销商作为独立利益主体；</li><li>把利润压力解释为组织失能；</li><li>用“转型期”掩盖没有具体流程证据；</li><li>在未识别 Owner 时设计跨品牌全球项目。</li></ul>
+<h3>13. 会面含义</h3>
+<p>组织页最终只服务一个判断：客户是否具备运行可验证试点的最小组织条件。若品牌、产品、国家、财务和经销商没有共同 Owner，首阶段应先做准备度诊断；若条件具备，再讨论文化资产。对传音这样的多品牌、跨区域公司，协作成本本身就是项目成本，必须进入方案。</p>
+</section>
+<section id="ch08">
+<h2 class="file-title">08 · 横纵完整版 · 传音控股</h2>
+<blockquote><p>横向=同行/品类；纵向=客户内部价值链。交汇点=可打之刀。</p></blockquote>
+<hr/>
+<h3>横向（行业）</h3>
+<div class="table-wrap"><table><tr><th>维</th><th>观察</th><th>交汇含义</th></tr><tr><td>BOM 周期</td><td>存储涨价冲击所有中低端安卓</td><td>人人毛利承压；差异在转嫁能力与结构升级速度</td></tr><tr><td>份额</td><td>非洲仍第一；全球智能机第 6</td><td>份额故事未死，利润故事已裂</td></tr><tr><td>营销军备</td><td>赛事、代言、数字投放并行</td><td>传音足球已重仓；增量要证明非同质</td></tr><tr><td>出海中国品牌</td><td>本地化能力被写成护城河</td><td>护城河正在付「维护费」（销售费用↑）</td></tr></table></div>
+<hr/>
+<h3>纵向（传音内部）</h3>
+<pre class="muted">研发/中高端价值点
+    ↓
+多品牌产品组合（TECNO / Infinix / itel）
+    ↓
+全球/区域品牌资产（非洲杯、代言、数字营销）
+    ↓
+2000+ 经销商与国家团队
+    ↓
+售后 Carlcare + 互联/扩品类
+    ↓
+财务报表：毛利、费用、净利、现金流</pre>
+<p><strong>断裂最可能发生在</strong>：品牌资产层 → 经销商执行层（「有曝光、无出货」）；以及产品升级层 → 价格敏感用户（「升了级、卖不动」）。</p>
+<hr/>
+<h3>交汇：可打的 3 个点（仅 1 个进刀子）</h3>
+<div class="table-wrap"><table><tr><th>#</th><th>交汇点</th><th>候选张力</th><th>本轮</th></tr><tr><td>1</td><td>足球灯塔已立 × ASP 升级</td><td>文化资产要服务中高端核销</td><td><strong>主打 T1</strong></td></tr><tr><td>2</td><td>非洲强 × 亚洲弱</td><td>复制失败</td><td>备选</td></tr><tr><td>3</td><td>费用↑ × 利润↓</td><td>可熔断试验</td><td>并入 T1 条件</td></tr></table></div>
+<hr/>
+<h3>一句话</h3>
+<blockquote><p>横向是存储年所有人难受；纵向是传音有灯塔、有渠道、缺的是<strong>灯塔到货架的可熔断操作系统</strong>。</p></blockquote>
+<hr/>
+<h3>横向完整版：六条行业比较轴</h3>
+<h4>一、成本转嫁能力</h4>
+<p>存储等元器件上涨是行业共同压力，但不同公司能否通过品牌、产品结构、采购、定价和渠道把成本消化，结果并不相同。传音手机收入和毛利率下降，说明压力已经进入报表；具体由哪一项机制贡献【待核实】。合作无法改变采购成本，只能在产品和渠道条件具备时帮助价值被感知。</p>
+<h4>二、价格带升级</h4>
+<p>年报确认公司加大中高端研发和价值点选择，媒体转述还提到更高价格带方向。升级不是把传播调性变高，而是产品、品牌、渠道、售后和用户支付意愿共同变化。若只增加文化曝光而没有在售机型与门店证据，无法判断升级是否发生。</p>
+<h4>三、本地化深度</h4>
+<p>传音已用产品适配、经销商和售后建立本地化叙事。新的挑战是把这种能力从“做出适合本地的产品”升级为“在不同国家持续发现、测试和复盘价值”。本地化不能只是内容翻译，也不能把非洲经验原样搬到印度或其他区域。</p>
+<h4>四、多品牌管理</h4>
+<p>多品牌能覆盖不同人群，也可能造成定位、预算和渠道资源竞争。TECNO、Infinix、itel 的具体收入、毛利和内部营销分账未披露。任何合作必须先选品牌，不接受“集团所有年轻用户”这种无法执行的对象。</p>
+<h4>五、文化资产效率</h4>
+<p>TECNO 已有非洲杯、梦想球场和张艺兴，证明客户不是体育或娱乐营销新手。新增资产的竞争对手首先是现有资产的增量激活，其次才是其他 IP。若不能说明新增试验完成什么独立任务，应优先帮助客户把既有资产接到产品与渠道。</p>
+<h4>六、跨区域复制</h4>
+<p>非洲收入增长而亚洲等地区收入下降，说明区域结果分化。这里不能直接推出“复制失败”，但足以提出问题：哪些能力依赖非洲特定文化与渠道，哪些能力可以模块化复制。全球合作应从一个样板国验证，不从全球模板出发。</p>
+<hr/>
+<h3>纵向完整版：从洞察到财务的十个闸口</h3>
+<div class="table-wrap"><table><tr><th>闸口</th><th>核心问题</th><th>失败表现</th><th>所需证据</th></tr><tr><td>用户洞察</td><td>目标用户是谁</td><td>用“年轻人”替代细分</td><td>访谈、行为或客户研究</td></tr><tr><td>产品定义</td><td>哪个价值点</td><td>功能很多但记不住</td><td>目标机型与单一卖点</td></tr><tr><td>品牌归属</td><td>哪个品牌承接</td><td>三品牌表达混乱</td><td>品牌定位与预算 Owner</td></tr><tr><td>市场选择</td><td>哪个国家</td><td>全球平均掩盖差异</td><td>国家优先级和竞争</td></tr><tr><td>文化资产</td><td>为什么用该资产</td><td>只因“有流量”</td><td>与用户和价值点的关联</td></tr><tr><td>内容激活</td><td>用户做什么</td><td>只有观看量</td><td>体验、到店或推荐行为</td></tr><tr><td>渠道执行</td><td>经销商为何配合</td><td>门店增加负担</td><td>利益、物料和培训</td></tr><tr><td>数据核销</td><td>如何判断</td><td>活动后只报曝光</td><td>基线、对照、数据 Owner</td></tr><tr><td>财务决策</td><td>何时扩大</td><td>一次活动直接谈长期</td><td>阶段预算与停止线</td></tr><tr><td>组织学习</td><td>能否复制</td><td>成功故事无法复用</td><td>假说、结果与适用边界</td></tr></table></div>
+<p>“操作系统”不是软件名词，而是这十个闸口都有责任人、有证据、有退出条件。缺少其中任一项，应在试点设计中显式标红。</p>
+<hr/>
+<h3>三条候选张力的完整论证</h3>
+<h4>T1：足球灯塔已立，但文化资产是否接到中高端货架</h4>
+<p><strong>支持事实</strong>：TECNO 已有非洲杯官方全球合作伙伴身份；公司强调中高端价值点；销售费用继续增长。<br/><strong>未知</strong>：非洲杯是否已绑定机型、国家和经销商数据；现有资产 ROI 如何定义。<br/><strong>反证可能</strong>：客户已经拥有成熟的产品核销体系，新增合作没有必要。<br/><strong>允许的下一步</strong>：询问现有资产的任务边界，再判断是否存在一个不替代足球的小试验。<br/><strong>禁止话术</strong>：你们只有 Logo，没有转化。公开资料不足以作此评价。</p>
+<h4>T2：非洲强势与亚洲等地区承压之间的复制问题</h4>
+<p><strong>支持事实</strong>：非洲收入增长，亚洲等其他地区收入下降；公司公开提出向其他新兴市场复制。<br/><strong>未知</strong>：各国家收入、产品、渠道和竞争的贡献。<br/><strong>反证可能</strong>：区域差异是主动资源调整或供应问题，并非复制机制。<br/><strong>允许的下一步</strong>：选一个目标国家，拆出可复制与必须本地重做的模块。<br/><strong>禁止话术</strong>：非洲打法在亚洲失败。</p>
+<h4>T3：费用增加与利润下降之间的试验纪律</h4>
+<p><strong>支持事实</strong>：销售费用和研发费用增长，利润与经营现金流下降。<br/><strong>未知</strong>：销售费用内部构成和单项回报。<br/><strong>反证可能</strong>：既有投入有长期战略回报，年度利润不能评价。<br/><strong>允许的下一步</strong>：建立阶段证据和熔断机制。<br/><strong>禁止话术</strong>：营销费浪费导致利润腰斩。</p>
+<hr/>
+<h3>交汇后的机会优先级</h3>
+<div class="table-wrap"><table><tr><th>机会</th><th>战略相关</th><th>可验证</th><th>组织复杂</th><th>当前建议</th></tr><tr><td>非洲 TECNO 中高端机型小试验</td><td>高</td><td>若有门店数据则较高</td><td>中</td><td>优先回验</td></tr><tr><td>印度品牌复制诊断</td><td>高</td><td>需较多一手信息</td><td>高</td><td>先研究，不急提案</td></tr><tr><td>全品牌全球体育合作</td><td>表面高</td><td>低</td><td>极高</td><td>不推进</td></tr><tr><td>非洲杯既有资产核销优化</td><td>高</td><td>取决于客户开放度</td><td>中</td><td>可作为 PIVOT</td></tr><tr><td>纯曝光活动</td><td>低</td><td>只易测传播</td><td>低</td><td>不建议</td></tr></table></div>
+<p>这里的优先级是研究判断，不是客户已认可的项目排序。</p>
+<hr/>
+<h3>横纵交汇的卖方十问</h3>
+<ol><li>当前最希望改善的是中高端选择、区域复制还是费用效率？</li><li>非洲杯从总部身份到门店执行经过哪些闸口？</li><li>哪个闸口最常丢失产品价值点？</li><li>TECNO、Infinix、itel 的文化资产能否共享？</li><li>国家团队如何把用户洞察反馈给产品团队？</li><li>经销商是否有统一活动数据字段？</li><li>哪个目标国家最适合做样板，为什么？</li><li>哪个在售机型已经具备稳定供货和清晰价值点？</li><li>复盘时谁有权宣布假说不成立并停止？</li><li>若不新增任何权益，现有体系最值得先修哪一环？</li></ol>
+<hr/>
+<h3>失败前置推演</h3>
+<div class="table-wrap"><table><tr><th>失败方式</th><th>早期信号</th><th>熔断动作</th></tr><tr><td>品牌不清</td><td>各方都说“面向所有用户”</td><td>强制只选一个品牌</td></tr><tr><td>产品不清</td><td>没有目标机型或卖点</td><td>暂停内容设计</td></tr><tr><td>市场不清</td><td>同时要求多个国家</td><td>缩到一个样板国</td></tr><tr><td>渠道不配合</td><td>无经销商 Owner</td><td>不进入执行</td></tr><tr><td>数据不可得</td><td>只能给曝光量</td><td>降级为学习试验或停止</td></tr><tr><td>既有资产冲突</td><td>团队认为损害非洲杯</td><td>PIVOT 到既有资产优化</td></tr><tr><td>预算流程不清</td><td>兴趣强但无人签字</td><td>保持发现阶段</td></tr></table></div>
+<hr/>
+<h3>横纵分析反模式</h3>
+<ul><li>用一张二维图替代真实流程；</li><li>只写交汇点，不写反证与未知；</li><li>把“操作系统”包装成宏大产品名；</li><li>默认灯塔到货架一定断裂；</li><li>将财务压力变成强迫成交的紧迫感；</li><li>同时攻击三条张力，导致首面没有焦点；</li><li>在客户确认之前把 T1 写成确定答案。</li></ul>
+<h3>当前选择</h3>
+<p>T1 仍是最适合首面验证的窄张力，因为它同时尊重现有足球资产、连接年报中高端方向，并允许设计可停止的小试验。但 T1 只是 CONDITIONAL：若客户证明非洲杯已经有成熟的机型与渠道核销，或明确没有新增文化需求，应转向既有资产优化或停止，不强推 NBA。</p>
+</section>
+<section id="ch09">
+<h2 class="file-title">09 · 查了但不说 · 传音控股</h2>
+<blockquote><p>本文件内容默认 <strong>不进刀子 / 不进 ONE_PAGER 铁事实区</strong>，除非用户明确要求或 L0 关闭后升格。</p></blockquote>
+<hr/>
+<h3>1. 敏感 / 易翻车</h3>
+<div class="table-wrap"><table><tr><th>项</th><th>为何查</th><th>为何不说</th></tr><tr><td>精确代言费、非洲杯赞助费</td><td>判断预算量级</td><td>无 A 源；猜数自杀</td></tr><tr><td>「刷墙」早期营销传说</td><td>理解草根起家</td><td>易显轻浮；对方已过该阶段</td></tr><tr><td>印度大幅下滑细节</td><td>亚洲压力</td><td>未当面证实前不作指控口吻</td></tr><tr><td>劳工/工厂舆情（若有）</td><td>尽职</td><td>冷启动无主证不进</td></tr><tr><td>专利纠纷传闻</td><td>风险图</td><td>年报仅一般性风险，不演绎</td></tr><tr><td>H 股估值八卦</td><td>资本</td><td>以正式披露为准</td></tr></table></div>
+<hr/>
+<h3>2. 容易误导销售的「好故事」</h3>
+<ul><li>「非洲之王所以预算无限」——净利 −53%、经营现金流 −50% 打脸。</li><li>「有张艺兴所以年轻化完成」——代言≠中高端完成。</li><li>「有非洲杯所以不需要体育」——可能关闭亚洲/篮球/非足球试验，但需对方亲口说。</li><li>「其他业务 +42% 已接力」——基数与利润贡献未拆。</li></ul>
+<hr/>
+<h3>3. 内部用洞察（可进备答，不进开场）</h3>
+<ul><li>利润年对<strong>大额不可熔断</strong>承诺敌意会上升。</li><li>多品牌下，<strong>itel 价格战</strong>与 <strong>TECNO 品牌战</strong>可能抢同一笔费用。</li><li>经销商政治可能比品牌创意更能决定死活。</li></ul>
+<hr/>
+<h3>4. 明确永不说（红线回声）</h3>
+<ul><li>我方球迷全球数开场</li><li>未核实排他/价格</li><li>编造分品牌份额或三年预测</li><li>贬低非洲杯资产以抬高篮球</li></ul>
+<hr/>
+<h3>5. 数字隔离区</h3>
+<p>以下数字即使在公开媒体出现，也不能在未回到 A 源或客户一手材料前升级为会面铁事实：</p>
+<ul><li>非洲杯赞助费、激活费、权益估值与续约价格；</li><li>张艺兴代言费、合同期限、排他范围与区域使用成本；</li><li>各手机品牌收入、利润、预算和目标人群占比；</li><li>各国家具体销量下降的媒体转述；</li><li>活动曝光向销量或 ASP 的转化比例；</li><li>NBA 或其他体育资产在目标市场的受众规模；</li><li>经销商集中度、单店销量与返利；</li><li>未来三年公司、区域、品牌或品类预测。</li></ul>
+<p>处理方式只有三种：找到 A 源并纳入溯源、在会面中标【待核实】、删除。不能用“约”“据悉”“业内普遍认为”把未知包装成可信。</p>
+<hr/>
+<h3>6. 推断隔离区</h3>
+<div class="table-wrap"><table><tr><th>推断</th><th>为什么诱人</th><th>为什么不能说成事实</th></tr><tr><td>利润下降所以预算必然冻结</td><td>符合直觉</td><td>销售与研发费用仍增长，具体预算未知</td></tr><tr><td>非洲杯效果不好</td><td>缺公开 ROI</td><td>不披露不等于无效果</td></tr><tr><td>印度弱势因为品牌不年轻</td><td>方便引出体育</td><td>产品、渠道、价格和战略优先级均未知</td></tr><tr><td>经销商不喜欢品牌活动</td><td>常见渠道抱怨</td><td>本案没有一手经销商证据</td></tr><tr><td>TECNO 需要 NBA 补足球</td><td>适合我方销售</td><td>空白不等于需求</td></tr><tr><td>中高端等于年轻男性</td><td>便于定义人群</td><td>公司未披露此人群结论</td></tr><tr><td>其他业务已经成为第二曲线</td><td>增速显眼</td><td>构成与利润贡献未拆</td></tr><tr><td>创始人会亲自拍板</td><td>董事长兼总经理</td><td>项目金额与授权流程未知</td></tr></table></div>
+<p>这些推断可以作为会面问题的来源，但不能进入开场陈述。</p>
+<hr/>
+<h3>7. 话术 Kill List</h3>
+<ol><li>“你们的足球资产只有曝光，没有转化。”</li><li>“NBA 比非洲杯更年轻、更全球。”</li><li>“利润腰斩说明原来的营销方式失效。”</li><li>“印度市场失败证明非洲打法无法复制。”</li><li>“你们每年有五十多亿营销预算。”销售费用不是营销可用预算。</li><li>“中高端必须靠体育破圈。”体育只是可能工具。</li><li>“我们的粉丝规模一定能带来销量。”</li><li>“做一个全球项目比逐国执行更省。”没有组织证据。</li><li>“先签权益，再补 KPI。”顺序相反。</li><li>“客户已经认可试点。”除非有明确原话与下一步承诺。</li></ol>
+<hr/>
+<h3>8. 内部备答：若被追问怎么办</h3>
+<h4>被问：你们认为非洲杯做得怎么样？</h4>
+<p>答：公开信息足以确认它是 TECNO 的重要体系资产，但不足以评价内部回报。我们更想理解它承担的目标和核销方式，再判断有没有增量任务。</p>
+<h4>被问：为什么提 NBA？</h4>
+<p>答：NBA 不是预设答案。只有当目标品牌、国家、人群和机型存在一个现有足球资产不承担的任务，而且能用小试验验证时，才值得讨论。</p>
+<h4>被问：你们预测传音明年表现怎样？</h4>
+<p>答：公司未给本研究可用的量化指引，我们不编预测。当前只基于已披露的三年实绩讨论经营约束。</p>
+<h4>被问：利润压力是不是代表不能做品牌？</h4>
+<p>答：年报显示公司仍增加研发和销售费用，因此不能简单说停止投入。更合理的是提高每项新增投入的验证与退出纪律。</p>
+<hr/>
+<h3>9. 不进入首面的研究内容</h3>
+<p>以下内容可用于团队准备，但除非客户主动提及，不进入十分钟首面：</p>
+<ul><li>复杂的全球手机产业链与存储周期课程；</li><li>未核实的波导系人物故事；</li><li>早年非洲“刷墙”传播传奇；</li><li>所有竞品全球赞助资产清单；</li><li>H 股进度、估值与资本市场猜测；</li><li>专利、税收、地缘风险的泛化恐吓；</li><li>Syinix、oraimo、Carlcare 的完整扩品类机会；</li><li>对三品牌定位的外部人群画像；</li><li>大盘人民币 TAM 推算；</li><li>我方完整权益目录。</li></ul>
+<p>不说不代表无价值，而是避免首面偏离一个张力。</p>
+<hr/>
+<h3>10. 销售自我检查</h3>
+<p>会前逐句检查：</p>
+<ul><li>这句话是 A 源事实、C 源线索，还是我方判断？</li><li>若有数字，时间、口径和来源是否明确？</li><li>是否把 TECNO 偷换成传音集团？</li><li>是否把非洲偷换成全部新兴市场？</li><li>是否把市占偷换成销量、收入或利润？</li><li>是否把销售费用偷换成品牌预算？</li><li>是否把“想做中高端”偷换成“中高端已经成功”？</li><li>是否给客户保留“不需要新增合作”的回答空间？</li></ul>
+<p>任何一句无法归类，就删除或标【待核实】。</p>
+<hr/>
+<h3>11. 反模式库</h3>
+<h4>“好消息堆砌”</h4>
+<p>把全球第三、非洲第一、两千多家经销商、七十多个国家连续罗列，会让材料像公司简介，不能解释经营张力。</p>
+<h4>“坏消息围攻”</h4>
+<p>把利润下降、现金流下降、手机收入下降和毛利下降同时压给客户，容易形成羞辱。首面只用最必要的一组事实。</p>
+<h4>“我方答案先行”</h4>
+<p>先讲 NBA 权益，再寻找客户问题，会把研究变成销售合理化。正确顺序是先证伪问题和组织条件。</p>
+<h4>“未知自动乐观”</h4>
+<p>公开未见 NBA 合作，不应解释为白地机会；也可能是客户已评估后不需要。</p>
+<h4>“试点万能化”</h4>
+<p>小试验降低风险，但不能修复产品、价格、供货和组织授权问题。前置条件不成立时，小试验同样浪费。</p>
+<hr/>
+<h3>12. 允许保留的内部判断</h3>
+<p>当前可保留但必须标为判断的内容：</p>
+<ul><li>利润压力会提高对可归因和退出机制的要求；</li><li>TECNO 既有足球资产使“缺体育”主张站不住；</li><li>中高端与跨区域复制是比纯曝光更接近年报的议题；</li><li>经销商是项目执行的关键利益方；</li><li>NBA 若有机会，只能是补充性、样板国、绑机型的试验。</li></ul>
+<p>这些判断随 L0 信息变化。若客户提供反证，应更新而不是辩护。</p>
+<h3>13. 退出条件</h3>
+<p>出现以下任一情况，应暂停或结束推进：</p>
+<ul><li>客户明确体育和文化账户关闭；</li><li>无法指定品牌、国家或产品；</li><li>现有非洲杯已经覆盖拟议任务且无需补充；</li><li>只有传播曝光，无法获得任何近端经营证据；</li><li>没有预算 Owner、执行 Owner 或数据 Owner；</li><li>项目要求贬低或替代客户既有核心资产；</li><li>合作成立依赖未核实排他、受众或转化数字。</li></ul>
+<p>退出不是销售失败，而是证伪纪律生效。</p>
+</section>
+<section id="ch10">
+<h2 class="file-title">10 · 产品 × 人群矩阵 · 传音控股</h2>
+<hr/>
+<h3>1. 多品牌公开定位（年报 + 公开叙述）</h3>
+<div class="table-wrap"><table><tr><th>品牌</th><th>公开角色（综合）</th><th>人群假说</th><th>体育/文化已知</th><th>级</th></tr><tr><td><strong>TECNO</strong></td><td>中高端智能机品牌取向</td><td>追求体验/身份的进阶用户</td><td><strong>非洲杯 + 张艺兴</strong></td><td>A/C</td></tr><tr><td><strong>Infinix</strong></td><td>年轻消费向智能机</td><td>年轻、潮流、性价比</td><td>公开体育厚度弱于 TECNO</td><td>A/C</td></tr><tr><td><strong>itel</strong></td><td>入门/覆盖更广价格带（含功能机叙事）</td><td>高度价格敏感</td><td>少见体系赛事</td><td>A/C</td></tr><tr><td><strong>oraimo</strong></td><td>数码配件</td><td>手机用户扩展</td><td>African Business 榜单上升</td><td>A</td></tr><tr><td><strong>Syinix</strong></td><td>家电</td><td>家庭场景</td><td>—</td><td>A</td></tr><tr><td><strong>Carlcare</strong></td><td>售后服务</td><td>信任与复购</td><td>—</td><td>A</td></tr></table></div>
+<blockquote><p>年报未披露三品牌收入拆分 → 矩阵比例【待核实】。</p></blockquote>
+<hr/>
+<h3>2. 价格带战略信号</h3>
+<ul><li>媒体：减少低端占比、加码 <strong>200 美元以上</strong> [C]。</li><li>年报：加大中高端研发与价值点 [A]。</li><li>手机 ASP 公开细数：港股文件/媒体有「整机均价」类数字时须回链；<strong>本包不以未核均价作铁事实</strong>。</li></ul>
+<p><strong>矩阵含义</strong>：TECNO 最可能承接「文化溢价」；用 itel 谈高端文化会错位。</p>
+<hr/>
+<h3>3. 产品体验差异化（年报举例）</h3>
+<ul><li>深肤色影像、续航/充放电环境、防汗接口、本地音乐/收音机、多语种语音（公开材料）[A/C]。</li><li>AI 助手/观赛类功能与非洲杯营销结合（媒体）[C]。</li></ul>
+<p>→ 合作若谈「场景」，应落在<strong>已有产品卖点</strong>上，禁止纯品牌空转。</p>
+<hr/>
+<h3>4. 人群 × 渠道</h3>
+<div class="table-wrap"><table><tr><th>人群</th><th>渠道假设</th><th>核销要点</th></tr><tr><td>入门首次智能机</td><td>传统经销/市集</td><td>价格与耐用；文化活动难撑价</td></tr><tr><td>换机升级</td><td>连锁/运营商/电商</td><td>中端对比三星小米</td></tr><tr><td>年轻潮流</td><td>数字+零售体验</td><td>Infinix 更贴；需内容日历</td></tr><tr><td>中产身份</td><td>TECNO 旗舰叙事</td><td>赛事全球伙伴已服务；增量要产品故事</td></tr></table></div>
+<hr/>
+<h3>5. 对刀子的约束</h3>
+<p>只允许主张：<strong>服务 ASP/中高端或明确品牌线的可核销试验</strong>；禁止「全品牌通吃的曝光包」。</p>
+<hr/>
+<h3>6. 品牌角色与证据边界</h3>
+<p>产品矩阵最容易发生的错误，是把公开品牌形象写成精确人群事实。本研究只把 TECNO、Infinix、itel 的角色作为方向性理解，不编年龄、收入、性别或兴趣占比。品牌真实购买者、目标购买者和传播受众可能并不重合，必须分别验证。</p>
+<div class="table-wrap"><table><tr><th>维度</th><th>TECNO</th><th>Infinix</th><th>itel</th><th>仍需客户确认</th></tr><tr><td>战略角色</td><td>更可能承接中高端升级</td><td>更可能承接年轻潮流表达</td><td>更可能承接入门覆盖</td><td>内部正式定位</td></tr><tr><td>文化资产</td><td>非洲杯、梦想球场、张艺兴</td><td>公开厚度相对不明</td><td>公开厚度相对不明</td><td>资产是否共享</td></tr><tr><td>渠道任务</td><td>体验与品牌溢价</td><td>潮流与性价比平衡</td><td>可得性、耐用与价格</td><td>各国差异</td></tr><tr><td>项目风险</td><td>已有资产拥挤</td><td>与 TECNO 定位重叠</td><td>体育文化难支撑价格敏感成交</td><td>预算和产品边界</td></tr></table></div>
+<p>这张表是工作假说，不是客户官方品牌手册。</p>
+<hr/>
+<h3>7. 用户任务而非人口标签</h3>
+<p>与其用“年轻人”“中产”“下沉用户”等宽泛标签，不如按购买任务划分：</p>
+<h4>首次进入智能机</h4>
+<p>用户可能需要确认耐用、续航、网络、语言、售后和学习成本。文化内容的价值更可能是降低陌生感和提供可信体验，不是抽象身份升级。</p>
+<h4>从入门机换到更好体验</h4>
+<p>用户开始比较影像、系统、设计、AI 功能与品牌。此时产品演示和同价格带对比更关键，体育或娱乐资产可以提供体验场景。</p>
+<h4>从其他品牌切换</h4>
+<p>用户已有智能机经验，可能更关注品牌信任、生态习惯、售后和具体功能。需要知道真实切换障碍【待核实】，不能假定靠代言即可改变。</p>
+<h4>配件与家庭设备扩展</h4>
+<p>oraimo 和 Syinix 对应不同于手机换机的购买任务。手机用户不等于自然会购买配件或家电，身份是否打通【待核实】。</p>
+<hr/>
+<h3>8. 产品价值点到文化场景的映射</h3>
+<div class="table-wrap"><table><tr><th>产品价值点类型</th><th>可设计的体验任务</th><th>可能指标</th><th>风险</th></tr><tr><td>影像</td><td>真实场景拍摄与分享</td><td>体验完成、内容选择</td><td>只报内容播放量</td></tr><tr><td>续航与耐用</td><td>长时活动中的使用证明</td><td>使用完成、故障反馈</td><td>活动无法严谨证明性能</td></tr><tr><td>AI 高频场景</td><td>单一功能现场体验</td><td>启用、完成、复用意愿</td><td>功能或语言未适配</td></tr><tr><td>音乐与音频</td><td>本地内容互动</td><td>体验、推荐、到店</td><td>与体育任务分散</td></tr><tr><td>设计与身份</td><td>实机展示和比较</td><td>试用、偏好、询价</td><td>变成纯审美投票</td></tr></table></div>
+<p>所有场景必须先由产品团队确认真实性与目标机型可用性。文化合作不能创造不存在的功能，也不能替代专业产品测试。</p>
+<hr/>
+<h3>9. 样板国选择框架</h3>
+<p>样板国不应只按市场规模选择，而应同时满足：</p>
+<ul><li>目标品牌已有基础但仍有清晰问题；</li><li>目标机型在活动期稳定供货；</li><li>国家团队愿意承担执行；</li><li>经销商能提供基线和结果数据；</li><li>既有非洲杯资产边界清楚；</li><li>当地文化语境与拟议资产匹配；</li><li>法务、内容和数据合规可完成；</li><li>试验失败时能够停止。</li></ul>
+<p>具体国家尚未确定。非洲领先市场、印度弱势市场或其他区域各有不同学习价值，不能在缺少客户优先级时替客户选择。</p>
+<hr/>
+<h3>10. SKU 绑定的最低定义</h3>
+<p>“绑 SKU”不是在海报上放一台手机，而是：</p>
+<ol><li>指定在售机型与活动期；</li><li>指定一个产品价值点；</li><li>确认供货、价格和渠道；</li><li>记录活动前基线；</li><li>让内容与门店体验使用同一价值点；</li><li>区分 sell-in、sell-out、询价、体验与曝光；</li><li>设置扩大或停止条件。</li></ol>
+<p>目标机型、售价、库存和内部负责人均【待核实】。未关闭这些字段前，不制作精确方案。</p>
+<hr/>
+<h3>11. 组合机会：手机之外</h3>
+<p>其他收入增长较快提示手机之外存在研究价值，但不代表适合在首面扩展。oraimo 可以与年轻文化场景发生更自然的配件连接，Carlcare 可以提供信任与售后触点，Syinix 对应家庭场景，移动互联服务可能提供数字触点。问题是这些业务的预算、用户身份、利润和品牌归属未拆。</p>
+<p>因此本轮纪律是：</p>
+<ul><li>主张仍以单一手机品牌和机型为中心；</li><li>配件可作为执行选项，不作为第二增长曲线结论；</li><li>售后可参与体验和信任设计，不擅自做会员体系；</li><li>互联应用可作为数据线索，但用户授权和打通状态【待核实】；</li><li>家电不进入首面。</li></ul>
+<hr/>
+<h3>12. 卖方十问：产品与人群</h3>
+<ol><li>三个手机品牌内部正式的一句话定位分别是什么？</li><li>当前中高端升级由哪个品牌和哪类机型承接？</li><li>目标用户最常与哪个竞品机型比较？</li><li>用户不选择目标机型的首要原因是什么【待核实】？</li><li>哪一个产品价值点最需要被“真实可感”？</li><li>目标国家的购买者、使用者和付款者是否同一人？</li><li>经销商能否稳定演示该价值点？</li><li>现有非洲杯和张艺兴分别服务哪些产品任务？</li><li>oraimo、Carlcare 与手机品牌是否共享用户数据【待核实】？</li><li>试点成功后，是扩大到更多门店、更多国家还是更多品牌？</li></ol>
+<hr/>
+<h3>13. 产品矩阵反模式</h3>
+<ul><li>编造年龄、收入或兴趣人群比例；</li><li>把品牌传播受众当成真实购买者；</li><li>用 TECNO 的资产服务所有品牌；</li><li>用 itel 承担未经确认的中高端任务；</li><li>先选 IP，再找可以放进去的产品；</li><li>把 AI 作为空泛传播标签；</li><li>忽略库存、价格和售后；</li><li>同时塞入手机、配件、家电和互联，导致试点无法归因。</li></ul>
+<h3>14. 会面含义</h3>
+<p>产品页的终点不是完整商品目录，而是关闭四个字段：哪个品牌、哪个国家、哪个机型、哪个价值点。四者任何一个仍为空，体育或娱乐权益都不应进入创意阶段。若四者明确，再判断 NBA 或其他文化资产是否比非洲杯既有激活、门店体验或数字内容更适合。</p>
+</section>
+<section id="ch11">
+<h2 class="file-title">11 · 营销 / 体育 / 舆情边界 · 传音控股</h2>
+<hr/>
+<h3>1. 体育资产光谱</h3>
+<pre class="muted">体系赛事赞助（TECNO×非洲杯全球合作伙伴）
+        ↑ 已占据
+社区足球公益（梦想球场）
+        ↑ 已占据
+娱乐代言（张艺兴）
+        ↑ 已占据
+单场激活 / 门店赛事观赛
+        ↑ 可能有，未系统披露
+篮球 / NBA / 其他运动
+        ↑ 公开未见体系级
+纯数字投放 / KOL
+        ↑ 年报「数字化营销」但无拆分</pre>
+<hr/>
+<h3>2. 营销费用行为</h3>
+<div class="table-wrap"><table><tr><th>信号</th><th>读法</th></tr><tr><td>销售费用 52.04 亿，+7.61%</td><td>品牌与市场开拓仍在加码 [A]</td></tr><tr><td>同期净利 −53%</td><td><strong>费用效率</strong>会成董事会议题</td></tr><tr><td>「数字化营销变革」</td><td>自我叙事：要从粗放走向可运营 [A]</td></tr></table></div>
+<hr/>
+<h3>3. 舆情与叙事风险</h3>
+<div class="table-wrap"><table><tr><th>叙事</th><th>风险</th></tr><tr><td>非洲之王</td><td>对手与媒体会用利润暴跌打脸</td></tr><tr><td>存储涨价受害者</td><td>真实但不可用来要挟客户「必须做我们」</td></tr><tr><td>长期主义非洲杯</td><td>强；勿贬低</td></tr><tr><td>H 股 / AI 故事</td><td>资本叙事；与首面销售无关则少提</td></tr></table></div>
+<hr/>
+<h3>4. 我方（NBA China）可说边界</h3>
+<p><strong>可说</strong>：在利润压力年，用<strong>可熔断、绑中高端 SKU、样板国</strong>的年轻人文化试验，服务你们已写进年报的「中高端价值点」与「向其他市场复制」。</p>
+<p><strong>不可说</strong>：非洲杯过时；足球不年轻；用 NBA 全球粉丝数压人；承诺排他替代 CAF。</p>
+<hr/>
+<h3>5. 成功定义（营销侧）</h3>
+<p>不是「再办一场大活动」，而是：<br/><strong>选定品牌线 + 选定国家 + 选定在售中高端机型 + 经销商可记账的核销指标 + 不达标停。</strong></p>
+<hr/>
+<h3>6. 现有资产不是缺口，而是基线</h3>
+<p>TECNO 已经通过非洲杯官方全球合作伙伴、梦想球场和张艺兴建立体育、社区与娱乐资产组合。研究新增机会时，第一步不是寻找空白，而是确认这些资产各自承担什么任务。</p>
+<div class="table-wrap"><table><tr><th>资产</th><th>可能承担的任务</th><th>需要回验的机制</th><th>不应假定</th></tr><tr><td>非洲杯</td><td>非洲品牌身份、足球文化连接</td><td>国家激活、机型绑定、经销商使用</td><td>已自动带来销售</td></tr><tr><td>梦想球场</td><td>社区回馈、长期本地关系</td><td>项目覆盖、参与和后续运营</td><td>公益等于转化</td></tr><tr><td>张艺兴</td><td>全球代言、娱乐内容</td><td>区域受众、产品与续约标准</td><td>所有市场都匹配</td></tr><tr><td>数字化营销</td><td>内容与渠道创新</td><td>数据字段、归因与组织流程</td><td>已完成数据闭环</td></tr><tr><td>NBA 空白</td><td>可能的新文化场景</td><td>需求、受众、权益冲突</td><td>空白等于机会</td></tr></table></div>
+<p>若客户现有资产已经覆盖拟议目标，应优先讨论如何提高既有资产的产品和渠道连接，而非继续叠加。</p>
+<hr/>
+<h3>7. 营销目标的层级</h3>
+<h4>身份目标</h4>
+<p>让用户知道品牌代表什么。非洲杯更接近此层。身份需要长期一致，不能用一次短活动评价全部效果。</p>
+<h4>产品目标</h4>
+<p>让用户理解并体验一个机型价值点。该层适合小范围测试，但要求产品、供货、门店和内容一致。</p>
+<h4>渠道目标</h4>
+<p>让经销商愿意推荐、展示和记录。该层必须处理门店利益和执行负担，不能只看消费者传播。</p>
+<h4>学习目标</h4>
+<p>验证某一文化资产是否适配一个国家或人群。学习目标允许商业结果尚小，但必须在开始前写明假说和停止线。</p>
+<p>一次试点不能同时宣称完成所有层级。首面应请客户选最重要的一层。</p>
+<hr/>
+<h3>8. 可熔断试验协议</h3>
+<h4>阶段一：准备度</h4>
+<p>确认品牌、国家、机型、价值点、供货、价格、经销商、数据和法务。任一关键条件不成立，暂停。</p>
+<h4>阶段二：小规模验证</h4>
+<p>在有限门店或有限内容范围运行，记录活动前基线、执行过程、竞品价格与异常。只判断原始假说，不急于外推。</p>
+<h4>阶段三：联合复盘</h4>
+<p>由品牌、产品、国家、经销商和财务共同解释结果。区分“假说不成立”“执行未完成”“外部因素干扰”，避免只挑好看数据。</p>
+<h4>阶段四：扩大或停止</h4>
+<p>达到预先约定证据才扩大；没有达到就停止、调整或转向现有资产。扩大也应逐步进行，不从一个国家直接推到全球。</p>
+<p>具体阈值必须由客户数据决定，本研究不编数值。</p>
+<hr/>
+<h3>9. 指标树</h3>
+<div class="table-wrap"><table><tr><th>层</th><th>指标例</th><th>解释纪律</th></tr><tr><td>传播</td><td>触达、观看、互动</td><td>只能证明内容被看到</td></tr><tr><td>体验</td><td>功能体验、到店、询价</td><td>更接近产品兴趣，不等于购买</td></tr><tr><td>渠道</td><td>参与门店、导购使用、推荐</td><td>需排除激励与执行差异</td></tr><tr><td>商业</td><td>sell-out、价格守住、周转</td><td>需控制供货、促销和竞品动作</td></tr><tr><td>学习</td><td>假说成立、适用边界</td><td>允许结果为否定</td></tr></table></div>
+<p>客户能够提供哪些指标【待核实】。若只能获得传播数据，应诚实把项目定义为传播或学习试验，不宣称销售转化。</p>
+<hr/>
+<h3>10. 体育边界判断</h3>
+<h4>适合继续讨论的信号</h4>
+<ul><li>客户明确有一个现有足球资产不承担的任务；</li><li>目标品牌、国家和机型清楚；</li><li>当地用户与篮球文化关联有一手依据【待核实】；</li><li>经销商愿意执行并提供数据；</li><li>客户接受小规模与停止条件；</li><li>不要求贬低、替代或冲突非洲杯。</li></ul>
+<h4>应停止的信号</h4>
+<ul><li>需求只是“再来一个全球大 IP”；</li><li>只有粉丝和曝光数字，没有产品任务；</li><li>无法区分 TECNO 与其他品牌；</li><li>无目标市场或要求一次覆盖多国；</li><li>预算与数据 Owner 缺失；</li><li>需要未核实排他或受众承诺才成立。</li></ul>
+<hr/>
+<h3>11. 舆情预演</h3>
+<div class="table-wrap"><table><tr><th>可能质疑</th><th>根源</th><th>预防</th></tr><tr><td>利润下滑还花钱赞助</td><td>财务压力可见</td><td>说明试验上限、证据与退出</td></tr><tr><td>已有足球为何再做篮球</td><td>资产重叠</td><td>明确独立任务或不做</td></tr><tr><td>中国明星与本地用户何干</td><td>受众适配未知</td><td>逐国验证，不拿全球身份替代</td></tr><tr><td>公益项目是否营销化</td><td>梦想球场的社会属性</td><td>尊重项目边界，不强行销售归因</td></tr><tr><td>AI 只是噱头</td><td>功能同质化</td><td>只演示真实可用场景</td></tr><tr><td>非洲品牌是否只会低价</td><td>中高端升级挑战</td><td>以产品体验和渠道证据回应，不喊口号</td></tr></table></div>
+<p>这些是风险情景，不代表舆情已经发生。</p>
+<hr/>
+<h3>12. 卖方十问：营销与体育</h3>
+<ol><li>非洲杯合作内部最重要的任务是什么？</li><li>梦想球场与品牌、产品、社区之间如何分工？</li><li>张艺兴续约依据哪些品牌或经营证据【待核实】？</li><li>体育与娱乐资产由同一预算池管理吗？</li><li>国家团队能否选择不激活全球权益？</li><li>经销商最愿意执行哪类营销动作，最抗拒哪类？</li><li>“数字化营销变革”当前最缺的是数据、工具还是决策流程？</li><li>新增篮球文化资产要完成什么足球无法完成的任务？</li><li>哪个机型价值点能自然进入观赛或训练场景？</li><li>什么结果会让客户明确停止而不是继续追加投入？</li></ol>
+<hr/>
+<h3>13. 营销反模式</h3>
+<ul><li>把销售费用全部叫营销费；</li><li>用曝光、互动推导销量；</li><li>把大型身份赞助与小型核销试验用同一标准评价；</li><li>把公益项目强行商业化；</li><li>用“篮球更年轻”攻击足球；</li><li>把张艺兴合作等同于全球年轻用户已覆盖；</li><li>报完整权益目录却没有客户任务；</li><li>没有对照和异常记录就做归因；</li><li>试点失败后用执行问题保护原始假说。</li></ul>
+<h3>14. PR 口径建议</h3>
+<p>对外口径若进入后续阶段，应优先描述“围绕具体产品体验与本地用户共同验证”，而不是承诺销售结果、全球领先或颠覆现有资产。所有合作身份、授权范围、代言关系和活动地点须经双方品牌与法务确认。未签署前不预告，不用“独家”“首个”等精确身份词。</p>
+<h3>15. 会面含义</h3>
+<p>最重要的营销问题不是选择足球还是篮球，而是客户希望文化投入承担哪个经营任务，以及这个任务是否可以由现有资产完成。只有任务独立、产品明确、渠道可执行、数据可复核时，新增 NBA 相关试验才值得进入下一步。</p>
+</section>
+<section id="ch12">
+<h2 class="file-title">12 · 行业大盘 · 传音控股</h2>
+<blockquote><p>大盘数字多源；<strong>并陈、不调和</strong>。用于冰山，不用于编造客户三年预测。</p></blockquote>
+<hr/>
+<h3>1. 公司已引用的大盘锚（优先）</h3>
+<div class="table-wrap"><table><tr><th>数据</th><th>数值</th><th>源</th></tr><tr><td>公司全球手机市占</td><td>12.3%，第 3</td><td>IDC·年报 A</td></tr><tr><td>公司全球智能机市占</td><td>7.9%，第 6</td><td>IDC·年报 A</td></tr><tr><td>非洲智能机市占（公司）</td><td>~40%，第 1</td><td>IDC·年报 A</td></tr><tr><td>公司出货</td><td>~1.69 亿部</td><td>年报 A</td></tr></table></div>
+<hr/>
+<h3>2. 第三方非洲智能手机大盘（C）</h3>
+<div class="table-wrap"><table><tr><th>数据</th><th>数值</th><th>源注意</th></tr><tr><td>非洲智能手机出货 2025</td><td>约 8440 万部，+13%</td><td>Omdia·媒体</td></tr><tr><td>传音出货份额（非洲智能手机）</td><td>约 48%，&gt;4050 万部</td><td>Omdia·媒体</td></tr><tr><td>Q4 竞争加剧</td><td>传音份额环比压力；三星等增长</td><td>媒体</td></tr></table></div>
+<p><strong>纪律</strong>：40%（年报 IDC 智能机市占）≠ 48%（Omdia 出货份额）。汇报时两行并陈。</p>
+<hr/>
+<h3>3. 结构趋势（定性）</h3>
+<ul><li>功能机→智能机仍在发生 [A]。</li><li>5G / AI 功能下沉 [A]。</li><li>中端夹击：三星 A 系列、中国安卓出海机型 [C]。</li><li>存储周期主导 2025 盈利 [A]。</li></ul>
+<hr/>
+<h3>4. 市场规模人民币推算</h3>
+<p><strong>不做。</strong> 无客户授权的自建 TAM 模型不进正文。</p>
+<hr/>
+<h3>5. 大盘对张力的含义</h3>
+<p>非洲大盘可以「还在长」，传音仍可「第一」，同时「利润腰斩」——<br/><strong>urgency 来自利润与结构升级，不来自「非洲没人买手机了」。</strong></p>
+<hr/>
+<h3>6. 口径字典</h3>
+<p>市场研究中最危险的不是缺数字，而是把不同数字当成同一件事。</p>
+<div class="table-wrap"><table><tr><th>口径</th><th>含义</th><th>不能替代</th></tr><tr><td>手机整体出货</td><td>可能包含智能机与功能机</td><td>智能机出货</td></tr><tr><td>全球手机市占</td><td>公司引用的整体市场位置</td><td>全球智能机市占</td></tr><tr><td>智能机市占</td><td>特定机构、时期和定义下的份额</td><td>收入份额、利润份额</td></tr><tr><td>非洲收入</td><td>公司在地区确认的收入</td><td>非洲出货、零售销量</td></tr><tr><td>经销商数量</td><td>建立合作关系的客户广度</td><td>活跃门店或终端覆盖</td></tr><tr><td>sell-in</td><td>向渠道销售</td><td>最终消费者购买</td></tr><tr><td>sell-out</td><td>渠道向消费者销售</td><td>激活、使用或复购</td></tr><tr><td>销售费用</td><td>会计科目</td><td>品牌预算或体育预算</td></tr></table></div>
+<p>任何后续材料出现“份额”“销量”“销售”时，都必须标明属于哪一种口径。</p>
+<hr/>
+<h3>7. 为什么不做自建 TAM</h3>
+<p>本轮缺少统一的目标国家、目标品牌、目标价格带和可授权第三方数据库。若直接把人口、智能机渗透和假设售价相乘，会得到看似精确但不可审计的人民币市场规模。这个数字既不能指导样板国，也不能证明体育合作回报。</p>
+<p>替代做法是从客户问题反推最小市场单元：</p>
+<ol><li>明确目标国家；</li><li>明确目标品牌与在售机型；</li><li>获取客户认可的市场与渠道口径；</li><li>区分 sell-in 与 sell-out；</li><li>只在必要时估算，并保留假设与区间；</li><li>未获授权前保持【待核实】。</li></ol>
+<p>本研究因此不生成 TAM、SAM、SOM 精确值。</p>
+<hr/>
+<h3>8. 三种规模问题</h3>
+<h4>公司规模</h4>
+<p>655.91 亿营收、约 1.69 亿部出货、超过 70 个国家和地区、超过 2,000 家经销商，说明这是大型跨国运营体系。公司规模意味着潜在合作可以很大，也意味着组织、法务和地区差异更复杂；不能因此推导项目预算。</p>
+<h4>市场位置</h4>
+<p>全球手机市占 12.3%、全球智能机市占 7.9%、非洲智能机约 40%，说明传音在不同口径下的位置不同。它既有整体出货优势，也仍在全球智能机竞争中面对更高位对手。不能挑一个最亮的排名代表全部竞争力。</p>
+<h4>项目规模</h4>
+<p>真正需要 sizing 的是样板国、目标门店和目标机型，但这些字段尚未确定。项目规模应由数据可得性和组织可控性决定，不由公司全球规模决定。</p>
+<hr/>
+<h3>9. 区域组合的读法</h3>
+<p>非洲收入 249.68 亿并增长，亚洲等其他地区 395.57 亿并下降。这里至少包含三个研究提醒：</p>
+<ol><li>“亚洲等其他地区”是合并口径，不能把全部下降归给印度；</li><li>非洲收入增长不代表所有非洲国家、品牌和机型都增长；</li><li>地区毛利率差异提示市场组合不同，但不能自行推断具体售价或成本。</li></ol>
+<p>因此区域 sizing 的下一步不是做更大地图，而是请客户从合并口径中选出一个业务优先级明确的国家。</p>
+<hr/>
+<h3>10. 大盘情景而非预测</h3>
+<p>以下只用于压力测试，不给概率和数字：</p>
+<div class="table-wrap"><table><tr><th>情景</th><th>行业变化</th><th>对传音的可能影响</th><th>对项目的要求</th></tr><tr><td>成本压力延续</td><td>存储等成本继续高</td><td>毛利与促销空间承压</td><td>更小预算、更强退出</td></tr><tr><td>成本缓和</td><td>产品成本压力下降</td><td>可能恢复产品与渠道空间</td><td>仍需验证品牌价值</td></tr><tr><td>非洲继续增长</td><td>大盘扩容</td><td>领先者有守城与升级机会</td><td>不以大盘增长替代项目证据</td></tr><tr><td>竞争加剧</td><td>对手加强中端与渠道</td><td>费用与价格战上升</td><td>记录竞品同期动作</td></tr><tr><td>亚洲等恢复</td><td>部分市场改善</td><td>复制议题可能改变</td><td>重新选择样板国</td></tr><tr><td>第二曲线增长</td><td>其他业务继续扩张</td><td>生态协同议题增强</td><td>先核构成与利润</td></tr></table></div>
+<p>情景是决策准备，不是公司预测。</p>
+<hr/>
+<h3>11. sizing 所需的一手数据清单</h3>
+<ul><li>目标国家按品牌和机型的 sell-in、sell-out；</li><li>活跃经销商、门店类型与地理覆盖；</li><li>目标机型供货、库存、成交价与促销；</li><li>同价格带真实竞品集合；</li><li>首次购买、换机、品牌切换的用户任务；</li><li>品牌活动覆盖门店与未覆盖门店基线；</li><li>退货、缺货和售后异常；</li><li>可用于试验的预算上限与数据权限。</li></ul>
+<p>若客户无法提供完整数据，可缩小研究范围，但不能用公开大盘数字补成客户内部市场模型。</p>
+<hr/>
+<h3>12. 卖方十问：规模与口径</h3>
+<ol><li>公司内部最常用 IDC、其他机构还是自有 sell-out 口径？</li><li>非洲智能机市占的地区与统计定义如何理解？</li><li>全球手机与全球智能机排名在内部各自服务什么决策？</li><li>“亚洲等其他地区”内部，当前优先修复哪个市场？</li><li>经销商超过 2,000 家中，项目可触达的活跃单元如何定义？</li><li>样板国应按规模、问题强度还是数据准备度选择？</li><li>目标机型的市场规模由谁提供并复核？</li><li>sell-in 与 sell-out 数据是否能按周对齐？</li><li>竞品促销和缺货如何进入项目归因？</li><li>项目扩大依据是门店数、国家数、机型数还是经营证据？</li></ol>
+<hr/>
+<h3>13. sizing 反模式</h3>
+<ul><li>混用 IDC 与 Omdia 数字后取平均；</li><li>把 40% 与 48% 简化成“接近一半”；</li><li>用出货乘未经核实均价计算收入；</li><li>用非洲大盘增长预测传音增长；</li><li>用经销商数量估算门店覆盖；</li><li>用全球规模推导项目预算；</li><li>把“亚洲等其他地区”当成印度；</li><li>为了材料完整编制未来三年市场预测。</li></ul>
+<h3>14. 会面含义</h3>
+<p>sizing 页不是为了展示数字多，而是为了阻止错误口径进入决策。首面只需确认：客户用哪套市场口径、想解决哪个国家与机型、能提供什么基线。没有这三项，任何“市场很大”的叙事都不构成合作理由。</p>
+</section>
+<footer>
+cases/transsion · research/ 全文镜像 · 由 <code>build_iceberg.py</code> 生成，勿手改本文件<br/>
+证伪 <code>../../ifalsify_report.md</code>（CONDITIONAL）· L0 <code>../../PRIMARY_REQUIRED.md</code> · 门禁 <code>../../sales_gate.md</code> · 审计 <code>../../MAX_GAP_AUDIT.md</code>
+</footer>
+</div>
+</body>
+</html>

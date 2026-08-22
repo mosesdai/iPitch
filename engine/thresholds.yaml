@@ -1,0 +1,46 @@
+# Stage-2 / v1.6 aligned gates.
+# Hard mins keep demo runnable; soft_target encodes 香飘飘厚度取向 (WARN, not RED).
+
+min_chars:
+  research_total: 400
+  ifalsify: 200
+  knife: 200
+  one_pager: 300
+  primary: 200
+  max_gap: 150
+
+# Soft orientation (playbook v1.6 §四). Reported on passport; fails only if soft_fail: true
+soft_chars:
+  research_total: 8000
+soft_fail: false
+
+citation:
+  min_count: 1
+
+required_files:
+  research:
+    - research/README.md
+    - research/01_IR_financial.md
+    - research/09_not_for_pitch.md
+  ifalsify:
+    - ifalsify_report.md
+  compose:
+    - ONE_PAGER.md
+    - PRIMARY_REQUIRED.md
+    - MAX_GAP_AUDIT.md
+    - html/index.html
+  knife:
+    - B_knife.md
+
+allowed_prefixes:
+  - research/
+  - B_knife.md
+  - ifalsify_report.md
+  - 00_charter.md
+  - ONE_PAGER.md
+  - PRIMARY_REQUIRED.md
+  - MAX_GAP_AUDIT.md
+  - html/
+  - R2_evolved_report.md
+  - R2_shelf_recommendations.md
+  - R3_close_pack.md

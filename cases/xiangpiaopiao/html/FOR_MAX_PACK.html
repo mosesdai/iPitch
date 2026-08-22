@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>香飘飘 · 会前材料（给 Max）</title>
+<style>
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;color:#142033;background:#fff;font-size:12px;line-height:1.5}
+.page-break{page-break-before:always;break-before:page}
+.cover{max-width:900px;margin:0 auto;padding:48px 36px 40px}
+.cover h1{font-size:26px;margin:0 0 8px;color:#0b3d5c}
+.cover .lead{font-size:14px;color:#334155;margin:12px 0 20px}
+.cover .meta{color:#64748b;font-size:12.5px;line-height:1.75}
+.cover table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px}
+.cover th,.cover td{border:1px solid #cfd8e3;padding:7px 9px;text-align:left;vertical-align:top}
+.cover th{background:#e8f0f5;color:#0b3d5c}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:3px;background:#e8f0f5;color:#0b3d5c;margin-right:6px}
+.badge.warn{background:#fff6e5;color:#8a5a00}
+.badge.ok{background:#e8f6ef;color:#0f6b45}
+/* ONE PAGER */
+.op{max-width:1100px;margin:0 auto;padding:16px 18px 20px}
+.op h1{font-size:20px;margin:0;color:#0b3d5c}
+.op .sub{color:#64748b;font-size:11px;margin:4px 0 10px}
+.op .hook{background:#e8f0f5;border-left:3px solid #1a6b8a;padding:8px 12px;font-weight:650;margin:0 0 12px;font-size:12.5px;color:#0b3d5c}
+.op .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:12px}
+.op h2{font-size:11.5px;margin:0 0 5px;color:#1a6b8a;border-bottom:1px solid #cfd8e3;padding-bottom:3px;letter-spacing:.03em}
+.op .block{margin-bottom:10px}
+.op table{width:100%;border-collapse:collapse;font-size:10.5px;margin:3px 0}
+.op th,.op td{border:1px solid #cfd8e3;padding:3px 5px;vertical-align:top;text-align:left}
+.op th{background:#e8f0f5;color:#0b3d5c;font-weight:650}
+.op .fact{color:#0f6b45;font-weight:700}
+.op .muted{color:#64748b}
+.op .kill{background:#fdeceb;border:1px solid #e8b4b0;padding:6px 8px;margin-top:5px;font-size:11px}
+.op .cond{background:#fff6e5;border:1px solid #e6c97a;padding:6px 8px;margin-top:5px;font-size:11px}
+.op .swot{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.op .swot div{border:1px solid #cfd8e3;padding:5px 6px;background:#fafbfc;font-size:10.5px;min-height:44px}
+.op .q{margin:2px 0;padding-left:8px;border-left:2px solid #1a6b8a}
+.op .foot{margin-top:8px;padding-top:6px;border-top:1px solid #cfd8e3;font-size:10px;color:#64748b}
+/* iceberg reuse */
+.ice{background:#f7f8fa}
+.ice .wrap{max-width:920px;margin:0 auto;padding:24px 20px 48px;background:#f7f8fa}
+.ice header{border-bottom:1px solid #d8e0e8;padding-bottom:18px;margin-bottom:8px}
+.ice h1{font-size:1.55rem;margin:0 0 8px;color:#1a2332}
+.ice .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:4px;margin:0 6px 6px 0;background:#e8f1f8;color:#0f4c81}
+.ice .tag.warn{background:#fff8e8;color:#9a6700}
+.ice .meta{font-size:13px;color:#5c6b7a}
+.ice nav.toc{display:none}
+.ice section{margin-top:28px}
+.ice h2{font-size:1.1rem;margin:0 0 12px;color:#0f4c81;padding-bottom:6px;border-bottom:1px solid #d8e0e8}
+.ice h3{font-size:1rem;margin:18px 0 8px}
+.ice p{margin:0 0 10px;font-size:13.5px;line-height:1.7}
+.ice ul,.ice ol{margin:0 0 12px;padding-left:20px;font-size:13.5px}
+.ice li{margin-bottom:5px}
+.ice table{width:100%;border-collapse:collapse;font-size:12px;margin:10px 0 16px;background:#fff}
+.ice th,.ice td{border:1px solid #d8e0e8;padding:6px 9px;text-align:left;vertical-align:top}
+.ice th{background:#e8f1f8;font-weight:600}
+.ice .src{font-size:11px;color:#5c6b7a}
+.ice .callout{background:#e8f1f8;border-left:3px solid #0f4c81;padding:12px 14px;margin:12px 0;border-radius:0 6px 6px 0;font-size:13px}
+.ice .callout.warn{background:#fff8e8;border-left-color:#9a6700}
+.ice .callout.kill{background:#fef3f2;border-left-color:#b42318}
+.ice .fact{color:#0d7a4f;font-weight:650}
+.ice .tension{font-size:15px;font-weight:700;color:#0f4c81}
+.ice .quote{border-left:3px solid #d8e0e8;padding:8px 12px;margin:8px 0;background:#fafbfc;font-size:13px}
+.ice .quote cite{display:block;margin-top:4px;font-size:11px;color:#5c6b7a;font-style:normal}
+.ice .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ice .flow{font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;background:#111827;color:#e5e7eb;padding:12px 14px;border-radius:6px;white-space:pre;overflow-x:auto}
+.ice footer{margin-top:28px;padding-top:14px;border-top:1px solid #d8e0e8;font-size:12px;color:#5c6b7a}
+@media print{
+  .op .grid{grid-template-columns:1.05fr .95fr}
+  .no-print{display:none!important}
+  @page{margin:10mm}
+}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <span class="badge">给 Max</span>
+  <span class="badge ok">清单全覆盖</span>
+  <span class="badge warn">品质 > sample</span>
+  <h1>香飘飘食品（603711）· 会前材料包</h1>
+  <p class="lead">一份文件，两层结构：①会前一页关键信息（对标并超越「蔚来业务现状」sample）②完整客户研报（背景底料，大部分不直接说给客户听）。数据主链为 2025 年报 + 2026 一季报；未来三年预测无公司指引处<strong>宁空不编</strong>。</p>
+  <table>
+    <tr><th>Part</th><th>内容</th><th>对应 Max 需求</th></tr>
+    <tr><td><strong>A</strong></td><td>会前一页关键信息</td><td>使命价值观 / 三年财报销费 / 品牌价格人群 / 渠道 / 营销 / 生命周期 / SWOT·TOWS<br/>+ 他们说的vs实际做的 / 代言人资产分层 / 防自嗨核查 / 会面三问（sample 没有）</td></tr>
+    <tr><td><strong>B</strong></td><td>完整客户研报</td><td>组织创始人 / IR / 原话 / 合作史 / 竞品 / 产品人群 / 体育舆情 / 行业大盘 / 证伪</td></tr>
+  </table>
+  <p class="meta">客户：香飘飘食品股份有限公司 · 研究日 2026-07-29 · 证伪核查结论：有条件推进 · 本包不含会面话术稿/权益包</p>
+  <p class="meta">相对 Max sample 的硬升级：①日历纪律（Q1+51%≠反转）②广告↓推广↑可溯源 ③三套代言人资产分层 ④核查结论+禁用话术清单 ⑤主打矛盾点+三问+信息缺口明示</p>
+  <p class="meta">术语速查：<strong>证伪核查</strong>=专找「我们哪里可能想错」的反方检查 · <strong>有条件推进</strong>=方向能谈但先验证前提 · <strong>禁用话术</strong>=这句话不许对客户说 · <strong>需当面问客户</strong>=公开渠道查不到、要销售当面确认 · <strong>来源 A/C</strong>=公司官方公告 / 媒体与电商观察 · <strong>主打矛盾点</strong>=客户说的话与数据之间的矛盾，会面只打一个</p>
+</section>
+
+<!-- PART A ONE PAGER -->
+<section class="page-break op">
+  <h1>Part A · 香飘飘会前关键信息 <span class="badge warn">有条件推进</span></h1>
+  <p class="sub">对标 Max「业务现状」一页 · 时间锚 2025年报+2026Q1 · A=公司官方公告 · C=媒体/电商观察 · 非会面话术稿</p>
+  <div class="hook">三套代言人资产已切开（孙颖莎/时代少年团/侯佩岑）。怕的不是「没明星」，而是 1,703 家经销商手里还是同一套打法。费用收缩年→先做小试验，不达标随时叫停。</div>
+  <div class="grid">
+    <div>
+      <div class="block">
+        <h2>01 使命 · 愿景 · 价值观 · 生命周期</h2>
+        <table>
+          <tr><th>使命</th><td>让人们更享受生活 <span class="muted">A</span></td></tr>
+          <tr><th>愿景</th><td>成为全球知名的食品饮料品牌企业 <span class="muted">A</span></td></tr>
+          <tr><th>价值观</th><td><strong>诚实、正直、务实、创新</strong> <span class="muted">A</span></td></tr>
+          <tr><th>阶段</th><td>成熟冲泡承压 × 即饮成长 × 转型试验（2005创立→2017上市→双轮→2025收缩→体验/出海）</td></tr>
+          <tr><th>治理</th><td>2024-10 杨冬云辞任，蒋建琪重回总经理；蒋晓莹=品牌创新中心 <span class="muted">A</span></td></tr>
+        </table>
+      </div>
+      <div class="block">
+        <h2>02 收入 · 利润 · 销售费用（三年实绩 · 预测宁空）</h2>
+        <table>
+          <tr><th></th><th>2023</th><th>2024</th><th>2025</th><th>2026Q1</th></tr>
+          <tr><td>营收</td><td>36.25亿</td><td>32.87亿</td><td><span class="fact">29.26亿 −11%</span></td><td><span class="fact">8.78亿 +51%</span> ⚠️</td></tr>
+          <tr><td>归母净利</td><td>2.80亿</td><td>2.53亿</td><td><span class="fact">0.95亿 −62%</span></td><td>0.93亿扭亏 ⚠️</td></tr>
+          <tr><td>销售费用</td><td><span class="fact">8.60亿</span></td><td>7.61亿</td><td><span class="fact">6.98亿 −8.3%</span></td><td>—</td></tr>
+        </table>
+        <p class="muted" style="margin:3px 0 0">广告费 1.05→<strong>0.79</strong>亿 ↓ · 推广费 2.42→<strong>2.57</strong>亿 ↑（A）。⚠️Q1含春节窗口拉长≠全年反转。<strong>未来三年预测：无公司指引进正文 · 宁空不编</strong></p>
+      </div>
+      <div class="block">
+        <h2>03 收入三刀：产品 / 渠道 / 区域</h2>
+        <table>
+          <tr><th>产品</th><th>2025</th><th>YoY</th><th>毛利</th></tr>
+          <tr><td>冲泡</td><td>18.81亿</td><td>−17%</td><td>43.8%</td></tr>
+          <tr><td>即饮</td><td>10.05亿</td><td>+3%</td><td>25.0%</td></tr>
+          <tr><td>Meco果茶</td><td>8.83亿</td><td>+13%</td><td>—（即饮主引擎）</td></tr>
+        </table>
+        <table>
+          <tr><th>渠道</th><th>2025</th><th>读法</th></tr>
+          <tr><td>线下·经销商</td><td>25.17亿 −15% · <strong>1703家</strong></td><td><strong>创收核心</strong></td></tr>
+          <tr><td>线上·电商</td><td>2.02亿 +8%</td><td>孵化试销；禁打穿价盘</td></tr>
+          <tr><td>直营 / 出口</td><td>1.33亿 +72% / 0.34亿 +78%</td><td>高增低体量；泰国2026建厂计划</td></tr>
+          <tr><td>体验店</td><td>杭州<strong>四家</strong>（IR）</td><td>窗口，非连锁狂奔</td></tr>
+        </table>
+        <table>
+          <tr><th>区域(A)</th><th>约亿</th><th>YoY</th><th>区域</th><th>约亿</th><th>YoY</th></tr>
+          <tr><td>华东</td><td>12.38</td><td>−15.5%</td><td>西南</td><td>3.89</td><td>−6.0%</td></tr>
+          <tr><td>华中</td><td>3.73</td><td>−25.4%</td><td>西北</td><td>2.35</td><td>−6.9%</td></tr>
+          <tr><td>华北</td><td>1.40</td><td>−15.0%</td><td>华南/东北</td><td>0.99/0.43</td><td>−16/−7%</td></tr>
+        </table>
+        <p class="muted" style="margin:2px 0 0">欧洲/中东国家细拆：年报未披露 →【待核实】不装懂</p>
+      </div>
+      <div class="block">
+        <h2>04 品牌 × 价格 × 人群 × 人格（Max表 + 分层升级）</h2>
+        <table>
+          <tr><th>线</th><th>价格带(C)</th><th>人群口径</th><th>代言人资产</th></tr>
+          <tr><td>经典冲泡</td><td>约2.5–4元/杯</td><td>礼赠/国民记忆</td><td>硬广心智遗产</td></tr>
+          <tr><td>原叶现泡</td><td>约6–16元</td><td>健康化年轻化</td><td><strong>孙颖莎</strong> 25-10</td></tr>
+          <tr><td>Meco</td><td>约3.9–5.6元/杯</td><td>原点年轻；茶饮店外第二选择</td><td><strong>时代少年团</strong> 25-05</td></tr>
+          <tr><td>名优轻乳</td><td>升级带</td><td>原料甄选</td><td><strong>侯佩岑</strong> 25-06</td></tr>
+          <tr><td>兰芳园</td><td>波动【待核实】</td><td>港味</td><td>文化资产</td></tr>
+        </table>
+        <p class="muted" style="margin:2px 0 0">精确性别/年龄%：年报无→【待核实】</p>
+      </div>
+      <div class="block">
+        <h2>05 营销经历 · 体育边界 · 舆情</h2>
+        <p style="margin:0;font-size:11px">硬广「绕地球」→内容闭环；偶像轮替→2025三套并行；快闪→杭州店。体育：莎莎=<strong>代言≠赛事体系</strong>。竞品：蜜雪雪王IP；农夫协会/大使；统一偏场景。舆情：2024-12同名破产热搜→<strong>已辟谣</strong>。预算规划日历：【需当面问客户】；可见销费实绩见上表。</p>
+      </div>
+    </div>
+    <div>
+      <div class="block">
+        <h2>06 他们说的 vs 实际发生的（Max sample 无）</h2>
+        <table>
+          <tr><th>他们说的</th><th>实际发生的</th><th>用法</th></tr>
+          <tr><td>Q1开门红</td><td>窗口拉长</td><td>禁全面反转</td></tr>
+          <tr><td>内容营销</td><td>广告↓推广↑</td><td>ROI 外部看不到，需当面问</td></tr>
+          <tr><td>要年轻化</td><td>三套代言已落地</td><td><strong>勿再教育</strong></td></tr>
+          <tr><td>全球化</td><td>泰国计划</td><td>或挤营销预算</td></tr>
+        </table>
+      </div>
+      <div class="block">
+        <h2>07 竞争力 vs 危机</h2>
+        <div class="swot">
+          <div><strong>竞争力</strong><br/>14年冲泡第一；高毛利现金牛；三品牌+三人格；1703经销商；试销门径</div>
+          <div><strong>危机/挑战</strong><br/>冲泡量缩；净利弹性差；即饮低毛利；现制分流；日历依赖；费用年难过大额</div>
+        </div>
+      </div>
+      <div class="block">
+        <h2>08 SWOT · TOWS（证据化，非壁报）</h2>
+        <div class="swot">
+          <div><strong>S</strong> 份额+毛利43.8%+矩阵落地</div>
+          <div><strong>W</strong> 量−17%；净利−62%；日历依赖</div>
+          <div><strong>O</strong> 原叶/古方；Meco情绪；量贩餐饮；体验数据</div>
+          <div><strong>T</strong> 现制；饮料大盘+0.2%；价盘；CapEx</div>
+        </div>
+        <table style="margin-top:5px">
+          <tr><th></th><th>O</th><th>T</th></tr>
+          <tr><th>S</th><td>原叶+莎莎守礼赠升级</td><td>杯装差异+经销商伙伴挡现制</td></tr>
+          <tr><th>W</th><td>试点城市小规模验证 ROI，不达标即停</td><td>禁大额；禁Q1假urgency</td></tr>
+        </table>
+      </div>
+      <div class="block">
+        <h2>09 主打矛盾点 · 防自嗨核查 · 三问（Max 无）</h2>
+        <p style="margin:0 0 4px;font-weight:700;color:#0b3d5c">主打矛盾点 T1：代言人资产已分层 × 执行系统可能仍「一套香飘飘」</p>
+        <div class="cond"><strong>有条件推进</strong> — 可谈分品牌打法系统 + 小额试点（不达标随时叫停）。把握度：中偏低。</div>
+        <div class="kill"><strong>禁用话术</strong> 劝再签明星 · 拿广告费−62%催大赞助 · 拿Q1反弹催花钱 · 说他们缺年轻化教育 · 拿破产热搜当经营危机</div>
+        <div style="margin-top:6px">
+          <div class="q">① 莎莎/TNT/侯佩岑 — KPI与预算是否三条线？</div>
+          <div class="q">② 经销商考核里，代言算品牌分还是出货分？</div>
+          <div class="q">③ 泰国工厂年，国内营销试验冻结还是单列？</div>
+        </div>
+      </div>
+      <div class="block">
+        <h2>10 只能当面问客户的信息（明示不装懂）</h2>
+        <p class="muted" style="margin:0">Economic Buyer · 预算上限 · 代言分账实况 · 经销商真实评价 · 排他/年限 · 市占精确% · 欧洲中东细拆 · 未来三年卖方共识</p>
+      </div>
+    </div>
+  </div>
+  <div class="foot">Part A 完 · 下页起 Part B 完整研报 · 真源 cases/xiangpiaopiao/</div>
+</section>
+
+<!-- PART B ICEBERG -->
+<section class="page-break ice">
+  <div class="wrap">
+    <p style="margin:0 0 8px"><span class="tag">Part B · 完整客户研报</span><span class="tag warn">完整背景研究 · 不直接给客户看</span><span class="tag">CJK≈3.5万级 MD 真源摘要镜像</span></p>
+
+<div class="wrap">
+<header>
+  <span class="tag">完整背景研究 · 不直接给客户看</span>
+  <span class="tag">A 源主链 2025年报 + 2026Q1</span>
+  <span class="tag warn">证伪核查：有条件推进</span>
+  <span class="tag">iceberg 17/18</span>
+  <h1>香飘飘食品 · 深度研究报告</h1>
+  <p class="meta">SH 603711 · cases/xiangpiaopiao · 2026-07-28 · MD 真源在 research/ · 本页为完整背景研究的可浏览镜像（非 10 分钟会面话术稿）</p>
+</header>
+
+<nav class="toc no-print">
+  <strong>目录</strong>
+  <a href="#s0">摘要</a>
+  <a href="#s1">财报</a>
+  <a href="#s2">原话</a>
+  <a href="#s3">合作史</a>
+  <a href="#s4">竞品</a>
+  <a href="#s5">行业</a>
+  <a href="#s6">权力</a>
+  <a href="#s7">横纵</a>
+  <a href="#s8">张力</a>
+  <a href="#s9">防自嗨核查</a>
+  <a href="#s10">不说</a>
+  <a href="#s11">组织</a>
+  <a href="#s12">产品人群</a>
+  <a href="#s13">体育舆情</a>
+  <a href="#s14">行业大盘</a>
+</nav>
+
+<!-- 0 -->
+<section id="s0">
+  <h2>0 · 执行摘要</h2>
+  <div class="callout">
+    <p class="tension" style="margin-top:0">此刻最值得打的一个矛盾点（T1）</p>
+    <p style="margin:0">你们已经用<strong>三套代言人资产</strong>把产品线切开了（孙颖莎 / 时代少年团 / 侯佩岑）——我们怕的不是「没有明星」，而是<strong>切开之后 1,703 家经销商手里还是同一套打仗方法</strong>。</p>
+  </div>
+
+  <h3>6 条可引用事实（优先 A）</h3>
+  <ol>
+    <li>2025 营收 <span class="fact">29.26 亿</span>（−11%），归母净利 <span class="fact">0.95 亿</span>（−62.38%）</li>
+    <li>冲泡 <span class="fact">18.81 亿</span>（−17.2%）；即饮 <span class="fact">10.05 亿</span>（+3.3%）；Meco 果茶 <span class="fact">8.83 亿</span>（+13.16%）</li>
+    <li>销售费用 −8.3%；其中广告费 <span class="fact">0.79←1.05 亿</span>，市场推广费 <span class="fact">2.57←2.42 亿</span></li>
+    <li>2012–2025 连续 <span class="fact">14 年</span>杯装冲泡奶茶份额第一（年报未给 2025 精确 %）</li>
+    <li>2026Q1 营收 <span class="fact">8.78 亿</span>（+51.41%），冲泡 +85.31%——公司自述<strong>春节窗口拉长</strong></li>
+    <li>杭州体验店：IR 称 <span class="fact">四家</span>；大面积拓店「仍需验证与观察」</li>
+  </ol>
+
+  <h3>3 条【需销售当面核实】</h3>
+  <ul>
+    <li>2026 非代言类场景试验预算上限与 Economic Buyer</li>
+    <li>莎莎 / TNT / 侯佩岑：预算与 KPI 是否分账</li>
+    <li>经销商对 2025 代言战役的真实评价（品牌分 vs 出货分）</li>
+  </ul>
+</section>
+
+<!-- 1 -->
+<section id="s1">
+  <h2>1 · 财报与经营（IR 精读）</h2>
+  <p class="src">主链：2025 年报 · 2026 一季报 · 对照 2024 年报（A）</p>
+
+  <h3>1.1 三年主表</h3>
+  <table>
+    <tr><th>指标</th><th>2025</th><th>2024</th><th>2023</th><th>2025 YoY</th></tr>
+    <tr><td>营业收入</td><td><strong>29.26 亿</strong></td><td>32.87 亿</td><td>36.25 亿</td><td>−11.00%</td></tr>
+    <tr><td>归母净利润</td><td><strong>0.952 亿</strong></td><td>2.532 亿</td><td>2.803 亿</td><td>−62.38%</td></tr>
+    <tr><td>利润总额</td><td>1.343 亿</td><td>3.073 亿</td><td>3.413 亿</td><td>−56.30%</td></tr>
+    <tr><td>总资产</td><td>52.60 亿</td><td>48.73 亿</td><td>52.35 亿</td><td>+7.93%</td></tr>
+  </table>
+
+  <h3>1.2 冲泡 vs 即饮（2025）</h3>
+  <table>
+    <tr><th>分部</th><th>收入</th><th>YoY</th><th>毛利率</th><th>毛利率变动</th><th>读法</th></tr>
+    <tr><td>冲泡</td><td><strong>18.81 亿</strong></td><td>−17.20%</td><td><strong>43.80%</strong></td><td>−0.60pct</td><td>基本盘收缩；仍高毛利现金牛</td></tr>
+    <tr><td>即饮</td><td><strong>10.05 亿</strong></td><td>+3.27%</td><td>25.03%</td><td>+0.15pct</td><td>第二曲线；显著低毛利</td></tr>
+    <tr><td>主营合计</td><td>28.86 亿</td><td>−11.06%</td><td>37.26%</td><td>−1.28pct</td><td>结构向即饮倾斜压综合毛利</td></tr>
+  </table>
+  <p>Meco 果茶 <span class="fact">8.83 亿</span>（+13.16%）≈ 即饮的 <strong>87.9%</strong>（自算 ⚠️）。冲泡销量 −17.07%；即饮销量 +5.58%、库存 −51.95%。</p>
+
+  <h3>1.3 渠道</h3>
+  <table>
+    <tr><th>渠道</th><th>收入</th><th>YoY</th><th>毛利率</th></tr>
+    <tr><td>经销商（1,703 家）</td><td>25.17 亿</td><td>−15.01%</td><td>38.83%</td></tr>
+    <tr><td>电商</td><td>2.02 亿</td><td>+8.21%</td><td>23.48%</td></tr>
+    <tr><td>直营</td><td>1.33 亿</td><td>+71.56%</td><td>29.57%</td></tr>
+    <tr><td>出口</td><td>0.34 亿</td><td>+77.55%</td><td>33.54%</td></tr>
+  </table>
+
+  <h3>1.4 费用结构（看懂官方说法的关键）</h3>
+  <table>
+    <tr><th>科目</th><th>2025</th><th>2024</th><th>读法</th></tr>
+    <tr><td>销售费用</td><td>6.98 亿</td><td>7.61 亿（−8.30%）</td><td>职工薪酬+广告投入减少</td></tr>
+    <tr><td> 其中广告费</td><td><strong>0.795 亿</strong></td><td>1.052 亿</td><td><strong>↓</strong> 传统广告收缩</td></tr>
+    <tr><td> 其中市场推广费</td><td><strong>2.57 亿</strong></td><td>2.42 亿</td><td><strong>↑</strong> 内容/推广权重上升</td></tr>
+    <tr><td>研发费用</td><td>0.549 亿（+47.5%）</td><td>0.372 亿</td><td>占营收 1.87%；原叶/古方/咖啡赌注</td></tr>
+    <tr><td>经营现金流</td><td>+3.51 亿</td><td>+2.65 亿</td><td>仍造血</td></tr>
+    <tr><td>投资现金流</td><td>−6.64 亿</td><td>−0.07 亿</td><td>构成【待核实】；泰国工厂 2026 计划</td></tr>
+  </table>
+
+  <h3>1.5 季度剖面 —— 旺季依赖（防自嗨核查关键）</h3>
+  <table>
+    <tr><th>2025</th><th>营收</th><th>归母净利</th><th>读法</th></tr>
+    <tr><td>Q1</td><td>5.80 亿</td><td>−0.19 亿</td><td>春节窗口短 → 亏</td></tr>
+    <tr><td>Q2</td><td>4.55 亿</td><td>−0.79 亿</td><td>淡季最深</td></tr>
+    <tr><td>Q3</td><td>6.49 亿</td><td>+0.08 亿</td><td>略盈</td></tr>
+    <tr><td>Q4</td><td><strong>12.42 亿</strong></td><td><strong>+1.84 亿</strong></td><td>利润几乎全靠 Q4</td></tr>
+  </table>
+  <div class="callout warn">
+    <strong>日历纪律：</strong>2026Q1 营收 8.78 亿（+51.41%）、冲泡 5.65 亿（+85.31%）、即饮 2.98 亿（+11.76%）、净利 0.93 亿扭亏——公司一季报写明礼赠出货绑春节，2025 窗口短、2026 窗口长。<strong>禁止</strong>把 Q1 同比写成「品类全面复苏」。
+  </div>
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <h2>2 · 高管原话（频道）</h2>
+
+  <div class="quote">
+    「推动品牌传播从<strong>传统广告模式向内容营销模式升级</strong>，打造『产品创新—内容制造—口碑传播』完整闭环……」
+    <cite>A · 2025 年报 MD&A</cite>
+  </div>
+  <div class="quote">
+    「主动调控冲泡产品出货节奏，优先保障渠道库存健康与货龄新鲜，切实维护<strong>经销商及消费者利益</strong>。」
+    <cite>A · 2025 年报</cite>
+  </div>
+  <div class="quote">
+    「当前在杭州开设了<strong>四家</strong>茶饮店，当下的定位是品牌宣传与体验窗口……对于大面积的拓店计划，仍然需要<strong>验证与观察</strong>。」
+    <cite>A · 投资者关系活动记录表 2026-05-07（邹勇坚接待）</cite>
+  </div>
+  <div class="quote">
+    「公司将 Meco 杯装果茶定位为『<strong>茶饮店之外的第二选择</strong>』。」
+    <cite>A · IR 2024-08</cite>
+  </div>
+  <div class="quote">
+    「未来我们的总体发展方向是，让<strong>线上成为产品孵化中心</strong>。」……坦言曾「飘了」，创新与消费趋势上「有跌落」。
+    <cite>C · 蒋建琪 · 腾讯「三次创业」≈2025-04</cite>
+  </div>
+  <div class="quote">
+    「我们的原则非常清楚，<strong>经销商是我们的合作伙伴</strong>……优先帮助经销商转型。」
+    <cite>C · 蒋建琪</cite>
+  </div>
+  <div class="quote">
+    「我是个<strong>快消，不是连锁餐饮</strong>。」……「我们知道这个动作带来的短期业绩波动可能会被骂，但我们必须保证好经销商的长期利益。」
+    <cite>C · 蒋晓莹 · 虎嗅</cite>
+  </div>
+  <div class="quote">
+    「香飘飘在线上是<strong>不允许做低价促销</strong>的……不能让线上低价促销坏了整个价格体系。」
+    <cite>C · 蒋晓莹 · 文汇报 2019（价盘红线一贯性）</cite>
+  </div>
+
+  <div class="grid2">
+    <div class="callout" style="margin:0">
+      <strong>喜欢（推断）</strong>
+      <ul style="margin-bottom:0">
+        <li>内容闭环 / 情绪场景</li>
+        <li>电商试销再铺货</li>
+        <li>经销商伙伴、稳价盘</li>
+        <li>店=窗口/试验田，非狂奔</li>
+      </ul>
+    </div>
+    <div class="callout warn" style="margin:0">
+      <strong>反感 / 忌讳（推断）</strong>
+      <ul style="margin-bottom:0">
+        <li>「飘了」式自满</li>
+        <li>线上打穿价盘</li>
+        <li>牺牲经销商的短期冲量</li>
+        <li>把自己做成加盟现制连锁</li>
+      </ul>
+    </div>
+  </div>
+  <p class="src" style="margin-top:12px">反感 ≠ 反体育：孙颖莎证明接受运动明星；更像反「无闭环流量」。</p>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <h2>3 · 合作 / 代言 / 体验年表</h2>
+  <p>关键判断：不是「从不做 IP」，而是从<strong>一个国民脸</strong>演进到<strong>多 SKU 多脸</strong>；体育停在「明星背书」，未见赛事赞助体系。</p>
+
+  <table>
+    <tr><th>时间</th><th>事件</th><th>形态</th><th>状态</th><th>级</th></tr>
+    <tr><td>2005–2010s</td><td>「一年卖出 X 亿杯 / 绕地球」</td><td>硬广心智战</td><td>心智在，打法迁</td><td>C</td></tr>
+    <tr><td>2015→2017→2019→2021</td><td>钟汉良 → 陈伟霆 → 王俊凯 → 王一博</td><td>主品牌换脸</td><td>已结束/沉寂</td><td>B/C</td></tr>
+    <tr><td>2025-01</td><td>《葫芦兄弟》蛇年联名</td><td>动漫 IP 礼盒</td><td>节点型</td><td>C</td></tr>
+    <tr><td>2024-12 / 2025-03</td><td>杭州 in77、成都春熙路快闪</td><td>限时体验</td><td>→ 升级开店</td><td>A+C</td></tr>
+    <tr><td>2025-05-27</td><td><strong>时代少年团 × Meco</strong></td><td>偶像代言+应援战役</td><td>在约</td><td>B</td></tr>
+    <tr><td>2025-06-09</td><td><strong>侯佩岑</strong>名优甄选官</td><td>陈皮月光白轻乳茶</td><td>在约</td><td>B/C</td></tr>
+    <tr><td>2025 中</td><td>芒果「青春夜」类综艺</td><td>冠名/赞助</td><td>【核实身份】</td><td>C</td></tr>
+    <tr><td>2025-10-10</td><td><strong>孙颖莎 × 原叶现泡</strong></td><td>体育明星代言</td><td>在约</td><td>C+A呼应</td></tr>
+    <tr><td>2025Q4</td><td><strong>杭州线下茶饮店</strong></td><td>体验零售试点</td><td>IR：四家</td><td>A</td></tr>
+    <tr><td>2026 计划</td><td>泰国即饮工厂</td><td>出海产能</td><td>预计开工</td><td>A</td></tr>
+  </table>
+
+  <h3>分层地图（勿混素材）</h3>
+  <table>
+    <tr><th>品牌/系列</th><th>代言人资产</th><th>语言</th><th>渠道含义</th></tr>
+    <tr><td>冲泡 / 原叶现泡</td><td>孙颖莎</td><td>健康、冠军、品质</td><td>礼品+家庭+年轻养生</td></tr>
+    <tr><td>Meco</td><td>时代少年团</td><td>年轻、情绪、活力</td><td>校园/量贩/餐饮定制</td></tr>
+    <tr><td>名优轻乳茶</td><td>侯佩岑</td><td>文化甄选、原料故事</td><td>升级冲泡心智</td></tr>
+    <tr><td>兰芳园</td><td>港味文化资产</td><td>正宗港式</td><td>声量弱于上三者【待核实】</td></tr>
+    <tr><td>公司级</td><td>杭州店</td><td>体验、反馈</td><td>非替代经销商</td></tr>
+  </table>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <h2>4 · 竞品与替代（三层战场）</h2>
+  <table>
+    <tr><th>层</th><th>战场</th><th>代表</th><th>对香飘飘</th></tr>
+    <tr><td>L1 场景</td><td>现制茶饮</td><td>蜜雪、霸王、古茗</td><td>挖「日常喝茶」；蜜雪 2025 收入约 335.6 亿 / 门店约 5.98 万（竞品 A，⚠️ 对照用）</td></tr>
+    <tr><td>L2 货架</td><td>包装即饮</td><td>统一阿萨姆等</td><td>奶茶事业约 64.8 亿；抢冰柜与钱包</td></tr>
+    <tr><td>L3 同品类</td><td>杯装冲泡</td><td>优乐美等</td><td>份额战已非主矛盾；品类本身承压</td></tr>
+    <tr><td>话语权</td><td>健康化</td><td>东方树叶 / 元气</td><td>农夫茶饮料约 216 亿 +29%；定义「健康饮料」</td></tr>
+  </table>
+  <div class="callout warn">
+    <strong>钢化：</strong>短期财报对手是冲泡量缩；长期战略对手是<strong>现制茶饮重构的「茶饮日常」</strong>。若只跟统一比货架，会看错战争。
+  </div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <h2>5 · 行业语境</h2>
+  <ul>
+    <li><strong>大盘</strong>：年报转述尼尔森 IQ，2025 饮料全渠道增速仅 <span class="fact">0.2%</span>——无风口贝塔。</li>
+    <li><strong>冲泡</strong>：格局稳（连续第一），需求不稳（礼赠+季节；被现制挖场景）。</li>
+    <li><strong>应答</strong>：原叶现泡、古方药食同源、咖啡探测；研发费用 +47.5%。</li>
+    <li><strong>政策</strong>：食品安全强调；全国糖税无；功能宣称红线（养生系列勿医疗化）。</li>
+    <li><strong>渠道新战场</strong>：零食量贩定制、餐饮定制杯、会员店【待核实】、校园原点、电商试销门径。</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <h2>6 · 权力图 + MEDDIC</h2>
+  <table>
+    <tr><th>人物</th><th>角色</th><th>pitch 频道</th><th>置信</th></tr>
+    <tr><td>蒋建琪</td><td>董事长兼总经理（2024-10 重回）</td><td>长期主义、经销商、产品</td><td>公开高</td></tr>
+    <tr><td>蒋晓莹</td><td>董事 / 品牌创新中心总经理</td><td>内容、年轻化、体验店</td><td>Champion<strong>候选</strong> · 低</td></tr>
+    <tr><td>邹勇坚</td><td>主管会计工作 / IR 答方</td><td>费用、试验上限、拓店验证</td><td>财务闸门</td></tr>
+    <tr><td>康琳</td><td>会计机构负责人</td><td>报表</td><td>A</td></tr>
+    <tr><td>经销商 1,703</td><td>出货政治中枢</td><td>利润、价盘、可核销物料</td><td>否决风险高</td></tr>
+  </table>
+  <div class="callout warn">
+    <strong>冷启动：</strong>Economic Buyer / Champion / Paper Process / 预算上限均为【待核实】。Tier B：<strong>不推断、不装懂</strong>。
+  </div>
+  <h3>会面三问（需当面问客户）</h3>
+  <ol>
+    <li>莎莎、时代少年团、侯佩岑——KPI 和预算是不是三条线？</li>
+    <li>经销商考核里，代言算品牌分还是出货分？</li>
+    <li>泰国工厂投资年，国内营销试验是冻结还是单列？</li>
+  </ol>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <h2>7 · 横向 × 纵向</h2>
+  <div class="flow">现制改写「日常喝茶」
+        ↓
+冲泡礼赠仍强，日常/年轻心智被挖（2025 冲泡 −17%）
+        ↓
+控出货保价盘 + 原叶/古方升级 + 广告→内容
+        ↓
+Meco 顶上（8.83 亿 +13%）但毛利率 25% 拉低综合
+        ↓
+净利弹性塌方（−62%）——量缩 + 结构 + 季节
+        ↓
+2026Q1：春节日历拉长 → 冲泡 +85%（噪声与旺季并存）
+        ↓
+TNT + 莎莎 + 侯佩岑 + 杭州店；广告↓ 推广↑
+        ↓
+未解：三套人格 → 经销商可执行的季节 OS？出海是否挤营销？</div>
+  <p style="margin-top:14px"><strong>一句话：</strong>龙头地位还在，但「第一」的分子分母都在变；代言已切成三份，执行系统未必跟得上。</p>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <h2>8 · 张力诊断（会面只展 1）</h2>
+  <p class="tension">T1【会面主打候选】多套代言人资产已完成 × 执行系统可能仍「一套香飘飘」</p>
+  <p>公开相信品牌矩阵与内容闭环（A）+ 行为上三套代言分轨（B/C）→ 若预算/KPI/物料仍混用 → 心智撕裂 + 费用浪费。</p>
+  <p><strong>出口：</strong>分品牌打法系统 + 试点城市试验（不达标即停） —— <em>不是再签第四个明星</em>。</p>
+  <ul>
+    <li><strong>T2</strong> 「内容闭环」的官方说法 × 销售费用下降的现实 → 财务会面</li>
+    <li><strong>T3</strong> 市占第一 × 现制改写场景 → 仅留在背景研究，不作会面主打（容易变成科普）</li>
+    <li><strong>T4</strong> 杭州店 × 1,703 经销商政治 → 渠道会面</li>
+    <li><strong>T5</strong> 冠军代言灯塔 × 场景摊位缺失 → 若客户认为「有莎莎=体育做完」则换角度再谈</li>
+  </ul>
+  <div class="callout kill">
+    <strong>明确不选：</strong>「净利 −62% 所以要大赞助」·「Q1 证明该大胆花钱」·「你们缺年轻化教育」
+  </div>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <h2>9 · 防自嗨核查（证伪 · 从严）</h2>
+  <div class="callout">
+    <strong>假说：</strong>瓶颈不是缺代言人，而是缺<strong>经销商能执行、财务能随时叫停的一套分品牌打法</strong>；合作方向应是分层场景资产 / 可归因试验，而非再买曝光或第四个明星。
+  </div>
+  <table>
+    <tr><th>ID</th><th>反证</th><th>强度</th><th>最小实验</th></tr>
+    <tr><td>F1</td><td>代言+快闪+店已够，「打法系统」只是顾问一厢情愿</td><td>Severe</td><td>问：2026 还有非代言类试验预算吗？无则放弃此角度</td></tr>
+    <tr><td>F2</td><td>真瓶颈是产品/品类，不是营销系统</td><td>Fatal-leaning</td><td>方案必须绑在售单品核销；否则转向产品共创</td></tr>
+    <tr><td>F3</td><td>费用下降年，新合作默认失败</td><td>Severe</td><td>先要试验上限；无上限只诊断不报价</td></tr>
+    <tr><td>F4</td><td>Q1 已消痛，无 urgency</td><td>Moderate</td><td>禁止「你们很痛」开场；测淡季焦虑是否自提</td></tr>
+    <tr><td>F5</td><td>经销商才是否决点</td><td>Severe</td><td>试点城市必须含经销商利润表一页</td></tr>
+    <tr><td>F6</td><td>有莎莎=体育做完</td><td>Moderate</td><td>区分灯塔 vs 摊位；若等同则离体育</td></tr>
+    <tr><td>F7</td><td>包装饮料「赞助热、货架冷」先例</td><td>Moderate</td><td>预设不达标即停条款</td></tr>
+  </table>
+  <p>支持 4 : 反证 7 ≈ <strong>0.6:1</strong> → 远低于 2:1 自嗨线。</p>
+  <div class="callout warn">
+    <strong>裁决：有条件推进</strong> — 可内部推进「分品牌执行系统 + 小额试点（不达标即停）」；不许直接宣告成立；禁用「劝再签明星 / 拿广告费−62% 催大额 / 拿 Q1 反弹催花钱」。把握度：中偏低（财务数据扎实；客户内部决策链信息需当面补）。
+  </div>
+</section>
+
+<!-- 10 -->
+<section id="s10">
+  <h2>10 · 查了但不说</h2>
+  <ul>
+    <li>媒体「一年少卖 1.68 亿杯」——年报未直接给杯数；只用标箱/收入</li>
+    <li>旧尼尔森「市占超 60%」——不作 2025 事实；只说「连续 14 年第一」</li>
+    <li>代言费 / 芒果夜冠名费 / 未核实排他</li>
+    <li>「冲泡夕阳、你们完了」·「学蜜雪开万店」·家族治理八卦</li>
+    <li>我方全球粉丝数开场 · 完整权益包 SKU（属 Layer D）</li>
+    <li>把蒋「飘了」当开场羞辱（深谈共情可用，嘲讽不可）</li>
+    <li>编造未来三年营收/净利 CAGR（Max 清单要预测 → 我们宁空不编）</li>
+  </ul>
+</section>
+
+<!-- 11 -->
+<section id="s11">
+  <h2>11 · 组织 / 创始人 / 生命周期（Max 组织面补齐）</h2>
+  <p class="src">详 MD：<code>research/07_org_founder_lifecycle.md</code></p>
+  <table>
+    <tr><th>节点</th><th>事实</th><th>级</th></tr>
+    <tr><td>创立</td><td>2005-08 香飘飘食品有限公司（产品萌芽媒体称 2004，勿混）</td><td>A/C</td></tr>
+    <tr><td>蒋建琪</td><td>1999 老顽童食品 → 2005 香飘飘；低频高权重发声；社媒个人号【待核实】</td><td>A/C</td></tr>
+    <tr><td>蒋晓莹</td><td>董事/品牌创新中心总经理；持股 1800 万股；父女一致行动</td><td>A</td></tr>
+    <tr><td>治理翻转</td><td>2023-12 杨冬云任总经理（约 5% 股权激励）→ <strong>2024-10 辞任</strong>，蒋重回总经理</td><td>A</td></tr>
+    <tr><td>生命周期</td><td>高速广告获客 → 双轮转型 → 2025 收缩守盘 + 内容/体验试验</td><td>推断绑 A</td></tr>
+  </table>
+  <p><strong>IP 决策流：</strong>公开可见品牌中心操盘；日常汇报线/预算矩阵【待核实】。会面对准：经营主人蒋建琪 · 品牌细节蒋晓莹 · 财务邹勇坚。</p>
+</section>
+
+<!-- 12 -->
+<section id="s12">
+  <h2>12 · 产品 / 价格带 / 人群 / 渠道第二刀</h2>
+  <p class="src">详 MD：<code>research/10_product_audience_matrix.md</code> · 价格带均为 C 区间，非全国指导价</p>
+  <table>
+    <tr><th>SKU 簇</th><th>卖点</th><th>公开价格带（C）</th></tr>
+    <tr><td>经典冲泡</td><td>方便、礼赠国民记忆</td><td>约 2.5–4 元/杯</td></tr>
+    <tr><td>好料/双拼</td><td>料感升级</td><td>约 4–8 元/杯</td></tr>
+    <tr><td>原叶现泡</td><td>健康化刷新形象</td><td>媒体口径电商均价约 8 元；店端约 5.9–16 元</td></tr>
+    <tr><td>Meco 果茶</td><td>茶饮店外第二选择</td><td>约 3.9–5.6 元/杯（8 杯装）</td></tr>
+    <tr><td>兰芳园</td><td>港味即饮</td><td>波动大【待核实主推】</td></tr>
+  </table>
+  <p><strong>人群：</strong>无审计级性别/年龄 % 表 → 只用公司口径（年轻化、原点人群、礼赠、精致妈妈等）。<strong>渠道第二刀：</strong>线下主体=经销商→商超/礼品；新=量贩/餐饮/校园；线上=孵化禁打穿价盘；体验店=窗口非连锁狂奔。</p>
+</section>
+
+<!-- 13 -->
+<section id="s13">
+  <h2>13 · 体育 / 广告范式 / 舆情</h2>
+  <p class="src">详 MD：<code>research/11_marketing_sports_pr.md</code></p>
+  <ul>
+    <li><strong>体育：</strong>孙颖莎=运动明星代言背书健康；<strong>≠</strong>赛事赞助体系（公开未见俱乐部/赛事冠名 A/B）</li>
+    <li><strong>广告演变：</strong>绕地球硬广 → 内容闭环；费用上广告↓推广↑ 有 A 附注</li>
+    <li><strong>舆情：</strong>2024-12 同名主体「破产」热搜 → <strong>已辟谣</strong>（与上市公司无股权关联）；业绩下滑是事实披露非谣言；龙井 16 元/杯为单品说明——勿把辟谣案当成经营破产</li>
+    <li><strong>预算日历/数量级：</strong>年报可见销费；规划时间点【需当面问客户】</li>
+  </ul>
+</section>
+
+<!-- 14 -->
+<section id="s14">
+  <h2>14 · 行业大盘（Max 行业面）</h2>
+  <p class="src">详 MD：<code>research/12_industry_sizing.md</code></p>
+  <ul>
+    <li>饮料全渠道 2025 增速约 <span class="fact">+0.2%</span>（年报转 NielsenIQ）——β 极弱</li>
+    <li>冲泡：格局稳、需求不稳；现制茶饮改写日常场景（蜜雪等门店密度数量级差）</li>
+    <li>即饮茶：水大鱼多；东方树叶/统一等定义健康与大单品话语权</li>
+    <li><strong>对 pitch 约束：</strong>不能靠赛道爆发讲故事；必须落具体场景（礼赠升级/居家养生/校园情绪）与可核销试验</li>
+  </ul>
+</section>
+
+<footer>
+  <p><strong>MD 真源：</strong><code>cases/xiangpiaopiao/research/</code>（CJK ≈3.5 万，含 07/10/11/12 Max 补洞）· 溯源 <code>data_traceability.md</code> · 证伪 <code>ifalsify_report.md</code></p>
+  <p><strong>会前双材料：</strong><a href="../ONE_PAGER.html">一页关键信息</a> · <a href="../index.html">索引</a> · 刀刃未写/未改</p>
+  <p>品质：覆盖并超越 Max 角度清单 + sample 一页纸决策层 · 质量关卡已过（研究达标）· 本页非会面话术稿</p>
+  <p class="no-print">打印：浏览器 ⌘P</p>
+</footer>
+</div>
+
+  </div>
+</section>
+
+</body>
+</html>

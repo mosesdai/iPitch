@@ -1,0 +1,6653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>蔚来 NIO · 冰山深度研究 · v1.6</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--text:#1a2332;--muted:#5c6b7a;--accent:#1d4ed8;--accent-soft:#dbeafe;--border:#d8e0e8;--warn:#9a6700;--soft-warn:#fff8e8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+header{border-bottom:1px solid var(--border);padding-bottom:22px;margin-bottom:8px}
+h1{font-size:1.75rem;margin:0 0 10px;letter-spacing:-.02em;font-weight:700}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:4px;margin:0 6px 6px 0;background:var(--accent-soft);color:var(--accent)}
+.tag.warn{background:var(--soft-warn);color:var(--warn)}
+.meta{font-size:13px;color:var(--muted);margin:8px 0 0}
+nav.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:24px 0 8px;position:sticky;top:0;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+nav.toc strong{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+nav.toc a{color:var(--accent);text-decoration:none;font-size:13.5px;margin-right:14px;white-space:nowrap;line-height:2}
+nav.toc a:hover{text-decoration:underline}
+section{margin-top:36px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px 28px}
+h2.file-title{font-size:1.25rem;margin:0 0 14px;color:var(--accent);padding-bottom:8px;border-bottom:1px solid var(--border)}
+h3{font-size:1.05rem;margin:22px 0 10px;color:#243447}h4{font-size:1rem;margin:18px 0 8px}
+h5{font-size:.95rem;margin:16px 0 8px;color:var(--muted)}
+p{margin:0 0 12px}ul{margin:0 0 16px;padding-left:22px}ol{margin:0 0 16px;padding-left:22px}li{margin-bottom:7px}
+blockquote{margin:12px 0;padding:10px 14px;background:#f0f4f8;border-left:3px solid var(--accent);color:#334}
+blockquote p{margin:0 0 6px}
+.table-wrap{overflow-x:auto;margin:12px 0 20px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.box{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);padding:14px 16px;margin:18px 0}
+.muted{color:var(--muted);font-size:13px}code{font-size:12.5px;background:#eef2f6;padding:1px 5px;border-radius:3px}
+a{color:var(--accent)}footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+pre.muted{margin:0 0 16px;font-size:12px;white-space:pre-wrap;background:#f0f4f8;padding:12px;border-radius:6px}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>冰山深度研究 · 蔚来 NIO</h1>
+<span class="tag">v1.6 · 对标雀巢 / 香飘飘</span>
+<span class="tag warn">ifalsify CONDITIONAL</span>
+<span class="tag">CJK ≈33,429</span>
+<span class="tag">我方 NBA China</span>
+<p class="meta">损益锚 Q1-2026（2026-05-21）· 交付锚 2026-04/05/06 + Q2-2026（2026-07-01）· Q2-2025 A 对照 · 写作日 2026-08-09<br/>
+MD 真源 <code>../../research/</code> · 会前主材料优先 <a href="../ONE_PAGER.html">ONE_PAGER</a> · <a href="../index.html">索引</a> · <a href="../B_knife.html">10 分钟刀子</a></p>
+</header>
+
+<div class="box">
+<strong>一句话：</strong>交付斜率是真的（Q2 <strong>107,658</strong>，自算 YoY <strong>+49.4%</strong>），但乐道 <strong>12,029 → 11,743</strong>，破万的峰值没有变成台阶；姚明落在一个车型上，申花落在另一个品牌上，第三条线还是空的 —— 缺的是<strong>能分三层用、能核销、能随时叫停的操作系统</strong>，不是下一张代言合同。<br/>
+<span class="muted">禁句：「你们连指引都没达到」·「现金 482 亿所以能上大赞助」·「交付新高 = 全面复苏」· 粉丝 / CPM 开场 · 竞品排名恐吓 · 未核实排他。本轮不报价。</span>
+</div>
+
+<div class="box">
+<strong>最小真源（A · 交付与损益必须分句）</strong>
+<div class="table-wrap"><table>
+<tr><th>项</th><th>值</th><th>时间锚</th><th>备注</th></tr>
+<tr><td>Q2 2026 交付</td><td><strong>107,658</strong></td><td>2026 Q2</td><td>对 Q2 2025 的 72,056，自算 <strong>+49.4%</strong></td></tr>
+<tr><td>2026-06 三品牌</td><td><strong>21,908 / 11,743 / 6,946</strong></td><td>2026-06</td><td>自算环比 <strong>+9.5% / −2.4% / +22.7%</strong></td></tr>
+<tr><td>Q2 指引 vs 实绩</td><td>110,000–115,000 → 107,658</td><td>2026 Q2</td><td>自算 <strong>−2,342 台 / −2.1%</strong>（<em>只作诊断</em>）</td></tr>
+<tr><td>累计交付</td><td><strong>1,188,715</strong></td><td>至 2026-06-30</td><td>规模锚</td></tr>
+<tr><td>Q1 2026 损益</td><td>Non-GAAP <strong>+0.668 亿</strong> / GAAP <strong>−3.321 亿</strong></td><td>2026 Q1</td><td>整车毛利 18.8%；现金 482 亿</td></tr>
+<tr><td>Q2 2026 损益</td><td><strong>未披露</strong></td><td>—</td><td><strong>宁空不编</strong></td></tr>
+</table></div>
+</div>
+
+<nav class="toc"><strong>目录 · 完整研报（各章全文镜像）</strong>
+<a href="#ch01">01 · 财报与交付精读（IR）</a> <a href="#ch02">02 · 高管原话库</a> <a href="#ch03">03 · 体育 / IP 合作史</a> <a href="#ch04">04 · 竞品格局</a> <a href="#ch05">05 · 行业与政策语境</a> <a href="#ch06">06 · 权力 + MEDDIC</a> <a href="#ch07">07 · 组织 / 创始人生命周期</a> <a href="#ch08">08 · 横纵交汇</a> <a href="#ch09">09 · 查了但不说</a> <a href="#ch10">10 · 产品 / 人群 / 渠道</a> <a href="#ch11">11 · 营销 / 体育 / 舆情</a> <a href="#ch12">12 · 行业大盘与口径纪律</a> <a href="#idx">索引 · README</a>
+</nav>
+
+<section id="ch01">
+<h2 class="file-title">01 · NIO 财报与交付精读（IR · v1.6）</h2>
+<blockquote>
+<p><strong>时间锚</strong>：2026 Q1 业绩（HKEX 2026052100996 · 2026-05-21）· 2026-05 交付（nio.com 2026-06-01）· <strong>2026-06 / Q2 交付（ir.nio.com · 2026-07-01）</strong><br />
+<strong>口径纪律</strong>：交付量与损益 <strong>必须分句</strong>。交付是月度 A 源；损益只到 <strong>Q1 2026</strong>（Q2 2026 财报本文写作日 <strong>2026-08-09 尚未披露</strong> → <strong>宁空不编</strong>）。<br />
+<strong>本文件不做</strong>：全年预测、市占率推算、市值叙事。</p>
+</blockquote>
+<hr />
+<h3>0. 读本文件的三句话</h3>
+<ul>
+<li><strong>交付斜率是真的</strong>：Q2 2026 交付 <strong>107,658</strong>（自算 YoY +49.4%，对 Q2 2025 的 72,056）；累计交付 <strong>1,188,715</strong> 台。</li>
+<li><strong>但 Q2 交付</strong>未达公司自己给的 <strong>11万–11.5万</strong> 指引下限（自算缺口 <strong>2,342 台 / −2.1%</strong>）——这是一条 <strong>A 对 A</strong> 的硬事实，比任何媒体「复苏/失速」标签都稳。</li>
+<li><strong>乐道破万 ≠ 站稳</strong>：5月 <strong>12,029</strong> → 6月 <strong>11,743</strong>（自算环比 <strong>−2.4%</strong>）。L80 上市月的峰值没有延续成台阶。<strong>这是本案主打矛盾的活证据。</strong></li>
+</ul>
+<hr />
+<h3>1. 交付序列（A 源主链）</h3>
+<h4>1a. 月度（2026）</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>月</th>
+<th>全品牌</th>
+<th>蔚来 NIO</th>
+<th>乐道 ONVO</th>
+<th>萤火虫 FIREFLY</th>
+<th>源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-04</td>
+<td><strong>29,356</strong>（+22.8% YoY）</td>
+<td>【当月拆分未取到 A】</td>
+<td>5,352</td>
+<td>【未取到 A】</td>
+<td>IR 2026-05-01（拆分见下注）</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td><strong>37,705</strong>（+62.3% YoY / +28.4% MoM）</td>
+<td>20,013</td>
+<td><strong>12,029</strong></td>
+<td>5,663</td>
+<td>nio.com/news/20260601001 [A]</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td><strong>40,597</strong></td>
+<td>21,908</td>
+<td><strong>11,743</strong></td>
+<td>6,946</td>
+<td>ir.nio.com / GlobeNewswire 2026-07-01 [A]</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>4月拆分注</strong>：4月乐道 5,352 来自媒体转载（新浪，<strong>C 级</strong>），蔚来/萤火虫当月拆分本轮 <strong>未取到 A 源</strong> → <strong>不进刀子、不做 Q2 品牌级加总</strong>。</p>
+<h4>1b. 季度对照（A 对 A）</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>Q2 2025</th>
+<th>Q2 2026</th>
+<th>自算变动</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全品牌交付</td>
+<td><strong>72,056</strong></td>
+<td><strong>107,658</strong></td>
+<td><strong>+49.4%</strong></td>
+</tr>
+<tr>
+<td>蔚来 NIO</td>
+<td>47,132</td>
+<td>【无 Q2 口径公告拆分；4月缺 A】</td>
+<td>—</td>
+</tr>
+<tr>
+<td>乐道 ONVO</td>
+<td>17,081</td>
+<td>≈29,124（<strong>含 4月 C 源</strong> · 慎用）</td>
+<td>≈+70%（<strong>混源 · 不进刀</strong>）</td>
+</tr>
+<tr>
+<td>萤火虫 FIREFLY</td>
+<td>7,843</td>
+<td>【4月缺 A → 不加总】</td>
+<td>—</td>
+</tr>
+<tr>
+<td>收入</td>
+<td><strong>RMB 19,008.7 m</strong>（190.087 亿）</td>
+<td><strong>未披露</strong></td>
+<td><strong>宁空不编</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>来源：<br />
+- Q2 2025 → <a href="https://ir.nio.com/news-releases/news-release-details/nio-inc-reports-unaudited-second-quarter-2025-financial-results">https://ir.nio.com/news-releases/news-release-details/nio-inc-reports-unaudited-second-quarter-2025-financial-results</a> [A]<br />
+- Q2/6月 2026 交付 → ir.nio.com 交付月报 / GlobeNewswire 2026-07-01 [A]</p>
+<h4>1c. 累计</h4>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+<th>时间锚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>累计交付（自 2018 首车）</td>
+<td><strong>1,188,715</strong></td>
+<td>至 2026-06-30 [A]</td>
+</tr>
+<tr>
+<td>2026 H1 累计（自算）</td>
+<td><strong>191,123</strong> = 150,526（1–5月 A）+ 40,597（6月 A）</td>
+<td>2026-06-30</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>2. 指引 vs 实绩（本案最锋利的一格）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>公司口径</th>
+<th>实际</th>
+<th>差</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q2 2026 交付</td>
+<td><strong>110,000–115,000</strong>（Q1 公告，A）</td>
+<td><strong>107,658</strong>（A）</td>
+<td><strong>−2,342 台 / −2.1%</strong>（自算，对下限）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>读法（三条，缺一条就变成攻击）</strong>：</p>
+<ol>
+<li>这是 <strong>A 对 A</strong>，不是分析师的「不及预期」。可以在会面里作为 <strong>共同事实</strong> 提出，而不是评判。</li>
+<li>差距只有 <strong>2.1%</strong> —— 不是崩盘。用它证明的是 <strong>「结构问题」</strong>，不是 <strong>「危机」</strong>。谁把 2.1% 说成失速，就会被秦力洪那套「反标题党」的语言直接顶回来。</li>
+<li>缺口的位置很关键：6月全品牌 <strong>+7.7%</strong>（自算，40,597 vs 37,705）在涨，<strong>乐道却在小幅回落</strong>。所以缺口的成因偏向 <strong>乐道未站稳</strong>，而不是蔚来主品牌走弱。</li>
+</ol>
+<blockquote>
+<p><strong>会前禁句</strong>：「你们连自己的指引都没达到」。<br />
+<strong>会前可说</strong>：「Q2 落在指引下沿附近，同一时间乐道从 12,029 回到 11,743 —— 我们更关心的是第二品牌怎么从峰值变台阶。」</p>
+</blockquote>
+<hr />
+<h3>3. 损益（只到 Q1 2026 · A）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>指标</th>
+<th>2026 Q1</th>
+<th>读法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交付</td>
+<td>83,465（+98.3% YoY；<strong>环比 Q4 −33.1%</strong>）</td>
+<td>同比高增；环比是季节 + 车型切换</td>
+</tr>
+<tr>
+<td>品牌拆分</td>
+<td>蔚来 58,543 / 乐道 13,339 / 萤火虫 11,583</td>
+<td><strong>乐道仅占 16.0%</strong>（自算）</td>
+</tr>
+<tr>
+<td>收入</td>
+<td><strong>255.327 亿</strong>（+112.2%）</td>
+<td>大车结构 + 量</td>
+</tr>
+<tr>
+<td>整车毛利率</td>
+<td><strong>18.8%</strong></td>
+<td>四年新高</td>
+</tr>
+<tr>
+<td>综合毛利率</td>
+<td>19.0%</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Non-GAAP 经营利润</td>
+<td><strong>+0.668 亿</strong></td>
+<td>连续第二季转正</td>
+</tr>
+<tr>
+<td>GAAP 净亏损</td>
+<td><strong>−3.321 亿</strong></td>
+<td><strong>闸门仍在</strong>：CFO 频道不可绕</td>
+</tr>
+<tr>
+<td>现金及等价物等</td>
+<td><strong>482 亿</strong>（3/31）</td>
+<td>有子弹 ≠ 可乱花</td>
+</tr>
+<tr>
+<td>2025 Q4 GAAP 经营利润（对照）</td>
+<td>+8.073 亿</td>
+<td>说明 Q1 是回落季，不是趋势断裂</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>单车收入代理（自算 · 口径警告）</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>期</th>
+<th>收入</th>
+<th>交付</th>
+<th>代理值</th>
+<th>警告</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q2 2025</td>
+<td>190.087 亿</td>
+<td>72,056</td>
+<td>≈<strong>26.4 万/台</strong></td>
+<td><strong>含服务/能源/其他收入</strong>，非 ASP</td>
+</tr>
+<tr>
+<td>Q1 2026</td>
+<td>255.327 亿</td>
+<td>83,465</td>
+<td>≈<strong>30.6 万/台</strong></td>
+<td>同上；上升与大车/ES9 结构相关（<strong>推断</strong>）</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 这两格只用于内部理解「为什么 CFO 愿意谈结构、不愿谈曝光」。<strong>不进刀子、不在会面口播</strong>。</p>
+<hr />
+<h3>4. 指引与 CFO 频道</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q2 交付指引</td>
+<td>11万–11.5万（已落地，见 §2）</td>
+<td>A</td>
+</tr>
+<tr>
+<td>2026 Non-GAAP 全年盈利</td>
+<td>曲玉「力争」</td>
+<td>B（业绩会）</td>
+</tr>
+<tr>
+<td>全年整车毛利率</td>
+<td><strong>17%–18%</strong>（较早前口径下调）</td>
+<td>B ⚠️</td>
+</tr>
+<tr>
+<td>单车成本</td>
+<td>原材料等推高 <strong>&gt;1 万元/车</strong></td>
+<td>B ⚠️</td>
+</tr>
+<tr>
+<td>Q2 2026 损益</td>
+<td><strong>未披露</strong>（写作日 2026-08-09）</td>
+<td><strong>宁空</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>pitch 含义（硬结论）</strong>：在 GAAP 仍亏 + 毛利指引下调 + 单车成本上行的三重约束下，<strong>大额冠名类支出几乎不可能过曲玉那一关</strong>。唯一可过闸的形态是：<strong>小额、可核销、可资产化、不达标即停</strong>。</p>
+<hr />
+<h3>5. 三品牌财务逻辑（进水线，不进 10 分钟刀）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>财务角色</th>
+<th>2026 H1 行为</th>
+<th>体育含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>蔚来 NIO</strong></td>
+<td>毛利与品牌锚</td>
+<td>5月 20,013 → 6月 21,908（自算 +9.5%）</td>
+<td>精神层；ES9 + 姚明是<strong>已发生</strong>的接口</td>
+</tr>
+<tr>
+<td><strong>乐道 ONVO</strong></td>
+<td>量纲与破圈</td>
+<td>12,029 → 11,743（自算 −2.4%）</td>
+<td><strong>家庭社群</strong>；申花模板已验证一次</td>
+</tr>
+<tr>
+<td><strong>萤火虫 FIREFLY</strong></td>
+<td>全球小车 / 青年</td>
+<td>5,663 → 6,946（自算 <strong>+22.7%</strong>）</td>
+<td>青年文化触点；<strong>本轮增速最快，但盘子最小</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>被忽略的一格</strong>：萤火虫 6月增速在三品牌里最高。媒体几乎不写。它对「青年文化接口」这条线是有利的 <strong>行为证据</strong>，而不是主张。</p>
+<hr />
+<h3>6. 待核实清单（本文件）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>现状</th>
+<th>怎么补</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2025 全年营收 874.88 亿 / 净亏 149.43 亿</td>
+<td><strong>媒体口径 B/C</strong></td>
+<td>20-F / 年报勾 A 后才可写进正文</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2026-04 蔚来/萤火虫拆分</td>
+<td>未取到 A</td>
+<td>IR 月报原文</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Q2 2026 收入 / 毛利 / 现金</td>
+<td>未披露</td>
+<td>财报日后补</td>
+</tr>
+<tr>
+<td>4</td>
+<td>三品牌各自 P&amp;L</td>
+<td><strong>公司从未单列</strong></td>
+<td>大概率永远拿不到 → 别装懂</td>
+</tr>
+<tr>
+<td>5</td>
+<td>营销/品牌费用科目</td>
+<td>财报未单列体育口径</td>
+<td><strong>只能当面问</strong>（见 PRIMARY）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>7. 十个会前必须能回答的数字问题（自测）</h3>
+<ol>
+<li>Q2 2026 交付多少？→ <strong>107,658</strong>（A）</li>
+<li>对指引如何？→ 落在 <strong>下限之下 2,342 台</strong>（自算），差 2.1%</li>
+<li>乐道最近两个月？→ <strong>12,029 → 11,743</strong>（A，环比 −2.4%）</li>
+<li>萤火虫最近两个月？→ <strong>5,663 → 6,946</strong>（A，+22.7%）</li>
+<li>最近一期有 GAAP 利润吗？→ <strong>没有</strong>，Q1 2026 净亏 3.321 亿（A）</li>
+<li>有多少现金？→ 482 亿（2026-03-31，A）</li>
+<li>累计交付？→ <strong>1,188,715</strong>（A）</li>
+<li>Q2 2026 收入？→ <strong>未披露</strong>，不编</li>
+<li>2025 全年数？→ <strong>待核实</strong>，媒体口径不进正文</li>
+<li>三品牌各自赚不赚钱？→ <strong>公司未披露</strong> → 不猜</li>
+</ol>
+<hr />
+<h3>8. 本文件来源</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>源</th>
+<th>级</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026 Q1 业绩公告</td>
+<td>A</td>
+<td>https://www.hkexnews.hk/listedco/listconews/sehk/2026/0521/2026052100996_c.pdf</td>
+</tr>
+<tr>
+<td>2026-05 交付月报</td>
+<td>A</td>
+<td>https://www.nio.com/news/20260601001</td>
+</tr>
+<tr>
+<td>2026-06 / Q2 2026 交付更新</td>
+<td>A</td>
+<td>https://ir.nio.com （2026-07-01 发布）</td>
+</tr>
+<tr>
+<td>Q2 2025 未审计业绩</td>
+<td>A</td>
+<td>https://ir.nio.com/news-releases/news-release-details/nio-inc-reports-unaudited-second-quarter-2025-financial-results</td>
+</tr>
+<tr>
+<td>竞品月度交付、L80 半月量</td>
+<td>B/C</td>
+<td>CnEVPost 等行业稿</td>
+</tr>
+<tr>
+<td>业绩会口径（毛利指引、单车成本）</td>
+<td>B</td>
+<td>新浪/澎湃业绩会转述</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>9. 加厚 · 交付曲线的四种读法（同一组数字，四个结论）</h3>
+<p>同一批 A 源数字，不同读法会导出完全不同的会面策略。把四种都写出来，是为了 <strong>防止我方只挑对自己有利的那一种</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>读法</th>
+<th>依据</th>
+<th>导出的结论</th>
+<th>我方是否可用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 强势读法</strong></td>
+<td>Q2 自算 +49.4%；6 月创 2026 新高；累计 118.8 万</td>
+<td>公司在上升通道，预算会变松</td>
+<td><strong>不可用</strong> —— 与 GAAP 仍亏、毛利指引下调矛盾</td>
+</tr>
+<tr>
+<td><strong>② 危机读法</strong></td>
+<td>Q2 落在指引下限之下 2.1%；乐道环比 −2.4%</td>
+<td>公司在失速，需要外部帮忙</td>
+<td><strong>不可用</strong> —— 2.1% 不是危机，说出来即恐吓</td>
+</tr>
+<tr>
+<td><strong>③ 结构读法</strong></td>
+<td>6 月三条线 +9.5% / −2.4% / +22.7%</td>
+<td>总量健康，<strong>结构在分化</strong></td>
+<td><strong>✅ 唯一可用</strong></td>
+</tr>
+<tr>
+<td><strong>④ 节奏读法</strong></td>
+<td>L80 五月上市即峰值，六月回落</td>
+<td>新车给峰值不给台阶</td>
+<td><strong>✅ 可用（辅助③）</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么只有③④可用</strong>：① 会被 CFO 频道直接顶回（他们自己在讲成本压力）；② 会被品牌频道直接顶回（秦力洪的公开立场是反标题党）。③④ 是唯一 <strong>既不夸大、也不贬损</strong> 的读法，也是唯一 <strong>不需要对方同意任何价值判断</strong> 的读法。</p>
+<hr />
+<h3>10. 加厚 · 「同比」这件事的口径陷阱</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>说明</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同比高但基数低</td>
+<td>2025 年同期乐道与萤火虫都在爬坡</td>
+<td>同比只用 <strong>全品牌 Q2 对 Q2</strong>，品牌级不做同比</td>
+</tr>
+<tr>
+<td>混用月度同比与季度同比</td>
+<td>5 月 +62.3% 是月度；Q2 +49.4% 是季度</td>
+<td><strong>同一句话里不混用</strong></td>
+</tr>
+<tr>
+<td>混用交付与销量</td>
+<td>交付 ≠ 上险 ≠ 批发</td>
+<td>只说「交付」，因为那是公司自己的口径</td>
+</tr>
+<tr>
+<td>混用季与月</td>
+<td>见 <code>12</code> §2 的季月混列警告</td>
+<td>混列表只进研报，不进刀</td>
+</tr>
+<tr>
+<td>拿累计数当增速</td>
+<td>1,188,715 是存量</td>
+<td>累计只作规模锚</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一句话</strong>：本案所有对外可说的比较，只有三组——<strong>Q2 对 Q2、6 月对 5 月（同品牌）、Q2 实绩对 Q2 指引</strong>。其余一律不比。</p>
+<hr />
+<h3>11. 加厚 · 财务约束如何翻译成提案条款</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>财务事实（A/B）</th>
+<th>翻译成条款</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GAAP 净亏 3.321 亿（A）</td>
+<td><strong>不接受不可逆承诺</strong>；意向书里必须有中止条款</td>
+</tr>
+<tr>
+<td>全年整车毛利指引 17%–18%（B）</td>
+<td>单项支出量级要小到不影响毛利叙事</td>
+</tr>
+<tr>
+<td>单车成本 &gt;1 万元上行（B）</td>
+<td>任何「帮你卖车」的承诺都不能写</td>
+</tr>
+<tr>
+<td>Non-GAAP 转正但 GAAP 未转（A）</td>
+<td><strong>考核期以季度为单位</strong>，不谈年框</td>
+</tr>
+<tr>
+<td>现金 482 亿（A）</td>
+<td><strong>不得引用</strong> 作为「有钱花」的理由</td>
+</tr>
+<tr>
+<td>Q2 落在指引下沿（A + 自算）</td>
+<td>只作共同事实提出，不作压力工具</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这张表是本案「不谈金额」的真正理由</strong>：不是我方保守，而是 <strong>在这组约束下，先报金额一定会死在第一道闸门</strong>。</p>
+<hr />
+<h3>12. 加厚 · 财报日之后要重跑的四件事</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>财报披露后要做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>补 Q2 2026 收入 / 毛利 / 现金，刷新本文件 §3 与 ONE_PAGER §2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>检查毛利指引是否再次调整 → 影响 <code>03_tensions</code> T4</td>
+</tr>
+<tr>
+<td>3</td>
+<td>检查是否首次出现品牌级财务披露 → 若有，<code>06</code>/<code>10</code> 大改</td>
+</tr>
+<tr>
+<td>4</td>
+<td>重跑 <code>../ifalsify_report.md</code>（尤其 F-4「窗口是否关着」）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>硬规则</strong>：财报披露后 <strong>本会前包默认过期</strong>，必须重跑，不允许「只改一个数字继续用」。</p>
+<hr />
+<h3>13. 加厚 · 三品牌交付结构的两年变化（A 对 A · 唯一可做的结构对照）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>Q2 2025（季）</th>
+<th>占比（自算）</th>
+<th>2026-06（月）</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来 NIO</td>
+<td>47,132</td>
+<td><strong>65.4%</strong></td>
+<td>21,908</td>
+<td>主品牌仍是压舱石</td>
+</tr>
+<tr>
+<td>乐道 ONVO</td>
+<td>17,081</td>
+<td><strong>23.7%</strong></td>
+<td>11,743</td>
+<td>第二品牌在放大</td>
+</tr>
+<tr>
+<td>萤火虫 FIREFLY</td>
+<td>7,843</td>
+<td><strong>10.9%</strong></td>
+<td>6,946</td>
+<td>第三品牌在快速追</td>
+</tr>
+<tr>
+<td>合计</td>
+<td>72,056</td>
+<td>100%</td>
+<td>40,597</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>口径警告</strong>：右侧为 <strong>单月</strong>，左侧为 <strong>季度</strong>，两列 <strong>不可相除</strong>。此表只用于回答一个问题：<strong>「一年前的品牌结构是什么样」</strong>。<br />
+<strong>结论</strong>：一年前主品牌占近三分之二；如今第二、第三品牌的单月量已分别接近去年整季的 <strong>约七成</strong> 与 <strong>约九成</strong>（自算）。<strong>三品牌结构正在从「一大两小」走向「一大两中」</strong> —— 这正是「一套叙事不够用」的结构原因。</p>
+<hr />
+<h3>14. 加厚 · 为什么「环比」在本案比「同比」重要</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>比较方式</th>
+<th>优点</th>
+<th>在本案的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同比（YoY）</td>
+<td>消除季节性</td>
+<td>2025 年乐道/萤火虫都在爬坡，<strong>基数太低</strong>，同比会虚高</td>
+</tr>
+<tr>
+<td><strong>环比（MoM，同品牌）</strong></td>
+<td>反映<strong>当下动能</strong></td>
+<td>受新车节奏影响 —— <strong>但这正是我们要说的事</strong></td>
+</tr>
+<tr>
+<td>对指引</td>
+<td>A 对 A，最干净</td>
+<td>语气危险，只能作诊断</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：本案的核心证据是 <strong>环比</strong>（12,029 → 11,743），因为我们要讲的恰恰是 <strong>「新车给峰值不给台阶」</strong> 这件事，而同比会把它平滑掉。<br />
+<strong>这是一个方法论选择，必须写明</strong>：我们不是挑了对自己有利的口径，而是挑了 <strong>唯一能描述「节奏」的口径</strong>。</p>
+<hr />
+<h3>15. 加厚 · 会前十分钟的数字自检（打印版）</h3>
+<ul>
+<li>[ ] 我能不用看材料说出 Q2 交付（<strong>107,658</strong>）</li>
+<li>[ ] 我能不用看材料说出六月三条线（<strong>21,908 / 11,743 / 6,946</strong>）</li>
+<li>[ ] 我能当场算出 <strong>−2.4%</strong> 与 <strong>+49.4%</strong></li>
+<li>[ ] 我知道哪些数是 <strong>A</strong>、哪些是 <strong>B/C</strong>、哪些是 <strong>自算</strong></li>
+<li>[ ] 我知道 <strong>Q2 损益未披露</strong>，且不会顺口说「大概」</li>
+<li>[ ] 我不会说出「未达指引」「现金 482 亿所以」「全面复苏」三句</li>
+<li>[ ] 被问到 2025 全年数时，我会说「还没勾 20-F，今天不引」</li>
+</ul>
+<p><strong>七项全过才进门。</strong> 任一项不过，宁可只带 ONE_PAGER 顶栏三行数字。</p>
+<h3>10. 叙事陷阱清单（财务）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>陷阱</th>
+<th>正确读法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同比高增忽略环比</td>
+<td>Q1 对 Q4 −33% 必须写</td>
+</tr>
+<tr>
+<td>只报 Non-GAAP</td>
+<td>同页报 GAAP 仍亏</td>
+</tr>
+<tr>
+<td>用 2025 Q2 和 2026 Q2 混比不标年</td>
+<td>标年标源</td>
+</tr>
+<tr>
+<td>交付更新当成毛利改善</td>
+<td>交付稿无完整损益</td>
+</tr>
+<tr>
+<td>现金 482 亿=可上大赞助</td>
+<td>现金是流动性，不是批准的营销预算</td>
+</tr>
+<tr>
+<td>乐道破万=全面转向家庭公司</td>
+<td>蔚来仍是交付与毛利大头</td>
+</tr>
+</tbody>
+</table></div>
+<h3>11. 给销售的三张表（口播）</h3>
+<ol>
+<li>Q1 损益四件套：交付 / 毛利 / Non-GAAP / GAAP  </li>
+<li>5–6 月乐道破万  </li>
+<li>Q2 交付 10.7 万级 — 量有了，钱怎么花仍问曲玉逻辑  </li>
+</ol>
+</section>
+<section id="ch02">
+<h2 class="file-title">02 · 高管原话库（v1.6）</h2>
+<blockquote>
+<p><strong>纪律</strong>：原话只用于 <strong>判断对方的主张侧</strong>（他们想被怎么理解）；<strong>任何数字回 IR</strong>（见 <code>01</code>）。<br />
+<strong>级别</strong>：媒体采访转述一律 <strong>C</strong>；业绩会转述 <strong>B</strong>；公司公告/官网 <strong>A</strong>。<br />
+<strong>会面用法</strong>：一次引用 <strong>不超过 2 条</strong>。引三条以上会变成「你研究过我」的表演，而不是「你懂我」的对话。</p>
+</blockquote>
+<hr />
+<h3>1. 原话库主表</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>人物</th>
+<th>主张方向（转述）</th>
+<th>时间锚</th>
+<th>源级</th>
+<th>会面用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>李斌</td>
+<td>品牌竞争最终比的是 <strong>Spirit / 内核精神</strong>，当前是「品牌澄清期」</td>
+<td>2026-05（ES9 前后）</td>
+<td>C</td>
+<td><strong>T1 主张侧锚</strong></td>
+</tr>
+<tr>
+<td>2</td>
+<td>李斌</td>
+<td>三品牌三种 Spirit：蔚来 <strong>敢想有为</strong> / 乐道 <strong>轻松家庭</strong> / 萤火虫 <strong>自在发光</strong></td>
+<td>2026-05</td>
+<td>C</td>
+<td>分层结构的对方语言</td>
+</tr>
+<tr>
+<td>3</td>
+<td>李斌</td>
+<td>行业进入「决赛圈」，未来一两年会难过</td>
+<td>2026-05</td>
+<td>C</td>
+<td><strong>不进刀</strong>（易被读成恐吓）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>李斌</td>
+<td>宁愿要 <strong>合理的量</strong>，不盲目降价冲量</td>
+<td>2026-05</td>
+<td>C</td>
+<td>CFO 频道；解释为什么「大曝光换量」讲不通</td>
+</tr>
+<tr>
+<td>5</td>
+<td>李斌</td>
+<td>短期重心 <strong>回归本土</strong>，海外转代理模式</td>
+<td>2026-05</td>
+<td>C</td>
+<td>T3；决定「全球化」话术不能当开场</td>
+</tr>
+<tr>
+<td>6</td>
+<td>李斌</td>
+<td>乐道月销要破 <strong>2 万</strong> 才立得住</td>
+<td>2026-05</td>
+<td>C ⚠️</td>
+<td><strong>战略口径，非实绩</strong>；只作背景</td>
+</tr>
+<tr>
+<td>7</td>
+<td>秦力洪</td>
+<td>高端品牌走「互联网爆款」<strong>不是</strong>正确战略</td>
+<td>2023（界面）</td>
+<td>C</td>
+<td><strong>反曝光红线的对方原话</strong></td>
+</tr>
+<tr>
+<td>8</td>
+<td>秦力洪</td>
+<td>用户是最宽的护城河；门槛在 <strong>走心</strong></td>
+<td>36氪</td>
+<td>C</td>
+<td>用户企业逻辑</td>
+</tr>
+<tr>
+<td>9</td>
+<td>秦力洪</td>
+<td>交车用真花不用塑料花</td>
+<td>2026-05</td>
+<td>C</td>
+<td>调性信号：细节 &gt; 声量</td>
+</tr>
+<tr>
+<td>10</td>
+<td>曲玉（CFO）</td>
+<td>力争 2026 <strong>Non-GAAP 全年盈利</strong></td>
+<td>2026 Q1 业绩会</td>
+<td>B</td>
+<td>试验必须小额可核销的原因</td>
+</tr>
+<tr>
+<td>11</td>
+<td>马麟（报道转述）</td>
+<td>姚明合作 <strong>先谈价值观、没有条款拉扯</strong></td>
+<td>2026-05</td>
+<td>C</td>
+<td><strong>合作模板</strong>：先方向后条款</td>
+</tr>
+<tr>
+<td>12</td>
+<td>李斌</td>
+<td>换电是分布式储能节点；累计换电已过 <strong>1 亿次</strong></td>
+<td>2026-03</td>
+<td>C</td>
+<td>背景；<strong>不进 10 分钟刀</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>2. 从原话里抽出的四条「他们的判据」</h3>
+<p>对方不会说出口，但从原话可以稳定推出的评审标准（<strong>推断，须 L0 验证</strong>）：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>判据</th>
+<th>来源原话</th>
+<th>对提案的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>走不走心</strong></td>
+<td>秦力洪「走心」「真花不用塑料花」</td>
+<td>权益清单式提案在第一分钟就被贴上「塑料花」</td>
+</tr>
+<tr>
+<td><strong>值不值</strong></td>
+<td>曲玉「力争 Non-GAAP 盈利」</td>
+<td>必须有停损点；必须能算</td>
+</tr>
+<tr>
+<td><strong>长不长</strong></td>
+<td>李斌「Spirit 澄清期」「决赛圈」</td>
+<td>一次性曝光型合作贬值</td>
+</tr>
+<tr>
+<td><strong>一致不一致</strong></td>
+<td>三 Spirit 表述</td>
+<td><strong>一套素材打三品牌 = 破坏一致性</strong>，这是我们的入口</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>3. 原话与行为的对照（叙事 vs 行为）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>主张（C）</th>
+<th>行为（A）</th>
+<th>和谐？</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「乐道要破 2 万/月」</td>
+<td>5月 12,029 → 6月 <strong>11,743</strong></td>
+<td><strong>不和谐</strong>：峰值未成台阶</td>
+<td><strong>T1 主证据</strong></td>
+</tr>
+<tr>
+<td>「Spirit 分层」</td>
+<td>姚明只落 ES9 一个点；申花只落乐道一条线</td>
+<td>部分</td>
+<td>T2：单点 vs 体系</td>
+</tr>
+<tr>
+<td>「回归本土」</td>
+<td>萤火虫 6月 <strong>+22.7%</strong>（自算），仍是全球小车定位</td>
+<td>部分</td>
+<td>T3：分品牌分时间轴</td>
+</tr>
+<tr>
+<td>「不盲目冲量」</td>
+<td>Q2 交付落在指引下限之下 2.1%（自算）</td>
+<td><strong>和谐</strong></td>
+<td>证明他们真的不打算用价格换量 → 更需要品牌侧办法</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这一节是本文件的价值所在</strong>：原话本身不值钱，<strong>原话与月度交付的错位</strong>才值钱。</p>
+<hr />
+<h3>4. 可引用的两条（会面只带这两条）</h3>
+<ol>
+<li><strong>秦力洪 · 反爆款</strong>：用来把我们自己和「曝光供应商」区隔开。<br />
+   - 口播：「你们说过高端不该走互联网爆款。所以我今天不打算讲曝光。」</li>
+<li><strong>李斌 · 三 Spirit</strong>：用来引出分层。<br />
+   - 口播：「敢想有为、轻松家庭、自在发光——这是三种人、三种场，很难用一套素材同时服务。」</li>
+</ol>
+<hr />
+<h3>5. 明确不引用（会面）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>不引用</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「决赛圈会死一批」</td>
+<td>引用即恐吓，触发防御</td>
+</tr>
+<tr>
+<td>「乐道要 2 万」</td>
+<td>拿对方的目标反问对方，是审判姿态</td>
+</tr>
+<tr>
+<td>「1 亿次换电」</td>
+<td>与体育无关，显得在背资料</td>
+</tr>
+<tr>
+<td>任何 2019 危机期言论</td>
+<td>旧伤，且与今日判断无关</td>
+</tr>
+<tr>
+<td>任何未署名「内部人士称」</td>
+<td>D 级，不进任何层</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>6. 缺口（须 L0）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>缺口</th>
+<th>为什么公开源永远拿不到</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>谁在体育/IP 上是 <strong>initiator</strong></td>
+<td>组织内部分工不公告</td>
+</tr>
+<tr>
+<td>2</td>
+<td>马麟对姚明案的 <strong>成功定义</strong></td>
+<td>只有当面问</td>
+</tr>
+<tr>
+<td>3</td>
+<td>沈斐线的乐道破圈 <strong>预算归属</strong></td>
+<td>不公告</td>
+</tr>
+<tr>
+<td>4</td>
+<td>曲玉的 <strong>试验额度上限</strong></td>
+<td>不公告</td>
+</tr>
+<tr>
+<td>5</td>
+<td>是否已有竞品体育 IP 在洽</td>
+<td>不公告</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 全部写进 <code>../PRIMARY_REQUIRED.md</code>，<strong>不在研报里替他们回答</strong>。</p>
+<hr />
+<h3>7. 引用风险登记</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>风险</th>
+<th>说明</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>转述失真</td>
+<td>媒体标题常把「难过」写成「会死」</td>
+<td>只引方向，不引句式</td>
+</tr>
+<tr>
+<td>时间错位</td>
+<td>2023 年秦力洪的话用在 2026 语境</td>
+<td>引用时说出年份</td>
+</tr>
+<tr>
+<td>张冠李戴</td>
+<td>三位高管口径接近，易混</td>
+<td>表中人物列必须准确；不确定就不引</td>
+</tr>
+<tr>
+<td>过度引用</td>
+<td>引 5 条以上 = 背书感</td>
+<td>硬上限 2 条</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>8. 加厚 · 三条线的语言差异（说错人比说错话更致命）</h3>
+<p>同一个提案，对三条线要换三套词。<strong>用错词的代价不是听不懂，是被判定为「不懂我们」。</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>条线</th>
+<th>他们的词</th>
+<th>我方该用的词</th>
+<th>绝对不能用的词</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>创始人 / 总裁线</td>
+<td>Spirit、内核、长期主义、走心</td>
+<td>一致性、可上传的一句话、精神资产</td>
+<td>触达、曝光、声量、爆款</td>
+</tr>
+<tr>
+<td>品牌传播执行线</td>
+<td>共创、模板、落地、内容</td>
+<td>可复制的场次、内容工厂、素材不复用</td>
+<td>资源包、权益清单、媒体位</td>
+</tr>
+<tr>
+<td>乐道 / 破圈线</td>
+<td>家庭、破圈、到店、下沉</td>
+<td>家庭日、周末场、门店串联</td>
+<td>品牌提升、心智占位</td>
+</tr>
+<tr>
+<td>财务线</td>
+<td>ROI、核销、上限、停损</td>
+<td>一城一试、指标不超过三个、不达标即停</td>
+<td>长期价值、品牌资产（不可核销的空话）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一个实操细节</strong>：同一场会议里若三条线的人都在场，<strong>主语要挂在具体品牌上</strong>（「乐道这条线」「蔚来这一层」），不要说「你们」。因为「你们」在三品牌公司里是一个 <strong>没有归属的词</strong>，会让每个人都觉得不是自己的事。</p>
+<hr />
+<h3>9. 加厚 · 「主张侧」为什么比事实更重要</h3>
+<p>本文件通篇是 C 级材料，按证据纪律它 <strong>不能进刀子当证据</strong>。但它决定 <strong>刀子用什么语言说事实</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>作用</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事实（A）</td>
+<td>决定 <strong>说什么</strong></td>
+<td>乐道 12,029 → 11,743</td>
+</tr>
+<tr>
+<td>主张（C）</td>
+<td>决定 <strong>怎么说</strong></td>
+<td>不说「你们掉了」，说「峰值没变成台阶」</td>
+</tr>
+<tr>
+<td>禁区（C + 判断）</td>
+<td>决定 <strong>不说什么</strong></td>
+<td>不说「决赛圈」、不说「未达指引」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：把 A 源数字用错语言说出来，杀伤力等于零甚至为负。<strong>02 的价值不在内容，在语气。</strong></p>
+<hr />
+<h3>10. 加厚 · 引用的三种失败模式（真实会面里最常见）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>失败模式</th>
+<th>表现</th>
+<th>后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>背书式引用</strong></td>
+<td>「李斌说过……秦力洪说过……你们财报写……」</td>
+<td>对方感到被研究、被表演，进入防御</td>
+</tr>
+<tr>
+<td><strong>反将式引用</strong></td>
+<td>「你们自己说要破 2 万，现在才 11,743」</td>
+<td>直接对抗，会议结束</td>
+</tr>
+<tr>
+<td><strong>错位式引用</strong></td>
+<td>拿 2023 年的话解释 2026 年的决定</td>
+<td>暴露资料是拼的</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>正确形态</strong>：引用 <strong>一次</strong>，并且立刻把话交回给对方。</p>
+<blockquote>
+<p>「你们说过高端不该走互联网爆款——所以我想先问一句：<strong>在你们这里，体育算品牌一致性的事，还是算流量的事？</strong>」</p>
+</blockquote>
+<p>引用之后接问题，而不是接结论。这是本文件最实用的一条。</p>
+<hr />
+<h3>8. 原话的时间分布与语境漂移（本文件独有）</h3>
+<p>把 12 条原话按时间铺开，会发现一件研究报告通常漏掉的事：<strong>这些话不是同一个语境里说出来的</strong>，把它们当成一套连贯世界观引用，会在会面里被当场纠正。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>时段</th>
+<th>语境</th>
+<th>代表原话</th>
+<th>引用时必须补的一句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2023</td>
+<td>单品牌、销量压力期、行业还在讲「爆款方法论」</td>
+<td>秦力洪「高端不该走互联网爆款」</td>
+<td>「这是您 2023 年说的，我理解到今天口径没变，对吗？」</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>换电网络里程碑、资本市场叙事高热</td>
+<td>李斌「换电=分布式储能，累计过 1 亿次」</td>
+<td>不引用（与体育无关）</td>
+</tr>
+<tr>
+<td>2026 Q1 业绩会（B）</td>
+<td>GAAP 仍亏、毛利指引下调</td>
+<td>曲玉「力争 Non-GAAP 全年盈利」</td>
+<td>「所以任何试验都要能算账」——这是替他说，不是审判</td>
+</tr>
+<tr>
+<td>2026-05（ES9 / 姚明前后）</td>
+<td>品牌澄清期集中发声</td>
+<td>李斌三 Spirit、「合理的量」、「回归本土」；马麟「先谈价值观」</td>
+<td>「这一段是您五月密集讲的，我把它当成今年的口径」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>漂移风险的三种形态</strong>：</p>
+<ol>
+<li><strong>口径升级</strong>：2023 的「反爆款」在 2026 已经从战术偏好升级为品牌战略（Spirit 澄清期）。引用时若只当战术偏好用，会显得研究停在三年前。</li>
+<li><strong>口径收窄</strong>：「回归本土」是<strong>短期重心</strong>表述，不等于放弃全球；萤火虫 6 月 6,946（自算环比 +22.7%）本身就是反例。把它讲成「你们已经不做海外了」，会被马上纠正。</li>
+<li><strong>口径被媒体放大</strong>：「决赛圈」「会难过」经媒体标题化后变成「会死一批」。我们引用被放大版，等于承认自己只读标题。</li>
+</ol>
+<blockquote>
+<p><strong>纪律</strong>：任何一条原话进会面前，先回答「这句话说的是哪个月、哪个语境、对应哪个行为证据」。三个都答不上 → 不引用。</p>
+</blockquote>
+<hr />
+<h3>9. 每条可用原话的「反驳版本」（先自己钢人一次）</h3>
+<p>会面里最贵的失误，是引用了一句对方原话，结果对方给出<strong>他自己那句话的另一半</strong>。以下是我方引用前必须准备的反面。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>我方引用</th>
+<th>对方可能的反驳（其自身逻辑内自洽）</th>
+<th>我方回法（一句）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「你们说过高端不该走互联网爆款」</td>
+<td>「但我们也做了姚明和申花，那也是声量。」</td>
+<td>「对，所以我不认为您反对声量，您反对的是<strong>只有</strong>声量。今天想聊的是声量之后的那一层。」</td>
+</tr>
+<tr>
+<td>「三种 Spirit」</td>
+<td>「三种 Spirit 不代表要三套供应商、三份预算。」</td>
+<td>「同意。我说的分层不是三份预算，是<strong>一套体系、三个出口</strong>——一次立项，三条线各取所需。」</td>
+</tr>
+<tr>
+<td>「先谈价值观再谈条款」</td>
+<td>「那你今天为什么带着一套方案来？」</td>
+<td>「我没带权益包。我带了三个问题和一条我们自己也可能推翻的判断。」</td>
+</tr>
+<tr>
+<td>「力争 Non-GAAP 盈利」</td>
+<td>「所以今年不谈新增支出。」</td>
+<td>「所以我建议的最小单元是一城一线一指标，写清不达标即停。」</td>
+</tr>
+<tr>
+<td>「乐道要破 2 万」</td>
+<td>「这是我们内部目标，你不用替我们着急。」</td>
+<td><strong>不引用</strong>（这条已在禁引清单）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这一节的价值</strong>：它把「原话库」从<strong>素材</strong>变成<strong>攻防表</strong>。素材只证明我们读过；攻防表证明我们想过对方会怎么反应。</p>
+<hr />
+<h3>10. 三种开场下的原话使用剧本</h3>
+<p>对方开场决定我们能不能用原话。<strong>原话是回应工具，不是开场工具</strong>。</p>
+<p><strong>剧本 A · 对方开场问「你们能给我们什么资源」</strong><br />
+- 不引原话。直接回：「先不聊资源清单。我更想知道乐道和蔚来在体育这件事上，是不是同一本账。」<br />
+- 理由：此时引用「反爆款」会显得在替对方定义他们的问题。</p>
+<p><strong>剧本 B · 对方开场讲「我们今年很精打细算」</strong><br />
+- 引曲玉那条（<strong>替他说</strong>，不是引证）：「我看到今年的口径是力争 Non-GAAP 盈利、整车毛利指引到 17%–18%（业绩会转述，B），所以我默认今天不谈大额。」<br />
+- 然后直接进三问的第三问（曲玉先过金额上限还是 Spirit 一致性）。</p>
+<p><strong>剧本 C · 对方开场讲「我们已经有姚明和申花了」</strong><br />
+- 引三 Spirit 那条：「敢想有为、轻松家庭、自在发光——这是三种人。姚明落在第一种，申花落在第二种。第三种目前公开看不到接口。」<br />
+- 这是全场唯一一次可以让原话<strong>直接推进议程</strong>的时刻。</p>
+<p><strong>共同纪律</strong>：全场原话引用总数 ≤2；同一位高管不引超过 1 条；引用后立即接一个问题，不接一段陈述。</p>
+<hr />
+<h3>11. 原话能证明什么 / 不能证明什么</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>命题</th>
+<th>原话能证明</th>
+<th>原话不能证明</th>
+<th>补法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>他们重视品牌一致性</td>
+<td>✅ 三 Spirit + 澄清期表述</td>
+<td>是否愿意为一致性<strong>付钱</strong></td>
+<td>L0 三问</td>
+</tr>
+<tr>
+<td>他们反感纯曝光</td>
+<td>✅ 秦力洪 2023 + 2026 调性</td>
+<td>是否已把「曝光」定义写进评审表</td>
+<td>L0</td>
+</tr>
+<tr>
+<td>他们能接受价值观先行的合作</td>
+<td>✅ 马麟姚明案转述</td>
+<td>该模板是否<strong>可复制</strong>到乐道/萤火虫</td>
+<td>L0 第二问</td>
+</tr>
+<tr>
+<td>今年有体育预算</td>
+<td>❌ 完全不能</td>
+<td>—</td>
+<td>只能当面问</td>
+</tr>
+<tr>
+<td>乐道破圈是今年 top 优先级</td>
+<td>❌ 只有战略口径（2 万目标，C）</td>
+<td>交付数据只说明它在量上成立</td>
+<td>见 <code>01</code> §5</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一句话</strong>：原话给我们<strong>语言</strong>，交付数据给我们<strong>证据</strong>，两者错位的地方给我们<strong>张力</strong>。三者都齐了才是刀，只有原话就是背书感。</p>
+<hr />
+<h3>12. 本文件与其他章的接口</h3>
+<ul>
+<li>张力 T1 的主张侧锚 → 本文件 #1/#2；行为侧证据 → <code>01</code> §1a（12,029 → 11,743）</li>
+<li>CFO 频道 → 本文件 #10 + <code>01</code> §3/§4（GAAP 仍亏、毛利指引 17%–18%）</li>
+<li>合作模板 → 本文件 #11 + <code>03</code>（姚明 / 申花两类模板）</li>
+<li>不引用清单 → <code>09_not_for_pitch.md</code> 同步维护，两边必须一致</li>
+</ul>
+</section>
+<section id="ch03">
+<h2 class="file-title">03 · 体育 / IP 合作史（v1.6）</h2>
+<blockquote>
+<p><strong>本章任务</strong>：钉死 NIO 在体育上的 <strong>真实边界</strong> —— 他们做过什么、退出过什么、什么形态被他们接受、什么形态被他们拒绝。<br />
+<strong>纪律</strong>：合作事件多为媒体/百科口径 → <strong>C 级</strong>；只有官网/公告可标 A。<strong>不写未核实的排他条款。</strong></p>
+</blockquote>
+<hr />
+<h3>1. 时间线</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>时间</th>
+<th>动作</th>
+<th>形态性质</th>
+<th>源级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2014–2019</td>
+<td><strong>Formula E 创始车队</strong>；2014-15 赛季车手总冠军</td>
+<td>技术高端叙事（赛车）</td>
+<td>C（百科/媒体）</td>
+</tr>
+<tr>
+<td>2019</td>
+<td><strong>出售 FE 车队运营</strong>，保留冠名至 2023</td>
+<td><strong>资本纪律</strong>：现金紧张期剥离非核心</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2009–今</td>
+<td><strong>FSAE 中国大学生方程式</strong> 长期支持（十余年）</td>
+<td>人才 / 长期主义</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2019–今</td>
+<td>用户共创「蔚来杯」足球等社群赛事</td>
+<td><strong>社群粘合</strong>，非买曝光</td>
+<td>C</td>
+</tr>
+<tr>
+<td>2026-01</td>
+<td><strong>乐道 × 上海申花</strong>：L90 官方座驾、球迷开放日</td>
+<td><strong>家庭社群模板</strong></td>
+<td>C</td>
+</tr>
+<tr>
+<td>2026-05-27</td>
+<td><strong>姚明出任 ES9 首席体验官</strong>（随 ES9 发布）</td>
+<td><strong>价值观先行 · 精神层</strong></td>
+<td>A（发布事件）/ C（细节）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>2. 五条规律（本章硬结论）</h3>
+<ol>
+<li><strong>退出 FE ≠ 不爱体育</strong>：2019 出售发生在现金流最紧的一年，同期保住的是换电与芯片。结论是 <strong>「不爱非核心烧法」</strong>，不是 <strong>「不爱体育」</strong>。会面若把 FE 说成「你们放弃体育」，会立刻失分。</li>
+<li><strong>姚明 = 模板，不是资产</strong>：可复用的部分不是「一个名人」，而是 <strong>「先对齐价值观、后谈条款」的流程</strong>。我们的提案必须能走这条流程，否则一开始就是异类。</li>
+<li><strong>申花 = 已验证的第二品牌路径</strong>：乐道走的是 <strong>用户权益 / 球迷开放日 / 社群参与</strong>，不是 CPM 采买。这说明第二品牌 <strong>能批体育预算</strong>，且形态偏 <strong>可参与</strong>。</li>
+<li><strong>十年 FSAE = 他们能接受长周期</strong>：只要故事是「人才/长期」，NIO 有耐心。这对「赛季化、可延续」的设计是加分项。</li>
+<li><strong>三品牌的体育接口目前是 1 + 1 + 0</strong>：蔚来一个（姚明单点）、乐道一个（申花一条线）、萤火虫 <strong>零</strong>。<strong>空缺本身就是本案的入口。</strong></li>
+</ol>
+<hr />
+<h3>3. 形态光谱（他们接受 / 拒绝）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>历史证据</th>
+<th>判断</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自建 IP（NIO Day、蔚来杯）</td>
+<td>长期在做</td>
+<td><strong>最舒服</strong>：可控、可沉淀用户</td>
+</tr>
+<tr>
+<td>长期人才类支持（FSAE）</td>
+<td>十余年</td>
+<td><strong>可接受</strong>：预算小、叙事长</td>
+</tr>
+<tr>
+<td>俱乐部合作（申花）</td>
+<td>乐道 2026-01</td>
+<td><strong>可接受</strong>：以权益/开放日为主</td>
+</tr>
+<tr>
+<td>名人价值观合作（姚明）</td>
+<td>2026-05</td>
+<td><strong>可接受</strong>：先方向后条款</td>
+</tr>
+<tr>
+<td>赛车队自持（FE）</td>
+<td>2019 退出</td>
+<td><strong>已被证伪</strong>：重资产烧法不做</td>
+</tr>
+<tr>
+<td>纯流量/曝光采买</td>
+<td>秦力洪明确反对（见 <code>02</code>）</td>
+<td><strong>拒绝</strong></td>
+</tr>
+<tr>
+<td>大额单一冠名</td>
+<td>无先例；且 GAAP 仍亏</td>
+<td><strong>大概率拒绝</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 我们要提的东西必须落在 <strong>前四行</strong>，且不能长得像 <strong>后三行</strong>。</p>
+<hr />
+<h3>4. 断裂点与风险</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>断裂</th>
+<th>会面风险</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FE 出售被外界读成「放弃赛车」</td>
+<td>若我方复述这个读法，等于替媒体说话</td>
+<td>只说「非核心剥离」，或干脆不提</td>
+</tr>
+<tr>
+<td>申花是 <strong>足球</strong>，我们是 <strong>篮球</strong></td>
+<td>对方可能问「你们和申花什么关系」</td>
+<td>明确：<strong>同一形态、不同项目</strong>，不抢不冲突</td>
+</tr>
+<tr>
+<td>姚明与 NBA 的天然联想</td>
+<td>对方可能认为「体育已做完」</td>
+<td>见 <code>../ifalsify_report.md</code> F-2；用「灯塔 vs 摊位」拆</td>
+</tr>
+<tr>
+<td>未知的排他</td>
+<td>我方绝不能声称对方有/没有</td>
+<td><strong>一律写【待 L0 核实】</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>5. 三品牌 × 体育接口现状表</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>现有体育接口</th>
+<th>强度</th>
+<th>缺什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来 NIO</td>
+<td>姚明（ES9 首席体验官）</td>
+<td>强符号 / <strong>单点</strong></td>
+<td>单点不可复用、无赛季节奏</td>
+</tr>
+<tr>
+<td>乐道 ONVO</td>
+<td>上海申花（L90 座驾、开放日）</td>
+<td>中 / 已验证形态</td>
+<td>项目单一、无青少年家庭内容体系</td>
+</tr>
+<tr>
+<td>萤火虫 FIREFLY</td>
+<td><strong>无公开体育合作</strong></td>
+<td>零</td>
+<td>青年文化触点完全空缺</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这张表就是刀子的骨架</strong>：不是「你们缺体育」，而是 <strong>「你们已有两个能用的接口，第三个空着，而三个接口互不通」</strong>。</p>
+<hr />
+<h3>6. 我方对照（内部用 · 不进会面口播）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>我方资产类别</th>
+<th>与 NIO 已验证形态的匹配度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精神/传承类内容（名人堂、历史叙事）</td>
+<td>对蔚来主品牌 · 高</td>
+</tr>
+<tr>
+<td>青少年篮球 / 家庭日（Jr. 类）</td>
+<td>对乐道 · <strong>高</strong>（等于申花模板换项目）</td>
+</tr>
+<tr>
+<td>街头 / 3X3 / 潮流文化</td>
+<td>对萤火虫 · 高（当前空缺）</td>
+</tr>
+<tr>
+<td>赛事冠名 / 媒体权益包</td>
+<td><strong>低</strong>（撞 FE 与反爆款两条红线）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>7. 本章不进 pitch</h3>
+<ul>
+<li>2019 现金流危机的细节（易触防御）</li>
+<li>与小鹏等竞品的 IP 对比清单（<strong>无 L0 确认对方态度</strong>）</li>
+<li>蔚来杯的具体规模数据（未核实）</li>
+<li>任何形式的「你们该做更大的体育」——量级建议在 L0 之前不成立</li>
+</ul>
+<hr />
+<h3>8. 待核实清单</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>申花合作是否含品类排他</td>
+<td>决定乐道线能不能谈</td>
+</tr>
+<tr>
+<td>2</td>
+<td>姚明合作期限与范围</td>
+<td>决定能不能延伸</td>
+</tr>
+<tr>
+<td>3</td>
+<td>萤火虫是否已有在谈的青年 IP</td>
+<td>决定第三接口是否还空着</td>
+</tr>
+<tr>
+<td>4</td>
+<td>体育类合作的审批层级</td>
+<td>决定第一次会面该带谁</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2026 是否还有未公开的体育动作</td>
+<td>决定 timing</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>9. 本章来源</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>源</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ES9 发布与姚明相关报道（虎嗅/新浪体育等）</td>
+<td>C（事件本身 A）</td>
+</tr>
+<tr>
+<td>乐道×申花报道（CnEVPost/新浪）</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Formula E 车队沿革（百科/网易）</td>
+<td>C</td>
+</tr>
+<tr>
+<td>FSAE 长期支持（36氪等）</td>
+<td>C</td>
+</tr>
+<tr>
+<td>蔚来杯用户赛事（地方媒体）</td>
+<td>C</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>10. 加厚 · 2020–2025「体育安静期」的含义（本章最重要的一节）</h3>
+<p>从 2019 年出售 FE 车队运营，到 2026-01 乐道 × 申花，中间有 <strong>五到六年</strong> 的公开体育动作稀薄期。这段空白通常被研究者忽略，但它是本案 <strong>最强的反证来源</strong>。</p>
+<p><strong>三种解释，三种后果</strong>：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>解释</th>
+<th>如果为真</th>
+<th>我方后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 资源被吃掉</strong>：换电网络、多品牌开发占用全部预算</td>
+<td>体育不是不做，是排不上</td>
+<td><strong>可谈</strong>：小额试验正好绕开排期</td>
+</tr>
+<tr>
+<td><strong>② 战略性不做</strong>：认为自建社群比外采 IP 高效</td>
+<td>体育采购在这家公司结构性缺位</td>
+<td><strong>难谈</strong>：需要重新定义「不是采购，是共建」</td>
+</tr>
+<tr>
+<td><strong>③ 没有对口的人</strong>：无单一 CMO，无人负责外部 IP</td>
+<td>不是不想，是没人接</td>
+<td><strong>可谈但要慢</strong>：第一步是找 owner，不是提案</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>我方不知道是哪一种。</strong> 这就是 <code>../ifalsify_report.md</code> 里 <strong>F-6</strong> 的来源，也是三问 #3 要探的东西。</p>
+<p><strong>纪律</strong>：<strong>不要在会面里点出这段空白</strong>。说「你们六年没做体育」等于当面质疑对方的历史选择。这一节只在内部使用，用来降低我方对成交概率的预期。</p>
+<hr />
+<h3>11. 加厚 · 姚明模板的可复制部分与不可复制部分</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要素</th>
+<th>可复制？</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「先价值观，后条款」的流程</td>
+<td><strong>可</strong></td>
+<td>我方提案必须走同一流程，否则是异类</td>
+</tr>
+<tr>
+<td>精神层的符号强度</td>
+<td><strong>不可</strong></td>
+<td>没有第二个姚明</td>
+</tr>
+<tr>
+<td>与单一车型绑定</td>
+<td><strong>不该复制</strong></td>
+<td>单点化正是我方要解的问题</td>
+</tr>
+<tr>
+<td>由品牌传播条线主导</td>
+<td>部分</td>
+<td>取决于三条线是否分家（三问 #1）</td>
+</tr>
+<tr>
+<td>无条款拉扯的谈法</td>
+<td><strong>可</strong></td>
+<td>意味着第一次会面 <strong>不该带合同</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>推论</strong>：我方第一次会面的正确形态，就是 <strong>姚明案的形态</strong> —— 只谈方向、不谈条款。这不是我方的风格选择，是 <strong>对方已经示范过的流程</strong>。照着走，成本最低。</p>
+<hr />
+<h3>12. 加厚 · 申花模板的四个可迁移动作</h3>
+<p>申花案在公开层面能看到的动作（C 级），拆成可迁移单元：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>动作</th>
+<th>可迁移到篮球的形态</th>
+<th>归属品牌</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>官方座驾</td>
+<td>球队 / 赛事用车与出行场景</td>
+<td>乐道</td>
+</tr>
+<tr>
+<td>球迷开放日</td>
+<td><strong>家庭 / 亲子篮球日</strong></td>
+<td>乐道</td>
+</tr>
+<tr>
+<td>主场露出</td>
+<td>场地与内容露出（次要）</td>
+<td>乐道</td>
+</tr>
+<tr>
+<td>社群联动</td>
+<td>车主社群 × 球迷社群互开</td>
+<td>乐道 + 蔚来</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>关键判断</strong>：申花案里最有价值的不是露出，是 <strong>开放日</strong> —— 因为它是唯一 <strong>能核销到「到店 / 参与人数」</strong> 的动作。我方提案的重心应当放在这一格，而不是露出。</p>
+<hr />
+<h3>13. 加厚 · 体育合作与「用户企业」模型的耦合点</h3>
+<p>NIO 的用户企业模型意味着：<strong>任何外部活动如果不能让车主参与，就无法进入他们的运营飞轮。</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>耦合点</th>
+<th>设计要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>车主可报名</td>
+<td>场次必须有车主席位或优先权</td>
+</tr>
+<tr>
+<td>可产生 UGC</td>
+<td>现场要有可拍、可传的内容点</td>
+</tr>
+<tr>
+<td>可沉淀到 App / 社群</td>
+<td>活动后有内容归档与二次传播路径</td>
+</tr>
+<tr>
+<td>可被区域复制</td>
+<td>单城做完能给别的城市抄</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>反面清单</strong>：只有观赛权益、只有 VIP 席、只有品牌露出的方案，在这套模型里 <strong>是死的</strong> —— 它没有给用户任何可参与的动作。</p>
+<hr />
+<h3>10. 深读 A · 合作史的四层结构（本章独有）</h3>
+<p>把十二年的体育与 IP 动作按「<strong>买的是什么</strong>」重排，会看到钱一直花在同一个方向上，而且<strong>越来越往下走</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>买的是什么</th>
+<th>NIO 的动作</th>
+<th>现在是否仍在延续</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L4 · 技术背书</td>
+<td>工程能力的公开证明</td>
+<td>Formula E 创始车队（2014–19）、FSAE 支持（2009–今）</td>
+<td>部分（FSAE 在，FE 已退运营）</td>
+</tr>
+<tr>
+<td>L3 · 声量与曝光</td>
+<td>人群覆盖</td>
+<td>FE 冠名保留至 2023；常规传播</td>
+<td><strong>弱化</strong>（与反爆款立场一致）</td>
+</tr>
+<tr>
+<td>L2 · 社群与共创</td>
+<td>用户参与与留存</td>
+<td>蔚来杯用户足球、乐道×申花球迷开放日</td>
+<td><strong>在加强</strong></td>
+</tr>
+<tr>
+<td>L1 · 精神与价值观</td>
+<td>品牌内核的可复述性</td>
+<td>姚明 ES9 首席体验官（2026-05-27）</td>
+<td><strong>最新一步</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>读法</strong>：L4 → L1 是一条<strong>从证明产品到证明品牌</strong>的路径。这条路径同时解释了两件看似矛盾的事：2019 年为什么能毫不犹豫卖掉 FE 车队运营（L4 已经买够了），2026 年为什么会在半年内同时出现姚明与申花（<strong>澄清期需要的是 L1 和 L2</strong>）。</p>
+<p><strong>对提案的硬含义</strong>：任何以 <strong>L3 为主体</strong>的方案，在这条曲线上是<strong>倒退</strong>。我们能站住的位置只有两个——把 L1 做成<strong>可复用模板</strong>，或把 L2 做成<strong>可核销系统</strong>。</p>
+<hr />
+<h3>11. 深读 B · 姚明案 vs 申花案的逐项拆解</h3>
+<p>这两个案子是本轮<strong>唯二可用的内部先例</strong>。它们的<strong>差别</strong>比共同点更有信息量。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>姚明 × 蔚来 ES9（2026-05）</th>
+<th>乐道 × 上海申花（2026-01）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>品牌线</td>
+<td>蔚来主品牌 · 高端</td>
+<td>乐道 · 家庭</td>
+</tr>
+<tr>
+<td>主导线索（C）</td>
+<td>马麟（品牌传播条线）</td>
+<td>乐道品牌线（<strong>归属待 L0</strong>）</td>
+</tr>
+<tr>
+<td>买的层</td>
+<td><strong>L1 精神</strong></td>
+<td><strong>L2 社群</strong></td>
+</tr>
+<tr>
+<td>交付物形态</td>
+<td>身份/角色 + 车型绑定</td>
+<td>球队座驾 + 球迷开放日 + 属地活动</td>
+</tr>
+<tr>
+<td>谈判起点（转述 C）</td>
+<td><strong>先谈价值观，无条款拉扯</strong></td>
+<td>权益 + 用户活动组合</td>
+</tr>
+<tr>
+<td>可复用性</td>
+<td><strong>弱</strong>（人格资产，姚明只有一个）</td>
+<td><strong>强</strong>（换球队、换城市即可）</td>
+</tr>
+<tr>
+<td>可核销性</td>
+<td><strong>弱</strong>（品牌资产难直接归因）</td>
+<td><strong>较强</strong>（到店/试驾/社群活跃可测）</td>
+</tr>
+<tr>
+<td>对我们的用处</td>
+<td>提供<strong>立项语言</strong></td>
+<td>提供<strong>执行结构</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>关键推论（推断 · 须 L0）</strong>：只学姚明案 → 得到一个漂亮但<strong>无法核销</strong>的提案，卡在曲玉闸门；只学申花案 → 得到一个可核销但<strong>没有精神高度</strong>的提案，卡在「走心」那一关。</p>
+<blockquote>
+<p><strong>唯一可能同时过两关的形态</strong>：用<strong>姚明案的语言</strong>立项（价值观先行、不先谈条款），用<strong>申花案的结构</strong>落地（一城一线一指标、不达标即停）。这一句是本章对刀刃最重要的输出。</p>
+</blockquote>
+<hr />
+<h3>12. 深读 C · 从合作史反推「他们的立项条件」</h3>
+<p>公开材料不会给我们评审表，但<strong>做过什么</strong>本身就是评审表的投影。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>反推出的条件</th>
+<th>证据（合作史）</th>
+<th>违反后的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>必须能装进<strong>某一个</strong>品牌的 Spirit 叙述</td>
+<td>姚明→敢想有为；申花→轻松家庭</td>
+<td>「不知道这是给谁做的」→ 立项会被打回</td>
+</tr>
+<tr>
+<td>必须有<strong>用户可参与</strong>的一环</td>
+<td>蔚来杯、球迷开放日</td>
+<td>被归为「纯投放」</td>
+</tr>
+<tr>
+<td>必须能在非核心时<strong>果断退出</strong></td>
+<td>2019 卖 FE 运营、冠名留到 2023</td>
+<td>长约无退出条款 = 财务不批</td>
+</tr>
+<tr>
+<td>不能只有<strong>一次性峰值</strong></td>
+<td>FSAE 十五年、用户足球多年</td>
+<td>一次性活动进不了长期资产</td>
+</tr>
+<tr>
+<td><strong>不能让品牌之间互相稀释</strong></td>
+<td>姚明只落蔚来、申花只落乐道</td>
+<td>一套素材打三线 = 直接踩线</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>注意最后一行</strong>：这不是我们的主张，是从他们<strong>已经做过的事</strong>里读出来的——两个案子<strong>刻意分开</strong>落在两个品牌上。这是「分层」在公开材料里最硬的一块支撑。</p>
+<hr />
+<h3>13. 深读 D · 2020–2025 的体育「安静期」怎么读</h3>
+<p>从 FE 退出运营（2019）到乐道×申花（2026-01），中间是一段公开体育动作稀薄的时期。很容易误读成「他们不重视体育」。更贴近证据的三种读法：</p>
+<ol>
+<li><strong>资源被产品与网络吃掉</strong>：这段时间是多品牌（乐道、萤火虫）与换电网络扩张期，资本开支优先级压倒外部品牌投放。</li>
+<li><strong>用户运营替代了体育</strong>：NIO Day、社区与用户赛事本身承担了「社群」职能，外部体育 IP 的边际价值不高。</li>
+<li><strong>危机后的资本纪律固化</strong>：2019 之后形成的「非核心果断退出」惯性，长期抬高了长约体育资产的立项门槛。</li>
+</ol>
+<p><strong>含义</strong>：安静期不是冷淡，是<strong>优先级</strong>。2026 年重新出现两个体育动作，说明优先级刚刚变化——<strong>这是窗口</strong>；但同时也说明<strong>没有历史预算基线</strong>，绝不能拿「他们一直有体育预算」当假设。</p>
+<hr />
+<h3>14. 深读 E · 若要把申花模板换项目、换城复制，需要什么</h3>
+<p>这是会面最可能被追问的一段，必须提前想清楚（<strong>以下为思路，不是承诺；金额与权益一律留白</strong>）。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要素</th>
+<th>申花案里已有</th>
+<th>换项目/换城需要新增</th>
+<th>谁定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>属地 IP</td>
+<td>上海本地球队</td>
+<td>目标城的对应体育触点</td>
+<td>我方提候选</td>
+</tr>
+<tr>
+<td>品牌线</td>
+<td>乐道</td>
+<td>仍建议<strong>单一品牌线</strong>，避免混线</td>
+<td>客户定</td>
+</tr>
+<tr>
+<td>用户触点</td>
+<td>球迷开放日</td>
+<td>家庭场景的可参与设计</td>
+<td>双方共创</td>
+</tr>
+<tr>
+<td>主指标</td>
+<td>【未公开】</td>
+<td>到店 / 试驾 / 社群活跃 / 品牌提升 <strong>四选一</strong></td>
+<td><strong>客户定</strong></td>
+</tr>
+<tr>
+<td>停损</td>
+<td>【未公开】</td>
+<td>判定期与阈值，写进立项</td>
+<td>双方</td>
+</tr>
+<tr>
+<td>预算</td>
+<td>【未公开】</td>
+<td><strong>不谈</strong>（L0 未闭）</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>六格里有三格是 L0</strong>。这本身就是会面必须先拿三问的理由：不是我们没想清楚，而是这三格公开源<strong>永远拿不到</strong>。</p>
+<hr />
+<h3>15. 深读 F · 合作史的三条禁用推论</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>禁用推论</th>
+<th>为什么错</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「他们做过 FE，所以有大额体育预算」</td>
+<td>FE 是 2014–19 另一种公司状态；2026 的约束（GAAP 仍亏、毛利指引下调）完全不同</td>
+</tr>
+<tr>
+<td>「他们做过姚明，所以名人合作好卖」</td>
+<td>姚明案的关键是<strong>价值观先行</strong>，不是名人本身；带明星清单进门会被归为「塑料花」</td>
+</tr>
+<tr>
+<td>「申花成了，所以体育在内部已被证明」</td>
+<td>单案成功 <strong>≠</strong> 内部方法论；能否复制正是三问 #2 要问的</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="ch04">
+<h2 class="file-title">04 · 竞品格局（v1.6）</h2>
+<blockquote>
+<p><strong>口径纪律</strong>：竞品月度交付来自行业稿（<strong>C</strong>），与 NIO 自身公告（<strong>A</strong>）<strong>不同级</strong>，同表并列时必须标注。<br />
+<strong>本章不做</strong>：排名恐吓、市占率推算、「谁会被淘汰」预测。<br />
+<strong>2026-06 竞品交付</strong>：本轮 <strong>未取到可靠对照集</strong> → <strong>宁空不编</strong>（只保留 5月对照）。</p>
+</blockquote>
+<hr />
+<h3>1. 直接对照（2026-05 · 混源表）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>2026-05 交付</th>
+<th>源级</th>
+<th>与 NIO 的关系</th>
+<th>体育 / IP 信号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>蔚来系（三品牌合计）</strong></td>
+<td><strong>37,705</strong></td>
+<td><strong>A</strong></td>
+<td>—</td>
+<td>姚明（蔚来）+ 申花（乐道）；萤火虫空缺</td>
+</tr>
+<tr>
+<td>理想</td>
+<td>≈33,350</td>
+<td>C</td>
+<td>家庭高端 <strong>正面对手</strong>（对乐道/ES 系）</td>
+<td>偏产品与渠道，少大 IP</td>
+</tr>
+<tr>
+<td>小鹏</td>
+<td>≈32,158</td>
+<td>C</td>
+<td>智能化 / 年轻</td>
+<td>历史上有篮球类触点（<strong>不进刀 · 无 L0</strong>）</td>
+</tr>
+<tr>
+<td>华为智选（HIMA 合计）</td>
+<td>≈46,122</td>
+<td>C</td>
+<td>渠道 + 智能化压强</td>
+<td>体育非主叙事</td>
+</tr>
+<tr>
+<td>特斯拉（中国）</td>
+<td>未取到本月可靠口径</td>
+<td>—</td>
+<td>价格与品牌压强</td>
+<td>全球自建 IP，不外采</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>读法</strong>：蔚来系 5月合计略高于理想，但那是 <strong>三个品牌加起来</strong>的结果。<strong>乐道单独 12,029</strong>，与理想的家庭盘不在一个量级。所以「家庭破圈」在 NIO 内部是 <strong>进行时</strong>，不是已完成事项——这是我们提案的现实基础。</p>
+<hr />
+<h3>2. 结构性差异（为什么 NIO 的体育需求不同）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>NIO</th>
+<th>单品牌对手（理想/小鹏）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>品牌数</td>
+<td><strong>3</strong>（蔚来 / 乐道 / 萤火虫）</td>
+<td>1（+车型系列）</td>
+</tr>
+<tr>
+<td>人群跨度</td>
+<td>高端精神 → 家庭 → 青年</td>
+<td>相对集中</td>
+</tr>
+<tr>
+<td>叙事口径</td>
+<td>Spirit 澄清期，<strong>explicit 分层</strong></td>
+<td>产品力 / 智能化</td>
+</tr>
+<tr>
+<td>体育资产</td>
+<td>姚明 + 申花（形态已验证）</td>
+<td>相对弱或分散</td>
+</tr>
+<tr>
+<td>体育采购难点</td>
+<td><strong>一套素材会打架</strong></td>
+<td>一套即可</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这就是本案的差异化命题</strong>：竞品的体育需求是「买一个」；NIO 的体育需求是 <strong>「买一套能分三层用的」</strong>。同一个 IP 卖给理想是加法，卖给 NIO 必须是 <strong>架构</strong>。</p>
+<hr />
+<h3>3. 客户「不做我们」的替代方案（诚实盘点）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>替代</th>
+<th>成熟度</th>
+<th>对我方的威胁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>继续自建</strong>（NIO Day、蔚来杯、用户社群）</td>
+<td>高 · 已成体系</td>
+<td><strong>最高</strong>：便宜、可控、已有肌肉</td>
+</tr>
+<tr>
+<td><strong>延续申花模板到其他俱乐部</strong></td>
+<td>中</td>
+<td>中：形态已验证，换个对象即可</td>
+</tr>
+<tr>
+<td><strong>加深姚明单点</strong>（更多车型/更多内容）</td>
+<td>中</td>
+<td>中：省事，且已有关系</td>
+</tr>
+<tr>
+<td>纯媒体流量采买</td>
+<td>低（秦力洪反对）</td>
+<td>低</td>
+</tr>
+<tr>
+<td>其他海外联赛 IP</td>
+<td>未知</td>
+<td><strong>待 L0</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：我们真正的竞争对手 <strong>不是别的体育 IP，是「他们自己做」</strong>。所以提案的价值必须落在 <strong>他们自建做不出来的东西</strong>：跨品牌可复用的分层架构 + 外部公信力 + 青年文化触点。</p>
+<hr />
+<h3>4. 竞品体育对照（只写能核实的方向）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>竞品</th>
+<th>可核实的体育/IP 方向</th>
+<th>是否可在会面提及</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>理想</td>
+<td>以产品发布、家庭场景内容为主</td>
+<td>可，但只作行业观察</td>
+</tr>
+<tr>
+<td>小鹏</td>
+<td>历史上有篮球相关触点</td>
+<td><strong>不提</strong>（无 L0，且像挑事）</td>
+</tr>
+<tr>
+<td>比亚迪</td>
+<td>大型国际赛事类合作曾有报道</td>
+<td><strong>不提</strong>（量级不同，易被读成攀比）</td>
+</tr>
+<tr>
+<td>特斯拉</td>
+<td>不外采 IP</td>
+<td>可，作为「不是所有人都买」的对照</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>红线</strong>：不做「竞品都在花钱，你们不花就落后」式话术。这条在 NIO 这里失效更快，因为秦力洪的公开立场是反跟风。</p>
+<hr />
+<h3>5. 生态位一句话</h3>
+<blockquote>
+<p>蔚来系是当前中国市场 <strong>唯一的三品牌纯电矩阵</strong>。它的问题不是「有没有体育」，而是 <strong>「体育资源如何在三个 Spirit 之间分配而不互相稀释」</strong>。</p>
+</blockquote>
+<hr />
+<h3>6. 卖方 / 媒体叙事（L3 · 一律不进刀）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>叙事</th>
+<th>为何不用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「蔚来全面复苏」</td>
+<td>与 Q1 GAAP 仍亏、Q2 落在指引下沿 <strong>不一致</strong>；CFO 会反感</td>
+</tr>
+<tr>
+<td>「决赛圈必死一家」</td>
+<td>恐吓；且是媒体对李斌原话的加工</td>
+</tr>
+<tr>
+<td>「千亿美元市值目标」</td>
+<td>与营销决策无关</td>
+</tr>
+<tr>
+<td>「乐道失败论 / 乐道逆袭论」</td>
+<td>两个方向都比数据激进</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>7. 待核实</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2026-06 各竞品交付（本轮未取可靠对照）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>竞品是否在与我方类别 IP 洽谈排他</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NIO 内部是否把理想视为乐道的第一对手（<strong>当面问</strong>）</td>
+</tr>
+<tr>
+<td>4</td>
+<td>申花合作的排他范围</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>8. 会面一句（竞品话题被抛出时）</h3>
+<blockquote>
+<p>「我们不是来对标谁做过什么。我们关心的是：<strong>你们已经用两种方式做过体育——姚明是精神，申花是社群——第三种（青年）还空着，而这三条现在互不相通。</strong>」</p>
+</blockquote>
+<hr />
+<h3>9. 加厚 · Steelman：如果我是理想的营销负责人，我会怎么反驳我们</h3>
+<p>把对手的最强论证写出来，是为了检查我方主张是否只在 NIO 这个特例下成立。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对手论证</th>
+<th>强度</th>
+<th>我方回应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「家庭品牌不需要外部 IP，产品体验本身就是内容」</td>
+<td><strong>强</strong></td>
+<td>承认。我方只在「需要跨品牌一致性」的公司里有价值 → NIO 是特例，理想不是</td>
+</tr>
+<tr>
+<td>「体育的转化链条太长，不如直接投门店与试驾」</td>
+<td><strong>强</strong></td>
+<td>承认。所以我方把指标定在 <strong>到店 / 参与</strong>，不承诺销量</td>
+</tr>
+<tr>
+<td>「一个 IP 服务三个品牌，最后三个都不像自己」</td>
+<td><strong>很强</strong></td>
+<td>这正是我方的核心设计题：架构复用、<strong>素材不复用</strong>、指标各自独立</td>
+</tr>
+<tr>
+<td>「NIO 有姚明就够了」</td>
+<td>中</td>
+<td>单点无赛季节奏、不可复用（见 <code>03</code> §11）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：我方主张 <strong>不是普适的</strong>。它只在 <strong>多品牌 + 澄清期 + 自建社群强</strong> 的组合里成立。NIO 恰好三项全中。<strong>这也是为什么这份材料不能直接复制去打理想。</strong></p>
+<hr />
+<h3>10. 加厚 · 「他们自己做」的成本对照（定性）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>自建</th>
+<th>与我方合作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>内容生产</td>
+<td>已有团队，边际成本低</td>
+<td>需付费，但可拿到非自有素材</td>
+</tr>
+<tr>
+<td>场地 / 赛事</td>
+<td>需自建或租赁</td>
+<td>现成</td>
+</tr>
+<tr>
+<td>外部公信力</td>
+<td>弱（自说自话）</td>
+<td><strong>强</strong></td>
+</tr>
+<tr>
+<td>青年文化触点</td>
+<td>需从零建</td>
+<td>现成</td>
+</tr>
+<tr>
+<td>跨品牌架构</td>
+<td><strong>无人负责</strong>（无单一 CMO）</td>
+<td>由外部提供第三方视角</td>
+</tr>
+<tr>
+<td>可停损</td>
+<td>自建项目更难停（内部政治）</td>
+<td>外部合作 <strong>更容易停</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最后一行常被忽略</strong>：外部合作在「可停」这一项上 <strong>优于</strong> 自建 —— 内部项目一旦立项就有人要保它。对一家刚上岸、极重纪律的公司，<strong>「更容易停」本身就是卖点</strong>。</p>
+<hr />
+<h3>11. 加厚 · 竞品话题的三种被动场景</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>对方可能说</th>
+<th>我方答法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>攀比</td>
+<td>「XX 花了多少？」</td>
+<td>「别家的口径我不评论，我只用你们自己的数字。」</td>
+</tr>
+<tr>
+<td>排他试探</td>
+<td>「你们会不会同时做理想？」</td>
+<td>「排他是条款层的事，今天不谈条款。」（<strong>绝不承诺</strong>）</td>
+</tr>
+<tr>
+<td>贬损同行</td>
+<td>「XX 那个合作没效果吧？」</td>
+<td>「我没有他们的复盘数据，不方便判断。」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>共同点</strong>：三种场景的正确答法都是 <strong>不接话</strong>。竞品话题里没有我方能赢的分。</p>
+<hr />
+<h3>12. 加厚 · 本章的自我限制</h3>
+<ul>
+<li>竞品交付只到 2026-05，且为 <strong>C 级</strong>；6 月对照 <strong>未取到</strong> → 不补、不估。</li>
+<li>不做份额、不做排名、不做淘汰预测。</li>
+<li>竞品体育投入金额：<strong>无公开可信汇总</strong> → 见 <code>12</code> §3 第 6 项，<strong>永远不用</strong>。</li>
+<li>本章的唯一硬结论是 §2 的结构差异与 §3 的「真正对手是自建」。其余都是背景。</li>
+</ul>
+<hr />
+<h3>9. 深读 A · 三品牌各自的<strong>真实竞争集</strong>（公司层竞争集是误导）</h3>
+<p>把 NIO 当成一家公司去找竞品，会得到「理想 / 小鹏 / 特斯拉」这种榜单式答案；但体育资源是<strong>按品牌线</strong>投放的，所以竞争集必须<strong>拆到品牌</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>它真正在抢的是什么</th>
+<th>竞争集（方向性判断）</th>
+<th>体育资源该解决的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来 NIO</td>
+<td><strong>高端用户的身份认同</strong></td>
+<td>传统豪华品牌 + 新势力高端</td>
+<td>精神一致性、可复述的品牌内核</td>
+</tr>
+<tr>
+<td>乐道 ONVO</td>
+<td><strong>家庭购车预算的第一顺位</strong></td>
+<td>家庭 SUV 主力盘（理想等）</td>
+<td>属地信任、家庭场景的持续触点</td>
+</tr>
+<tr>
+<td>萤火虫 FIREFLY</td>
+<td><strong>年轻人第一台车的文化认同</strong></td>
+<td>入门智能小车、以及<strong>非汽车的消费选择</strong></td>
+<td>青年文化在场感（当前<strong>零接口</strong>）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么这张表重要</strong>：三个竞争集<strong>没有交集</strong>。这直接推翻「一套体育素材服务全公司」的可行性——不是因为我们主张分层，而是因为<strong>它们在跟不同的人抢不同的钱</strong>。</p>
+<p><strong>会面用法</strong>：这张表<strong>不出示</strong>。它只用来保证我们说的每一句「分层」都有具体所指，避免变成空洞的架构词。</p>
+<hr />
+<h3>10. 深读 B · 「他们自己做」的成本对照（我方真正的竞争对手）</h3>
+<p>§3 已判定：真正的对手是自建。这里把它拆成可比较的四项。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>客户自建（NIO Day / 蔚来杯 / 社群）</th>
+<th>外部体育 IP 合作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>边际成本</td>
+<td><strong>低</strong>（团队、场地、用户资源已在）</td>
+<td>需新增支出（过曲玉闸门）</td>
+</tr>
+<tr>
+<td>可控性</td>
+<td><strong>极高</strong></td>
+<td>中（受赛程、IP 方规则约束）</td>
+</tr>
+<tr>
+<td>外部公信力</td>
+<td>低（自说自话）</td>
+<td><strong>高</strong>（第三方背书）</td>
+</tr>
+<tr>
+<td>触达非车主人群</td>
+<td><strong>弱</strong>（社群本质是存量）</td>
+<td><strong>强</strong>（这正是乐道破圈需要的）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>我方唯一站得住的两格</strong>：<strong>外部公信力</strong> + <strong>触达非车主人群</strong>。任何提案如果没有明确落在这两格上，客户自建就是更优解——而且他们已经做了很多年。</p>
+<blockquote>
+<p><strong>销售纪律</strong>：不要说「你们自己做不了」。要说「你们已经把存量做透了；我们能补的是<strong>存量之外</strong>那一层」。</p>
+</blockquote>
+<hr />
+<h3>11. 深读 C · 竞品话题被抛出时的应对树</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>对方说</th>
+<th>背后的真实问题</th>
+<th>我方回法</th>
+<th>绝对不做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「XX 也做过篮球，效果怎么样？」</td>
+<td>想要案例背书</td>
+<td>只讲<strong>形态</strong>不讲对家成绩：「形态上更接近你们申花那条路——属地 + 可参与」</td>
+<td>报别家的数据或金额</td>
+</tr>
+<tr>
+<td>「理想不做这些也卖得很好」</td>
+<td>质疑体育的必要性</td>
+<td>「同意。所以我不认为体育决定销量。我认为它决定<strong>乐道在一座城的家庭里有没有被谈起</strong>」</td>
+<td>争辩「体育能提销量」</td>
+</tr>
+<tr>
+<td>「你们给别人什么价，给我们什么价」</td>
+<td>试探报价</td>
+<td>「L0 没闭之前我不报价。先定成功标准，价格按标准倒推」</td>
+<td>当场报数</td>
+</tr>
+<tr>
+<td>「你们是不是也在找我们的竞品」</td>
+<td>试探排他</td>
+<td>「排他这件事我不会替任何一方声称。这正是要当面确认的一条」</td>
+<td>承诺或暗示排他</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>12. 深读 D · 竞品分析的三条自查（写完本章后自己过一遍）</h3>
+<ol>
+<li><strong>有没有一处用竞品制造 urgency？</strong> 有则删。NIO 的公开立场是反跟风，这类话术在这里<strong>失效更快</strong>。</li>
+<li><strong>有没有把 C 级竞品交付与 A 级 NIO 交付混在同一结论里？</strong> 混了就只能作方向性描述，不能作论证。</li>
+<li><strong>有没有回答「他们自己做不行吗」？</strong> 答不上，本章就白写——因为这是他们内部第一个会被问的问题。</li>
+</ol>
+</section>
+<section id="ch05">
+<h2 class="file-title">05 · 行业与政策语境（v1.6）</h2>
+<blockquote>
+<p><strong>本章任务</strong>：给会面提供「不装懂的行业底色」。<br />
+<strong>纪律</strong>：<strong>凡涉及市场规模、渗透率、增速的具体数字，本轮未取到可靠一手 → 一律【待核实】，不写估值式数字。</strong>（详见 <code>12</code>）</p>
+</blockquote>
+<hr />
+<h3>1. 「品牌澄清期」是对方自己的框架</h3>
+<p>李斌公开表述的行业阶段论（<strong>C 级转述</strong>）大致是：<strong>存量竞争 → 纯电拐点 → 品牌澄清期 → 体系化能力</strong>。</p>
+<p>对营销决策的含义（<strong>推断</strong>）：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段词</th>
+<th>预算语言</th>
+<th>我方含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存量竞争</td>
+<td>抢份额、促销</td>
+<td>不是我们的入口</td>
+</tr>
+<tr>
+<td>纯电拐点</td>
+<td>产品/补能</td>
+<td>不是我们的入口</td>
+</tr>
+<tr>
+<td><strong>品牌澄清期</strong></td>
+<td><strong>「我们是谁」</strong></td>
+<td><strong>入口</strong>：讲一致性、讲人群、讲精神</td>
+</tr>
+<tr>
+<td>体系化能力</td>
+<td>组织/复用</td>
+<td><strong>第二入口</strong>：讲「一套架构三条线用」</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 我们的提案语言必须落在 <strong>澄清期 + 体系化</strong> 这两格。落在前两格（份额/产品）就变成别人的活。</p>
+<hr />
+<h3>2. 渠道与产品节奏（决定 timing）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事实</th>
+<th>级</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>乐道渠道以一二线为主，门店数量级为数百家</td>
+<td>C</td>
+<td>破圈靠下沉与家庭人群</td>
+</tr>
+<tr>
+<td>L80（2026-05-15 上市）驱动 5月量能</td>
+<td>A（上市）/ B（半月 5,949）</td>
+<td><strong>产品带渠道</strong>，不是营销带量</td>
+</tr>
+<tr>
+<td>6月乐道环比小幅回落（12,029 → 11,743）</td>
+<td>A（自算 −2.4%）</td>
+<td>新车效应衰减快 → <strong>需要非产品的持续拉力</strong></td>
+</tr>
+<tr>
+<td>萤火虫 6月 +22.7%（自算）</td>
+<td>A</td>
+<td>青年小车在起量，且无体育接口</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这一节的 so-what</strong>：新车上市能给一个月的峰值，但 <strong>不能给台阶</strong>。台阶需要 <strong>持续的人群工作</strong>（社群、青少年、赛季节奏）。这正是体育 IP 与广告采买的根本差别，也是本案唯一诚实的价值主张。</p>
+<hr />
+<h3>3. 成本与政策背景（CFO 频道）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>级</th>
+<th>会面用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原材料等推高单车成本 &gt;1 万元</td>
+<td>B</td>
+<td>解释为什么必须小额可核销</td>
+</tr>
+<tr>
+<td>全年整车毛利指引 17%–18%</td>
+<td>B</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>以旧换新 / 地方促消费政策</td>
+<td>C</td>
+<td><strong>不进 10 分钟刀</strong>（与体育无因果）</td>
+</tr>
+<tr>
+<td>欧洲关税与电价压力</td>
+<td>C</td>
+<td>支撑「回归本土」判断（T3）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>4. 体育营销行业侧（我方专业底色）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>观察</th>
+<th>级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头部体育 IP 价格上行</td>
+<td>推断/行业共识</td>
+<td><strong>不作为催单理由</strong>（涨价催单 = 恐吓）</td>
+</tr>
+<tr>
+<td>客户端普遍要求「可衡量 + 可共创」</td>
+<td>推断</td>
+<td>与 NIO 的「走心」判据一致</td>
+</tr>
+<tr>
+<td>纯冠名在财务审批中弱于用户权益型合作</td>
+<td>推断</td>
+<td>申花模板已在 NIO 内部验证过这一点</td>
+</tr>
+<tr>
+<td>青少年 / 家庭赛事内容在汽车行业被用于「家庭品牌」建设</td>
+<td>推断</td>
+<td>对乐道线可用</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>诚实声明</strong>：以上四条是 <strong>行业判断</strong>，不是可引用的统计。会面中若被追问数据，正确回答是「这条我按判断说的，数据我们回去给口径」。</p>
+</blockquote>
+<hr />
+<h3>5. 全球 vs 本土（T3 的行业底色）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>事实/主张</th>
+<th>级</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>短期重心回归本土、海外转代理</td>
+<td>C</td>
+<td><strong>不要把「全球化」当开场</strong></td>
+</tr>
+<tr>
+<td>萤火虫定位「生而全球」</td>
+<td>C</td>
+<td>但国内也在起量（6月 6,946，A）</td>
+</tr>
+<tr>
+<td>欧洲关税/电价</td>
+<td>C</td>
+<td>出海节奏被外部条件压制</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>分层结论</strong>：全球叙事只对 <strong>萤火虫</strong> 成立，且是 <strong>长期时间轴</strong>；主品牌与乐道的会面语言必须是 <strong>国内</strong>。混着讲会踩空。</p>
+<hr />
+<h3>6. 本章【待核实】清单</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>为什么不写数字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>中国新能源乘用车 2026 总量 / 渗透率</td>
+<td>本轮未取一手，媒体口径互斥</td>
+</tr>
+<tr>
+<td>2</td>
+<td>家庭 SUV 细分盘规模</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>3</td>
+<td>中国体育营销市场规模</td>
+<td>各家口径差异极大，加总即错</td>
+</tr>
+<tr>
+<td>4</td>
+<td>乐道门店精确数量与城市覆盖</td>
+<td>C 级转述，未勾 A</td>
+</tr>
+<tr>
+<td>5</td>
+<td>青少年篮球人口</td>
+<td>需一手口径</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ 处理原则：<strong>这些数字在会面里不需要</strong>。会面需要的是 NIO 自己的三个月交付曲线 + 三品牌接口现状。</p>
+<hr />
+<h3>7. 一句话收束</h3>
+<blockquote>
+<p>行业已经从「谁跑得快」进入「谁说得清自己是谁」。NIO 把这件事叫「品牌澄清期」。<br />
+在澄清期里，<strong>外部资源的作用不是放大声量，而是提供一套让三条线各自成立、又不互相打架的语言与场景。</strong></p>
+</blockquote>
+<hr />
+<h3>8. 加厚 · 「新车效应」的可观察规律（本案唯一自带的行业洞察）</h3>
+<p>我方没有大盘数据，但我方有一条 <strong>用客户自己数字就能证明</strong> 的行业规律：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>观察</th>
+<th>数据（A + 自算）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L80 上市当月（2026-05）</td>
+<td>乐道 <strong>12,029</strong>，创品牌新高</td>
+</tr>
+<tr>
+<td>上市次月（2026-06）</td>
+<td>乐道 <strong>11,743</strong>，环比 <strong>−2.4%</strong></td>
+</tr>
+<tr>
+<td>同期全品牌</td>
+<td>37,705 → 40,597，<strong>+7.7%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>规律陈述</strong>：新车上市能在当月把第二品牌推上峰值，但 <strong>次月即回落</strong>，而同期全盘仍在上行 —— 说明回落不是市场原因，是 <strong>单品牌的新鲜度衰减</strong>。</p>
+<p><strong>为什么这条洞察值钱</strong>：<br />
+1. 它 <strong>完全由客户自己的公告数字构成</strong>，对方无法质疑来源；<br />
+2. 它 <strong>不评判好坏</strong>，只描述节奏；<br />
+3. 它 <strong>直接推出我方供给</strong>：持续的人群工作 ≠ 一次上市传播。</p>
+<p><strong>纪律</strong>：这条规律只能用 <strong>一次</strong>（在张力段），不能反复念。念第二次就变成说教。</p>
+<hr />
+<h3>9. 加厚 · 「澄清期」四阶段与提案落点的完整映射</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>对方在意的问题</th>
+<th>外部资源能不能帮</th>
+<th>我方是否投标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存量竞争</td>
+<td>谁抢到订单</td>
+<td>弱（这是渠道与价格的事）</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>纯电拐点</td>
+<td>补能与产品</td>
+<td>弱</td>
+<td>❌</td>
+</tr>
+<tr>
+<td><strong>品牌澄清期</strong></td>
+<td><strong>我们是谁 · 我们对谁说话</strong></td>
+<td><strong>强</strong></td>
+<td><strong>✅ 主战场</strong></td>
+</tr>
+<tr>
+<td>体系化能力</td>
+<td>能不能复用、能不能规模化</td>
+<td><strong>强</strong></td>
+<td><strong>✅ 第二战场</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>推论</strong>：我方在四个阶段里只有两个能投标，而这两个恰好是 <strong>对方现在自己在讲的两个</strong>。这是本案 timing 上最有利的一点，也是唯一有利的一点。</p>
+<hr />
+<h3>10. 加厚 · 政策与外部环境：为什么本案刻意少写</h3>
+<p>很多研报会在这一章堆政策（补贴、以旧换新、关税、地方消费券）。本案 <strong>刻意压缩</strong>，原因有三：</p>
+<ol>
+<li><strong>与决策无因果</strong>：政策不会改变「体育预算有没有 owner」这件事。</li>
+<li><strong>易变</strong>：政策口径几个月就变，写进会前包等于埋过期风险。</li>
+<li><strong>易显外行</strong>：把政策讲错一句，比不讲损失大得多。</li>
+</ol>
+<p><strong>保留下来的只有两条</strong>（因为它们直接影响提案形态）：<br />
+- 原材料等推高单车成本 → <strong>必须小额</strong>；<br />
+- 欧洲关税与电价压力 → <strong>全球叙事不作开场</strong>。</p>
+<hr />
+<h3>11. 加厚 · 本章【待核实】与「不需要」的区分</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>是【待核实】还是【不需要】</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中国新能源总量 / 渗透率</td>
+<td><strong>不需要</strong>（会面不用；见 <code>12</code> §4）</td>
+</tr>
+<tr>
+<td>乐道门店精确数与城市名单</td>
+<td><strong>待核实</strong>（影响试点城设计）</td>
+</tr>
+<tr>
+<td>家庭 SUV 细分盘</td>
+<td><strong>不需要</strong></td>
+</tr>
+<tr>
+<td>体育营销市场规模</td>
+<td><strong>不需要</strong>（且用了会变成催单）</td>
+</tr>
+<tr>
+<td>青少年篮球参与人口</td>
+<td><strong>待核实</strong>（若做乐道家庭线，第二次会面需要）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这个区分很重要</strong>：把「不需要」的东西标成「待核实」，会让研报看起来永远不完整；把「需要」的东西标成「不需要」，会让第二次会面无话可说。<strong>分清楚，比补齐更重要。</strong></p>
+<hr />
+<h3>8. 深读 A · 从行业约束到费用科目的<strong>六步传导链</strong></h3>
+<p>会前最容易被问倒的一句是「行业不好跟我们花钱有什么关系」。这条链是回答，且每一步都能落到本案的 A/B 源上。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>步</th>
+<th>传导</th>
+<th>本案对应事实</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>①</td>
+<td>价格战与促销常态化</td>
+<td>行业背景</td>
+<td>推断</td>
+</tr>
+<tr>
+<td>②</td>
+<td>单车成本上行</td>
+<td>原材料等推高 <strong>&gt;1 万元/车</strong></td>
+<td>B</td>
+</tr>
+<tr>
+<td>③</td>
+<td>毛利指引被迫下修</td>
+<td>全年整车毛利 <strong>17%–18%</strong></td>
+<td>B</td>
+</tr>
+<tr>
+<td>④</td>
+<td>利润目标口径收紧</td>
+<td>曲玉「力争 2026 <strong>Non-GAAP</strong> 全年盈利」</td>
+<td>B</td>
+</tr>
+<tr>
+<td>⑤</td>
+<td>费用科目逐项被审视</td>
+<td>Q1 GAAP 仍亏 <strong>−3.321 亿</strong></td>
+<td><strong>A</strong></td>
+</tr>
+<tr>
+<td>⑥</td>
+<td><strong>大额、长约、难归因的支出优先被砍</strong></td>
+<td>体育科目财报未单列 →【只能当面问】</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这条链的用途有两个</strong>：<br />
+1. <strong>替客户说话</strong>（而不是被客户教育）：我们进门就默认小额可停，是因为我们看懂了 ②→⑥，不是因为我们不敢开价。<br />
+2. <strong>自我约束</strong>：链条第 ⑤ 步是<strong>唯一的 A 源</strong>。其余是 B 与推断——所以我们在会面里只能说「按公开口径我理解是这样，对吗」，不能说「你们就是这样」。</p>
+<hr />
+<h3>9. 深读 B · 试点城选择的行业逻辑（<strong>不点名具体城市</strong>）</h3>
+<p>若对方认了方向，第二次会必然问「那放哪座城」。提前想清楚判断维度，比提前选好城更重要——<strong>选城权很可能不在总部</strong>（见 <code>07</code> L0）。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>好的信号</th>
+<th>坏的信号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>品牌线匹配</td>
+<td>目标城正是乐道下沉的重点方向</td>
+<td>只是我方 IP 资源所在地</td>
+</tr>
+<tr>
+<td>存量用户密度</td>
+<td>有基本盘可承接社群活动</td>
+<td>完全空白，等于从零做拉新</td>
+</tr>
+<tr>
+<td>属地体育触点</td>
+<td>有可持续的赛季/场馆节奏</td>
+<td>只能办一次性活动</td>
+</tr>
+<tr>
+<td>数据可回收</td>
+<td>到店/试驾能与活动挂钩</td>
+<td>只能报曝光</td>
+</tr>
+<tr>
+<td>组织归属清晰</td>
+<td>区域公司有人认领</td>
+<td>三个条线都说「不是我们」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>红线</strong>：<strong>不要因为我方资源在某城就推某城</strong>。这正是「塑料花」判据会捕捉到的东西——对方一眼能看出方案是按供应商库存排的，还是按他们的生意排的。</p>
+<hr />
+<h3>10. 深读 C · 时间窗：为什么是现在谈</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>支持「现在」的理由</th>
+<th>反对「现在」的理由（诚实并列）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spirit 澄清期是<strong>对方自己</strong>提出的框架，语言窗口开着</td>
+<td>澄清期可能持续很久，不构成 deadline</td>
+</tr>
+<tr>
+<td>乐道刚破万但<strong>未站稳</strong>，非产品拉力的需求最清晰</td>
+<td>也可能他们判断只需再等一款车</td>
+</tr>
+<tr>
+<td>姚明与申花在半年内相继落地，说明体育优先级<strong>刚上升</strong></td>
+<td>也可能今年额度已经用完</td>
+</tr>
+<tr>
+<td>萤火虫第三接口仍空</td>
+<td>空缺可能是<strong>刻意</strong>的</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：时间窗的判断<strong>只到「值得谈一次」为止</strong>，不足以支撑任何催单话术。凡是把上表左栏单独拿出来讲的版本，都是在制造假 urgency——本案 ifalsify 已将其列为 KILL。</p>
+<hr />
+<h3>11. 深读 D · 行业语境在会面里的<strong>用量上限</strong></h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>允许</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用「澄清期」接对方的语言</td>
+<td>✅ 一次</td>
+</tr>
+<tr>
+<td>用成本/毛利链条解释我们为什么不报大额</td>
+<td>✅ 一次</td>
+</tr>
+<tr>
+<td>讲行业趋势、渗透率、市场规模</td>
+<td>❌ 一次都不要</td>
+</tr>
+<tr>
+<td>讲「体育营销行业都在涨价」</td>
+<td>❌ 等于涨价催单</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>行业语境是<strong>底色</strong>，不是内容。会面里超过两句行业话，客户就会开始怀疑我们没有关于<strong>他们</strong>的东西可讲。</p>
+</blockquote>
+</section>
+<section id="ch06">
+<h2 class="file-title">06 · 权力图 + MEDDIC（v1.6）</h2>
+<blockquote>
+<p><strong>纪律</strong>：NIO <strong>没有单一 CMO 头衔</strong>。所有汇报线判断 <strong>一律标推断</strong>；MEDDIC 空项 <strong>不填</strong>，直接进 <code>../PRIMARY_REQUIRED.md</code>。<br />
+<strong>Tier B 规则</strong>：无 L0 → 不写金额、不写审批 SLA、不假设 Champion。</p>
+</blockquote>
+<hr />
+<h3>1. 权力图（公开可见 · 角色为推断）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>人物</th>
+<th>公开角色</th>
+<th>与本案的关系</th>
+<th>pitch 频道</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>李斌</strong></td>
+<td>创始人 / 董事长 / CEO</td>
+<td><strong>Spirit 的最终定义者</strong></td>
+<td>长期主义、精神、体系化</td>
+<td>公开 A / 角色推断</td>
+</tr>
+<tr>
+<td><strong>秦力洪</strong></td>
+<td>联合创始人 / 总裁（品牌·用户·销售）</td>
+<td>品牌调性与用户体系</td>
+<td><strong>走心、反爆款、用户参与</strong></td>
+<td>公开 A / 推断</td>
+</tr>
+<tr>
+<td><strong>马麟</strong></td>
+<td>品牌传播条线负责人（报道口径）</td>
+<td><strong>姚明案主导（C）</strong></td>
+<td>执行、共创模板</td>
+<td>C</td>
+</tr>
+<tr>
+<td><strong>沈斐</strong></td>
+<td>乐道品牌负责人（报道口径）</td>
+<td>家庭破圈 KPI</td>
+<td>量纲、破圈、下沉</td>
+<td>C</td>
+</tr>
+<tr>
+<td><strong>曲玉</strong></td>
+<td>CFO</td>
+<td>预算闸门</td>
+<td>ROI、上限、停损</td>
+<td>公开 A / 推断</td>
+</tr>
+<tr>
+<td><strong>金舸</strong></td>
+<td>萤火虫条线（报道口径）</td>
+<td>青年/全球</td>
+<td>文化触点</td>
+<td>C</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结构判断（推断）</strong>：NIO 的品牌决策更像 <strong>创始人定调 + 总裁定调性 + 条线执行 + CFO 卡额度</strong> 的四段结构，而不是「一个 CMO 拍板」。<br />
+<strong>对提案的含义</strong>：一次会面不可能闭环。<strong>第一次会面的正确目标是「方向认不认」</strong>，而不是「过不过」。</p>
+<hr />
+<h3>2. MEDDIC（诚实版）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字母</th>
+<th>状态</th>
+<th>已知（A/C）</th>
+<th>缺什么（L0）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>M</strong> Metrics</td>
+<td>⚠️ 部分</td>
+<td>交付、毛利率、Non-GAAP 盈利目标；三 Spirit 一致性</td>
+<td><strong>体育/品牌条线自己的 KPI 是什么</strong></td>
+</tr>
+<tr>
+<td><strong>E</strong> Economic Buyer</td>
+<td>❌ 空</td>
+<td>曲玉是财务闸门（推断）</td>
+<td><strong>谁能批一笔试验；上限多少</strong></td>
+</tr>
+<tr>
+<td><strong>D</strong> Decision Criteria</td>
+<td>⚠️ 部分</td>
+<td>走不走心 / 值不值 / 长不长 / 一致不一致（从原话推断）</td>
+<td><strong>量化定义</strong></td>
+</tr>
+<tr>
+<td><strong>D</strong> Decision Process</td>
+<td>❌ 空</td>
+<td>姚明案「先价值观后条款」（C）</td>
+<td><strong>体育 IP 的实际流程与层级</strong></td>
+</tr>
+<tr>
+<td><strong>I</strong> Identified Pain</td>
+<td>⚠️ 部分</td>
+<td>乐道未站稳（A 行为）；Spirit 澄清（C 主张）</td>
+<td><strong>2026 内部真实优先级排序</strong></td>
+</tr>
+<tr>
+<td><strong>C</strong> Champion</td>
+<td>❌ 空</td>
+<td>马麟或沈斐（<strong>纯猜，不算</strong>）</td>
+<td><strong>当面确认</strong></td>
+</tr>
+<tr>
+<td><strong>P</strong> Paper Process</td>
+<td>❌ 空</td>
+<td>—</td>
+<td><strong>排他条款、汽车品类、法务时长</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>四空两半</strong> → 这就是 <strong>Tier B</strong> 的定义，也是刀子只能要「方向认不认」的原因。任何写进金额的版本都是装懂。</p>
+<hr />
+<h3>3. 见面人情景剧本（三种到场人 · 不同开法）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>到场人</th>
+<th>他最关心</th>
+<th>开场第一句</th>
+<th>千万别说</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>秦力洪线（总裁/品牌）</strong></td>
+<td>调性与一致性</td>
+<td>「三种 Spirit 很难用一套素材服务——我们想聊架构，不聊曝光」</td>
+<td>曝光量、粉丝数</td>
+</tr>
+<tr>
+<td><strong>马麟线（传播执行）</strong></td>
+<td>可落地、可复用</td>
+<td>「姚明这条是先价值观后条款——我们想按同一套流程谈」</td>
+<td>权益包报价</td>
+</tr>
+<tr>
+<td><strong>沈斐线（乐道）</strong></td>
+<td>破圈与量</td>
+<td>「12,029 到 11,743，峰值没变成台阶——我们关心的是持续的人群工作」</td>
+<td>「你们乐道不行」</td>
+</tr>
+<tr>
+<td><strong>曲玉线（CFO）</strong></td>
+<td>停损与核销</td>
+<td>「我们默认小额、可核销、不达标即停」</td>
+<td>大额、长约、品牌形象类空话</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>4. 三条决策风险（推断 · 须验证）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>风险</th>
+<th>说明</th>
+<th>缓解</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>跨品牌不好批</strong></td>
+<td>三品牌各有 P&amp;L 与 KPI（推断），一个跨品牌项目可能没有人认领预算</td>
+<td>提案必须能 <strong>只做一层就成立</strong>（先乐道 or 先蔚来）</td>
+</tr>
+<tr>
+<td><strong>创始人定调依赖</strong></td>
+<td>Spirit 相关的事最终要过李斌那一层（推断）</td>
+<td>语言必须能被一句话上传：「一套架构，三个 Spirit 各自成立」</td>
+</tr>
+<tr>
+<td><strong>CFO 闸门</strong></td>
+<td>GAAP 仍亏、毛利指引下调</td>
+<td>默认不报价；先定成功标准</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>5. 「一次会面能拿到什么」现实预期</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>现实性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>认方向</td>
+<td><strong>高</strong></td>
+<td>分层逻辑与他们的三 Spirit 表述同构</td>
+</tr>
+<tr>
+<td>约 30 分钟第二次会</td>
+<td><strong>中高</strong></td>
+<td>唯一 ask 就是这个</td>
+</tr>
+<tr>
+<td>拿到预算区间</td>
+<td>低</td>
+<td>需 L0</td>
+</tr>
+<tr>
+<td>拿到 Champion 承诺</td>
+<td>低</td>
+<td>需第二次会</td>
+</tr>
+<tr>
+<td>当场谈权益包</td>
+<td><strong>禁止</strong></td>
+<td>违反姚明模板的流程</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>6. L0 三问（与 PRIMARY 同步 · 恰好三条）</h3>
+<ol>
+<li><strong>L80 之后，乐道「家庭破圈」的预算和 KPI，是跟申花那条线一起，还是另有 owner？</strong></li>
+<li><strong>姚明这条，成功定义是 ES9 单点，还是三个 Spirit 各有一条可复用模板？</strong></li>
+<li><strong>如果做体育，先过的是金额上限，还是 Spirit 一致性？</strong></li>
+</ol>
+<blockquote>
+<p>三问的设计原则：每一问的答案都会 <strong>改变我们下一步做什么</strong>，而不是让我们「更了解客户」。</p>
+</blockquote>
+<hr />
+<h3>7. 权力图的三条禁忌</h3>
+<ul>
+<li><strong>不装懂汇报线</strong>：任何「XX 向 XX 汇报」的表述必须带（推断）或不写。</li>
+<li><strong>不越级</strong>：第一次会面若来的是执行层，不要要求见创始人。</li>
+<li><strong>不点名内部矛盾</strong>：不猜三品牌之间的资源之争，即使外界有报道。</li>
+</ul>
+<hr />
+<h3>8. 加厚 · MEDDIC 四空两半的处置手册</h3>
+<p>「空」不等于「猜」。每一个空格都有对应的 <strong>替代动作</strong>，让提案在信息缺失下依然能推进。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>空格</th>
+<th>常见的错误做法</th>
+<th>本案的替代动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>E</strong> Economic Buyer 空</td>
+<td>假设 CFO 是 EB，直接讲 ROI 模型</td>
+<td><strong>不报价</strong>；只讲「小额可停」的形态，把金额留白</td>
+</tr>
+<tr>
+<td><strong>D</strong> Process 空</td>
+<td>编一个审批流程图放进材料</td>
+<td>沿用 <strong>对方已示范过的流程</strong>（姚明案：先方向后条款）</td>
+</tr>
+<tr>
+<td><strong>C</strong> Champion 空</td>
+<td>把到场人默认当 Champion</td>
+<td>三种到场人剧本各准备一套开场（§3）</td>
+</tr>
+<tr>
+<td><strong>P</strong> Paper 空</td>
+<td>承诺排他或写死条款</td>
+<td>一律「条款层今天不谈」</td>
+</tr>
+<tr>
+<td><strong>M</strong> 半空</td>
+<td>用我方 KPI（触达/曝光）填</td>
+<td>指标 <strong>由客户定，不超过三个</strong></td>
+</tr>
+<tr>
+<td><strong>I</strong> 半空</td>
+<td>替客户宣布痛点</td>
+<td>用三条线数字让分化 <strong>自明</strong>，不下判断</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这张表是 Tier B 的操作定义</strong>：不是「资料不够所以少说」，而是 <strong>「每一个不知道，都有一个对应的不承诺」</strong>。</p>
+<hr />
+<h3>9. 加厚 · 第一次会面的三种结局与各自的下一步</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>结局</th>
+<th>识别信号</th>
+<th>下一步</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A · 认方向</strong></td>
+<td>对方开始讨论「哪个品牌先做」「哪个城市」</td>
+<td>约 30 分钟第二次会；回去出一城一试草图（不含金额）</td>
+</tr>
+<tr>
+<td><strong>B · 认问题但不认方向</strong></td>
+<td>对方同意三条线分化，但认为该自己做</td>
+<td>转为内容层合作或长期关系；<strong>重跑证伪</strong></td>
+</tr>
+<tr>
+<td><strong>C · 不认</strong></td>
+<td>对方谈曝光量、谈报价、或明确说「只要一场活动」</td>
+<td><strong>不改口、不加码</strong>；记入 72h checklist，本轮收</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>纪律</strong>：三种结局都要在 72h 内填 <code>../PRIMARY_REQUIRED.md</code>。<strong>结局 C 不是失败</strong>，它是最有价值的一次证伪 —— 它把 F-6 从假设变成结论。</p>
+<hr />
+<h3>10. 加厚 · 「没有单一 CMO」的三个连带后果</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>后果</th>
+<th>说明</th>
+<th>应对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>没有天然的接口人</strong></td>
+<td>外部 IP 提案不知道该递给谁</td>
+<td>第一次会面的目标之一就是 <strong>找 owner</strong>（三问 #1 兼任此功能）</td>
+</tr>
+<tr>
+<td><strong>跨品牌项目天然缺主人</strong></td>
+<td>三条线都不愿替别人出预算</td>
+<td>提案必须 <strong>任一层单独成立</strong>（F-9）</td>
+</tr>
+<tr>
+<td><strong>调性把关与预算把关分离</strong></td>
+<td>品牌线说好、财务线说不</td>
+<td>材料要 <strong>同时</strong> 满足两套语言：一致性 + 可核销</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最后一条是 ONE_PAGER 的设计原因</strong>：它必须能在同一页上让品牌线看到「Spirit 一致性」，让财务线看到「不达标即停」。这就是为什么 ONE_PAGER 是左右两列，而不是一条线性叙事。</p>
+<hr />
+<h3>11. 加厚 · 权力图的更新触发条件</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>触发</th>
+<th>影响</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>条线负责人变动</td>
+<td>Champion 假设失效</td>
+<td>重写 §1 与 §3 剧本</td>
+</tr>
+<tr>
+<td>出现「品牌中心」类新设机构</td>
+<td>三品牌分层假设可能被推翻</td>
+<td>重跑 <code>../ifalsify_report.md</code> F-1</td>
+</tr>
+<tr>
+<td>新的体育 / 名人合作公告</td>
+<td>可能已有别人在做</td>
+<td>重估 timing</td>
+</tr>
+<tr>
+<td>财报出现品牌级披露</td>
+<td>MEDDIC 的 M 可补</td>
+<td>改写本章与 <code>10</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>硬规则</strong>：本章任何一格从「推断」变成「已知」时，<strong>必须同时更新 <code>../PRIMARY_REQUIRED.md</code></strong>，否则会出现「研报知道、销售清单还在问」的错位。</p>
+<hr />
+<h3>8. 深读 A · 三条说服通道（同一个提案，三种语言）</h3>
+<p>四段结构（创始人定调 → 总裁定调性 → 条线执行 → CFO 卡额度）意味着<strong>同一个提案要能被翻译成三套语言</strong>，且三套之间不能互相拆台。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>通道</th>
+<th>它要听到什么</th>
+<th>一句话版本</th>
+<th>说错会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Spirit 通道</strong>（李斌 / 秦力洪）</td>
+<td>一致性、长期、走心</td>
+<td>「一套架构，三个 Spirit <strong>各自成立</strong>，互不稀释」</td>
+<td>讲曝光量 → 被归入塑料花</td>
+</tr>
+<tr>
+<td><strong>量通道</strong>（沈斐线 / 乐道）</td>
+<td>持续的人群工作、破圈</td>
+<td>「新车给峰值，<strong>社群给台阶</strong>」</td>
+<td>讲「帮你们提销量」→ 越界且不可信</td>
+</tr>
+<tr>
+<td><strong>闸门通道</strong>（曲玉）</td>
+<td>上限、归因、停损</td>
+<td>「一城一线一指标，<strong>不达标即停</strong>」</td>
+<td>讲品牌形象类空话 → 直接卡死</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>三句话必须互相兼容</strong>：Spirit 通道的「不稀释」正好解释了为什么要分层；量通道的「台阶」正好解释了为什么需要持续而非一次性；闸门通道的「即停」正好解释了为什么不要大额。<strong>这三句能串成一段，就是提案；串不起来，就还是三份 PPT。</strong></p>
+<hr />
+<h3>9. 深读 B · MEDDIC 每格的验证问题与判定标准</h3>
+<p>MEDDIC 写「空」很容易，难的是<strong>知道怎么把它填上，以及填不上时该做什么</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>字母</th>
+<th>当面问什么</th>
+<th>什么算填上了</th>
+<th>填不上时的动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>M</strong></td>
+<td>「体育这条线，年底复盘时你们看哪个数？」</td>
+<td>拿到<strong>一个</strong>具体指标名</td>
+<td>只做诊断会面，不设计试验</td>
+</tr>
+<tr>
+<td><strong>E</strong></td>
+<td>「一个试验级别的合作，签字的是哪一层？」</td>
+<td>拿到<strong>层级</strong>（不必是姓名）</td>
+<td>不报价、不出方案</td>
+</tr>
+<tr>
+<td><strong>D</strong>-Criteria</td>
+<td>「上一个被否掉的合作，是卡在哪一条？」</td>
+<td>拿到<strong>否决理由</strong>的类型</td>
+<td>用「走心/值不值/长不长/一致不一致」四判据试探反应</td>
+</tr>
+<tr>
+<td><strong>D</strong>-Process</td>
+<td>「姚明那条从聊到签，大概经过几层？」</td>
+<td>拿到<strong>流程形状</strong></td>
+<td>默认按最长路径规划，不承诺 timeline</td>
+</tr>
+<tr>
+<td><strong>I</strong></td>
+<td>「今年品牌侧最想解决的一件事是什么？」</td>
+<td>拿到<strong>客户原话</strong></td>
+<td>urgency 判定为我方主张，禁止当事实用</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>「这件事在你们内部，谁最可能替我们说话？」</td>
+<td>有人<strong>愿意接话</strong></td>
+<td>不假设 Champion；第二次会仍从零开始</td>
+</tr>
+<tr>
+<td><strong>P</strong></td>
+<td>「品类排他这块，你们通常怎么处理？」</td>
+<td>知道<strong>有没有这套机制</strong></td>
+<td>一律写【待 L0】，绝不替对方声称</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>判定纪律</strong>：七格里若 <strong>E 与 D-Process 仍空</strong>，本案就仍是 Tier B，<strong>任何金额与时间承诺都属于装懂</strong>。</p>
+</blockquote>
+<hr />
+<h3>10. 深读 C · 决策路径的三种可能形状（推断 · 不排序为「最可能」）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>形状</th>
+<th>描述</th>
+<th>若成立，我们该做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>条线自决 + 财务备案</strong></td>
+<td>品牌/乐道条线可在额度内自行立项，CFO 只审总额</td>
+<td>第一次会面就该在条线层拿方向，速度最快</td>
+</tr>
+<tr>
+<td><strong>联席评审</strong></td>
+<td>跨品牌事项需多条线共同过会</td>
+<td>提案必须<strong>单层也成立</strong>，否则协调成本会拖死</td>
+</tr>
+<tr>
+<td><strong>创始人定调后倒推</strong></td>
+<td>Spirit 类事项由最上层定方向，下面执行</td>
+<td>语言必须能被<strong>一句话上传</strong>；这也是我们唯一 ask 只有一句的原因</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么不排序</strong>：三种形状都能从公开信息里找到支持性线索，也都找不到否证。<strong>排序即装懂</strong>。三问 #1 与 #3 的真正作用，就是把这三选一收敛掉。</p>
+<hr />
+<h3>11. 深读 D · 反向 MEDDIC（我方的缺口，不只是客户的）</h3>
+<p>只审客户不审自己，是「昏君式」研报的典型症状。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>我方现状</th>
+<th>会前必须闭环</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我方 Metrics</td>
+<td>我方口径偏触达类</td>
+<td>能否提供<strong>到店/试驾</strong>级别的回收数据包</td>
+</tr>
+<tr>
+<td>我方 Economic Buyer</td>
+<td>我方内部对「小额试验」是否有授权</td>
+<td>谁能批一个不赚钱的试点</td>
+</tr>
+<tr>
+<td>我方 Criteria</td>
+<td>什么情况下我们<strong>主动叫停</strong></td>
+<td>写进第一版思路</td>
+</tr>
+<tr>
+<td>我方 Champion</td>
+<td>我方内部谁承接跨品牌交付</td>
+<td>三条线同时服务的产能</td>
+</tr>
+<tr>
+<td>我方 Paper</td>
+<td>排他能不能给、给到什么范围</td>
+<td>不确定就<strong>不提排他</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p>如果我方这五格也空着，那么这场会面的正确目标就只有一个：<strong>互相摸清楚，不推进任何承诺</strong>。这不丢人，丢人的是空着还报价。</p>
+</blockquote>
+</section>
+<section id="ch07">
+<h2 class="file-title">07 · 组织 / 创始人生命周期（v1.6）</h2>
+<blockquote>
+<p><strong>本章任务</strong>：判断 NIO 现在处于什么组织阶段——因为 <strong>同一个提案在「求生期」和「体系化期」的命运完全不同</strong>。<br />
+<strong>纪律</strong>：组织内部动作多为媒体口径（<strong>C</strong>）；一切汇报线与流程判断标 <strong>推断</strong>。</p>
+</blockquote>
+<hr />
+<h3>1. 生命周期主轴</h3>
+<p><code>2014  创立 · Formula E 创始车队 · 高端技术叙事
+2018  用户企业模型成型 · 美股 IPO
+2019  现金流危机 · 出售 FE 车队运营 · 保换电与核心技术  ← 资本纪律形成的一年
+2020–22 换电体系扩张 · 用户社群飞轮 · 高端纯电站住
+2023–24 多品牌化：乐道（家庭）· 萤火虫（小车/全球）
+2025  组织调整密集 · Q4 首次单季 GAAP 经营利润转正（+8.073 亿，A）
+2026Q1 Non-GAAP 经营利润连续第二季转正（+0.668 亿）但 GAAP 仍亏（−3.321 亿）
+2026-05 L80 上市 + ES9 发布 + 姚明首席体验官  ← 产品与 Spirit 双事件
+2026-06 全品牌 40,597（A）· 乐道环比小幅回落 · Q2 落在指引下沿之下</code></p>
+<hr />
+<h3>2. 阶段判断（本章硬结论）</h3>
+<p><strong>NIO 当前 = 「刚上岸 + 品牌澄清 + 多品牌协同未完成」的三重叠加期。</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>状态</th>
+<th>证据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>财务</td>
+<td><strong>刚上岸</strong>（Non-GAAP 转正、GAAP 仍亏）</td>
+<td>Q1 2026 A</td>
+</tr>
+<tr>
+<td>品牌</td>
+<td><strong>澄清期</strong>（自己定义的阶段）</td>
+<td>李斌表述 C</td>
+</tr>
+<tr>
+<td>组织</td>
+<td><strong>多品牌协同进行中</strong></td>
+<td>三品牌交付分化 A</td>
+</tr>
+<tr>
+<td>体育</td>
+<td><strong>两个接口 + 一个空缺 + 零协同</strong></td>
+<td><code>03</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>对提案的含义（三条）</strong>：</p>
+<ol>
+<li><strong>不能卖「扩张」</strong>：他们不在扩张期，任何「趁势加大投入」都会被判为不懂公司。</li>
+<li><strong>可以卖「体系化」</strong>：这是他们自己阶段论里的下一格，语言是通的。</li>
+<li><strong>必须自带停损</strong>：刚上岸的公司对不可逆承诺极度敏感。</li>
+</ol>
+<hr />
+<h3>3. 创始人特征（公开可读 · 对提案的含义）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>特征</th>
+<th>公开依据</th>
+<th>提案含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>长期主义 / 反短期爆款</td>
+<td>反复的公开表述（C）</td>
+<td>一次性活动型提案会贬值</td>
+</tr>
+<tr>
+<td>用户企业信仰</td>
+<td>用户社群、NIO Day 长期投入</td>
+<td><strong>可参与性</strong> 是硬指标</td>
+</tr>
+<tr>
+<td>危机中保核心的纪律</td>
+<td>2019 卖 FE 保换电</td>
+<td>重资产/高固定成本形态被排除</td>
+</tr>
+<tr>
+<td>亲自定调品牌</td>
+<td>Spirit 表述由创始人给出</td>
+<td>提案必须能被一句话上传</td>
+</tr>
+<tr>
+<td>不靠降价冲量</td>
+<td>「宁愿合理的量」（C）</td>
+<td>品牌侧办法的价值反而上升</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>4. 组织能力：他们自己能做什么 / 做不到什么</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>自建强度</th>
+<th>我方能补什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户社群运营</td>
+<td><strong>很强</strong></td>
+<td>补不了，也不该补</td>
+</tr>
+<tr>
+<td>自有 IP 造节（NIO Day）</td>
+<td><strong>很强</strong></td>
+<td>补不了</td>
+</tr>
+<tr>
+<td>家庭/亲子场景内容</td>
+<td>中（申花验证一次）</td>
+<td><strong>可补</strong>：赛季化的青少年家庭内容体系</td>
+</tr>
+<tr>
+<td>青年潮流文化触点</td>
+<td><strong>弱 / 空缺</strong></td>
+<td><strong>可补</strong>：萤火虫线完全空白</td>
+</tr>
+<tr>
+<td>跨品牌统一叙事架构</td>
+<td><strong>弱</strong>（三条各自跑）</td>
+<td><strong>可补</strong>：这是本案的核心供给</td>
+</tr>
+<tr>
+<td>外部公信力背书</td>
+<td>中</td>
+<td>可补</td>
+</tr>
+</tbody>
+</table></div>
+<p>→ <strong>诚实结论</strong>：我们能提供的东西只有三样：<strong>跨品牌架构、青年文化触点、外部公信力</strong>。其余都是他们自己做得更好的事。提案里写多了，会显得不懂对方。</p>
+<hr />
+<h3>5. 决策流（<strong>全部推断 · 须 L0</strong>）</h3>
+<p><code>条线提案（马麟/沈斐线）
+  → 品牌调性把关（秦力洪线）
+  → Spirit 一致性（李斌线，涉及跨品牌时）
+  → 额度与核销（曲玉线）</code></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>环节</th>
+<th>我方最容易死在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>条线</td>
+<td>提案不可执行 / 太抽象</td>
+</tr>
+<tr>
+<td>调性</td>
+<td>长得像曝光包</td>
+</tr>
+<tr>
+<td>Spirit</td>
+<td>一套素材打三品牌</td>
+</tr>
+<tr>
+<td>财务</td>
+<td>没有停损点</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>四道都可能死。刀子只有 10 分钟，因此只解决第一道与第三道；财务那道靠「默认不报价 + 自带停损」绕开。</strong></p>
+<hr />
+<h3>6. 三品牌组织含义（推断）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>组织位置</th>
+<th>提案落点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来</td>
+<td>母体 · Spirit 定义源</td>
+<td>精神层内容；姚明桥延伸</td>
+</tr>
+<tr>
+<td>乐道</td>
+<td>独立条线（报道口径）</td>
+<td>家庭社群；申花模板换项目</td>
+</tr>
+<tr>
+<td>萤火虫</td>
+<td>独立条线（报道口径）</td>
+<td>青年文化；<strong>从零开始，反而好谈</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一个反直觉判断</strong>：最容易过的可能不是最大的蔚来，而是 <strong>萤火虫</strong>——因为它 <strong>没有既有体育合作要协调</strong>，且预算量级小、试验属性天然。会面里可以把它作为「最小可行入口」备用方案。</p>
+<hr />
+<h3>7. 组织风险登记</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>风险</th>
+<th>后果</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>跨品牌无人认账</td>
+<td>提案悬空</td>
+<td>设计成「任一层单独成立」</td>
+</tr>
+<tr>
+<td>2</td>
+<td>条线变动</td>
+<td>Champion 失效</td>
+<td>不押单一联系人</td>
+</tr>
+<tr>
+<td>3</td>
+<td>财务收紧</td>
+<td>试验被冻结</td>
+<td>默认小额 + 停损</td>
+</tr>
+<tr>
+<td>4</td>
+<td>内部已有类似项目</td>
+<td>撞车</td>
+<td>三问 #2 探</td>
+</tr>
+<tr>
+<td>5</td>
+<td>我方被当作媒体采买商</td>
+<td>一开场就死</td>
+<td>开场不提任何量级数字</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>8. 不进 pitch（组织面）</h3>
+<ul>
+<li>2025 年高管调整的细节与人事解读</li>
+<li>乐道条线的组织沿革与阵痛（内部叙事）</li>
+<li>2019 危机期的资金细节</li>
+<li>任何「谁得罪谁」类报道</li>
+</ul>
+<hr />
+<h3>9. 一句话</h3>
+<blockquote>
+<p>这是一家 <strong>刚上岸、正在给三个品牌各自找语言、并且对不可逆承诺极敏感</strong> 的公司。<br />
+它需要的不是更大的声量，而是 <strong>一套能被创始人一句话上传、能被三条线分别使用、能被 CFO 随时叫停的架构</strong>。</p>
+</blockquote>
+<hr />
+<h3>10. 加厚 · 组织记忆如何决定采购标准（本章方法论核心）</h3>
+<p>一家公司的采购标准，往往不是由当前战略决定，而是 <strong>由它活下来那一次的经验决定</strong>。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>组织记忆事件</th>
+<th>留下的标准</th>
+<th>对我方的含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2019 现金流危机 + 卖 FE</strong></td>
+<td>「非核心的重资产，该退就退」</td>
+<td>任何有 <strong>固定长期支出</strong> 味道的方案都会被下意识排斥</td>
+</tr>
+<tr>
+<td>换电网络的长期投入</td>
+<td>「基础设施可以长期投，营销活动不行」</td>
+<td>我方要把方案说成 <strong>可复用的资产</strong>，而不是一次性活动</td>
+</tr>
+<tr>
+<td>用户社群带来的口碑</td>
+<td>「用户参与比广告有效」</td>
+<td><strong>可参与性是硬门槛</strong>，不是加分项</td>
+</tr>
+<tr>
+<td>2023–24 多品牌化</td>
+<td>「每个品牌要有自己的脸」</td>
+<td>一套素材三处投 = 违背组织信念</td>
+</tr>
+<tr>
+<td>2025 Q4 首次单季 GAAP 转正</td>
+<td>「纪律有用，别放松」</td>
+<td>上岸后反而更紧，不是更松</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最后一条最反直觉</strong>：外部普遍以为「盈利了就该花钱了」。组织记忆的逻辑相反 —— <strong>刚证明纪律有效的组织，会更信纪律</strong>。这是本案禁止用「交付新高」催单的深层原因。</p>
+<hr />
+<h3>11. 加厚 · 三品牌组织的「三个不」</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>不</th>
+<th>含义</th>
+<th>提案约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>不共用素材</strong></td>
+<td>三个品牌的脸不能混</td>
+<td>架构复用、素材独立</td>
+</tr>
+<tr>
+<td><strong>不共用指标</strong></td>
+<td>合并 KPI 等于没人负责</td>
+<td>每层指标各自独立</td>
+</tr>
+<tr>
+<td><strong>不共用节奏</strong></td>
+<td>同城同期撞车会内耗</td>
+<td>场次错周排布</td>
+</tr>
+</tbody>
+</table></div>
+<p>这「三个不」是把「分层」从口号落成执行的最小规则集。会面里可以只说第一条（最好懂），后两条留给第二次会。</p>
+<hr />
+<h3>12. 加厚 · 组织阶段判断的自我检验</h3>
+<p>我方判断「刚上岸 + 澄清期 + 协同未完成」。如果这个判断错了，会错在哪？</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>可能的误判</th>
+<th>若为真</th>
+<th>我方该怎么改</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>其实已进入扩张期（内部有大预算）</td>
+<td>我方过度保守，报得太小</td>
+<td>认方向后 L0 会暴露；届时再放大，<strong>不在第一次会面赌</strong></td>
+</tr>
+<tr>
+<td>其实仍在求生期（比外界更紧）</td>
+<td>连小额试验也批不了</td>
+<td>转为长期关系维护</td>
+</tr>
+<tr>
+<td>三品牌其实高度集中管理</td>
+<td>分层是伪需求</td>
+<td>三问 #1 直接验，PIVOT 单品牌</td>
+</tr>
+<tr>
+<td>体育已有内部主人且在推进</td>
+<td>我方 timing 错</td>
+<td>主动退让一个周期</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：四种误判里有三种通过 <strong>三问就能当场纠正</strong>，一种（第一种）只会让我方少赚、不会让我方犯错。<strong>这是一个不对称有利的设计</strong> —— 保守的代价小，激进的代价大。</p>
+<hr />
+<h3>13. 加厚 · 组织面【待核实】清单</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>是否存在统管三品牌营销的机构或岗位</td>
+<td>决定分层假设成立与否</td>
+</tr>
+<tr>
+<td>2</td>
+<td>体育 / IP 类支出的审批层级与 SLA</td>
+<td>决定第二次会面带谁</td>
+</tr>
+<tr>
+<td>3</td>
+<td>三品牌营销预算的分配机制</td>
+<td>决定第一试验对象</td>
+</tr>
+<tr>
+<td>4</td>
+<td>区域（城市）团队的自主权</td>
+<td>决定一城一试怎么落</td>
+</tr>
+<tr>
+<td>5</td>
+<td>复盘文化：项目未达标是否真会停</td>
+<td>决定停损条款是否可信</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>第 5 项最容易被忽略</strong>：如果这家公司文化上做不到「真停」，那么「不达标即停」这条对他们不是安全感，而是麻烦。<strong>这一条必须当面试探，不能假设。</strong></p>
+<hr />
+<h3>14. 加厚 · 组织大事记（完整表 · 可打印口述）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>年</th>
+<th>事件</th>
+<th>组织含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2014</td>
+<td>公司成立；Formula E 创始车队</td>
+<td>用赛车建立技术与高端叙事</td>
+</tr>
+<tr>
+<td>2014-15</td>
+<td>FE 车手总冠军</td>
+<td>叙事达到顶点</td>
+</tr>
+<tr>
+<td>2018</td>
+<td>用户企业模型成型；美股上市</td>
+<td><strong>社群成为核心资产</strong></td>
+</tr>
+<tr>
+<td>2019</td>
+<td>现金流危机；出售 FE 车队运营（保留冠名至 2023）</td>
+<td><strong>资本纪律成型</strong></td>
+</tr>
+<tr>
+<td>2020–22</td>
+<td>换电网络扩张；车主社群飞轮</td>
+<td>基础设施优先于营销</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>多品牌战略确立</td>
+<td>从一个品牌变成一个集团</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>乐道落地；萤火虫立项</td>
+<td>三条人群命题并行</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>组织调整密集；Q4 首次单季 GAAP 经营利润转正（+8.073 亿，A）</td>
+<td><strong>纪律被验证</strong></td>
+</tr>
+<tr>
+<td>2026-01</td>
+<td>乐道 × 上海申花</td>
+<td>体育安静期结束（第二品牌先动）</td>
+</tr>
+<tr>
+<td>2026 Q1</td>
+<td>Non-GAAP 连续第二季转正；GAAP 仍亏（A）</td>
+<td>上岸但未站稳</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>L80 上市；ES9 发布 + 姚明</td>
+<td>产品与 Spirit 双事件</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td>全品牌 40,597；乐道环比 −2.4%（自算）</td>
+<td><strong>三条线分化显性化</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>口述用法</strong>：会面里最多讲三格 —— <strong>2019（纪律）、2023–24（多品牌）、2026-05/06（双事件与分化）</strong>。讲全表就是背资料。</p>
+<hr />
+<h3>15. 加厚 · 「可对话主题」vs「禁主题」</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>可对话</th>
+<th>禁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>三品牌各自的人群与语言</td>
+<td>三品牌之间的资源之争</td>
+</tr>
+<tr>
+<td>用户参与型活动的经验</td>
+<td>车主社群的具体数据</td>
+</tr>
+<tr>
+<td>姚明与申花两条路径</td>
+<td>姚明合作的商业条款</td>
+</tr>
+<tr>
+<td>澄清期与体系化</td>
+<td>「决赛圈」「谁会被淘汰」</td>
+</tr>
+<tr>
+<td>长期主义与停损并存</td>
+<td>2019 危机细节</td>
+</tr>
+<tr>
+<td>交付节奏与新车效应</td>
+<td>未达指引、月度排名</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>判定规则</strong>：凡是 <strong>只有内部人才有资格评价</strong> 的事（人事、条款、内部数据），一律禁。凡是 <strong>他们已经公开讲过</strong> 的框架（Spirit、澄清期、用户企业），一律可用他们的词接着讲。</p>
+<hr />
+<h3>16. 加厚 · 组织能力 × 我方供给的最终收束</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>他们强的</th>
+<th>我方不碰</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户社群、造节、口碑、车主关系</td>
+<td>全部不碰</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>他们弱的</th>
+<th>我方供给</th>
+<th>会面里怎么说</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>跨品牌统一叙事架构（无人负责）</td>
+<td>一套 OS 三接口</td>
+<td>「三种 Spirit 怎么分」</td>
+</tr>
+<tr>
+<td>青年文化触点（萤火虫全空）</td>
+<td>街头 / 青年场</td>
+<td>「第三条线现在是空的」</td>
+</tr>
+<tr>
+<td>外部公信力</td>
+<td>第三方背书</td>
+<td>「有些话我们说比你们说更有效」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一句话</strong>：<strong>我方的价值等于这家公司组织结构上的三个空格</strong>，一格不多，一格不少。多说一格，就变成了跟他们抢自己擅长的事。</p>
+</section>
+<section id="ch08">
+<h2 class="file-title">08 · 横纵交汇分析（v1.6）</h2>
+<blockquote>
+<p>纵向 = 它怎么走到今天；横向 = 今天它站在哪；交汇 = <strong>叙事与行为的差</strong>（variant perception）。<br />
+本章是整份研报的收束层，<strong>刀子的张力必须从这里长出来</strong>。</p>
+</blockquote>
+<hr />
+<h3>1. 纵向：昨日的合理选择 → 今日的结构</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>期</th>
+<th>当时的合理选择</th>
+<th>今日的后果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2014–18</td>
+<td>高端 + 技术叙事 + 用户企业</td>
+<td>品牌资产厚，但<strong>成本结构重</strong></td>
+</tr>
+<tr>
+<td>2019</td>
+<td>卖 FE 保换电</td>
+<td><strong>资本纪律成为组织记忆</strong> → 重资产体育被排除</td>
+</tr>
+<tr>
+<td>2020–22</td>
+<td>换电 + 社群飞轮</td>
+<td>自建能力极强 → 外部供应商门槛高</td>
+</tr>
+<tr>
+<td>2023–24</td>
+<td>多品牌化</td>
+<td>三个人群、三种语言 → <strong>协同成本</strong></td>
+</tr>
+<tr>
+<td>2025</td>
+<td>组织调整 + Q4 GAAP 转正</td>
+<td>「上岸」预期被建立</td>
+</tr>
+<tr>
+<td>2026 H1</td>
+<td>L80/ES9 双事件 + 姚明</td>
+<td><strong>两个体育接口 + 一个空缺</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>因果一句话</strong>：昨日为了活下来学会的纪律（不烧重资产）+ 昨日为了增长选择的路径（多品牌）= 今日一个非常特殊的采购标准：<strong>便宜、可停、可分层、可参与</strong>。</p>
+<hr />
+<h3>2. 横向：2026 H1 的共时位势</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>NIO</th>
+<th>单品牌对手</th>
+<th>差异含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>交付（2026 Q2）</td>
+<td><strong>107,658</strong>（A）</td>
+<td>未取对照集 → 宁空</td>
+<td>只用自身序列说话</td>
+</tr>
+<tr>
+<td>品牌数</td>
+<td>3</td>
+<td>1</td>
+<td>采购逻辑不同（架构 vs 单品）</td>
+</tr>
+<tr>
+<td>人群跨度</td>
+<td>精神 / 家庭 / 青年</td>
+<td>集中</td>
+<td><strong>必须分层</strong></td>
+</tr>
+<tr>
+<td>体育资产</td>
+<td>姚明 + 申花</td>
+<td>弱或分散</td>
+<td>我们不是从零说服</td>
+</tr>
+<tr>
+<td>财务约束</td>
+<td>GAAP 仍亏</td>
+<td>各异</td>
+<td>小额可核销</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>3. 交汇 · variant perception（本案核心）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>市场/媒体叙事（L3）</th>
+<th>行为（A 源）</th>
+<th>差在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「蔚来全面复苏」</td>
+<td>Q2 交付 <strong>107,658</strong>，但落在 <strong>11万 指引下限之下 2,342 台</strong>（自算）；Q1 GAAP 仍亏 3.321 亿</td>
+<td>有增长，但 <strong>纪律仍紧</strong></td>
+</tr>
+<tr>
+<td>「三品牌齐头并进」</td>
+<td>6月：蔚来 21,908 / 乐道 <strong>11,743</strong> / 萤火虫 6,946；乐道 <strong>环比 −2.4%</strong>，萤火虫 <strong>+22.7%</strong>（自算）</td>
+<td><strong>分化，不是齐进</strong></td>
+</tr>
+<tr>
+<td>「乐道 L80 成功破圈」</td>
+<td>5月峰值 12,029 → 6月 11,743</td>
+<td><strong>破万 ≠ 站稳</strong>；峰值未成台阶</td>
+</tr>
+<tr>
+<td>「姚明来了，体育已就位」</td>
+<td>姚明落 <strong>ES9 单点</strong>；申花落 <strong>乐道一条线</strong>；萤火虫 <strong>零</strong></td>
+<td><strong>点，不是体系</strong></td>
+</tr>
+<tr>
+<td>「萤火虫是海外故事」</td>
+<td>国内 6月 6,946，三品牌里增速最高</td>
+<td>被忽略的一格</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最锋利的一格</strong>：第三行与第四行的交叉。</p>
+<blockquote>
+<p>乐道最需要持续拉力的那个月，正好是新车效应衰减的那个月；而唯一能提供「持续人群工作」的体育资源，目前只被用在了 <strong>另一个品牌的一个车型</strong> 上。</p>
+</blockquote>
+<hr />
+<h3>4. 三条张力的排序依据</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>张力</th>
+<th>证据强度</th>
+<th>是否需要 L0</th>
+<th>排序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>T1 分层 vs 一套打三线</strong></td>
+<td><strong>A 行为（三品牌 6月分化 + 乐道环比回落）</strong></td>
+<td>否（可直接讲）</td>
+<td><strong>主刀</strong></td>
+</tr>
+<tr>
+<td>T2 姚明单点 vs 体系化</td>
+<td>A 事件 + C 细节</td>
+<td>部分</td>
+<td>备刀</td>
+</tr>
+<tr>
+<td>T3 全球叙事 vs 回归本土</td>
+<td>C 主张</td>
+<td>是</td>
+<td>只进研报</td>
+</tr>
+<tr>
+<td>T4 盈利拐点 vs 成本压力</td>
+<td>A/B</td>
+<td>否</td>
+<td>CFO 频道背景</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>选 T1 的理由</strong>：它 <strong>不依赖任何 L3 叙事</strong>，也不依赖对方承认痛点。三个数字（21,908 / 11,743 / 6,946）摆出来，分化是自明的。</p>
+<hr />
+<h3>5. So-what for NBA China（三句话，不多不少）</h3>
+<ol>
+<li><strong>不是卖第四次曝光</strong>：NIO 已经自建了社群与造节能力，曝光是他们最不缺、也最不信的东西。</li>
+<li><strong>是卖一套分层架构</strong>：蔚来 = 精神层（姚明桥延伸）；乐道 = 家庭社群（申花模板换项目）；萤火虫 = 青年文化（当前空缺）。</li>
+<li><strong>是卖可停损的试验</strong>：默认小额、一城一试、不达标即停——因为 GAAP 仍亏、毛利指引下调、单车成本上行（<code>01</code>）。</li>
+</ol>
+<hr />
+<h3>6. 反合理化扫描（自我攻击）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>我方可能的自我欺骗</th>
+<th>事实检查</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「乐道回落 = 他们急了」</td>
+<td>环比只 −2.4%，且全品牌在涨。<strong>不急</strong>。别演危机。</td>
+</tr>
+<tr>
+<td>「他们请了姚明所以喜欢篮球」</td>
+<td>姚明是价值观合作，<strong>不等于</strong>愿意买篮球权益</td>
+</tr>
+<tr>
+<td>「三品牌所以要买三份」</td>
+<td>更可能只批 <strong>一层</strong>；提案必须能单层成立</td>
+</tr>
+<tr>
+<td>「Q2 未达指引所以他们需要帮助」</td>
+<td>2.1% 的缺口不是求助信号</td>
+</tr>
+<tr>
+<td>「萤火虫空缺所以好卖」</td>
+<td>也可能是 <strong>有意不做</strong>（预算/阶段）→ 三问 #1 探</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>7. 一句话收束</h3>
+<blockquote>
+<p><strong>他们已经证明自己愿意为「精神」和「社群」花钱，也已经证明自己不为「声量」花钱。</strong><br />
+现在缺的，是把这两种已被验证的做法，变成 <strong>三条线各自能用、并且互不稀释的一套东西</strong>。</p>
+</blockquote>
+<hr />
+<h3>8. 加厚 · variant perception 的强度评级</h3>
+<p>不是所有「叙事与行为的差」都能用。给每一条打分，只用最高的两条。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>variant</th>
+<th>差的硬度</th>
+<th>是否需要对方认同价值判断</th>
+<th>可当场演算</th>
+<th>评级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>乐道破万未成台阶</td>
+<td><strong>高</strong>（12,029 → 11,743，A）</td>
+<td>否</td>
+<td><strong>是</strong></td>
+<td><strong>★★★ 主用</strong></td>
+</tr>
+<tr>
+<td>三品牌方向分化</td>
+<td><strong>高</strong>（+9.5 / −2.4 / +22.7，自算）</td>
+<td>否</td>
+<td><strong>是</strong></td>
+<td><strong>★★★ 主用</strong></td>
+</tr>
+<tr>
+<td>姚明是点不是体系</td>
+<td>中（事件 A + 结构判断）</td>
+<td>部分</td>
+<td>否</td>
+<td>★★ 备用</td>
+</tr>
+<tr>
+<td>交付新高 vs GAAP 仍亏</td>
+<td>中（A + A）</td>
+<td>否</td>
+<td>是</td>
+<td>★★ 仅作约束说明</td>
+</tr>
+<tr>
+<td>Q2 落在指引下沿</td>
+<td>中</td>
+<td><strong>是</strong>（易被读成指责）</td>
+<td>是</td>
+<td>★ 慎用</td>
+</tr>
+<tr>
+<td>萤火虫被当海外故事</td>
+<td>低（关注度低）</td>
+<td>否</td>
+<td>是</td>
+<td>★ 只进研报</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>规则</strong>：会面只用 ★★★ 的两条。★★ 用于回答追问。★ 一律不主动说。</p>
+<hr />
+<h3>9. 加厚 · 纵向因果链的三次「路径依赖」</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>依赖</th>
+<th>形成于</th>
+<th>今天的表现</th>
+<th>我方必须顺着它走</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>不烧重资产</strong></td>
+<td>2019</td>
+<td>排斥固定长期支出</td>
+<td>提案必须轻、可停</td>
+</tr>
+<tr>
+<td><strong>用户必须能参与</strong></td>
+<td>2018–22 用户企业</td>
+<td>只有观赏权益的方案是死的</td>
+<td>每层都要有参与动作</td>
+</tr>
+<tr>
+<td><strong>每个品牌要有自己的脸</strong></td>
+<td>2023–24 多品牌化</td>
+<td>一套素材三处投 = 违背信念</td>
+<td>素材不复用</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这三条是不可谈判的</strong>。它们不是偏好，是这家公司三次关键决策留下的结构。任何与之冲突的方案，无论多便宜都过不了。</p>
+<hr />
+<h3>10. 加厚 · 横向对照的正确用法与错误用法</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>用法</th>
+<th>例子</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>说明 <strong>采购逻辑不同</strong></td>
+<td>「单品牌买一个就够，三品牌得买一套架构」</td>
+<td>✅ 正确</td>
+</tr>
+<tr>
+<td>说明 <strong>我方主张不普适</strong></td>
+<td>「这套只在多品牌 + 澄清期成立」</td>
+<td>✅ 正确（增加可信度）</td>
+</tr>
+<tr>
+<td>说明 <strong>对方落后</strong></td>
+<td>「理想都在做家庭内容了」</td>
+<td>❌ 恐吓</td>
+</tr>
+<tr>
+<td>说明 <strong>对方应该跟进</strong></td>
+<td>「行业都在投体育」</td>
+<td>❌ 跟风逻辑，撞反爆款红线</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>一个反直觉技巧</strong>：主动说出「<strong>我们这套不适合理想，只适合你们</strong>」，比说「大家都在做」有效得多。前者是判断，后者是推销。</p>
+<hr />
+<h3>11. 加厚 · 从研报到刀子的收束路径（可复用方法）</h3>
+<p><code>12 章研报（约 3 万字量级）
+  → 08 挑出 6 条 variant，评级
+  → 只留 ★★★ 两条
+  → 合成 1 条 T1（03_tensions）
+  → T1 + 三问 + 分层表 = 10 分钟刀子（B_knife）
+  → 其余全部退回研报，作为备答（C_argument）</code></p>
+<p><strong>比例感</strong>：进刀子的内容 <strong>不到研报的 5%</strong>。这不是浪费 —— 研报的作用是 <strong>让我方知道哪 5% 是对的</strong>，以及 <strong>被追问时有底</strong>。</p>
+<p><strong>反面标准</strong>：如果一份研报里 50% 的内容都想进刀子，说明它没有做过评级，只是把资料堆起来了。</p>
+<hr />
+<h3>12. 加厚 · 一句话收束（第二版 · 给内部）</h3>
+<blockquote>
+<p>我方在这个案子里唯一的位置是：<strong>把他们已经验证过的两种做法（姚明的语言、申花的结构），合成一个他们自己没人负责的东西（跨品牌架构），并且自带停损。</strong><br />
+除此之外的任何供给，他们都比我们做得好。</p>
+</blockquote>
+<hr />
+<h3>8. 深读 A · 三条「组织记忆」如何变成今天的采购标准</h3>
+<p>纵向分析若只写成时间线，就只是历史；写成<strong>组织记忆 → 采购标准</strong>的映射，才对销售有用。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>组织记忆</th>
+<th>形成于</th>
+<th>今天表现为</th>
+<th>对我方的具体约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>非核心果断退出</strong></td>
+<td>2019 卖 FE 车队运营</td>
+<td>长约与重资产项目天然被怀疑</td>
+<td>主动带<strong>退出条款</strong>，把停损做成卖点</td>
+</tr>
+<tr>
+<td><strong>自建优于外采</strong></td>
+<td>2020–22 换电 + 社群飞轮</td>
+<td>「这个我们自己能做」是默认反应</td>
+<td>只卖他们<strong>自建做不出</strong>的两格：外部公信力、非车主触达</td>
+</tr>
+<tr>
+<td><strong>一次只押一条线</strong></td>
+<td>2023–24 多品牌化</td>
+<td>姚明落蔚来、申花落乐道，<strong>从不混线</strong></td>
+<td>提案必须<strong>单层即成立</strong>，跨品牌只能是可选升级</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>合起来的采购画像</strong>：<strong>便宜、可停、单层成立、能带来外部性</strong>。这四个词应当成为我方每一版方案的自检清单——四条中缺任何一条，内部就会有人问「那我们自己做不就行了」。</p>
+<hr />
+<h3>9. 深读 B · 价值链映射：NBA China 资产落在 NIO 的哪一环</h3>
+<p>客户内部的价值链大致是：<strong>品牌叙事 → 用户运营 / 社群 → 区域落地 → 财务复盘 → 停损决策</strong>。体育合作若只停在第一环，就永远到不了第四环，也就永远过不了闸门。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>客户环节</th>
+<th>我方可映射的资产形态</th>
+<th>能否核销</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>品牌叙事</td>
+<td>精神/传承类内容（对蔚来）</td>
+<td>弱</td>
+<td>必须有，但不能只有它</td>
+</tr>
+<tr>
+<td>用户运营 / 社群</td>
+<td>家庭日、青少年篮球类可参与内容（对乐道）</td>
+<td><strong>较强</strong></td>
+<td>与申花模板同构</td>
+</tr>
+<tr>
+<td>区域落地</td>
+<td>一城一线的属地执行</td>
+<td><strong>强</strong></td>
+<td>主指标在这里产生</td>
+</tr>
+<tr>
+<td>财务复盘</td>
+<td>数据回收包（<strong>我方需先内部定义</strong>）</td>
+<td>待定</td>
+<td>见 <code>06</code> 反向 MEDDIC</td>
+</tr>
+<tr>
+<td>停损决策</td>
+<td>判定期 + 阈值</td>
+<td>—</td>
+<td>写进第一版思路</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最容易被忽略的一行是「财务复盘」</strong>：这是<strong>我方</strong>的缺口而非客户的。在我方能说清「能回收什么数据」之前，「可核销」三个字<strong>不许出现在会面里</strong>。</p>
+<hr />
+<h3>10. 深读 C · 反事实推演（2026-07 月报发布后的三种情形）</h3>
+<p>本案 T1 的行为证据只有 5 月与 6 月两点，是整份研报<strong>最薄的一环</strong>。因此必须预先写好分叉，而不是等数据出来再临时改口。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情形</th>
+<th>数据形态</th>
+<th>T1 是否成立</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A · 回到万二以上</strong></td>
+<td>乐道 ≥12,000</td>
+<td><strong>失效</strong></td>
+<td>主刀切 <strong>T2</strong>（姚明单点 vs 体系化）；ONE_PAGER 顶栏重写；重跑 ifalsify</td>
+</tr>
+<tr>
+<td><strong>B · 继续在万一附近</strong></td>
+<td>乐道 11,000–12,000</td>
+<td><strong>成立且加强</strong></td>
+<td>表述仍为「峰值未成台阶」，<strong>不得</strong>升级为「下滑」</td>
+</tr>
+<tr>
+<td><strong>C · 跌破万</strong></td>
+<td>乐道 &lt;10,000</td>
+<td>成立但<strong>危险</strong></td>
+<td><strong>降调</strong>：此时任何外部提案都易被读成趁火打劫，改为纯诊断会面</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>注意情形 C</strong>：证据变强 ≠ 提案变好卖。这是「反昏君」纪律在本案最反直觉的一处——<strong>我们不希望客户的数据变差</strong>。</p>
+<hr />
+<h3>11. 深读 D · 纵横交汇的一张自查表（本章收尾）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>自查</th>
+<th>通过标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>张力是否来自 <strong>A 源行为</strong> 而非媒体叙事？</td>
+<td>21,908 / 11,743 / 6,946 三个数字自明</td>
+</tr>
+<tr>
+<td>是否把「交付」与「损益」混在同一句里？</td>
+<td>全章分句；Q2 损益一律「未披露」</td>
+</tr>
+<tr>
+<td>是否用了任何未取到 A 的竞品数据做论证？</td>
+<td>竞品仅作方向性对照，2026-06 对照集<strong>宁空</strong></td>
+</tr>
+<tr>
+<td>是否为最薄的一环预置了失效条件？</td>
+<td>§10 三情形已写</td>
+</tr>
+<tr>
+<td>是否有一处在替客户宣布他们很痛？</td>
+<td>无；urgency 一律标为<strong>我方主张</strong></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="ch09">
+<h2 class="file-title">09 · 查了但会面不说（v1.6）</h2>
+<blockquote>
+<p><strong>原则</strong>：冰山 <strong>50% 以上不进 pitch</strong>。本文件是防「胖刀」与防「装懂」的闸门。<br />
+<strong>用法</strong>：会面前最后 5 分钟扫一遍这张表，比背话术有用。</p>
+</blockquote>
+<hr />
+<h3>1. 财务与竞品（不说）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>不说</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025 全年营收 874.88 亿 / 净亏 149.43 亿</td>
+<td><strong>媒体口径未勾 A</strong>；且触 CFO 敏感</td>
+</tr>
+<tr>
+<td>「Q2 没达到你们自己的指引」</td>
+<td>事实为真（自算 −2.1%），但说法是审判姿态 → 改为「落在下沿附近」</td>
+</tr>
+<tr>
+<td>行业月度排名第几</td>
+<td>排位战 = low status</td>
+</tr>
+<tr>
+<td>小鹏/比亚迪的体育投入对比</td>
+<td>无 L0，且像挑事</td>
+</tr>
+<tr>
+<td>理想的销量对比细节</td>
+<td>非 Spirit 频道</td>
+</tr>
+<tr>
+<td>单车收入代理（26.4 万 / 30.6 万，自算）</td>
+<td>口径不干净，含服务收入</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>2. 组织与政治（不说）</h3>
+<ul>
+<li>2025 年高管调整的人事解读</li>
+<li>乐道条线组织沿革与阵痛</li>
+<li>2019 现金流危机细节</li>
+<li>三品牌之间的资源竞争猜测</li>
+<li>任何「谁向谁汇报」的推断</li>
+</ul>
+<hr />
+<h3>3. 媒体 L3 叙事（不说）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>叙事</th>
+<th>为何不用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「蔚来全面复苏」</td>
+<td>与 GAAP 仍亏矛盾</td>
+</tr>
+<tr>
+<td>「决赛圈必死一家」</td>
+<td>恐吓</td>
+</tr>
+<tr>
+<td>「千亿美元市值目标」</td>
+<td>与营销无关</td>
+</tr>
+<tr>
+<td>「乐道失速 / 乐道逆袭」</td>
+<td>两个方向都比数据激进</td>
+</tr>
+<tr>
+<td>老车主转介绍比例（2022–23 数据）</td>
+<td>非当前时间锚</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>4. 我方（不说）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>不说</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NBA 中国粉丝规模作 <strong>开场</strong></td>
+<td>那是我方 DMP，不是对方 KPI</td>
+</tr>
+<tr>
+<td>全球粉丝量级</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>任何未核实的 <strong>汽车品类排他</strong></td>
+<td>法务风险 + 装懂</td>
+</tr>
+<tr>
+<td>具体赞助金额 / 权益包清单</td>
+<td><strong>直到 L0 闭环 + 对方认方向</strong></td>
+</tr>
+<tr>
+<td>其他汽车客户案例名单</td>
+<td>未获授权</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>5. 技术与产品（不说）</h3>
+<ul>
+<li>换电站数量、累计换电次数</li>
+<li>ES9 / L80 的配置与参数</li>
+<li>分车型销量（除非被追问）</li>
+<li>补能网络的商业模型</li>
+</ul>
+<hr />
+<h3>6. 被追问时的标准答法</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>追问</th>
+<th>回答</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「预算多少？」</td>
+<td>「先定成功标准，再定金额。今天只想确认方向认不认。」</td>
+</tr>
+<tr>
+<td>「你们和小鹏做过？」</td>
+<td>「每个品牌的 Spirit 不一样，我更想先对齐分层逻辑，不做对标清单。」</td>
+</tr>
+<tr>
+<td>「乐道是不是不行了？」</td>
+<td>「6月是 11,743，全品牌在涨。我们关心的不是行不行，是峰值怎么变台阶。」</td>
+</tr>
+<tr>
+<td>「姚明不就够了吗？」</td>
+<td>「姚明是灯塔。灯塔下面有没有每周能开张的摊位？」</td>
+</tr>
+<tr>
+<td>「有什么数据支持？」</td>
+<td>「你们自己的三个月交付曲线。别的我按判断说，数据我们回去给口径。」</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>7. 红线清单（说了就废）</h3>
+<ol>
+<li>曝光 / CPM / 粉丝量开场</li>
+<li>拿未达指引催单</li>
+<li>拿竞品花钱恐吓</li>
+<li>承诺未核实的排他</li>
+<li>把 L3 媒体叙事当成事实引用</li>
+<li>当场报权益包</li>
+<li>说「你们乐道需要帮助」</li>
+</ol>
+<hr />
+<h3>8. 加厚 · 「不说」的四个层级（不是一刀切）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>含义</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L-A 绝不说</strong></td>
+<td>说了当场废</td>
+<td>未核实排他、CPM 开场、审判式引用、当场报价</td>
+</tr>
+<tr>
+<td><strong>L-B 不主动说，被问才说</strong></td>
+<td>事实可靠但语气危险</td>
+<td>Q2 与指引的差、乐道环比回落幅度、2025 全年待核实数</td>
+</tr>
+<tr>
+<td><strong>L-C 只在第二次会说</strong></td>
+<td>需要方向确认在前</td>
+<td>一城一试草图、指标设计、内容资产归属</td>
+</tr>
+<tr>
+<td><strong>L-D 只在内部说</strong></td>
+<td>用于降低我方预期</td>
+<td>2020–25 体育安静期、F-6、单车收入代理</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么要分四层</strong>：一份只有「不说清单」的材料会让销售在现场过度紧张，什么都不敢讲。<strong>分层之后，销售知道哪些是「留着」，哪些是「烧掉」。</strong></p>
+<hr />
+<h3>9. 加厚 · 三个最容易失手的瞬间</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>瞬间</th>
+<th>危险</th>
+<th>预置动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>对方沉默三秒</strong></td>
+<td>销售本能补话，常常补出金额或承诺</td>
+<td>预置一句安全填空：「这个问题你们内部大概谁来定？」</td>
+</tr>
+<tr>
+<td><strong>对方点头认同</strong></td>
+<td>顺势推三层打包</td>
+<td>预置：只推进到「约 30 分钟」，不加码</td>
+</tr>
+<tr>
+<td><strong>对方质疑数据</strong></td>
+<td>慌乱引用媒体数字</td>
+<td>预置：只报 A 源与算式；「这条是媒体转载，我不用它」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这三条比任何话术都重要</strong>：会面失败大多不是因为准备不足，而是因为 <strong>在这三个瞬间说了多余的话</strong>。</p>
+<hr />
+<h3>10. 加厚 · 「不说」与「诚实」的关系</h3>
+<p>有一类反对意见是：「把不利的东西藏起来，不算诚实。」</p>
+<p>本案的处置是：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原则</th>
+<th>落法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>不隐藏事实</strong></td>
+<td>所有不利事实都在研报里，客户随时可查（<code>html/research/iceberg.html</code> 就是全文镜像）</td>
+</tr>
+<tr>
+<td><strong>不主动武器化</strong></td>
+<td>不利事实不用于施压（未达指引、乐道回落）</td>
+</tr>
+<tr>
+<td><strong>被问必答</strong></td>
+<td>对方问到，如实说，包括「我们不知道」</td>
+</tr>
+<tr>
+<td><strong>不装懂</strong></td>
+<td>所有缺口标【待核实】/【当面问】</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：<code>09</code> 不是一份「隐瞒清单」，是一份 <strong>「不把事实当武器」的清单</strong>。这两者的区别，就是顾问和推销员的区别。</p>
+<hr />
+<h3>11. 加厚 · 逐条给出「换句话说」（可直接照念）</h3>
+<p>不说，不等于不谈。同一件事换个说法，就能从武器变成共同事实。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>原句（禁）</th>
+<th>换句话说（可）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「你们 Q2 没达到自己的指引」</td>
+<td>「Q2 落在指引下沿附近，同期乐道从 12,029 回到 11,743。」</td>
+</tr>
+<tr>
+<td>「乐道掉了」</td>
+<td>「破万的峰值还没变成台阶。」</td>
+</tr>
+<tr>
+<td>「你们现金 482 亿，不缺钱」</td>
+<td>「流动性和已批预算是两件事，所以我们默认小额。」</td>
+</tr>
+<tr>
+<td>「交付新高，该加投入了」</td>
+<td>「总量在涨，但三条线方向不一样——这时候资源怎么分？」</td>
+</tr>
+<tr>
+<td>「行业都在做体育」</td>
+<td>「这套逻辑其实只适合多品牌公司，未必适合别家。」</td>
+</tr>
+<tr>
+<td>「我们有多少粉丝」</td>
+<td>「我们能补的只有三样：架构、青年触点、外部公信力。」</td>
+</tr>
+<tr>
+<td>「姚明不够」</td>
+<td>「姚明是灯塔。灯塔下面有没有每周能开张的摊位？」</td>
+</tr>
+<tr>
+<td>「乐道需要帮助」</td>
+<td>「我们关心的不是行不行，是峰值怎么变台阶。」</td>
+</tr>
+<tr>
+<td>「给你们做排他」</td>
+<td>「条款层今天不谈。」</td>
+</tr>
+<tr>
+<td>「效果我们保证」</td>
+<td>「我们只承诺过程：场次、内容、复盘。不达标即停。」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这张表是本文件最实用的一页</strong>：会前把左列遮住，只读右列，就是完整的安全话术。</p>
+<hr />
+<h3>12. 加厚 · 「明确不说」为什么要写给客户看</h3>
+<p>本案的 <code>html/research/iceberg.html</code> 是 <strong>全文镜像</strong>，也就是说客户如果翻研报，会看到这份「不说清单」。这是刻意的。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>效果</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>证明我们查过</strong></td>
+<td>不说 ≠ 不知道；清单本身就是研究深度的证据</td>
+</tr>
+<tr>
+<td><strong>证明我们有纪律</strong></td>
+<td>主动放弃可用的施压工具，比任何承诺都可信</td>
+</tr>
+<tr>
+<td><strong>降低对方防御</strong></td>
+<td>对方看到「渠道 / 财务敏感项我们不碰」，会更愿意开口</td>
+</tr>
+<tr>
+<td><strong>对内约束</strong></td>
+<td>写在客户能看到的地方，销售就不敢临场破戒</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>风险与处置</strong>：客户可能问「为什么这些不说？」正确回答是——「因为它们是你们的事实，不是我们的论据。我们只在被问到时说。」</p>
+</section>
+<section id="ch10">
+<h2 class="file-title">10 · 产品 / 人群 / 渠道矩阵（v1.6）</h2>
+<blockquote>
+<p><strong>本章任务</strong>：把「三品牌分层」从一句口号变成 <strong>可检查的矩阵</strong>。<br />
+<strong>纪律</strong>：人群画像 <strong>无审计披露</strong> → 一律写「口径推断」；不写性别年龄百分比。</p>
+</blockquote>
+<hr />
+<h3>1. 三品牌主表</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>公开 Spirit 表述（C）</th>
+<th>人群口径（推断）</th>
+<th>2026-06 交付（A）</th>
+<th>现有体育接口</th>
+<th>缺口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>蔚来 NIO</strong></td>
+<td>敢想有为</td>
+<td>高端 / 事业型 / 认同长期主义</td>
+<td><strong>21,908</strong></td>
+<td>姚明（ES9 首席体验官）</td>
+<td>单点、无赛季节奏</td>
+</tr>
+<tr>
+<td><strong>乐道 ONVO</strong></td>
+<td>轻松家庭</td>
+<td>家庭 / 亲子 / 实用主义</td>
+<td><strong>11,743</strong></td>
+<td>上海申花（L90 座驾、开放日）</td>
+<td>项目单一、无青少年内容体系</td>
+</tr>
+<tr>
+<td><strong>萤火虫 FIREFLY</strong></td>
+<td>自在发光</td>
+<td>年轻 / 都市 / 首购</td>
+<td><strong>6,946</strong></td>
+<td><strong>无</strong></td>
+<td><strong>完全空缺</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>分化事实（自算）</strong>：6月对 5月，蔚来 <strong>+9.5%</strong>、乐道 <strong>−2.4%</strong>、萤火虫 <strong>+22.7%</strong>。<strong>三条线不同方向</strong>，这是分层的行为依据，而不是修辞。</p>
+<hr />
+<h3>2. 车型层（只写公开可见的）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>代表车型/事件</th>
+<th>时间锚</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来</td>
+<td><strong>ES9</strong> 发布（含姚明首席体验官）</td>
+<td>2026-05-27</td>
+<td>A（事件）</td>
+</tr>
+<tr>
+<td>蔚来</td>
+<td>ES8 等在售主力</td>
+<td>2026 H1</td>
+<td>A（月报提及）</td>
+</tr>
+<tr>
+<td>乐道</td>
+<td><strong>L80</strong> 上市 2026-05-15；半月交付约 5,949</td>
+<td>2026-05</td>
+<td>A（上市）/ B（量）</td>
+</tr>
+<tr>
+<td>乐道</td>
+<td>L90（申花官方座驾）</td>
+<td>2026-01</td>
+<td>C</td>
+</tr>
+<tr>
+<td>萤火虫</td>
+<td>小车单一产品线</td>
+<td>2026</td>
+<td>C</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>不写</strong>：配置、续航、价格、竞品参数对比 —— 与本案无关，且容易显得越界。</p>
+<hr />
+<h3>3. 人群 × 体育场景矩阵（提案骨架）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>体育场景类型</th>
+<th>参与形态</th>
+<th>可核销动作（示意 · 非报价）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来</td>
+<td>精神 / 传承叙事</td>
+<td>观赏 + 内容</td>
+<td>车主专属内容场次、精神主题内容资产</td>
+</tr>
+<tr>
+<td>乐道</td>
+<td><strong>青少年 / 家庭日</strong></td>
+<td><strong>强参与</strong></td>
+<td>亲子篮球日、门店周末场、试驾×家庭活动串联</td>
+</tr>
+<tr>
+<td>萤火虫</td>
+<td>街头 / 潮流 / 3X3</td>
+<td>强参与 + UGC</td>
+<td>城市青年场、校园/街区触点</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>设计规则（三条）</strong>：</p>
+<ol>
+<li><strong>每一层必须能单独成立</strong>（因为可能只批一层，见 <code>07</code> §5）。</li>
+<li><strong>每一层的成功指标不同</strong>：蔚来看内容与调性、乐道看到店与家庭参与、萤火虫看年轻用户触达与内容量。</li>
+<li><strong>三层共用一套内容工厂</strong>，但 <strong>不共用一套素材</strong> —— 这是「不打架」的技术含义。</li>
+</ol>
+<hr />
+<h3>4. 渠道矩阵（决定试验设计）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>渠道</th>
+<th>事实/口径</th>
+<th>级</th>
+<th>试验含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来门店 / NIO House</td>
+<td>体系成熟</td>
+<td>C</td>
+<td>精神层内容天然有场地</td>
+</tr>
+<tr>
+<td>乐道门店</td>
+<td>以一二线为主，数百家量级</td>
+<td>C</td>
+<td><strong>一城一试</strong> 的最佳载体</td>
+</tr>
+<tr>
+<td>萤火虫渠道</td>
+<td>与体系共享（口径未明）</td>
+<td>【待核实】</td>
+<td>需当面问</td>
+</tr>
+<tr>
+<td>用户社群 / App</td>
+<td>极强</td>
+<td>C</td>
+<td>参与型内容的分发底座</td>
+</tr>
+<tr>
+<td>外部媒体采买</td>
+<td>反爆款立场</td>
+<td>C</td>
+<td><strong>不作为主形态</strong></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>5. 一城一试验草图（内部 · 非报价 · 非承诺）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>要素</th>
+<th>设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>范围</td>
+<td><strong>单城 · 单品牌层</strong>（默认乐道，备选萤火虫）</td>
+</tr>
+<tr>
+<td>周期</td>
+<td>一个赛季窗口内的有限场次</td>
+</tr>
+<tr>
+<td>形态</td>
+<td>家庭/青少年参与场 + 门店串联 + 内容产出</td>
+</tr>
+<tr>
+<td>成功标准</td>
+<td>由客户定义（到店、试驾、家庭参与、内容复用率）</td>
+</tr>
+<tr>
+<td>停损</td>
+<td><strong>不达标即停</strong>，写进意向</td>
+</tr>
+<tr>
+<td>金额</td>
+<td><strong>空白 · 待 L0</strong></td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>纪律</strong>：这张表 <strong>不进 10 分钟刀</strong>，只在对方说「认方向」之后才拿出来。提前拿出来 = 变成权益包 = 违反姚明模板。</p>
+</blockquote>
+<hr />
+<h3>6. 「不打架」的四条技术规则</h3>
+<ol>
+<li><strong>素材不复用，架构复用</strong>：同一批内容不能三个品牌同时投放。</li>
+<li><strong>人群不重叠命名</strong>：不要在乐道场景里说「敢想有为」。</li>
+<li><strong>节奏错开</strong>：同城同期不同品牌不同周次。</li>
+<li><strong>成功指标各自独立</strong>：不做三品牌合并 KPI（否则又变成一套曝光）。</li>
+</ol>
+<hr />
+<h3>7. 人群研究缺口（诚实）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>缺口</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>三品牌车主的精确画像与重叠度</td>
+<td><strong>公司未披露</strong> → 当面问</td>
+</tr>
+<tr>
+<td>2</td>
+<td>乐道用户的家庭结构占比</td>
+<td>未披露</td>
+</tr>
+<tr>
+<td>3</td>
+<td>萤火虫国内用户年龄分布</td>
+<td>未披露</td>
+</tr>
+<tr>
+<td>4</td>
+<td>门店周末流量</td>
+<td>需客户内部数据</td>
+</tr>
+<tr>
+<td>5</td>
+<td>三品牌营销预算比例</td>
+<td>需 L0</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>8. 与刀子的映射</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>刀子里的一格</th>
+<th>本章依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「三品牌分层 OS」</td>
+<td>§1 主表 + §3 场景矩阵</td>
+</tr>
+<tr>
+<td>「乐道 = 申花模板换项目」</td>
+<td><code>03</code> §2 规律 3 + §3</td>
+</tr>
+<tr>
+<td>「萤火虫 = 空缺」</td>
+<td>§1 缺口列</td>
+</tr>
+<tr>
+<td>「不打架」</td>
+<td>§6 四条规则</td>
+</tr>
+<tr>
+<td>「不谈金额」</td>
+<td>§5 金额栏空白</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>9. 加厚 · 三层各自的「最小可行单元」</h3>
+<p>分层若不给最小单元，就还是概念。每层给一个 <strong>能在一个城市、一个季度内做完</strong> 的单元：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>最小可行单元</th>
+<th>主指标（客户定，此处仅示意）</th>
+<th>为什么这是最小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来 · 精神层</td>
+<td>一场车主专属的精神主题内容场 + 一组可复用内容资产</td>
+<td>内容复用次数 / 车主参与</td>
+<td>不需要新建关系，挂现有车主活动</td>
+</tr>
+<tr>
+<td><strong>乐道 · 家庭层</strong></td>
+<td><strong>单城 2–4 场家庭 / 亲子篮球日 + 门店串联</strong></td>
+<td><strong>到店 / 试驾 / 家庭参与数</strong></td>
+<td>与申花开放日同构，团队会做</td>
+</tr>
+<tr>
+<td>萤火虫 · 青年层</td>
+<td>单城 1–2 个青年 / 街头场 + UGC 机制</td>
+<td>年轻用户触达 / 内容产出量</td>
+<td>盘子小、试验属性天然</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>排序建议</strong>：乐道 → 萤火虫 → 蔚来。<br />
+理由：乐道 <strong>痛点最明确</strong>（峰值未成台阶）；萤火虫 <strong>阻力最小</strong>（接口全空、量级小）；蔚来 <strong>最贵也最敏感</strong>（Spirit 由创始人定调，不宜第一次动）。</p>
+<hr />
+<h3>10. 加厚 · 人群不重叠的操作检查表</h3>
+<p>「分层」最容易在执行时失效。给四个可勾选的检查项：</p>
+<ul>
+<li>[ ] 三层的物料上 <strong>没有同一句 slogan</strong></li>
+<li>[ ] 三层的现场 <strong>没有同一批 KV / 同一套视觉</strong></li>
+<li>[ ] 三层的邀约名单 <strong>没有交叉发送</strong></li>
+<li>[ ] 三层的复盘报告 <strong>各自独立</strong>，不合并成一份</li>
+</ul>
+<p><strong>任一项不满足，就等于「一套素材三处投」</strong>，也就等于我方在会面里承诺的东西没有兑现。这四项建议写进意向书。</p>
+<hr />
+<h3>11. 加厚 · 车型与场景的对应纪律</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>纪律</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不替客户排车型优先级</td>
+<td>哪款车主推是他们的商业决策</td>
+</tr>
+<tr>
+<td>不承诺车型销量</td>
+<td>我方指标只到「到店 / 参与」</td>
+</tr>
+<tr>
+<td>不在同一场活动里出现两个品牌的车</td>
+<td>违背「每个品牌要有自己的脸」</td>
+</tr>
+<tr>
+<td>不用赛事场景硬套家用车</td>
+<td>家庭线的场景是 <strong>亲子与周末</strong>，不是竞技</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最后一条最常被违反</strong>：体育方案容易本能地往「热血竞技」靠，但乐道的 Spirit 是 <strong>轻松家庭</strong>。竞技感越强，离乐道越远。</p>
+<hr />
+<h3>12. 加厚 · 渠道侧的三个未知与替代设计</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>未知</th>
+<th>若无法确认</th>
+<th>替代设计</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>试点城选择权在总部还是区域</td>
+<td>无法预排城市</td>
+<td>提案里写「城市由你们定」，我方只给筛选标准</td>
+</tr>
+<tr>
+<td>门店周末流量</td>
+<td>无法预估到店基线</td>
+<td>基线由客户提供，我方不猜</td>
+</tr>
+<tr>
+<td>萤火虫渠道是否独立</td>
+<td>无法设计青年场落点</td>
+<td>第一次会面只提可行性，不提落点</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>共同原则</strong>：<strong>把未知交回给客户，而不是替客户填。</strong> 这既是纪律，也是最省力的做法——客户填的基线，客户自己会认。</p>
+<hr />
+<h3>13. 加厚 · 本章【待核实】汇总</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>何时需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>三品牌车主画像与重叠度</td>
+<td>第二次会面</td>
+</tr>
+<tr>
+<td>2</td>
+<td>乐道门店精确数与城市名单</td>
+<td>试点设计</td>
+</tr>
+<tr>
+<td>3</td>
+<td>萤火虫渠道独立性</td>
+<td>青年层设计</td>
+</tr>
+<tr>
+<td>4</td>
+<td>门店周末流量基线</td>
+<td>指标设定</td>
+</tr>
+<tr>
+<td>5</td>
+<td>各品牌营销预算比例</td>
+<td>报价阶段（<strong>L0</strong>）</td>
+</tr>
+<tr>
+<td>6</td>
+<td>青少年篮球参与人口口径</td>
+<td>家庭层内容规划</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>全部标注清楚，且全部不在第一次会面里出现。</strong> 第一次会面只需要 §1 的主表和 §9 的排序建议。</p>
+<hr />
+<h3>14. 加厚 · 三品牌的「人群语言」对照卡</h3>
+<p>同一个活动，三层要用三套说法。这张卡的用途是防止执行团队把三层做成一层。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>蔚来 · 精神层</th>
+<th>乐道 · 家庭层</th>
+<th>萤火虫 · 青年层</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>场景关键词</td>
+<td>传承、坚持、成为</td>
+<td>周末、亲子、一起</td>
+<td>街头、自在、玩起来</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>晚间 / 专场</td>
+<td><strong>周末白天</strong></td>
+<td>傍晚 / 夜间</td>
+</tr>
+<tr>
+<td>携带对象</td>
+<td>个人 / 伴侣</td>
+<td><strong>全家</strong></td>
+<td>朋友</td>
+</tr>
+<tr>
+<td>内容形态</td>
+<td>人物与叙事</td>
+<td>参与与陪伴</td>
+<td>玩法与 UGC</td>
+</tr>
+<tr>
+<td>现场气质</td>
+<td>克制、体面</td>
+<td>轻松、热闹</td>
+<td>松散、有梗</td>
+</tr>
+<tr>
+<td>最怕做成</td>
+<td>商务活动</td>
+<td><strong>竞技比赛</strong></td>
+<td>官方晚会</td>
+</tr>
+<tr>
+<td>主指标方向</td>
+<td>内容复用 / 车主参与</td>
+<td><strong>到店 / 试驾 / 家庭参与</strong></td>
+<td>年轻触达 / 内容量</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>「最怕做成」这一行最重要</strong>：三层各有一种最容易犯的错。乐道那格尤其关键——体育方案的本能是往竞技靠，而竞技感越强，离「轻松家庭」越远。</p>
+<hr />
+<h3>15. 加厚 · 产品利益句库（内部草稿 · 非广告终稿）</h3>
+<p>只写场景，不写产品参数；不承诺任何性能。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>可用的一句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来</td>
+<td>「有些坚持，需要很多年才看得见。」</td>
+</tr>
+<tr>
+<td>乐道</td>
+<td>「周末的下午，一家人可以一起做点事。」</td>
+</tr>
+<tr>
+<td>萤火虫</td>
+<td>「不用等谁允许，玩起来就是了。」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>纪律三条</strong>：① 这三句是 <strong>内部对齐用</strong>，会面里不念（念了像提案）；② 任何一句都不得同时用于两个品牌；③ 最终文案归客户，我方不越位。</p>
+<hr />
+<h3>16. 加厚 · 从矩阵到意向书的字段映射</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>矩阵里的格</th>
+<th>意向书里的字段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§9 最小可行单元</td>
+<td>服务范围</td>
+</tr>
+<tr>
+<td>§9 主指标</td>
+<td>验收标准（客户填）</td>
+</tr>
+<tr>
+<td>§10 四项检查</td>
+<td>执行规范附件</td>
+</tr>
+<tr>
+<td>§12 城市由客户定</td>
+<td>场地与城市条款</td>
+</tr>
+<tr>
+<td>§5 金额空白</td>
+<td><strong>报价（L0 后填）</strong></td>
+</tr>
+<tr>
+<td><code>11</code> §12 内容归属</td>
+<td>知识产权条款</td>
+</tr>
+<tr>
+<td><code>11</code> §13 不承诺清单</td>
+<td>免责与预期管理</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>用途</strong>：认方向之后，第二次会面前，把这张映射表走一遍，意向书草稿就成型了 —— 而且每一条都能追回研报，不是临场编的。</p>
+</section>
+<section id="ch11">
+<h2 class="file-title">11 · 营销 / 体育 / 舆情面（v1.6）</h2>
+<blockquote>
+<p><strong>本章任务</strong>：把 NIO 的营销范式讲清楚，好让我们的提案 <strong>长得像他们自己会做的事</strong>。<br />
+<strong>纪律</strong>：舆情事件只写有出处的方向，不写细节；负面只进本章与 <code>09</code>，<strong>不进刀子</strong>。</p>
+</blockquote>
+<hr />
+<h3>1. 营销范式（他们的默认打法）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>范式</th>
+<th>表现</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>用户企业</strong></td>
+<td>社群、车主共创、口碑传播</td>
+<td>C（长期公开）</td>
+</tr>
+<tr>
+<td><strong>造节</strong></td>
+<td>NIO Day 等自有 IP</td>
+<td>C</td>
+</tr>
+<tr>
+<td><strong>细节调性</strong></td>
+<td>「交车用真花不用塑料花」</td>
+<td>C</td>
+</tr>
+<tr>
+<td><strong>反爆款</strong></td>
+<td>秦力洪明确表述</td>
+<td>C</td>
+</tr>
+<tr>
+<td><strong>价值观合作</strong></td>
+<td>姚明案「先价值观、后条款」</td>
+<td>C</td>
+</tr>
+<tr>
+<td><strong>权益型体育</strong></td>
+<td>乐道×申花：座驾 + 球迷开放日</td>
+<td>C</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>共同点</strong>：他们的营销 <strong>几乎全是「可参与」的</strong>，不是「可观看」的。<br />
+<strong>推论</strong>：任何以「触达/曝光/覆盖」为核心度量的提案，在语言层面就与这家公司不同频。</p>
+<hr />
+<h3>2. 体育资产光谱（我方视角的可谈区间）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>区间</th>
+<th>形态</th>
+<th>NIO 匹配度</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A 区 · 参与型</strong></td>
+<td>青少年/家庭赛事日、社群场次、街头场</td>
+<td><strong>高</strong></td>
+<td>与申花模板同构</td>
+</tr>
+<tr>
+<td><strong>B 区 · 精神/内容型</strong></td>
+<td>传承叙事、人物内容、精神主题</td>
+<td><strong>高</strong></td>
+<td>与姚明模板同构</td>
+</tr>
+<tr>
+<td>C 区 · 权益型</td>
+<td>座驾、场地露出、俱乐部权益</td>
+<td>中</td>
+<td>已被申花验证，但单薄</td>
+</tr>
+<tr>
+<td>D 区 · 媒体型</td>
+<td>转播位、广告位、CPM 采买</td>
+<td><strong>低</strong></td>
+<td>撞反爆款红线</td>
+</tr>
+<tr>
+<td>E 区 · 冠名型</td>
+<td>赛事/联赛冠名</td>
+<td><strong>很低</strong></td>
+<td>撞 FE 记忆 + CFO 闸门</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>提案纪律</strong>：主体落 <strong>A + B</strong>，可少量带 C；<strong>D/E 不出现在任何一页材料里</strong>。</p>
+<hr />
+<h3>3. 三层内容工厂（可复用架构 · 建议）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>输出物</th>
+<th>服务品牌</th>
+<th>复用方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>母层</td>
+<td>精神/传承主题内容池</td>
+<td>蔚来</td>
+<td>提供叙事框架</td>
+</tr>
+<tr>
+<td>场景层</td>
+<td>家庭/青少年活动模板</td>
+<td>乐道</td>
+<td>提供可复制场次 SOP</td>
+</tr>
+<tr>
+<td>文化层</td>
+<td>街头/潮流内容与 UGC 机制</td>
+<td>萤火虫</td>
+<td>提供年轻触点</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>关键</strong>：三层 <strong>共用一个生产机制</strong>，但 <strong>各自独立署名与投放</strong>。这就是「一套 OS，三个接口」在执行层的含义，也是与「一套素材三处投」的根本区别。</p>
+<hr />
+<h3>4. 舆情与敏感（只写方向）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>敏感区</th>
+<th>方向</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>财务与亏损</td>
+<td>长期被媒体反复讨论</td>
+<td>只用 A 源数字，不评论</td>
+</tr>
+<tr>
+<td>交付节奏</td>
+<td>每月被逐个数字点评</td>
+<td>不做月度胜负判断</td>
+</tr>
+<tr>
+<td>乐道定位</td>
+<td>「能不能立住」是长期话题</td>
+<td>不站队、不预测</td>
+</tr>
+<tr>
+<td>出海收缩</td>
+<td>被解读为战略退却</td>
+<td>只说「分品牌分时间轴」</td>
+</tr>
+<tr>
+<td>换电模式争议</td>
+<td>长期争议</td>
+<td><strong>完全不碰</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>通用原则</strong>：舆情敏感区 = <strong>我们不带观点进去的区域</strong>。带观点进去，我们就变成了又一个评论者。</p>
+<hr />
+<h3>5. 会面「安全区 / 禁区」话术卡</h3>
+<p><strong>安全区（可直接口播）</strong></p>
+<ul>
+<li>「三种 Spirit 很难用一套素材同时服务。」</li>
+<li>「姚明这条是先价值观、后条款——我们想按同一套流程谈。」</li>
+<li>「申花那条走的是球迷开放日，不是广告位。我们想把同样的形态换到另一个项目上。」</li>
+<li>「默认小额、一城一试、不达标即停。」</li>
+<li>「今天只要一件事：方向认不认。」</li>
+</ul>
+<p><strong>禁区（一句都不能出）</strong></p>
+<ul>
+<li>「我们有多少粉丝 / 覆盖多少人」</li>
+<li>「你们 Q2 没达到指引」</li>
+<li>「竞品都在做，你们再不做就晚了」</li>
+<li>「乐道需要帮助」</li>
+<li>「我们可以给你们做排他」</li>
+<li>任何具体金额</li>
+</ul>
+<hr />
+<h3>6. 品牌建设 vs 促销：必须分清</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>桶</th>
+<th>度量</th>
+<th>本案落点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>品牌建设</td>
+<td>调性、一致性、长期资产</td>
+<td>蔚来层</td>
+</tr>
+<tr>
+<td><strong>人群工作</strong></td>
+<td>到店、家庭参与、试驾转化</td>
+<td><strong>乐道层（主战场）</strong></td>
+</tr>
+<tr>
+<td>新用户触达</td>
+<td>年轻用户接触与内容量</td>
+<td>萤火虫层</td>
+</tr>
+<tr>
+<td>促销</td>
+<td>折扣、限时</td>
+<td><strong>不在我们的供给里</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>把三层混为一桶报给 CFO，就会被要求给出「营销 ROI 公式」——那是一个我们赢不了的场子。<strong>分桶是防守动作。</strong></p>
+<hr />
+<h3>7. 结案标准（写进试验意向）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指标</td>
+<td>由客户定义，<strong>不超过 3 个</strong></td>
+</tr>
+<tr>
+<td>归因</td>
+<td>只承诺可归因的部分，不做大盘归因</td>
+</tr>
+<tr>
+<td>报告</td>
+<td>单城单层，含未达标说明</td>
+</tr>
+<tr>
+<td>停损</td>
+<td>明确的中止条款</td>
+</tr>
+<tr>
+<td>复用</td>
+<td>内容资产归属与二次使用规则写清</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>8. 舆情日历（会前两周扫）</h3>
+<ol>
+<li>最新一期月度交付（每月 1 日左右）</li>
+<li>是否有新车型发布/上市</li>
+<li>是否有新的体育/名人合作公告</li>
+<li>是否有财报或业绩会</li>
+<li>是否有出海政策相关新闻</li>
+</ol>
+<p>→ 任何一项有更新，<strong>ONE_PAGER 顶栏的时间锚必须改</strong>，否则会前材料立刻过期。</p>
+<hr />
+<h3>9. 本章来源</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>源</th>
+<th>级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秦力洪、李斌公开采访（多家媒体）</td>
+<td>C</td>
+</tr>
+<tr>
+<td>乐道×申花报道</td>
+<td>C</td>
+</tr>
+<tr>
+<td>ES9 / 姚明相关报道</td>
+<td>C（事件 A）</td>
+</tr>
+<tr>
+<td>NIO Day、用户社群公开信息</td>
+<td>C</td>
+</tr>
+<tr>
+<td>我方体育资产分类</td>
+<td>内部</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>10. 加厚 · 「可参与」的操作定义（否则这个词会被滥用）</h3>
+<p>「可参与」不是「观众可以看」。给一个可检查的定义：一个动作算可参与，必须至少满足其中三项。</p>
+<ul>
+<li>[ ] 用户 <strong>可以报名</strong>（有名额、有报名入口）</li>
+<li>[ ] 用户 <strong>到现场有事可做</strong>（不只是就座）</li>
+<li>[ ] 用户 <strong>能带走一样东西</strong>（内容、照片、纪念、技能）</li>
+<li>[ ] 用户 <strong>能被再联系</strong>（活动后有触点）</li>
+<li>[ ] 用户 <strong>能带家人 / 朋友</strong>（社交扩散）</li>
+</ul>
+<p><strong>为什么这个定义重要</strong>：NIO 的用户企业模型里，只有满足这些条件的动作才会进入他们的运营飞轮（<code>03</code> §13）。不满足的，即使便宜也没意义。</p>
+<p><strong>反例</strong>：赠票 + VIP 席 + 场边露出 = 满足 0 项 → 在这家公司是死方案。</p>
+<hr />
+<h3>11. 加厚 · 舆情情景预演（三种，各一句预置回应）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情景</th>
+<th>可能发生</th>
+<th>预置回应（对客户，非对媒体）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>活动期间公司有负面新闻</td>
+<td>交付 / 财务 / 产品类报道</td>
+<td>「我们的场次可以整体延期，条款里有这一项。」</td>
+</tr>
+<tr>
+<td>活动本身出现争议</td>
+<td>现场组织、内容尺度</td>
+<td>「复盘由你们主导发布，我们不单独对外表态。」</td>
+</tr>
+<tr>
+<td>合作被解读为「花钱买声量」</td>
+<td>媒体归因</td>
+<td>「对外口径只讲用户参与和场次，不讲量级。」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>共同点</strong>：三条都是 <strong>把话语权交给客户</strong>。在一家极重调性的公司里，外部伙伴抢麦克风是大忌。</p>
+<hr />
+<h3>12. 加厚 · 内容资产的归属与二次使用（提前想清楚）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>建议原则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>现场拍摄素材</td>
+<td>客户可无限次用于自有渠道</td>
+</tr>
+<tr>
+<td>我方 IP 元素</td>
+<td>使用范围与期限需约定（<strong>条款层，第一次会面不谈</strong>）</td>
+</tr>
+<tr>
+<td>UGC</td>
+<td>归用户；客户与我方均需授权后使用</td>
+</tr>
+<tr>
+<td>复盘报告</td>
+<td>双方各持一份；客户决定是否对外</td>
+</tr>
+<tr>
+<td>二次剪辑</td>
+<td>需双方确认，避免与三层素材纪律冲突</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么写在研报里</strong>：因为这是 <strong>第二次会面一定会被问到</strong> 的问题。研报里有，才不至于当场即兴承诺。</p>
+<hr />
+<h3>13. 加厚 · 营销侧的「不做承诺」清单</h3>
+<p>我方在任何材料与口播中 <strong>不承诺</strong>：</p>
+<ol>
+<li>销量 / 订单 / 上险量的提升</li>
+<li>品牌指标（知名度、好感度）的具体提升幅度</li>
+<li>媒体报道量级或声量</li>
+<li>特定名人的出席（除已签约明确的）</li>
+<li>排他</li>
+<li>跨年度的价格锁定</li>
+</ol>
+<p><strong>能承诺的只有三样</strong>：场次按约执行、内容按约产出、复盘按约交付。<br />
+<strong>这三样都是过程承诺，不是结果承诺</strong> —— 在一家 GAAP 仍亏的公司面前，过程承诺 + 停损条款，比任何结果承诺都可信。</p>
+<hr />
+<h3>14. 加厚 · 会前两周的营销侧扫描清单（可打印）</h3>
+<ul>
+<li>[ ] 最新交付月报（每月 1 日左右）→ 刷新 ONE_PAGER 三行数字</li>
+<li>[ ] 是否有新车上市 / 发布会</li>
+<li>[ ] 是否有新体育 / 名人合作公告 → <strong>可能推翻 T1</strong></li>
+<li>[ ] 是否有财报或业绩会 → 刷新损益章</li>
+<li>[ ] 是否有负面舆情 → 调整开场语气（<strong>不提，但要知道</strong>）</li>
+<li>[ ] 我方是否有与汽车品类相关的新签约 → 影响排他表述</li>
+</ul>
+<p><strong>任一项有更新，<code>source_timeliness.md</code> 必须同步刷新</strong>，否则会前包过期而销售不知道。</p>
+<hr />
+<h3>15. 加厚 · 营销范式的三次转折与我方位置</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>期</th>
+<th>营销主旋律</th>
+<th>外部资源的角色</th>
+<th>我方若当时提案会怎样</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2014–18</td>
+<td>高端定义期：技术 + 赛车叙事</td>
+<td>技术背书</td>
+<td>可能被接受（FE 时代逻辑）</td>
+</tr>
+<tr>
+<td>2019–22</td>
+<td>生存与社群期：口碑与用户</td>
+<td><strong>几乎无位置</strong></td>
+<td>会被直接拒（现金优先）</td>
+</tr>
+<tr>
+<td>2023–25</td>
+<td>多品牌铺开期：产品与渠道</td>
+<td>排不上队</td>
+<td>被无限期搁置（对应体育安静期）</td>
+</tr>
+<tr>
+<td><strong>2026–</strong></td>
+<td><strong>澄清与体系化期</strong></td>
+<td><strong>一致性与架构</strong></td>
+<td><strong>✅ 现在是唯一有位置的窗口</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这张表解释了 timing</strong>：不是我方现在更会讲，而是 <strong>这家公司现在才第一次需要「跨品牌一致性」这种东西</strong>。窗口是他们自己打开的。</p>
+<p><strong>同时也解释了风险</strong>：窗口是叙事层打开的，<strong>预算层是否同步打开完全未知</strong>（F-6）。所以第一次会面只能要方向。</p>
+<hr />
+<h3>16. 加厚 · 品牌一致性的「可核销」翻译</h3>
+<p>品牌线要听「一致性」，财务线要听「可核销」。同一件事翻译成两套语言：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>动作</th>
+<th>品牌线的说法</th>
+<th>财务线的说法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>三层素材独立</td>
+<td>「每个品牌保住自己的脸」</td>
+<td>「三份独立复盘，可分别评估」</td>
+</tr>
+<tr>
+<td>架构复用</td>
+<td>「一套语言可上传」</td>
+<td>「一次投入，三条线可分摊」</td>
+</tr>
+<tr>
+<td>一城一试</td>
+<td>「小范围先验语气」</td>
+<td>「单城预算，风险可控」</td>
+</tr>
+<tr>
+<td>不达标即停</td>
+<td>「不勉强做不像自己的事」</td>
+<td>「明确停损点」</td>
+</tr>
+<tr>
+<td>指标客户定</td>
+<td>「以你们的标准为准」</td>
+<td>「验收口径无争议」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>ONE_PAGER 的左右两列就是这张表的物理实现</strong>：左列给品牌线，右列给财务线，同一页不打架。</p>
+<hr />
+<h3>17. 加厚 · 舆情语言的双轨训练（内部）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场合</th>
+<th>语气</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对客户内部</td>
+<td>直白、承认不知道</td>
+<td>「体育有没有预算，我不知道，这是我今天想问的。」</td>
+</tr>
+<tr>
+<td>对外 / 公开</td>
+<td>只讲已发生的事实</td>
+<td>「我们与客户就用户参与型场次进行了探讨。」</td>
+</tr>
+<tr>
+<td>我方内部复盘</td>
+<td>最狠</td>
+<td>「F-6 未解；对方未给额度；本轮不报价。」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>规则</strong>：三种语气 <strong>不可互串</strong>。把内部复盘的狠话说给客户，是攻击；把对外的软话写进内部复盘，是自欺。</p>
+<hr />
+<h3>18. 加厚 · 一句话收束</h3>
+<blockquote>
+<p>这家公司的营销史可以总结成一句：<strong>它只为「用户能参与的事」和「长期的事」花过钱。</strong><br />
+所以本案的全部工作，就是把篮球资源包装成 <strong>可参与的、能长期复用的、并且随时能停的</strong> 三层结构。<br />
+除此之外的任何形态，历史已经替我们证伪过了。</p>
+</blockquote>
+</section>
+<section id="ch12">
+<h2 class="file-title">12 · 行业大盘与口径纪律（v1.6）</h2>
+<blockquote>
+<p><strong>本章的诚实声明（放在最前面）</strong>：<br />
+本轮 <strong>未取到可信一手口径</strong> 的中国新能源市场规模、渗透率、家庭 SUV 细分盘、体育营销市场规模。<br />
+因此本章 <strong>不给这些数字</strong>，改为提供：<strong>① 可用的公司自身锚（A）② 口径纪律 ③【待核实】清单 ④ 会面替代打法</strong>。<br />
+<strong>这不是偷懒，是纪律</strong>：会面里报一个来源不明的大盘数，被追问一次就全线失信。</p>
+</blockquote>
+<hr />
+<h3>0. 口径纪律五条</h3>
+<ol>
+<li><strong>不同来源的口径不得加总</strong>（乘用车 vs 新能源 vs 纯电，各家统计范围不同）。</li>
+<li><strong>公司 A 源优先</strong>：能用 NIO 自己的公告数字说明的，绝不引外部估算。</li>
+<li><strong>竞品月度交付是 C 级</strong>，与 A 级并列时必须标注（见 <code>04</code>）。</li>
+<li><strong>自算值必须写「自算」</strong>，并给出被除数与除数。</li>
+<li><strong>预测一律宁空</strong>：不做全年推算、不做 CAGR、不做份额预测。</li>
+</ol>
+<hr />
+<h3>1. 可用的公司自身锚（α · 全部 A 源）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>锚</th>
+<th>值</th>
+<th>时间锚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>累计交付</td>
+<td><strong>1,188,715</strong></td>
+<td>至 2026-06-30</td>
+</tr>
+<tr>
+<td>2026 Q2 交付</td>
+<td><strong>107,658</strong></td>
+<td>2026 Q2</td>
+</tr>
+<tr>
+<td>2025 Q2 交付</td>
+<td><strong>72,056</strong></td>
+<td>2025 Q2</td>
+</tr>
+<tr>
+<td>Q2 同比（自算）</td>
+<td><strong>+49.4%</strong></td>
+<td>107,658 ÷ 72,056</td>
+</tr>
+<tr>
+<td>2026 H1 交付（自算）</td>
+<td><strong>191,123</strong></td>
+<td>150,526 + 40,597</td>
+</tr>
+<tr>
+<td>2026-06 三品牌</td>
+<td>21,908 / 11,743 / 6,946</td>
+<td>2026-06</td>
+</tr>
+<tr>
+<td>2025 Q2 三品牌</td>
+<td>47,132 / 17,081 / 7,843</td>
+<td>2025 Q2</td>
+</tr>
+<tr>
+<td>Q1 2026 收入</td>
+<td>255.327 亿</td>
+<td>2026 Q1</td>
+</tr>
+<tr>
+<td>Q2 2025 收入</td>
+<td>190.087 亿</td>
+<td>2025 Q2</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>这九行足够支撑整场会面。</strong> 没有任何一行需要外部大盘数据。</p>
+<hr />
+<h3>2. 品牌结构变化（α 内部对照 · 自算）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>品牌</th>
+<th>2025 Q2</th>
+<th>2026-06 单月</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>蔚来 NIO</td>
+<td>47,132（季）</td>
+<td>21,908（月）</td>
+<td><strong>季 vs 月不可直接比</strong>，仅供结构参考</td>
+</tr>
+<tr>
+<td>乐道 ONVO</td>
+<td>17,081（季）</td>
+<td>11,743（月）</td>
+<td>单月已接近去年同期季度量的七成（自算 ≈68.7%）</td>
+</tr>
+<tr>
+<td>萤火虫 FIREFLY</td>
+<td>7,843（季）</td>
+<td>6,946（月）</td>
+<td>单月已接近去年同期季度量的近九成（自算 ≈88.6%）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>口径警告</strong>：上表把 <strong>季度</strong> 与 <strong>单月</strong> 并列，只用于说明「三品牌的量级都在变」，<strong>不得写成增长率</strong>，也不得进刀子。<br />
+<strong>唯一可进刀子的对照</strong>：Q2 对 Q2（107,658 vs 72,056）与 5月对 6月（同口径月度）。</p>
+<hr />
+<h3>3. 行业侧【待核实】清单</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>为什么本轮不写</th>
+<th>补法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>2026 中国新能源乘用车总量</td>
+<td>各口径互斥（批发/零售/含出口）</td>
+<td>取乘联会或中汽协单一口径 + 注明</td>
+</tr>
+<tr>
+<td>2</td>
+<td>纯电渗透率</td>
+<td>同上</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>3</td>
+<td>家庭 SUV 细分盘</td>
+<td>无公认定义</td>
+<td>需自定义口径并公开说明</td>
+</tr>
+<tr>
+<td>4</td>
+<td>中国体育营销市场规模</td>
+<td>各咨询口径差异极大</td>
+<td>单一来源 + 明示定义</td>
+</tr>
+<tr>
+<td>5</td>
+<td>青少年篮球参与人口</td>
+<td>需一手统计</td>
+<td>官方口径</td>
+</tr>
+<tr>
+<td>6</td>
+<td>汽车行业体育赞助支出</td>
+<td>无公开可信汇总</td>
+<td>可能永远拿不到 → 别用</td>
+</tr>
+<tr>
+<td>7</td>
+<td>乐道门店精确数</td>
+<td>C 级转述</td>
+<td>官网/公告</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>4. 「没有大盘数」怎么开会（替代打法）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>传统打法（依赖大盘）</th>
+<th>本案替代打法（依赖客户自身数据）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「市场有多大，你们该投多少」</td>
+<td>「你们三条线上个月分别是 21,908 / 11,743 / 6,946，方向不一样」</td>
+</tr>
+<tr>
+<td>「渗透率还有空间」</td>
+<td>「乐道 5月 12,029 到 6月 11,743，峰值没变台阶」</td>
+</tr>
+<tr>
+<td>「行业都在投体育」</td>
+<td>「你们已经投过两种形态：姚明和申花」</td>
+</tr>
+<tr>
+<td>「我们能覆盖 X 亿人」</td>
+<td>「我们能补的只有三样：架构、青年触点、外部公信力」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>结论</strong>：本案的说服力 <strong>完全来自客户自己的公告数字</strong>。这反而是更强的位置——<strong>没有一个数字是他们可以质疑来源的。</strong></p>
+<hr />
+<h3>5. 行业 β 与公司 α 的关系（定性 · 不给数字）</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>判断</th>
+<th>依据</th>
+<th>会面用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行业已从增量竞争进入品牌辨识度竞争</td>
+<td>李斌「澄清期」表述（C）</td>
+<td>可说，标明是对方框架</td>
+</tr>
+<tr>
+<td>新车效应的持续期在缩短</td>
+<td>乐道 5→6 月环比（A 自算）</td>
+<td>可说，用客户自己数据</td>
+</tr>
+<tr>
+<td>价格战不是 NIO 的选项</td>
+<td>「宁愿合理的量」（C）+ 毛利指引（B）</td>
+<td>可说</td>
+</tr>
+<tr>
+<td>体育资源的价格在上行</td>
+<td>行业判断，无可引统计</td>
+<td><strong>不说</strong>（会变成催单）</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>6. 数字口播安全版（30 秒 · 会面可原样用）</h3>
+<blockquote>
+<p>「我只用你们自己公布的数字：<br />
+二季度 <strong>107,658</strong> 台，同比大约 <strong>五成</strong> 增长；<br />
+六月三条线分别是 <strong>21,908 / 11,743 / 6,946</strong>；<br />
+乐道从五月的 <strong>12,029</strong> 回到 <strong>11,743</strong>。<br />
+我关心的不是快慢，是 <strong>三条线在往不同方向走</strong> —— 这时候一套体育叙事该怎么分。」</p>
+</blockquote>
+<p><strong>注意</strong>：整段没有一个外部数据，没有一个预测，没有一个百分比是我们编的（+49.4% 为自算，可当场演算）。</p>
+<hr />
+<h3>7. 与刀子的防火墙</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>本章内容</th>
+<th>是否进刀子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>§1 公司自身锚</td>
+<td>✅ 部分（Q2、6月三品牌、乐道环比）</td>
+</tr>
+<tr>
+<td>§2 季月混列表</td>
+<td>❌ 绝不</td>
+</tr>
+<tr>
+<td>§3 待核实清单</td>
+<td>❌ 只进研报与 PRIMARY</td>
+</tr>
+<tr>
+<td>§5 定性判断</td>
+<td>⚠️ 只用前两条</td>
+</tr>
+<tr>
+<td>§6 安全版口播</td>
+<td>✅ 就是刀子的数据段</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>8. 一句话收束</h3>
+<blockquote>
+<p>当大盘数不可靠时，<strong>最锋利的数字永远是客户自己上个月公布的那三个</strong>。<br />
+本案不缺数据，缺的是别人不敢只用客户自己数据开会的勇气。</p>
+</blockquote>
+<hr />
+<h3>9. 加厚 · 为什么「补一个大盘数」反而更危险</h3>
+<p>诱惑很大：随便引一个咨询报告的市场规模，材料看起来就完整了。本案拒绝，理由有四条：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>理由</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一问就崩</strong></td>
+<td>对方问「这个数含不含出口 / 含不含商用车」，答不出 → 全篇失信</td>
+</tr>
+<tr>
+<td><strong>口径互斥</strong></td>
+<td>批发 / 零售 / 上险 / 含出口，四种口径可以差出很多，加总即错</td>
+</tr>
+<tr>
+<td><strong>与决策无关</strong></td>
+<td>市场多大，不改变「体育预算有没有 owner」</td>
+</tr>
+<tr>
+<td><strong>会变成催单</strong></td>
+<td>「市场这么大你们该投」= 跟风逻辑，撞秦力洪反爆款红线</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>关键洞察</strong>：在本案里，大盘数 <strong>不是缺失的论据，而是被主动排除的论据</strong>。这个区别必须在材料里写清楚，否则会被误读为研究不完整。</p>
+<hr />
+<h3>10. 加厚 · 「只用客户自己数字」的三个附带好处</h3>
+<ol>
+<li><strong>来源不可争议</strong>：所有数字都是对方自己发的公告，质疑来源等于质疑自己。</li>
+<li><strong>可当场演算</strong>：+49.4%、−2.4%、+22.7% 都是一次除法，手机就能验。</li>
+<li><strong>姿态正确</strong>：用对方的数字讲对方的结构，比用行业数字教育对方要谦逊得多。</li>
+</ol>
+<p><strong>副作用</strong>：材料会显得「数字很少」。这需要在 ONE_PAGER 与本章里 <strong>主动解释</strong> —— 少不是懒，是纪律。</p>
+<hr />
+<h3>11. 加厚 · 如果客户主动要行业数据怎么办</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>答法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>「市场有多大？」</td>
+<td>「口径太多，我不想给你一个我自己不敢背的数。你们内部用哪个口径，我按你们的口径来。」</td>
+</tr>
+<tr>
+<td>「体育营销行业多大？」</td>
+<td>「各家统计差异很大，我只能给判断，不能给统计。」</td>
+</tr>
+<tr>
+<td>「同行都花多少？」</td>
+<td>「没有可信汇总，我不评论别家预算。」</td>
+</tr>
+<tr>
+<td>「那你们凭什么说该做？」</td>
+<td>「不凭行业大小。凭你们六月三条线在往三个方向走。」</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>最后一条是本章的最终武器</strong>：把论证的地基从「行业」搬到「客户自身结构」上。地基一换，所有关于大盘数的追问就失效了。</p>
+<hr />
+<h3>12. 加厚 · 何时才该补大盘数</h3>
+<p>不是永远不补。三种情况下必须补：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>情况</th>
+<th>需要什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>进入 <strong>报价阶段</strong></td>
+<td>需要行业价格带作参照（单一来源 + 明示口径）</td>
+</tr>
+<tr>
+<td>客户 <strong>内部立项</strong> 需要外部数据</td>
+<td>按客户指定口径补，署名来源</td>
+</tr>
+<tr>
+<td>做 <strong>多年框架</strong></td>
+<td>需要品类趋势（本轮不涉及）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>当前阶段（第一次会面前）三种都不适用</strong> → 本轮不补是正确的，不是遗漏。</p>
+<hr />
+<h3>13. 加厚 · 口径纪律的通用检查表（可复用到其他案子）</h3>
+<ul>
+<li>[ ] 每个数字有 <strong>来源 + 时间锚 + 级别</strong></li>
+<li>[ ] 每个派生数字标 <strong>自算</strong> 并给出算式</li>
+<li>[ ] 不同口径的数字 <strong>不出现在同一个加总里</strong></li>
+<li>[ ] 季度数与月度数 <strong>不放在同一个增长率里</strong></li>
+<li>[ ] 公司口径与行业口径 <strong>不混句</strong></li>
+<li>[ ] 未披露的一律写 <strong>「未披露」</strong>，不写「约」「预计」</li>
+<li>[ ] 媒体转载标 <strong>C</strong> 且不进刀</li>
+<li>[ ] 预测一律 <strong>宁空</strong></li>
+</ul>
+<p><strong>这张表就是本案 <code>research/</code> 的全局质检标准</strong>。任何一章新增内容后，都应回来对一遍。</p>
+<hr />
+<h3>14. 加厚 · 「厚度」应该怎么定义</h3>
+<p>本案对标 nestle / xiangpiaopiao 的冰山厚度。但厚度不该只按字数算。给一个四维定义：</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>本案自评</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>可回验密度</strong></td>
+<td>高</td>
+<td>所有关键数字有来源 + 时间锚 + 级别；派生数字有算式</td>
+</tr>
+<tr>
+<td><strong>反证密度</strong></td>
+<td>高</td>
+<td><code>../ifalsify_report.md</code> 10 条反证，支持:反证 ≈ 0.4:1</td>
+</tr>
+<tr>
+<td><strong>缺口显式度</strong></td>
+<td>高</td>
+<td>七类【待核实】+ MEDDIC 四空两半 + 「不需要 vs 待核实」区分</td>
+</tr>
+<tr>
+<td><strong>不说清单占比</strong></td>
+<td>高</td>
+<td><code>09</code> 分四层，且随全文镜像对客户公开</td>
+</tr>
+<tr>
+<td>字数量级</td>
+<td>见 <code>README.md</code></td>
+<td>与 nestle 同量级</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>为什么把字数放最后</strong>：一份两万字的资料堆积，承重能力可能低于一份一万字但每条都能回验的研报。<strong>厚度是承重，不是体积。</strong></p>
+<hr />
+<h3>15. 加厚 · 本案与 nestle 案在「大盘」处理上的差别</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>nestle 案</th>
+<th>本案（nio）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大盘数据可得性</td>
+<td>有可引的第三方口径</td>
+<td><strong>本轮未取到可信一手</strong></td>
+</tr>
+<tr>
+<td>处理方式</td>
+<td>多口径并陈、禁止加总</td>
+<td><strong>主动排除 + 替代打法</strong></td>
+</tr>
+<tr>
+<td>说服地基</td>
+<td>行业 β × 公司 α 对照</td>
+<td><strong>纯公司 α</strong>（客户自己公布的数字）</td>
+</tr>
+<tr>
+<td>风险</td>
+<td>口径被追问</td>
+<td>材料显得「数字少」</td>
+</tr>
+<tr>
+<td>缓解</td>
+<td>明示口径与来源</td>
+<td>本章 §9–§11 主动解释为什么少</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>方法论结论</strong>：当大盘不可得时，正确做法不是降低标准去引不可靠的数，而是 <strong>换一个更硬的地基</strong>。本案证明这个地基是够用的——因为客户自己的三个月交付曲线，已经足以支撑一条完整的张力。</p>
+<hr />
+<h3>16. 加厚 · 会面中关于「数字少」的自我说明（可照念）</h3>
+<blockquote>
+<p>「你们会发现我今天带的数字很少。<br />
+那是因为大盘口径太多，我不想给你一个我自己不敢背的数。<br />
+我只用你们自己公告里的：Q2 107,658、六月 21,908 / 11,743 / 6,946。<br />
+这些你们随时能核，我也随时能算给你听。」</p>
+</blockquote>
+<p><strong>效果</strong>：把「数据少」从弱点变成 <strong>纪律的证明</strong>。这段话在 CFO 频道尤其有效。</p>
+<hr />
+<h3>17. 加厚 · 最终收束</h3>
+<blockquote>
+<p>本章的存在，是为了让整份研报在 <strong>最诱人的地方</strong>（编一个漂亮的市场规模）<strong>没有编</strong>。<br />
+一份研报的可信度，取决于它最薄弱的那一句话。本案选择让最薄弱的地方是「我们不知道」，而不是「据估算」。</p>
+</blockquote>
+</section>
+
+<section id="idx">
+<h2 class="file-title">蔚来 NIO · 冰山研究索引 v1.6</h2>
+<blockquote>
+<p><strong>版本</strong>：v1.6 · <strong>2026-08-09</strong> · 由 <code>nio/account-v3</code> + <code>cases/nio</code> 冷启动 stub <strong>升维合并</strong><br />
+<strong>对标</strong>：<code>cases/nestle</code> v1.3（CJK ≈34.8k）/ <code>cases/xiangpiaopiao</code><br />
+<strong>时间锚</strong>：Q1 2026 业绩（2026-05-21）· 2026-05 交付（2026-06-01）· <strong>2026-06 / Q2 2026 交付（2026-07-01）</strong> · Q2 2025 对照<br />
+<strong>我方默认</strong>：NBA China<br />
+<strong>证伪</strong>：<code>../ifalsify_report.md</code> → <strong>CONDITIONAL</strong>（10 条反证）<br />
+<strong>HTML 全文镜像</strong>：<code>../html/research/iceberg.html</code></p>
+</blockquote>
+<hr />
+<h3>一 · 文件清单与 CJK</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+<th>CJK</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01_IR_financial.md</code></td>
+<td>交付序列（月/季/累计）· 指引 vs 实绩 · 损益（只到 Q1）· 自算制度 · 四种读法</td>
+<td><strong>2,773</strong></td>
+</tr>
+<tr>
+<td><code>02_executive_quotes.md</code></td>
+<td>原话库 12 条 · 四条判据 · 三条线语言差异 · 引用失败模式</td>
+<td><strong>3,256</strong></td>
+</tr>
+<tr>
+<td><code>03_partnership_history.md</code></td>
+<td>FE / FSAE / 蔚来杯 / 申花 / 姚明 · <strong>2020–25 安静期</strong> · 姚明与申花模板拆解</td>
+<td><strong>3,696</strong></td>
+</tr>
+<tr>
+<td><code>04_competitor_landscape.md</code></td>
+<td>理想 / 小鹏 / 华为 · <strong>真正对手是「自建」</strong> · Steelman</td>
+<td><strong>2,699</strong></td>
+</tr>
+<tr>
+<td><code>05_industry_context.md</code></td>
+<td>澄清期四阶段 · <strong>新车效应规律</strong> · 政策为何少写</td>
+<td><strong>2,648</strong></td>
+</tr>
+<tr>
+<td><code>06_power_meddic.md</code></td>
+<td>权力图（全标推断）· MEDDIC <strong>四空两半</strong> + 处置手册 · 三种到场人剧本</td>
+<td><strong>2,885</strong></td>
+</tr>
+<tr>
+<td><code>07_org_founder_lifecycle.md</code></td>
+<td>生命周期 · 组织记忆决定采购标准 · 大事记 · 可对话/禁主题</td>
+<td><strong>2,733</strong></td>
+</tr>
+<tr>
+<td><code>08_horizontal_vertical_full.md</code></td>
+<td>横纵交汇 · <strong>variant 强度评级</strong> · 三次路径依赖 · 研报→刀子收束路径</td>
+<td><strong>2,676</strong></td>
+</tr>
+<tr>
+<td><code>09_not_for_pitch.md</code></td>
+<td>不说清单（四层级）· <strong>「换句话说」对照表</strong> · 三个失手瞬间</td>
+<td><strong>1,694</strong></td>
+</tr>
+<tr>
+<td><code>10_product_audience_matrix.md</code></td>
+<td>三品牌 × 人群 × 体育接口 · 最小可行单元 · 人群语言对照卡</td>
+<td><strong>2,402</strong></td>
+</tr>
+<tr>
+<td><code>11_marketing_sports_pr.md</code></td>
+<td>营销范式 · 体育资产光谱 · <strong>「可参与」操作定义</strong> · 不承诺清单</td>
+<td><strong>2,679</strong></td>
+</tr>
+<tr>
+<td><code>12_industry_sizing.md</code></td>
+<td><strong>口径纪律 + 大盘主动排除 + 替代打法</strong>（本轮无可信一手大盘）</td>
+<td><strong>2,550</strong></td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td>本索引</td>
+<td>（计入合计）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>research/ 合计 CJK ≈ 33,400</strong>（对标 nestle ≈34,845 · <strong>约 96%</strong>；硬门槛 ≥15,000 ✅）</p>
+<hr />
+<h3>二 · 本案的四条方法论特色</h3>
+<ol>
+<li><strong>「自算」标注制度</strong>：所有派生数字（+49.4% / −2.4% / +22.7% / −2,342 台）标 <strong>自算</strong> 并给出算式，会面可当场演算。</li>
+<li><strong>交付与损益分句</strong>：交付有 2026-06 的 A 源，损益只到 Q1 2026 —— <strong>Q2 财报未披露，宁空不编</strong>。</li>
+<li><strong>大盘主动排除</strong>：本轮未取到可信一手大盘 → <code>12</code> 不编数字，改用「只用客户自己公布的数字」的替代打法。</li>
+<li><strong>不说清单对客户公开</strong>：<code>09</code> 随全文镜像可见，证明「不说 ≠ 不知道」，且主动放弃施压工具。</li>
+</ol>
+<hr />
+<h3>三 · 会前双材料 + 销售件</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>材料</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>一页关键信息</td>
+<td><code>../ONE_PAGER.md</code> · <code>../html/ONE_PAGER.html</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>冰山完整研报</td>
+<td><code>research/*</code> · <code>../html/research/iceberg.html</code></td>
+</tr>
+<tr>
+<td>销售</td>
+<td>三问 + 72h checklist</td>
+<td><code>../PRIMARY_REQUIRED.md</code></td>
+</tr>
+<tr>
+<td>证伪</td>
+<td>ifalsify</td>
+<td><code>../ifalsify_report.md</code> → <strong>CONDITIONAL</strong></td>
+</tr>
+<tr>
+<td>审计</td>
+<td>vs Max / 香飘飘 / 雀巢</td>
+<td><code>../MAX_GAP_AUDIT.md</code></td>
+</tr>
+<tr>
+<td>门禁</td>
+<td>sales_gate</td>
+<td><code>../sales_gate.md</code></td>
+</tr>
+<tr>
+<td>溯源</td>
+<td>数据与时效</td>
+<td><code>../data_traceability.md</code> · <code>../source_timeliness.md</code></td>
+</tr>
+<tr>
+<td>刀子</td>
+<td>10 分钟骨架（<strong>印 CONDITIONAL</strong>）</td>
+<td><code>../B_knife.md</code> · <code>../html/B_knife.html</code></td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>四 · 门禁</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>冰山 ≥8,000</td>
+<td>✅ ≈33,400</td>
+</tr>
+<tr>
+<td>对标 nestle 量级</td>
+<td>✅ 约 96%</td>
+</tr>
+<tr>
+<td>行业大盘章（12）</td>
+<td>✅ <strong>以口径纪律 + 替代打法形式覆盖</strong></td>
+</tr>
+<tr>
+<td>ifalsify + 销售三问</td>
+<td>✅ CONDITIONAL · 10 条反证</td>
+</tr>
+<tr>
+<td>ONE_PAGER 双材料</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>sales_gate</td>
+<td>✅ <code>../sales_gate.md</code></td>
+</tr>
+<tr>
+<td>B_knife 印 CONDITIONAL</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h3>五 · 纪律（不可回退）</h3>
+<ul>
+<li><strong>零编造</strong>：无来源的一律【待核实】；预测一律 <strong>宁空不编</strong></li>
+<li><strong>交付 ≠ 损益</strong>：两者不得在同一句里混说</li>
+<li><strong>禁止三句</strong>：「未达指引」/「现金 482 亿所以有钱」/「交付新高 = 全面复苏」</li>
+<li><strong>派生数字必标自算 + 算式</strong></li>
+<li><strong>4 月乐道 5,352 为 C 级</strong> → 不进刀、不做品牌级 Q2 加总</li>
+<li><strong>敏感事项只进 <code>09</code></strong>，不进 ONE_PAGER 与刀子</li>
+</ul>
+<hr />
+<h3>六 · 一句话</h3>
+<blockquote>
+<p>交付斜率是真的，乐道破万的峰值却没有变成台阶；姚明落在一个车型上，申花落在另一个品牌上，第三条线还是空的。<br />
+他们缺的不是下一张代言合同，而是 <strong>一套能分三层用、能被核销、能随时叫停的操作系统</strong>。</p>
+</blockquote>
+</section>
+
+<footer>
+cases/nio · v1.6 橱窗案例（由 nio/account-v3 + 冷启动 stub 升维）· research CJK ≈33,429（对标 cases/nestle ≈34,845）<br/>
+纪律：零编造 · 预测宁空不编 · 交付与损益分句 · 派生数字标「自算」并给算式 · 混源不加总 · 敏感项只进 09<br/>
+过期规则：新一期交付月报 / Q2 财报披露 / 新体育合作公告 / 条线变动 → 整包重跑（见 <code>../../source_timeliness.md</code>）
+</footer>
+</div>
+</body>
+</html>

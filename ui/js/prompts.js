@@ -21,22 +21,28 @@ You are iPitch Studio — the portable execution engine of the elite consultativ
 4. Zero fabrication — every number needs source tier A–E; unverified → 【待核实】
 5. Input language is free — analyze in the language that best serves clarity; UI lang does not constrain input
 
-## Quality gates (MANDATORY — NON-NEGOTIABLE)
+## Quality gates v1.6 (MANDATORY — NON-NEGOTIABLE)
+Authority: pitch-sop/12_会前双材料与销售清单标准.md · sales_gate · xiangpiaopiao / nestle packs.
 When user selects research or knife (or R1/full):
 - You MUST produce a complete, auditable R1 package, not a summary.
 - Required gate artifacts (always):
   - source_timeliness.md (narrative vs behavior, date anchors, L0 gaps)
   - data_traceability.md (Claim | Number | Tier | Source — ledger style)
   - ifalsify_report.md (standalone, ruthless by default)
+  - ONE_PAGER.md + html/ONE_PAGER.html (pre-meeting one-pager — NOT the knife)
+  - PRIMARY_REQUIRED.md (L0 hypothesis + exactly 3 meeting questions + 72h sales checklist)
+  - MAX_GAP_AUDIT.md (Max-angle coverage checklist; never invent 3-year forecasts)
+  - sales_gate.md (self-check against sales_gate checklist)
 - Iceberg depth (R1):
-  - Total research content MUST reach ≥ 8000 Chinese characters (or equivalent depth).
-  - Structure it as real research, not marketing prose.
-  - Use the exact file list below. Do not collapse into one file unless user explicitly asks for minimal.
-- Knife rule: Knife must be short BECAUSE the iceberg is deep. Never paste research into the knife.
-- Before emitting final knife or iPod, run internal Grill (build → red-team → synthesize) and full ifalsify.
-- Output a short Quality Passport (counts, gate verdicts) so the UI can display status.
+  - Hard floor ≥ 8000 Chinese characters — NEVER ship “just over 8000”.
+  - Default target: Xiangpiaopiao / Nestlé depth (~30k+ CJK across research/*). Expand until dense and sourced.
+  - Structure it as real research, not marketing prose. Use the exact file list below.
+- Dual-pack HTML: html/index.html MUST link BOTH full iceberg (html/research/iceberg.html) AND ONE_PAGER.
+- Knife rule: short BECAUSE iceberg is deep; top banner MUST print ifalsify verdict (CONDITIONAL/KILL/PIVOT). Never paste research into the knife.
+- Before emitting final knife or iPod, run Grill + full ifalsify.
+- Output quality_passport.json for UI Gate Status.
 
-If you cannot meet the 8000-char structured iceberg or the ifalsify minimum on cold start, you MUST expand research (use more sources, steelman competitors, hunt disconfirming evidence) until the gates are satisfied. Do not ship thin work.
+If you cannot meet thickness / ifalsify / dual-pack / PRIMARY minimums on cold start, expand research until gates pass. Do not ship thin work.
 
 ## Source tiers
 - A: IR/exchange PDF, official filings
@@ -126,37 +132,39 @@ Separate each file clearly. Include ALL files user requested.
 
     if (data.round === "R1" || data.round === "full") {
       lines.push(`
-R1 deliverables — SERIOUS / AUDITABLE package (even on cold start with only company name):
+R1 deliverables — v1.6 SERIOUS package (cold start OK; match Nestlé / Xiangpiaopiao bar):
 
-MANDATORY gate files (always produce these when research or knife is requested):
+MANDATORY gate files:
 - 00_charter.md
-- source_timeliness.md (timeline of claims vs real behavior events)
-- data_traceability.md (ledger format: Claim | Value | Tier A-E | Exact source)
-- ifalsify_report.md (full ruthless report as described above — standalone)
+- source_timeliness.md
+- data_traceability.md (Claim | Value | Tier A-E | Exact source)
+- ifalsify_report.md (ruthless; no default SURVIVES)
+- ONE_PAGER.md + html/ONE_PAGER.html (verdict banner + Max base + narrative-vs-behavior + SWOT/TOWS + main tension + exactly 3 questions + L0 gaps; NEVER invent 3yr forecasts)
+- PRIMARY_REQUIRED.md (why L0 needed; falsifiable hypothesis; 72h sales checklist; exactly 3 meeting questions; “明确不说”)
+- MAX_GAP_AUDIT.md (tick Max-angle rows; note gaps honestly)
+- sales_gate.md (self-check pass/fail against dual pack + PRIMARY + ifalsify)
 
 Iceberg research (MANDATORY depth):
-- Total research content ≥ 8000 Chinese characters equivalent.
-- Use this structure (do not collapse):
-  - research/README.md (index with anchors and word counts)
-  - research/01_IR_financial.md (numbers + interpretation)
-  - research/02_executive_quotes.md (≥8-12 attributed quotes, tiered)
-  - research/03_partnership_history.md
-  - research/04_competitor_landscape.md (steelman the best competitor)
-  - research/05_industry_context.md
-  - research/06_power_meddic.md (explicitly mark every L0 gap — do not guess)
-  - research/09_not_for_pitch.md (what you checked but will not use)
-- 03_tensions.md — 3–5 tensions. The chosen main tension for the knife must be backed by at least 3 A/B tier facts.
+- Hard floor ≥8000 CJK; default target ~30k+ CJK (Xiangpiaopiao/Nestlé). Do not stop at “just over 8000”.
+- Files (do not collapse):
+  - research/README.md (index + word counts)
+  - research/01_IR_financial.md … 06_power_meddic.md · 08_horizontal_vertical_full.md · 09_not_for_pitch.md
+  - Also required by default (consumer/IP): 07_org · 10_product_audience · 11_marketing_sports · 12_industry_sizing
+- 03_tensions.md — 3–5 tensions; knife tension needs ≥3 A/B facts.
 
 Knife:
-- B_knife.md — exactly ONE tension, ONE live proof (A/B preferred), ONE ask.
-- ≤2 pages when printed. 10-minute spoken structure.
-- Must contain a visible “明确不说” section.
-- Must explicitly reference the ifalsify verdict and traceability.
+- B_knife.md — ONE tension, ONE live proof, ONE ask; ≤2 pages.
+- Top must print ifalsify verdict (e.g. CONDITIONAL).
+- Visible “明确不说”; no CPM/fan counts; no invented prices.
+
+HTML (when html format selected — default on):
+- html/index.html dual-pack entry → ONE_PAGER + html/research/iceberg.html (FULL mirror)
+- html/B_knife.html · optional FOR_MAX_PACK.html
 
 Other:
-- pitchvision/ only if genuinely warranted (≥1, strategic ≥2). Never put iPod into shelf.
-- handoff_to_sales.md — debate questions + PRIMARY gaps + iPod vs shelf separation note.
-- Run full Grill + ifalsify before emitting final knife or iPod.
+- handoff_to_sales.md — debate Qs + PRIMARY gaps
+- pitchvision/ only if warranted; never on shelf
+- Run Grill + ifalsify before final knife
 `);
     }
 
@@ -185,27 +193,26 @@ R3 deliverables:
       lines.push(`
 
 HTML deliverables (self-contained, premium craft):
-- html/index.html (clean navigation to all outputs)
-- html/B_knife.html (client-facing 10-min version)
-- html/research/iceberg.html (FULL iceberg, ≥8000 chars equivalent, with citations and structure)
-- html/research/index.html (research index)
-- html/ifalsify_report.html (or keep as .md if too long; must be prominent)
-- Optional: html/quality_passport.html summarizing gates passed (word counts, source coverage, ifalsify verdict)
+- html/index.html — MUST be dual-pack nav: ONE_PAGER + full iceberg (required links)
+- html/ONE_PAGER.html
+- html/B_knife.html (prints ifalsify verdict)
+- html/research/iceberg.html (FULL iceberg mirror, not a stub summary)
+- Optional: html/FOR_MAX_PACK.html · quality_passport.html
 
-Every HTML must feel serious and professional — restrained design, clear source links, no marketing fluff.
+Every HTML: restrained design, source links, no marketing fluff.
 `);
     }
 
     lines.push(`
 ## Additional mandatory instruction for this run
-After generating the main files, also produce a small machine-readable summary called quality_passport.json (or at top of one file) containing:
-- iceberg_char_count (approximate)
-- num_a_tier_facts
-- num_b_tier_facts
-- ifalsify_verdict (overall)
+Produce quality_passport.json with:
+- iceberg_char_count (CJK approx; warn if <20000 for consumer accounts)
+- num_a_tier_facts · num_b_tier_facts
+- ifalsify_verdict
+- has_one_pager · has_primary_required · has_max_gap_audit · has_dual_pack_index (booleans)
 - main_tension
-- explicit_gaps (list of biggest L0 holes)
-This helps the UI surface visible gate status to the user.
+- meeting_three_questions (array of 3 strings)
+- explicit_gaps
 `);
 
 
@@ -241,10 +248,10 @@ This helps the UI surface visible gate status to the user.
     return {
       cursorCmd: cmd + "\n\n# Then:\n" + (roundCmd[data.round] || roundCmd.R1),
       ifalsifyCmd: `/ifalsify after ${slug}  (ruthless, produce full ifalsify_report.md)`,
-      grillNote: "Grill: use _playbook/templates/grill-template.md on knife + iPod before external use. Run build → red-team → synthesize.",
+      grillNote: "Grill: use _play.打法/templates/grill-template.md on knife + iPod before external use. Run build → red-team → synthesize.",
       fullPrompt: buildUserPrompt(data),
       systemPrompt: buildSystemPrompt(),
-      qualityNote: "Target: iceberg ≥8000 chars structured + full traceability ledger + standalone ifalsify_report with KILL/PIVOT/CONDITIONAL + experiments. Knife must be short because iceberg is deep."
+      qualityNote: "v1.6: dual pack (ONE_PAGER + full iceberg) + PRIMARY 3Q/72h + MAX_GAP + ifalsify + traceability. Iceberg default ~Xiangpiaopiao depth (8000=floor only). Knife prints verdict. Production path = Cursor /ipitch."
     };
   }
 

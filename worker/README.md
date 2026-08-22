@@ -89,7 +89,7 @@ curl -s -X POST "https://ipitch-deepseek-proxy.<account>.workers.dev/v1/chat/com
 
 ## Configure iPitch UI
 
-1. Open **API 设置** in `ui/ipitch-studio.html` (or deployed Pages URL)
+1. Open **API 设置** in `ui/PitchStudio刀刃.html` (or deployed Pages URL)
 2. Set **Proxy URL** to worker URL — e.g. `https://ipitch-deepseek-proxy.<account>.workers.dev` (no trailing slash)
 3. Leave **API Key** empty when using proxy (key lives on worker)
 4. Click **测试连接** then **保存设置**
@@ -129,5 +129,5 @@ See `.github/workflows/deploy-worker.yml`. Required repo secrets:
 ## Related
 
 - UI client: `ui/js/api.js`
-- Architecture: `docs/CLOUD_DEPLOYMENT.md`
-- Async workflow: `docs/ASYNC_WORKFLOW.md`
+- Architecture: `docs/phase-c/CLOUD_DEPLOYMENT.md`
+- Async workflow: `docs/phase-c/ASYNC_WORKFLOW.md`

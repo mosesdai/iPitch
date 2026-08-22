@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Pitch Studio</title>
+<meta name="description" content="Pitch Studio — 填客户 → 出高品质会前包"/>
+<meta name="application-name" content="Pitch Studio"/>
+<!-- Local demo: no Google Fonts — paint must not wait on fonts.googleapis.com -->
+<link rel="stylesheet" href="css/app.css"/>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="logo" href="PitchStudio刀刃.html">
+      <span class="logo-mark">PS</span>
+      <span data-i18n="appTitle">Pitch Studio</span>
+    </a>
+    <div class="header-actions">
+      <span id="api-status-badge" class="api-status warn" hidden><span class="dot"></span></span>
+      <div class="lang-toggle">
+        <button type="button" id="lang-zh" class="active">中文</button>
+        <button type="button" id="lang-en">EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="help-btn" data-i18n="help">使用说明</button>
+      <button type="button" class="icon-btn" id="settings-btn" data-i18n="settings">API 设置</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h1 data-i18n="appTitle">Pitch Studio</h1>
+    <p class="tagline-strong" data-i18n="tagline">填客户信息 → 出高品质会前包</p>
+    <p class="hero-path" data-i18n="heroPath">以后 sales 自助用的界面。今天演示用标杆成品展示品质标准。</p>
+  </section>
+
+  <!-- 产品面：路演主路径 -->
+  <section class="card product-run" id="product-run">
+    <h2 class="card-title"><span class="num">1</span><span data-i18n="productRunTitle">新建会前包</span></h2>
+    <p class="field-hint" data-i18n="productRunHint">路演建议填「雀巢」或点下方快捷填充，再点生成。</p>
+
+    <div class="field">
+      <label for="target" data-i18n="labelTarget">目标客户</label>
+      <input type="text" id="target" data-i18n-placeholder="targetPlaceholder" placeholder="例如：雀巢中国 / 香飘飘 / 蔚来 NIO / Apple" autocomplete="organization"/>
+    </div>
+    <div class="field">
+      <label for="customer" data-i18n="labelCustomer">客户侧情报（可选）</label>
+      <textarea id="customer" rows="3" data-i18n-placeholder="customerPlaceholder" placeholder="会面目的、关键人、预算传闻、时间节点…"></textarea>
+    </div>
+    <div class="field">
+      <label for="internal" data-i18n="labelInternal">内部要求（可选）</label>
+      <textarea id="internal" rows="2" data-i18n-placeholder="internalPlaceholder" placeholder="合同红线、验收、品牌约束…"></textarea>
+    </div>
+
+    <div class="demo-chips" id="demo-chips" data-i18n-aria="demoChipsAria" aria-label="演示快捷填充">
+      <button type="button" class="chip" data-fill="nestle" data-i18n="chipNestle">填：雀巢中国</button>
+      <button type="button" class="chip" data-fill="xpp" data-i18n="chipXpp">填：香飘飘</button>
+      <button type="button" class="chip" data-fill="nio" data-i18n="chipNio">填：蔚来 NIO</button>
+      <button type="button" class="chip" data-fill="apple" data-i18n="chipApple">填：Apple（中英包）</button>
+      <button type="button" class="chip" data-fill="transsion" data-i18n="chipTranssion">填：传音控股</button>
+    </div>
+
+    <div class="btn-row btn-row-cta">
+      <button type="button" class="btn btn-primary btn-lg" id="product-generate-btn" data-i18n="productGenerate">生成会前包</button>
+    </div>
+    <p id="product-status" class="field-hint" aria-live="polite"></p>
+  </section>
+
+  <section class="card product-result" id="product-result" hidden>
+    <h2 class="card-title"><span class="num">2</span><span data-i18n="productResultTitle">会前包已就绪</span></h2>
+    <p class="result-meta" id="result-meta"></p>
+    <div class="result-actions" id="result-actions"></div>
+    <p class="field-hint" id="result-note"></p>
+  </section>
+
+  <!-- Phase II / R2：会后进化（产品结构完整；路演主秀仍是 R1） -->
+  <section class="card product-r2" id="product-r2" aria-labelledby="r2-phase-title">
+    <h2 class="card-title">
+      <span class="num muted">II</span>
+      <span id="r2-phase-title" data-i18n="r2PhaseTitle">会后 · R2</span>
+      <span class="tag tag-muted" data-i18n="r2PhaseBadge">非今日主演示</span>
+    </h2>
+    <p class="r2-lead" data-i18n="r2PhaseBody">Sales 补现场六字段 → 进化报告 + 火锅货架组合（定制 iPod 不上架）。用个人 API Key 真调用；品质对标 Apple 样例，API 草稿勿当终态。</p>
+
+    <div class="field">
+      <label for="r2-company" data-i18n="r2LabelCompany">客户 / 案名</label>
+      <input type="text" id="r2-company" data-i18n-placeholder="r2CompanyPlaceholder" placeholder="例如：Apple / 雀巢中国" autocomplete="organization"/>
+    </div>
+    <div class="field">
+      <label for="r2-customer-quote" data-i18n="r2LabelQuote">客户原话（verbatim）</label>
+      <textarea id="r2-customer-quote" rows="2" data-i18n-placeholder="r2PhQuote" placeholder="会上听到的原话，勿改写…"></textarea>
+    </div>
+    <div class="field">
+      <label for="r2-budget-path" data-i18n="r2LabelBudget">预算科目 / fund 路径</label>
+      <textarea id="r2-budget-path" rows="2" data-i18n-placeholder="r2PhBudget" placeholder="media vs activation；科目未明写「未明」…"></textarea>
+    </div>
+    <div class="field">
+      <label for="r2-decision-chain" data-i18n="r2LabelDecision">决策链 + 否决人</label>
+      <textarea id="r2-decision-chain" rows="2" data-i18n-placeholder="r2PhDecision" placeholder="谁拍板、谁能否决…"></textarea>
+    </div>
+    <div class="field">
+      <label for="r2-knife-judgment" data-i18n="r2LabelKnife">对 R1 刀 / iPod 的判断</label>
+      <textarea id="r2-knife-judgment" rows="2" data-i18n-placeholder="r2PhKnife" placeholder="采纳 / 修改 / 放弃 + 一句理由…"></textarea>
+    </div>
+    <div class="field">
+      <label for="r2-competitor-moves" data-i18n="r2LabelCompetitor">竞品最近动作</label>
+      <textarea id="r2-competitor-moves" rows="2" data-i18n-placeholder="r2PhCompetitor" placeholder="会上或近期听到的竞品动作…"></textarea>
+    </div>
+    <div class="field">
+      <label for="r2-cannot-sell" data-i18n="r2LabelCannot">我方不能卖的</label>
+      <textarea id="r2-cannot-sell" rows="2" data-i18n-placeholder="r2PhCannot" placeholder="合同红线、品类禁区、不能承诺的…"></textarea>
+    </div>
+
+    <div class="demo-chips" id="r2-demo-chips" data-i18n-aria="r2ChipsAria" aria-label="R2 演示填充">
+      <button type="button" class="chip" id="r2-fill-apple" data-i18n="r2ChipApple">填：Apple 样例现场</button>
+    </div>
+
+    <div class="btn-row btn-row-cta">
+      <button type="button" class="btn btn-primary" id="r2-evolve-btn" data-i18n="r2Evolve">生成进化包</button>
+      <button type="button" class="btn btn-secondary" id="r2-open-settings" data-i18n="r2NeedApi">配置 API Key</button>
+    </div>
+    <p id="r2-status" class="field-hint" aria-live="polite"></p>
+    <p class="field-hint" data-i18n="r2HonestNote">诚实说明：一键 API = 结构草稿；case 档终态见下方 Apple 样例（Cursor / 本机厚包路径）。</p>
+
+    <div class="r2-output" id="r2-output" hidden>
+      <div class="r2-out-tabs" role="tablist">
+        <button type="button" class="file-tab active" data-r2-tab="evolved" data-i18n="r2TabEvolved">进化报告</button>
+        <button type="button" class="file-tab" data-r2-tab="shelf" data-i18n="r2TabShelf">货架推荐</button>
+      </div>
+      <div class="preview-box r2-preview" id="r2-preview"></div>
+      <div class="btn-row" style="margin-top:12px">
+        <button type="button" class="btn btn-secondary" id="r2-copy-btn" data-i18n="r2Copy">复制当前</button>
+        <button type="button" class="btn btn-secondary" id="r2-download-btn" data-i18n="r2Download">下载当前</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <p class="field-hint" data-i18n="r2SampleLead">品质参照（case 档，非 API 草稿）：</p>
+    <div class="result-actions" id="r2-sample-actions">
+      <a class="btn btn-secondary" href="../cases/apple/R2_evolved_report.md" target="_blank" rel="noopener" data-i18n="r2SampleEvolved">打开 Apple · R2 进化报告</a>
+      <a class="btn btn-secondary" href="../cases/apple/R2_shelf_recommendations.md" target="_blank" rel="noopener" data-i18n="r2SampleShelf">打开 Apple · R2 货架组合</a>
+    </div>
+    <p class="field-hint" data-i18n="r2PhaseNote">路演主秀仍是上方 R1；本表补齐会后结构。提交走顶栏「API 设置」里的个人 Key。</p>
+  </section>
+
+  <section class="card resource-ask" id="resource-ask">
+    <h2 class="card-title" data-i18n="resourceAskTitle">推广需要什么</h2>
+    <p class="ask-lead" data-i18n="askLead">今天这套品质，靠的是个人算力与模型做出来的标杆成品。</p>
+    <ul class="ask-list">
+      <li data-i18n="askItem1">公司层面推广 → 需要公司提供 token / 模型额度 与托管</li>
+      <li data-i18n="askItem2">全员 sales 自助填表出包 → 不再事事堵在个人机器上</li>
+      <li data-i18n="askItem3">品质标准不变：会前双材料 + 销售三问 + 证伪，对标香飘飘/雀巢厚度</li>
+    </ul>
+  </section>
+
+  <!-- 对照成品（次要） -->
+  <details class="card collapsible" id="sample-gallery">
+    <summary class="card-title" data-i18n="gallerySummary">对照成品廊</summary>
+    <p class="field-hint" data-i18n="galleryProductHint">需要横向对比时再打开。路演主路径用上方「生成」。</p>
+    <div class="gallery-grid">
+      <article class="gallery-item">
+        <h3>Nestlé / 雀巢中国 <span class="tag" data-i18n="galleryTagBenchmark">标杆</span></h3>
+        <div class="gallery-links">
+          <a href="../cases/nestle/html/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/nestle/html/research/iceberg.html" target="_blank" rel="noopener" data-i18n="galleryResearch">完整研报</a>
+          <a href="../cases/nestle/html/index.html" target="_blank" rel="noopener" data-i18n="galleryEntry">入口</a>
+        </div>
+      </article>
+      <article class="gallery-item">
+        <h3>Xiangpiaopiao / 香飘飘 <span class="tag" data-i18n="galleryTagSource">标准源头</span></h3>
+        <div class="gallery-links">
+          <a href="../cases/xiangpiaopiao/html/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/xiangpiaopiao/html/research/iceberg.html" target="_blank" rel="noopener" data-i18n="galleryResearch">完整研报</a>
+        </div>
+      </article>
+      <article class="gallery-item">
+        <h3>NIO / 蔚来</h3>
+        <div class="gallery-links">
+          <a href="../cases/nio/html/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/nio/html/research/iceberg.html" target="_blank" rel="noopener" data-i18n="galleryResearch">完整研报</a>
+        </div>
+      </article>
+      <article class="gallery-item">
+        <h3>Apple</h3>
+        <div class="gallery-links">
+          <a href="../cases/apple/html/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/apple/html/research/iceberg.html" target="_blank" rel="noopener" data-i18n="galleryResearch">完整研报</a>
+        </div>
+      </article>
+      <article class="gallery-item">
+        <h3>Transsion / 传音控股</h3>
+        <div class="gallery-links">
+          <a href="../cases/transsion/html/传音控股_给Max会前包.html" target="_blank" rel="noopener">给Max包</a>
+          <a href="../cases/transsion/html/传音控股_一页关键信息.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/transsion/html/research/传音控股_冰山深度研究.html" target="_blank" rel="noopener" data-i18n="galleryResearch">完整研报</a>
+          <a href="../cases/transsion/html/传音控股_会前双材料入口.html" target="_blank" rel="noopener" data-i18n="galleryEntry">入口</a>
+        </div>
+      </article>
+    </div>
+  </details>
+
+  <!-- 进阶：开发者 / API（默认折叠） -->
+  <details class="card collapsible" id="advanced-pipeline">
+    <summary class="card-title" data-i18n="advancedSummary">进阶 · Prompt / API 草稿（非路演）</summary>
+    <p class="field-hint" data-i18n="advancedHint">同事场次请跳过。同档厚包生产仍可用导出 Prompt → Cursor。</p>
+
+    <div class="steps">
+      <div class="step active"><strong data-i18n="stepR0">输入</strong>R0</div>
+      <div class="step"><strong data-i18n="stepR1">展开</strong>R1</div>
+      <div class="step"><strong data-i18n="stepR2">进化</strong>R2</div>
+      <div class="step"><strong data-i18n="stepR3">收口</strong>R3</div>
+    </div>
+
+    <label style="margin-top:16px" data-i18n="roundLabel">当前轮次</label>
+    <div class="round-tabs">
+      <button type="button" class="round-tab active" data-round="R1" data-i18n="roundR1">R1 · 展开</button>
+      <button type="button" class="round-tab" data-round="R2" data-i18n="roundR2">R2 · 进化</button>
+      <button type="button" class="round-tab" data-round="R3" data-i18n="roundR3">R3 · 收口</button>
+      <button type="button" class="round-tab" data-round="full" data-i18n="roundFull">完整流程</button>
+    </div>
+
+    <div class="gate-banner" id="quality-gate-banner">
+      <strong data-i18n="qualityGates">质量门禁 v1.6</strong>
+      <span data-i18n="qualityGatesBody">R1 强制：会前双材料 · PRIMARY · MAX_GAP · ifalsify · 溯源 · 冰山对标香飘飘。</span>
+    </div>
+
+    <label data-i18n="sec4Title">产出</label>
+    <div class="check-grid">
+      <label class="check-item"><input type="checkbox" name="out" value="charter" checked/><span data-i18n="outCharter">起手 Charter</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="research" checked/><span data-i18n="outResearch">深度研究报告（厚冰山）</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="knife" checked/><span data-i18n="outKnife">Pitch 刀刃</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="onepager" checked disabled/><span data-i18n="outOnePager">会前一页 ONE_PAGER</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="primary" checked disabled/><span data-i18n="outPrimary">PRIMARY 销售清单</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="maxaudit" checked disabled/><span data-i18n="outMaxAudit">MAX_GAP_AUDIT</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="ifalsify" checked disabled/><span data-i18n="outIfalsify">反昏君证伪报告</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="traceability" checked disabled/><span data-i18n="outTraceability">数据溯源账本</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="handoff" checked/><span data-i18n="outHandoff">Sales Handoff</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="ipod"/><span data-i18n="outIpod">iPod 突破性创意</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="shelf"/><span data-i18n="outShelf">火锅货架组合</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="close"/><span data-i18n="outClose">收口清单</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="talking"/><span data-i18n="outTalking">说辞 / 首问 5 句</span></label>
+    </div>
+
+    <div class="divider"></div>
+    <label data-i18n="formatLabel">格式</label>
+    <div class="check-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 320px;">
+      <label class="check-item"><input type="checkbox" name="fmt" value="md" checked/><span data-i18n="fmtMd">Markdown</span></label>
+      <label class="check-item"><input type="checkbox" name="fmt" value="html" checked/><span data-i18n="fmtHtml">HTML（双材料入口）</span></label>
+    </div>
+
+    <div class="btn-row btn-row-cta">
+      <button type="button" class="btn btn-primary" id="export-btn" data-i18n="exportPrompt">导出 Prompt → Cursor</button>
+      <button type="button" class="btn btn-secondary" id="generate-btn" data-i18n="generate">一键生成草稿预览</button>
+    </div>
+    <p class="field-hint cta-hint" data-i18n="ctaHint">一键 API ≠ 雀巢厚度。路演请用页顶「生成会前包」。</p>
+  </details>
+
+  <section class="output-section card" id="output-section">
+    <h2 class="card-title" data-i18n="filesLabel">产出文件</h2>
+    <div id="gate-status" class="gate-status" style="display:none;"></div>
+    <div id="status-bar" class="status-bar" style="display:none"></div>
+    <div class="file-tabs" id="file-tabs"></div>
+    <div class="preview-box" id="preview-box"></div>
+    <div class="btn-row" style="margin-top:16px">
+      <button type="button" class="btn btn-secondary" id="download-one-btn" data-i18n="downloadOne">下载当前</button>
+      <button type="button" class="btn btn-secondary" id="copy-one-btn" data-i18n="copyOne">复制当前</button>
+      <button type="button" class="btn btn-secondary" id="download-all-btn" data-i18n="downloadAll">下载全部</button>
+      <button type="button" class="btn btn-secondary" id="export-case-btn" data-i18n="exportCase">导出案例 ZIP</button>
+    </div>
+  </section>
+
+  <details class="card collapsible" id="engine-lab">
+    <summary class="card-title" data-i18n="engineLabSummary">开发者 · 本机门禁</summary>
+    <p class="field-hint" data-i18n="engineLabHint">同事路演默认不讲。需 python3 -m engine.serve。</p>
+    <div class="lab-actions">
+      <button type="button" class="btn btn-primary" data-lab-mode="demo">demo → GREEN</button>
+      <button type="button" class="btn btn-secondary" data-lab-mode="fail">假引用 → RED</button>
+      <button type="button" class="btn btn-secondary" data-lab-mode="fail-v16">缺 PRIMARY → RED</button>
+      <button type="button" class="btn btn-secondary" id="refresh-runs" data-i18n="labRefresh">刷新 runs</button>
+    </div>
+    <p id="lab-status" class="field-hint">尚未运行</p>
+    <pre class="passport" id="passport-out">护照将显示在这里</pre>
+    <ul class="run-list" id="run-list"></ul>
+  </details>
+</main>
+
+<!-- Help modal -->
+<div class="modal-overlay" id="help-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 data-i18n="helpTitle">Pitch Studio · 使用说明</h2>
+      <button type="button" class="modal-close" data-close="help-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p data-i18n="helpIntro">销售会前包产品面：填客户 → 出双材料。路演用标杆成品展示品质；规模化需公司 token。</p>
+      <h3 data-i18n="helpWhat">它是什么</h3>
+      <p data-i18n="helpWhatText"></p>
+      <h3 data-i18n="helpWho">给谁用</h3>
+      <p data-i18n="helpWhoText"></p>
+      <h3 data-i18n="helpValue">在什么阶段帮到你</h3>
+      <ul id="help-value-list"></ul>
+      <h3 data-i18n="helpHow">怎么用</h3>
+      <ul id="help-how-list"></ul>
+      <h3 data-i18n="helpWork">工作原理</h3>
+      <p data-i18n="helpWorkText"></p>
+      <div class="callout">
+        <strong>Grill</strong> — <span data-i18n="helpGrill"></span><br/><br/>
+        <strong>反昏君 / ifalsify</strong> — <span data-i18n="helpIfalsify"></span>
+      </div>
+      <h3 data-i18n="helpCant">它不能做什么</h3>
+      <ul id="help-cant-list"></ul>
+      <h3 data-i18n="helpDeploy">如何传播给团队</h3>
+      <p data-i18n="helpDeployText"></p>
+    </div>
+  </div>
+</div>
+
+<!-- Settings modal -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 data-i18n="apiTitle">API 设置</h2>
+      <button type="button" class="modal-close" data-close="settings-modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="callout" data-i18n="setupNote">若浏览器 CORS 无法直连…</div>
+      <h3 data-i18n="setupGuide">配置步骤</h3>
+      <p data-i18n="setupStep1"></p>
+      <p data-i18n="setupStep2"></p>
+      <p data-i18n="setupStep3"></p>
+      <p data-i18n="setupStep4"></p>
+      <div class="divider"></div>
+      <div class="settings-grid">
+        <div class="field">
+          <label for="api-proxy" data-i18n="apiProxyLabel">Proxy URL（Cloudflare Worker）</label>
+          <p class="field-hint" data-i18n="apiProxyHint">填写后密钥由代理持有，本机可留空。见 worker/README.md</p>
+          <input type="text" id="api-proxy" data-i18n-placeholder="apiProxyPlaceholder" placeholder="https://ipitch-deepseek-proxy.xxx.workers.dev"/>
+        </div>
+        <div class="field">
+          <label for="api-key" data-i18n="apiKeyLabel">DeepSeek API Key</label>
+          <p class="field-hint" data-i18n="apiKeyHint">密钥仅保存在本机</p>
+          <input type="password" id="api-key" data-i18n-placeholder="apiKeyPlaceholder" placeholder="sk-…" autocomplete="off"/>
+        </div>
+        <div class="field">
+          <label for="api-base" data-i18n="apiBaseLabel">API Base URL</label>
+          <input type="text" id="api-base" value="https://api.deepseek.com"/>
+        </div>
+        <div class="field">
+          <label for="api-model" data-i18n="apiModelLabel">模型</label>
+          <select id="api-model">
+            <option value="deepseek-chat">deepseek-chat</option>
+            <option value="deepseek-reasoner">deepseek-reasoner</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button type="button" class="btn btn-secondary" id="test-api-btn" data-i18n="testConnection">测试连接</button>
+        <button type="button" class="btn btn-primary" id="save-settings-btn" data-i18n="saveSettings">保存设置</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- JSZip: local vendor (CDN + wrong SRI blocked ZIP + delayed boot offline) -->
+<script src="js/vendor/jszip.min.js" defer></script>
+<script src="js/i18n.js" defer></script>
+<script src="js/prompts.js" defer></script>
+<script src="js/api.js" defer></script>
+<script src="js/app.js" defer></script>
+<script src="js/product-demo.js" defer></script>
+<script src="js/r2-form.js" defer></script>
+<script>
+(function () {
+  const statusEl = document.getElementById("lab-status");
+  const outEl = document.getElementById("passport-out");
+  const listEl = document.getElementById("run-list");
+  if (!statusEl || !outEl || !listEl) return;
+
+  async function api(path, opts) {
+    const r = await fetch(path, opts);
+    if (!r.ok) throw new Error(await r.text());
+    return r.json();
+  }
+
+  async function refreshRuns() {
+    try {
+      const data = await api("/api/runs");
+      listEl.innerHTML = data.runs.map(r => `
+        <li>
+          <span><code>${r.id}</code> · ${r.company || "?"} · ${r.round || ""} · ${r.status || ""}</span>
+          <span class="verdict-${r.verdict || ""}">${r.verdict || "—"}</span>
+        </li>
+      `).join("") || "<li>暂无 runs</li>";
+    } catch (e) {
+      listEl.innerHTML = `<li>无法读取 runs（请确认已启动 engine.serve）：${e.message}</li>`;
+    }
+  }
+
+  async function runMode(mode) {
+    statusEl.textContent = `运行中 mode=${mode}…`;
+    outEl.textContent = "…";
+    try {
+      const data = await api("/api/engine/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ company: "DemoCo", mode, live: false }),
+      });
+      statusEl.textContent = `完成 · verdict=${data.verdict} · run=${data.run_id}`;
+      outEl.textContent = data.passport_md || data.stdout || JSON.stringify(data, null, 2);
+      refreshRuns();
+    } catch (e) {
+      statusEl.textContent = "失败：请先在本机运行 python3 -m engine.serve";
+      outEl.textContent = String(e);
+    }
+  }
+
+  document.querySelectorAll("[data-lab-mode]").forEach(btn => {
+    btn.addEventListener("click", () => runMode(btn.getAttribute("data-lab-mode")));
+  });
+  document.getElementById("refresh-runs").addEventListener("click", refreshRuns);
+  refreshRuns();
+})();
+</script>
+</body>
+</html>

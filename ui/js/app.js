@@ -24,6 +24,9 @@
     $$("[data-i18n-placeholder]").forEach((el) => {
       el.placeholder = window.t(el.getAttribute("data-i18n-placeholder"));
     });
+    $$("[data-i18n-aria]").forEach((el) => {
+      el.setAttribute("aria-label", window.t(el.getAttribute("data-i18n-aria")));
+    });
     document.documentElement.lang = window.IPITCH_LANG === "zh" ? "zh-CN" : "en";
     document.title = window.t("pageTitle");
     $("#lang-zh").classList.toggle("active", window.IPITCH_LANG === "zh");
@@ -36,6 +39,9 @@
     localStorage.setItem("ipitch_lang", lang);
     applyI18n();
     renderHelpLists();
+    if (window.IPitchProductDemo && typeof window.IPitchProductDemo.onLangChange === "function") {
+      window.IPitchProductDemo.onLangChange();
+    }
   }
 
   function getFormData() {
@@ -44,14 +50,17 @@
 
     const wantsResearchOrKnife = outputs.includes("research") || outputs.includes("knife") || selectedRound === "R1" || selectedRound === "full";
 
-    // Enforce quality gates
+    // Enforce v1.6 quality gates
     if (wantsResearchOrKnife) {
-      if (!outputs.includes("ifalsify")) outputs.push("ifalsify");
-      if (!outputs.includes("traceability")) outputs.push("traceability");
+      ["ifalsify", "traceability", "onepager", "primary", "maxaudit", "research"].forEach((k) => {
+        if (!outputs.includes(k)) outputs.push(k);
+      });
     }
 
     const formats = [];
     $$('input[name="fmt"]:checked').forEach((cb) => formats.push(cb.value));
+    if (wantsResearchOrKnife && !formats.includes("html")) formats.push("html");
+    if (!formats.includes("md")) formats.push("md");
 
     return {
       target: $("#target").value.trim(),
@@ -59,7 +68,7 @@
       internal: $("#internal").value.trim(),
       round: selectedRound === "full" ? "full" : selectedRound,
       outputs: outputs,
-      formats: formats.length ? formats : ["md"],
+      formats: formats.length ? formats : ["md", "html"],
       gatesEnforced: wantsResearchOrKnife
     };
   }
@@ -114,10 +123,14 @@
     const gateEl = $("#gate-status");
     if (!gateEl) return;
 
-    const hasIceberg = files.some((f) => /iceberg|research/i.test(f.name));
+    const hasIceberg = files.some((f) => /iceberg|research\//i.test(f.name) || /^research\//i.test(f.name));
     const hasTrace = files.some((f) => /traceab|timeliness/i.test(f.name));
     const hasFalsify = files.some((f) => /ifalsify|falsif/i.test(f.name));
-    const enforced = data.gatesEnforced || hasIceberg || hasTrace || hasFalsify;
+    const hasOnePager = files.some((f) => /one_?pager/i.test(f.name));
+    const hasPrimary = files.some((f) => /primary_required|PRIMARY_REQUIRED/i.test(f.name));
+    const hasMax = files.some((f) => /max_gap|MAX_GAP/i.test(f.name));
+    const hasDual = files.some((f) => /html\/index\.html$/i.test(f.name) || f.name === "html/index.html");
+    const enforced = data.gatesEnforced || hasIceberg || hasTrace || hasFalsify || hasOnePager;
 
     if (!enforced) {
       gateEl.style.display = "none";
@@ -127,17 +140,28 @@
     const passport = parseQualityPassport(files);
     const zh = window.IPITCH_LANG === "zh";
     const parts = [];
+    let warnLow = false;
+
+    const flag = (ok, okZh, okEn, badZh, badEn) =>
+      parts.push((ok ? "✅ " : "⚠️ ") + (zh ? (ok ? okZh : badZh) : (ok ? okEn : badEn)));
 
     if (passport) {
       const icebergCount = passport.iceberg_char_count ?? passport.icebergCharCount;
       if (icebergCount != null) {
-        const low = Number(icebergCount) < 8000;
+        const n = Number(icebergCount);
+        const failFloor = n < 8000;
+        const thinDefault = n < 20000;
+        warnLow = failFloor || thinDefault;
         parts.push(
-          (low ? "⚠️" : "✅") +
+          (failFloor ? "🔴" : thinDefault ? "⚠️" : "✅") +
           (zh ? " 冰山 " : " Iceberg ") +
-          Number(icebergCount).toLocaleString() +
+          n.toLocaleString() +
           (zh ? " 字" : " chars") +
-          (low ? (zh ? "（<8000）" : " (<8000)") : "")
+          (failFloor
+            ? (zh ? "（<8000 硬下限）" : " (<8000 floor)")
+            : thinDefault
+              ? (zh ? "（<2万，未达香飘飘默认厚度）" : " (<20k, below XPP default)")
+              : "")
         );
       }
       const aCount = passport.num_a_tier_facts ?? passport.a_tier_facts ?? passport.aTierFacts;
@@ -152,7 +176,7 @@
       const verdict = passport.ifalsify_verdict ?? passport.ifalsify_overall_verdict ?? passport.ifalsifyVerdict;
       if (verdict) {
         const v = String(verdict).toUpperCase();
-        const icon = v === "KILL" ? "🔴" : v === "PIVOT" ? "🟡" : v === "CONDITIONAL" ? "🟢" : "✅";
+        const icon = v === "KILL" ? "🔴" : v === "PIVOT" ? "🟡" : v === "CONDITIONAL" ? "🟢" : "⚠️";
         parts.push(icon + " ifalsify: " + v);
       }
       if (passport.main_tension) {
@@ -160,23 +184,20 @@
       }
     }
 
-    if (!passport || parts.length === 0) {
-      parts.push(hasIceberg ? (zh ? "✅ 冰山研究" : "✅ Iceberg") : (zh ? "⚠️ 缺冰山" : "⚠️ Missing iceberg"));
-      parts.push(hasTrace ? (zh ? "✅ 溯源账本" : "✅ Traceability") : (zh ? "⚠️ 缺溯源" : "⚠️ Missing trace"));
-      parts.push(hasFalsify ? (zh ? "✅ 反昏君报告" : "✅ ifalsify") : (zh ? "⚠️ 缺证伪" : "⚠️ Missing ifalsify"));
-    } else {
-      if (!hasIceberg) parts.push(zh ? "⚠️ 缺冰山文件" : "⚠️ Missing iceberg file");
-      if (!hasTrace) parts.push(zh ? "⚠️ 缺溯源文件" : "⚠️ Missing trace file");
-      if (!hasFalsify) parts.push(zh ? "⚠️ 缺证伪文件" : "⚠️ Missing ifalsify file");
-    }
+    flag(hasOnePager, "ONE_PAGER", "ONE_PAGER", "缺 ONE_PAGER", "missing ONE_PAGER");
+    flag(hasPrimary, "PRIMARY", "PRIMARY", "缺 PRIMARY", "missing PRIMARY");
+    flag(hasMax, "MAX_GAP", "MAX_GAP", "缺 MAX_GAP", "missing MAX_GAP");
+    flag(hasDual && hasOnePager, "双材料入口", "dual-pack index", "缺双材料入口", "missing dual-pack index");
+    flag(hasIceberg, "冰山研究", "Iceberg", "缺冰山", "missing iceberg");
+    flag(hasTrace, "溯源账本", "Traceability", "缺溯源", "missing trace");
+    flag(hasFalsify, "反昏君报告", "ifalsify", "缺证伪", "missing ifalsify");
 
-    const icebergCount = passport && (passport.iceberg_char_count ?? passport.icebergCharCount);
-    const warnLow = icebergCount != null && Number(icebergCount) < 8000;
+    if (!hasOnePager || !hasPrimary || !hasMax || !hasFalsify) warnLow = true;
 
     gateEl.style.display = "block";
     gateEl.className = warnLow ? "gate-status gate-warn" : "gate-status gate-ok";
     gateEl.innerHTML =
-      "<strong>" + window.t("gateStatus") + "</strong>：" +
+      "<strong>" + window.t("gateStatus") + " v1.6</strong>：" +
       parts.join(" · ") +
       (passport
         ? ""
@@ -184,7 +205,7 @@
           (zh ? "（文件名推断；未找到 quality_passport.json）" : " (filename fallback; no quality_passport.json)") +
           "</span>") +
       '<span style="margin-left:8px;color:#059669;">' +
-      (zh ? "（冷启动仍应达到 v3 级厚度与严谨度）" : " (cold-start v3 rigor expected)") +
+      (zh ? "（同档=雀巢/香飘飘；一键 API 草稿勿当过线）" : " (full bar = Nestlé/XPP; API draft ≠ pass)") +
       "</span>";
   }
 
@@ -313,7 +334,12 @@
         { name: "full_prompt.md", content: "# System\n\n" + pack.systemPrompt + "\n\n# User\n\n" + pack.fullPrompt }
       ];
       renderFiles(files, data);
-      showStatus(window.IPITCH_LANG === "zh" ? "Prompt 已导出 — 可在 Cursor 粘贴运行" : "Prompt exported — paste in Cursor", "success");
+      showStatus(
+        window.IPITCH_LANG === "zh"
+          ? "Prompt 已导出 — 请在 Cursor 粘贴运行 /ipitch（同档主路径）"
+          : "Prompt exported — paste in Cursor and run /ipitch (production path)",
+        "success"
+      );
       return;
     }
 
@@ -363,21 +389,11 @@
   }
 
   function updateApiStatus() {
-    const cfg = window.IPitchAPI.loadConfig();
     const el = $("#api-status-badge");
     if (!el) return;
-    const viaProxy = window.IPitchAPI.usesProxy(cfg);
-    if (viaProxy) {
-      el.className = "api-status ok";
-      const host = cfg.proxyUrl.replace(/^https?:\/\//, "").split("/")[0];
-      el.innerHTML = '<span class="dot"></span> Proxy · ' + host;
-    } else if (cfg.apiKey) {
-      el.className = "api-status ok";
-      el.innerHTML = '<span class="dot"></span> API · ' + window.IPitchAPI.maskKey(cfg.apiKey);
-    } else {
-      el.className = "api-status warn";
-      el.innerHTML = '<span class="dot"></span> ' + (window.IPITCH_LANG === "zh" ? "未配置 API" : "API not configured");
-    }
+    // Roadshow: never show API status chrome (incl. "API not configured")
+    el.hidden = true;
+    el.setAttribute("aria-hidden", "true");
   }
 
   function saveSettings() {

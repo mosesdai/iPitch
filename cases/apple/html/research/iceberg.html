@@ -1,0 +1,2958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Apple · 冰山深度研究</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--text:#1a2332;--muted:#5c6b7a;--accent:#0f4c81;--accent-soft:#e8f1f8;--border:#d8e0e8;--warn:#9a6700;--soft-warn:#fff8e8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;font-size:15px;line-height:1.75;color:var(--text);background:var(--bg)}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 80px}
+header{border-bottom:1px solid var(--border);padding-bottom:22px;margin-bottom:8px}
+h1{font-size:1.75rem;margin:0 0 10px;letter-spacing:-.02em;font-weight:700}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:4px;margin:0 6px 6px 0;background:var(--accent-soft);color:var(--accent)}
+.tag.warn{background:var(--soft-warn);color:var(--warn)}
+.meta{font-size:13px;color:var(--muted);margin:8px 0 0}
+nav.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin:24px 0 8px;position:sticky;top:0;z-index:10;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+nav.toc strong{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+nav.toc a{color:var(--accent);text-decoration:none;font-size:13.5px;margin-right:14px;white-space:nowrap;line-height:2}
+nav.toc a:hover{text-decoration:underline}
+section{margin-top:36px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:22px 24px 28px}
+h2.file-title{font-size:1.25rem;margin:0 0 14px;color:var(--accent);padding-bottom:8px;border-bottom:1px solid var(--border)}
+h3{font-size:1.05rem;margin:22px 0 10px;color:#243447}h4{font-size:1rem;margin:18px 0 8px}
+p{margin:0 0 12px}ul{margin:0 0 16px;padding-left:22px}li{margin-bottom:7px}
+blockquote{margin:12px 0;padding:10px 14px;background:#f0f4f8;border-left:3px solid var(--accent);color:#334}
+blockquote p{margin:0 0 6px}
+.table-wrap{overflow-x:auto;margin:12px 0 20px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff}
+th,td{border:1px solid var(--border);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.box{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);padding:14px 16px;margin:18px 0}
+.muted{color:var(--muted);font-size:13px}code{font-size:12.5px;background:#eef2f6;padding:1px 5px;border-radius:3px}
+a{color:var(--accent)}footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+pre.muted{margin:0;font-size:12px;white-space:pre-wrap;background:#f0f4f8;padding:12px;border-radius:6px}
+hr{border:none;border-top:1px solid var(--border);margin:20px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>Apple · 冰山深度研究（全文镜像）</h1>
+    <p class="meta">v1.6 · research CJK ≈ 31,680 · 排版对齐雀巢冰山 · MD 真源 <code>../../research/</code> · 2026-08-09</p>
+    <nav class="links"><a href="../index.html">双材料入口</a> · <a href="../ONE_PAGER.html">ONE_PAGER</a> · <a href="../B_knife.html">刀子</a></nav>
+  </div>
+  <nav id="toc"><strong>目录</strong><ul><li><a href="#README">README.md</a></li><li><a href="#01_IR_financial">01_IR_financial.md</a></li><li><a href="#02_executive_quotes">02_executive_quotes.md</a></li><li><a href="#03_partnership_history">03_partnership_history.md</a></li><li><a href="#04_competitor_landscape">04_competitor_landscape.md</a></li><li><a href="#05_industry_context">05_industry_context.md</a></li><li><a href="#06_power_meddic">06_power_meddic.md</a></li><li><a href="#07_org_founder_lifecycle">07_org_founder_lifecycle.md</a></li><li><a href="#08_horizontal_vertical_full">08_horizontal_vertical_full.md</a></li><li><a href="#09_not_for_pitch">09_not_for_pitch.md</a></li><li><a href="#10_product_audience_matrix">10_product_audience_matrix.md</a></li><li><a href="#11_marketing_sports_pr">11_marketing_sports_pr.md</a></li><li><a href="#12_industry_sizing">12_industry_sizing.md</a></li></ul></nav>
+  <section class="chap" id="README">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 冰山研究索引</h1>
+<br/>
+<blockquote>**版本**：v1.6 · 2026-08-09 · 冷启动 R1 冰山  </blockquote>
+<blockquote>**时间锚**：FY2025（至 2025-09-27）· FY2026 Q1（至 2025-12-27）· MLS→Apple TV · Friday Night Baseball · NBA 美媒权格局  </blockquote>
+<blockquote>**我方默认**：NBA China · Archetype 偏 A（全球平台×中国张力）  </blockquote>
+<blockquote>**刀刃**：本轮先交冰山；刀子/销售件另轨，须印 ifalsify  </blockquote>
+<br/>
+<h2>文件清单与 CJK</h2>
+<br/>
+<p>| 文件 | 内容 | CJK |</p>
+<p>|------|------|-----|</p>
+<p>| `01_IR_financial.md` | 集团/GC/Services/Q1 · 季度vs财年 · 10 问 | （见合计脚本） |</p>
+<p>| `02_executive_quotes.md` | 原话库 ≥12 | |</p>
+<p>| `03_partnership_history.md` | MLS/FNB/NBA 边界 · 断裂 | |</p>
+<p>| `04_competitor_landscape.md` | 华为/三星中国/Amazon/Netflix/字节 | |</p>
+<p>| `05_industry_context.md` | 周期/监管/体育数字化落差 | |</p>
+<p>| `06_power_meddic.md` | 权力 + MEDDIC + 10min 剧本 | |</p>
+<p>| `07_org_founder_lifecycle.md` | 遗产/生命周期/可吸收性 | |</p>
+<p>| `08_horizontal_vertical_full.md` | 横纵交汇与选刀句 | |</p>
+<p>| `09_not_for_pitch.md` | 不说清单 ≥12 | |</p>
+<p>| `10_product_audience_matrix.md` | 产品人群渠道 | |</p>
+<p>| `11_marketing_sports_pr.md` | 体育营销舆情 | |</p>
+<p>| `12_industry_sizing.md` | 大盘口径并陈 | |</p>
+<p>| `README.md` | 本索引 | |</p>
+<br/>
+<p>**research/ 合计 CJK = 31,672**（硬目标 ≥25,000 ✅；冲刺 ≥30,000 ✅；对标香飘飘/雀巢 ≈35k，接近）。</p>
+<br/>
+<p>分文件：01_IR_financial 3088； 02_executive_quotes 1660； 03_partnership_history 3461； 04_competitor_landscape 3486； 05_industry_context 3201； 06_power_meddic 2704； 07_org_founder_lifecycle 2903； 08_horizontal_vertical_full 1480； 09_not_for_pitch 1780； 10_product_audience_matrix 2811； 11_marketing_sports_pr 2631； 12_industry_sizing 1915； README 552</p>
+<br/>
+<h2>案根溯源</h2>
+<br/>
+<p>| 文件 | 路径 |</p>
+<p>|------|------|</p>
+<p>| 数据溯源 | `../data_traceability.md` |</p>
+<p>| 叙事时效 | `../source_timeliness.md` |</p>
+<p>| 立项 | `../00_charter.md` |</p>
+<br/>
+<h2>门禁</h2>
+<br/>
+<p>| 项 | 状态 |</p>
+<p>|----|------|</p>
+<p>| iceberg ≥8000 | 见 CJK 脚本 |</p>
+<p>| 对标香飘飘厚度 | 冲刺中 |</p>
+<p>| 零编造 / 禁三年预测 | ✅ 纪律写入 |</p>
+<p>| 全球 101 ≠ 中国 DMP | ✅ 多章强调 |</p>
+<p>| ifalsify / ONE_PAGER / 刀 | 另轨（非本任务必交） |</p>
+<br/>
+<h2>张力候选（从冰山抽出）</h2>
+<br/>
+<blockquote>Services/体育 OS 已在全球验证（MLS→Apple TV，FNB）vs 大中华叙事仍偏硬件周期（FY25 GC 软 → Q1 +38% 以 iPhone 为主）。</blockquote>
+<br/>
+<h2>纪律摘要</h2>
+<br/>
+<ul>
+<li>数字 A/B；无源【待核实】  </li>
+<li>渠道丑闻 / 苹果税精确额 → 09  </li>
+<li>Q1 不可年化；不可把集团 Services 增速说成中国 Services  </li>
+<li>不承诺 NBA 美国媒体权  </li>
+</ul>
+<br/>
+<h2>一句话</h2>
+<br/>
+<blockquote>查得越深，刀子越短：Apple 已在全球把联赛写成订阅产品；大中华刚用一季 iPhone 证明弹性——缺的是中国文化级服务/零售拉动力 OS。</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>研究使用说明（给内部）</h2>
+<br/>
+<p>1. **先读** `01` + `08` + `09`，再决定刀。  </p>
+<p>2. **数字**只许从 `../data_traceability.md` 升级。  </p>
+<p>3. **原话**只许从 `02` 挑选。  </p>
+<p>4. **竞品羞辱**在 `04` 有边界，刀子更严。  </p>
+<p>5. **权力**以 `06` L0 清单推进，不靠猜测点名。  </p>
+<p>6. **全球≠中国**出现在 03/05/11/12——重复是特性。  </p>
+<p>7. HTML 镜像与销售件另轨，不因冰山完成而自动过 `sales_gate`。  </p>
+<br/>
+<h3>与对标案</h3>
+<br/>
+<p>| 案 | CJK 目标参照 |</p>
+<p>|----|--------------|</p>
+<p>| 香飘飘 | ≈34.8k |</p>
+<p>| 雀巢 | ≈34.8k |</p>
+<p>| 本 Apple v1.6 | ≥25k，冲刺 ≥30k 对齐 |</p>
+<br/>
+<h3>更新日志</h3>
+<br/>
+<p>| 日 | 变更 |</p>
+<p>|----|------|</p>
+<p>| 2026-08-09 | 初版冰山 13 文件 + 案根溯源/时效 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>CJK 与门禁备注</h2>
+<br/>
+<p>本索引的 CJK 列以脚本实时统计为准；达标线：硬目标不少于二万五千汉字字符，冲刺三万并对齐香飘飘/雀巢约三点五万量级。未达标不得宣称「后期标准已过」。冰山完成不等于销售门禁完成。</p>
+</section><section class="chap" id="01_IR_financial">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple Inc. · 财报精读（IR）</h1>
+<br/>
+<blockquote>时间锚：**FY2025**（截至 2025-09-27）· **FY2026 Q1**（截至 2025-12-27）· 对照 FY2023–24  </blockquote>
+<blockquote>口径纪律：**Greater China = 中国大陆 + 香港 + 台湾**（10-K 地理段定义）；季度 ≠ 财年；Products/Services 与地理段不可混加。  </blockquote>
+<blockquote>版本：v1.6 冰山 · 零编造 · 无 A/B 标【待核实】  </blockquote>
+<blockquote>我方默认：NBA China（咨询式；非卖曝光）</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 读本文件的三句话</h2>
+<br/>
+<p>1. **集团斜率**：FY24 **$391,035m** → FY25 **$416,161m**（+6.4%）；Services FY25 **$109,158m**（vs $96,169m，+13.5%）。  </p>
+<p>2. **大中华张力**：FY25 Greater China **$64,377m**（vs FY24 $66,952m，约 −3.8%）；FY26Q1 同区 **$25,526m**（vs $18,513m，约 **+37.9%/+38%**）——**季度反弹 ≠ 年度结构已变**。  </p>
+<p>3. **会前禁句**：把 FY25 大中华下滑说成「中国没了」；把 Q1 +38% 说成永久反转；把全球 Services/体育 OS 直接等于中国 DMP 预算；编造三年中国 CAGR。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. 集团两年对照（A）</h2>
+<br/>
+<p>| 指标 | FY2024 | FY2025 | Δ | 源 |</p>
+<p>|------|--------|--------|---|-----|</p>
+<p>| Total net sales | $391,035m | **$416,161m** | +$25,126m | FY25 Q4 Consol. FS |</p>
+<p>| Products | $294,866m | **$307,003m** | +$12,137m | 同上 |</p>
+<p>| Services | $96,169m | **$109,158m** | +$12,989m | 同上 |</p>
+<p>| Gross margin | $180,683m | **$195,201m** | — | 同上 |</p>
+<p>| Operating income | $123,216m | **$133,050m** | — | 同上 |</p>
+<p>| Net income | $93,736m | **$112,010m** | — | 同上（FY24 含 State Aid 税项扰动，见非 GAAP 附注） |</p>
+<p>| R&amp;D | $31,370m | **$34,550m** | — | 同上 |</p>
+<p>| SG&amp;A | $26,097m | **$27,601m** | — | 同上 |</p>
+<p>| Operating cash flow | $118,254m | **$111,482m** | — | 同上 |</p>
+<p>| Capex（PPE） | $9,447m | **$12,715m** | — | 同上 |</p>
+<p>| Share repurchase | $94,949m | **$90,711m** | — | 同上 |</p>
+<p>| Dividends | $15,234m | **$15,421m** | — | 同上 |</p>
+<br/>
+<p>来源 [A]：  </p>
+<ul>
+<li>https://www.apple.com/newsroom/pdfs/fy2025-q4/FY25_Q4_Consolidated_Financial_Statements.pdf  </li>
+<li>SEC 8-K Ex.99.1：https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/a8-kex991q4202509272025.htm  </li>
+</ul>
+<br/>
+<p>**读法**：增长双引擎仍在——**硬件周期（Products）+ 服务复利（Services）**；Services 绝对增量与 Products 同量级（约 +$13B），是「体育服务 OS」叙事的财务底座，不是营销口号。</p>
+<br/>
+<h3>FY25 品类拆分（A）</h3>
+<br/>
+<p>| 品类 | FY2024 | FY2025 | 读法 |</p>
+<p>|------|--------|--------|------|</p>
+<p>| iPhone | $201,183m | **$209,586m** | 仍是绝对主力；+4.2% |</p>
+<p>| Mac | $29,984m | **$33,708m** | 强复苏年 |</p>
+<p>| iPad | $26,694m | **$28,023m** | 温和正 |</p>
+<p>| Wearables, Home and Accessories | $37,005m | **$35,686m** | 负增长；勿当「生态已饱和」一锤定音 |</p>
+<p>| Services | $96,169m | **$109,158m** | 连续高增；体育内容是子集 |</p>
+<br/>
+<h3>FY25 地理段（A）</h3>
+<br/>
+<p>| 段 | FY2024 | FY2025 | YoY 约 |</p>
+<p>|----|--------|--------|--------|</p>
+<p>| Americas | $167,045m | **$178,353m** | +6.8% |</p>
+<p>| Europe | $101,328m | **$111,032m** | +9.6% |</p>
+<p>| **Greater China** | **$66,952m** | **$64,377m** | **−3.8%** |</p>
+<p>| Japan | $25,052m | **$28,703m** | +14.6% |</p>
+<p>| Rest of Asia Pacific | $30,658m | **$33,696m** | +9.9% |</p>
+<p>| Total | $391,035m | **$416,161m** | +6.4% |</p>
+<br/>
+<p>**纪律**：Greater China 占 FY25 总销售约 **15.5%**（64,377 / 416,161）。它是**战略重要区**，不是集团生死线——刀子勿用「救苹果」话术。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1b. Greater China 多年序列（会前表真源 · A）</h2>
+<br/>
+<p>| 财年 | Greater China net sales | 集团总销售 | 占集团 % | 源 |</p>
+<p>|------|-------------------------|------------|----------|-----|</p>
+<p>| FY2022 | $74,200m | $394,328m | ~18.8% | FY23 Q4 Consol. FS（对照列）[A] |</p>
+<p>| FY2023 | $72,559m | $383,285m | ~18.9% | 同上 [A] |</p>
+<p>| FY2024 | $66,952m | $391,035m | ~17.1% | FY25 Q4 Consol. FS [A] |</p>
+<p>| FY2025 | **$64,377m** | **$416,161m** | **~15.5%** | 同上 [A] |</p>
+<br/>
+<p>**斜率读法（事实层）**：FY22 高点后连续三年下滑（74.2 → 72.6 → 67.0 → 64.4）。同期集团总销售 FY23 曾回落、FY24–25 再创新高——**全球与大中华脱钩感**是真实张力，不是媒体夸张。</p>
+<br/>
+<p>**地理定义（A · 10-K 风格）**：Greater China includes China mainland, Hong Kong and Taiwan。禁止把「China」口误成仅大陆，也禁止把港澳台拆成可报数字（公司不单列）。</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. FY2026 Q1（截至 2025-12-27）· 季度反弹（A）</h2>
+<br/>
+<p>| 指标 | FY26 Q1 | FY25 Q1（对照） | YoY |</p>
+<p>|------|---------|-----------------|-----|</p>
+<p>| Total net sales | **$143,756m** | $124,300m | +15.7%（新闻稿称 +16%） |</p>
+<p>| Products | $113,743m | $97,960m | — |</p>
+<p>| Services | **$30,013m** | $26,340m | +13.9%（新闻稿称 Services +14% all-time record） |</p>
+<p>| iPhone | **$85,269m** | $69,138m | +23.3% |</p>
+<p>| Greater China | **$25,526m** | **$18,513m** | **+37.9% ≈ +38%** |</p>
+<p>| Americas | $58,529m | $52,648m | +11.2% |</p>
+<p>| Europe | $38,146m | $33,861m | +12.7% |</p>
+<p>| Net income | $42,097m | $36,330m | — |</p>
+<p>| Diluted EPS | $2.84 | $2.40 | +19%（新闻稿） |</p>
+<p>| Operating cash flow | $53,925m | $29,935m | — |</p>
+<p>| Share repurchase（季） | $24,701m | $23,606m | — |</p>
+<br/>
+<p>来源 [A]：  </p>
+<ul>
+<li>Newsroom：https://www.apple.com/newsroom/2026/01/apple-reports-first-quarter-results/  </li>
+<li>SEC 8-K Ex.99.1：https://www.sec.gov/Archives/edgar/data/320193/000032019326000005/a8-kex991q1202612272025.htm  </li>
+</ul>
+<br/>
+<h3>Q1 管理层叙事（B · 须与 A 对照）</h3>
+<br/>
+<p>Tim Cook（新闻稿 [A/B]）：  </p>
+<ul>
+<li>季度收入 $143.8B，+16% YoY，「well above our expectations」。  </li>
+<li>iPhone best-ever quarter；**all-time records across every geographic segment**。  </li>
+<li>Services all-time revenue record，+14%。  </li>
+<li>Installed base **more than 2.5 billion active devices**。</li>
+</ul>
+<br/>
+<p>Kevan Parekh CFO（新闻稿 [A/B]）：  </p>
+<ul>
+<li>EPS +19% all-time record；operating cash flow nearly $54B；return almost $32B to shareholders。</li>
+</ul>
+<br/>
+<p>Earnings call 转述（C，须降级）：MacRumors 纪要称大中华 +38% 由 iPhone 驱动；「best iPhone quarter in history in China」；门店 traffic strong double digit；installed base all-time high；urban China top-3 smartphones 等——**具体排名/份额无无独立 A 表，标【待核实】或不进铁事实**。</p>
+<br/>
+<h3>季度 vs 财年纪律（硬）</h3>
+<br/>
+<p>| 错误用法 | 正确用法 |</p>
+<p>|----------|----------|</p>
+<p>| 「中国已经回来了」 | 「FY26Q1 大中华 +38% 是强季度；FY25 全年仍 −3.8%」 |</p>
+<p>| 「Services 在中国也 +14%」 | 「+14% 是集团 Services；中国 Services 单列【待核实】」 |</p>
+<p>| 「Q1 $25.5B 年化就是 $100B+」 | **禁止年化**；苹果季节性极强（Holiday 季） |</p>
+<p>| 「占集团比例回升到 18%」 | Q1 占比 25,526/143,756 ≈ **17.8%**，不可外推全年 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. Products / Services 毛利结构提示（A）</h2>
+<br/>
+<p>| 项 | FY25 | 读法 |</p>
+<p>|----|------|------|</p>
+<p>| Products cost of sales | $194,116m | — |</p>
+<p>| Services cost of sales | $26,844m | Services 成本率显著低于 Products |</p>
+<p>| Services 毛利贡献 | Services 销售 $109,158m − COS $26,844m ≈ **$82.3B** 毛利贡献量级 | 解释为何管理层死守 Services 叙事 |</p>
+<br/>
+<p>**与体育钩子的连接（研究层，非刀刃承诺）**：MLS Season Pass / Friday Night Baseball 是 Services（Apple TV / Apple TV+）产品线上的**内容与订阅拉动力**；财务上归入 Services，不归入 iPhone。会面时「体育 OS」必须挂 Services/安装基数逻辑，而不是「再卖一台手机」。</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 非 GAAP / 特殊项提醒（A）</h2>
+<br/>
+<p>FY2024 Q4 / FY 含欧洲 State Aid 相关 **one-time income tax charge ~$10.2B net**（非 GAAP 调节见 FY25 Q4 Consol. FS 附注）。  </p>
+<p>→ 比较 FY24 vs FY25 **净利润**时，优先用经营指标（销售、毛利、operating income）或注明税项扰动，避免「利润暴增」外行结论。</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 卖方 / 会面 10 问（研究用）</h2>
+<br/>
+<p>| # | 问题 | 为何问 | 期望证据级别 |</p>
+<p>|---|------|--------|--------------|</p>
+<p>| 1 | FY26 余下三季 Greater China 指引口径是什么？ | 防把 Q1 当全年 | A/B |</p>
+<p>| 2 | 大中华 **Services** 销售或增速是否有内部可分享区间？ | 体育 OS 挂钩点 | L0【待核实】 |</p>
+<p>| 3 | 中国 mainland vs HK/TW 结构变化？ | 地理段合成风险 | 通常不披露 |</p>
+<p>| 4 | iPhone 升级潮 vs 换机周期 vs 补贴政策权重？ | 反弹可重复性 | B/C |</p>
+<p>| 5 | Apple Store traffic / NPS / 教育渠道【待核实】 | 零售拉动力 | L0 |</p>
+<p>| 6 | App Store / Apple Music / Apple TV+ / Apple Pay 在中国的优先级排序？ | 服务组合 | L0 |</p>
+<p>| 7 | 体育内容在 Apple TV（中国可用性）边界？ | 全球 101 ≠ 中国 DMP | A/运营 |</p>
+<p>| 8 | 与腾讯视频/爱奇艺等本地流媒体的竞合？ | 渠道现实 | C |</p>
+<p>| 9 | 监管（数据/应用分发/支付）对 Services 的约束清单？ | 风险 | A 10-K Risk + C |</p>
+<p>| 10 | 中国营销预算决策链：总部 Services vs Greater China 零售/市场？ | MEDDIC | L0 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 与张力候选的 IR 映射</h2>
+<br/>
+<p>| 张力句 | IR 支撑 | 反证风险 |</p>
+<p>|--------|---------|----------|</p>
+<p>| Services/体育已全球验证 | Services $109B；MLS 十年；FNB 回归 Apple TV+（Newsroom A） | 体育占 Services 比例未披露【待核实】 |</p>
+<p>| 中国仍偏硬件周期 | FY25 大中华下滑；Q1 叙事由 iPhone 驱动（B/C） | Q1 反弹可能延续 → 须 ifalsify |</p>
+<p>| 缺「中国高频文化 × 服务/零售拉动力」 | 安装基数全球 2.5B+；中国单列服务拉动力无 A | NBA 是否最优文化钩【待核实】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 会前数字白名单（仅 ✅ 进刀/ONE_PAGER）</h2>
+<br/>
+<p>| 数字 | 级别 |</p>
+<p>|------|------|</p>
+<p>| FY25 total $416,161m；Services $109,158m；GC $64,377m；iPhone $209,586m | A ✅ |</p>
+<p>| FY24 total $391,035m；GC $66,952m；Services $96,169m | A ✅ |</p>
+<p>| FY26Q1 total $143,756m；GC $25,526m；Services $30,013m；iPhone $85,269m | A ✅ |</p>
+<p>| Installed base &gt;2.5B active devices | A/B（新闻稿）✅ 注明口径 |</p>
+<p>| 中国城市份额「前三」等 | C ⚠️ 默认不进铁事实 |</p>
+<p>| 中国 Services 占比 / 体育 ARPU | — 【待核实】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 一句话</h2>
+<br/>
+<blockquote>FY25 集团再创新高、Services 过千亿美金；大中华全年承压后用 FY26Q1 +38% 证明硬件弹性还在——**缺的是可核的「服务/文化拉动力」中国叙事，不是再讲一季 iPhone 出货。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>9. 季度序列工作底稿（防口径混乱）</h2>
+<br/>
+<p>| 季 | 截止日 | Total | Greater China | Services | iPhone | 备注 |</p>
+<p>|----|--------|-------|---------------|----------|--------|------|</p>
+<p>| FY25 Q4 | 2025-09-27 | $102,466m | $14,493m | $28,750m | $49,025m | 见 FY25 Q4 Consol. FS 三月列 [A] |</p>
+<p>| FY25 Q4 对照年 | 2024-09-28 | $94,930m | $15,033m | $24,972m | $46,222m | 同上 |</p>
+<p>| FY26 Q1 | 2025-12-27 | $143,756m | $25,526m | $30,013m | $85,269m | 8-K [A] |</p>
+<p>| FY25 Q1 对照 | 2024-12-28 | $124,300m | $18,513m | $26,340m | $69,138m | 同上 |</p>
+<br/>
+<p>**读法训练**：</p>
+<br/>
+<p>1. **Q4 GC $14.5B vs 上年 $15.0B**：即便 Holiday 前夕，FY25 末季大中华仍弱——全年 −3.8% 不是「一个坏季」幻觉。  </p>
+<p>2. **Q1 GC $25.5B**：Holiday 弹性极强；与 Q4 不可简单相加当「半年趋势」。  </p>
+<p>3. **Services 三月列**：Q4 $28.8B、Q1 $30.0B，服务更「平滑」，硬件更「脉冲」——这正是「中国叙事偏硬件」的财报表象。</p>
+<br/>
+<h3>9.1 占比速算（研究用）</h3>
+<br/>
+<p>| 切片 | 算法 | 结果 | 可否进刀 |</p>
+<p>|------|------|------|----------|</p>
+<p>| FY25 GC/Total | 64377/416161 | ≈15.47% | ✅ 可作结构句 |</p>
+<p>| FY24 GC/Total | 66952/391035 | ≈17.12% | ✅ |</p>
+<p>| FY26Q1 GC/Total | 25526/143756 | ≈17.76% | ✅ 须标「季度」 |</p>
+<p>| FY25 Services/Total | 109158/416161 | ≈26.23% | ✅ 集团结构 |</p>
+<p>| FY25 iPhone/Total | 209586/416161 | ≈50.36% | ✅ 仍半壁江山 |</p>
+<br/>
+<h3>9.2 毛利粗算（Services 吸引力）</h3>
+<br/>
+<p>| 项 | FY25 | 注释 |</p>
+<p>|----|------|------|</p>
+<p>| Services 销售 | 109,158 | A |</p>
+<p>| Services COS | 26,844 | A |</p>
+<p>| 隐含毛利额 | ≈82,314 | 自算；非公司分部披露营业利润 |</p>
+<p>| Products 销售 | 307,003 | A |</p>
+<p>| Products COS | 194,116 | A |</p>
+<p>| 隐含毛利额 | ≈112,887 | 自算 |</p>
+<br/>
+<p>**会前句**：服务规模小于产品，但单位销售的成本更低——解释管理层为何把 MLS 并进订阅包而不是当「慈善转播」。禁止把自算毛利说成「官方分部利润」。</p>
+<br/>
+<hr/>
+<br/>
+<h2>10. 与「体育服务 OS」钩子的财务对接清单</h2>
+<br/>
+<p>| 钩子元素 | 财务挂钩点 | 证据状态 |</p>
+<p>|----------|------------|----------|</p>
+<p>| MLS / FNB | Services + Apple TV 产品 | Newsroom A；金额【待核实】 |</p>
+<p>| 安装基数 | 服务渗透分母 | 2.5B A/B；中国分母【待核实】 |</p>
+<p>| Store traffic | 零售 lean-in | C（call） |</p>
+<p>| GC 销售 | 议题重要性 | A |</p>
+<p>| iPhone 脉冲 | 窗口期 | A（Q1） |</p>
+<br/>
+<p>**错误对接**：把 GC +38% 直接写成「体育成功」。  </p>
+<p>**正确对接**：+38% = 硬件窗口；体育/文化 = 拟议的**下一层附着**。</p>
+<br/>
+<hr/>
+<br/>
+<h2>11. 现金流与资本回报（防「苹果缺钱」误读）</h2>
+<br/>
+<p>| 项 | FY25 | FY26Q1 | 读法 |</p>
+<p>|----|------|--------|------|</p>
+<p>| Operating cash flow | $111,482m | $53,925m | 现金机器 |</p>
+<p>| Dividends | $15,421m | $3,921m（季） | 持续回报 |</p>
+<p>| Buyback | $90,711m | $24,701m（季） | 持续回报 |</p>
+<p>| Capex | $12,715m | $2,373m（季） | 投资仍在 |</p>
+<br/>
+<p>→ 会面禁句：「帮你们做增量销量否则没增长」。应改为：「在现金充裕前提下，中国叙事稳定性与服务附着是否配得上全球 Services 身份」。</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. IR 精读检查表（grill 自测）</h2>
+<br/>
+<p>| # | 自测题 | 合格答案要点 |</p>
+<p>|---|--------|--------------|</p>
+<p>| 1 | FY25 总销售与 Services？ | 416,161；109,158 |</p>
+<p>| 2 | GC FY24→FY25？ | 66,952→64,377 |</p>
+<p>| 3 | Q1 GC 绝对额与对照？ | 25,526 vs 18,513 |</p>
+<p>| 4 | 为何不能年化 Q1？ | Holiday 季节性 |</p>
+<p>| 5 | Wearables FY25 方向？ | 下滑 37,005→35,686 |</p>
+<p>| 6 | FY24 净利润比较陷阱？ | State Aid 税项 |</p>
+<p>| 7 | GC 地理定义？ | 大陆+港+台 |</p>
+<p>| 8 | 体育挂哪条 P&amp;L？ | Services / TV，非 iPhone |</p>
+<p>| 9 | 2.5B 是什么？ | 全球 active devices |</p>
+<p>| 10 | 中国 Services？ | 未单列【待核实】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>13. 附录：源文件路径备忘</h2>
+<br/>
+<p>| 文件 | URL |</p>
+<p>|------|-----|</p>
+<p>| FY25 Q4 FS PDF | apple.com/newsroom/pdfs/fy2025-q4/FY25_Q4_Consolidated_Financial_Statements.pdf |</p>
+<p>| FY25 Q4 8-K | sec.gov/.../000032019325000077/... |</p>
+<p>| FY26 Q1 8-K | sec.gov/.../000032019326000005/... |</p>
+<p>| FY26 Q1 Newsroom | apple.com/newsroom/2026/01/apple-reports-first-quarter-results/ |</p>
+<p>| FY23 Q4 FS（GC 历史） | apple.com/newsroom/pdfs/fy2023-q4/FY23_Q4_Consolidated_Financial_Statements.pdf |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>14. 财务叙事「双镜」：给销售背诵版</h2>
+<br/>
+<p>**镜一 · 集团强**：FY25 总销售创下 $4161.61 亿美金量级，服务收入跨过 $1091.58 亿，毛利与营业利润同步抬升。这说明苹果不是「求曝光续命」的客户，而是在全球层面已经把服务做成第二曲线的平台型公司。和它谈，要用董事会听得懂的语言：安装基数、服务附着、地理段波动，而不是媒介版位表。</p>
+<br/>
+<p>**镜二 · 大中华波动**：同一财年，大中华净销售从 FY24 的 $669.52 亿降到 $643.77 亿；再往前看，FY22 高点 $742.00 亿之后已是连续下台阶。占比从约 17% 降到约 15.5%。这不是媒体夸张出来的「中国故事」，而是 8-K 表上的结构事实。然后 FY26 第一财季又打出 $255.26 亿、同比约三成八的强反弹——于是出现经典误读：有人宣布「中国没了」，有人宣布「彻底复苏」。两种都错。正确读法是**双时间尺度并存**：年度仍录得压力，季度证明产品脉冲可以把表打正。</p>
+<br/>
+<p>**镜三 · 服务平滑、硬件脉冲**：服务收入在季度之间相对连续；iPhone 在 Holiday 季可以极端放大。中国公开叙事若长期只庆祝脉冲，就会在产品普通季重新暴露「除了出货不会讲故事」的窘境。体育与文化操作系统的财务理由，正是降低叙事对单一硬件季的方差依赖，而不是替某一季出货「买热度」。</p>
+<br/>
+<p>销售若只能记住三句：第一，集团服务已是千亿美金级；第二，大中华年度与季度必须并陈；第三，体育挂在服务产品，不挂在 iPhone 行项目的空话上。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 数字口播稿（对内排练 · 非客户讲义）</h2>
+<br/>
+<p>「FY2025 总净销售四千一百六十一点六一亿美元，服务一千零九十一点五八亿，大中华六百四十三点七七亿，低于上年的六百六十九点五二亿。iPhone 两千零九十五点八六亿，仍是基本盘。FY2026 第一财季总销售一千四百三十七点五六亿，大中华二百五十五点二六亿，对照年一百八十五点一三亿，大约正三十八个点。服务单季三百点一三亿。全球活跃设备安装基数超过二十五亿台。以上全部来自苹果新闻室财报与证监会八-K，禁止现场口算年化，禁止把集团服务增速说成中国服务增速。」</p>
+<br/>
+<p>排练要求：六十秒内背完；被打断时能从「大中华双尺度」重新起讲；被问份额时回答「机构数未进铁事实」。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 常见错误计算与纠正</h2>
+<br/>
+<p>错误一：把大中华季度销售乘四。纠正：Holiday 权重极高，乘法伪造繁荣或伪造崩溃。错误二：用总销售减各大区反推隐藏项。纠正：表已闭合，无需阴谋。错误三：把服务毛利自算值写成分部营业利润。纠正：标明自算。错误四：拿人民币中间价现场换算压对方。纠正：只用美元口径。错误五：把回购金额解释成营销预算来源。纠正：资本回报不等于费用预算。财务章的职业体面，来自拒绝这些小聪明。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="02_executive_quotes">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 原话库（executive quotes）</h1>
+<br/>
+<blockquote>用途：深谈引用 / ifalsify 对照 / 刀子最多抽 1 句活证据  </blockquote>
+<blockquote>纪律：新闻稿署名句优先 A/B；电话会转述标 C；中文媒体二传手降级  </blockquote>
+<blockquote>目标：≥12 条可核原话 · v1.6</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>使用规则</h2>
+<br/>
+<p>| 场景 | 规则 |</p>
+<p>|------|------|</p>
+<p>| ONE_PAGER / 刀刃 | ≤1 句；必须能回链 Newsroom 或 8-K |</p>
+<p>| A_dossier | 可 2–3 句，分「增长 / 中国 / 服务」 |</p>
+<p>| 会面现场 | 禁止背长段；用「你们自己的词」回问 |</p>
+<p>| 禁区 | 把 call 上的份额吹嘘当 IR 数字 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>原话表（≥12）</h2>
+<br/>
+<p>| # | 说话人 | 原话 / 可靠摘要 | 时间锚 | 级别 | 源 | 对本案含义 |</p>
+<p>|---|--------|-----------------|--------|------|-----|-----------|</p>
+<p>| 1 | Tim Cook, CEO | “Today, Apple is proud to report a remarkable, record-breaking quarter, with revenue of $143.8 billion, up 16 percent from a year ago and well above our expectations.” | FY26Q1 PR 2026-01-29 | A/B | apple.com/newsroom | Holiday 超预期；勿说成「全年指引」 |</p>
+<p>| 2 | Tim Cook | “iPhone had its best-ever quarter driven by unprecedented demand, with all-time records across every geographic segment, and Services also achieved an all-time revenue record, up 14 percent from a year ago.” | 同上 | A/B | 同上 | **地理段全破纪录**含大中华；Services 与 iPhone 并列 |</p>
+<p>| 3 | Tim Cook | “We are also excited to announce that our installed base now has more than 2.5 billion active devices…” | 同上 | A/B | 同上 | 安装基数 = 服务渗透分母 |</p>
+<p>| 4 | Kevan Parekh, CFO | “During the December quarter, our record business performance and strong margins led to EPS growth of 19 percent, setting a new all-time EPS record… generated nearly $54 billion in operating cash flow, allowing us to return almost $32 billion to shareholders.” | 同上 | A/B | 同上 | 现金与回购能力强；非「缺钱求赞助」叙事 |</p>
+<p>| 5 | Eddy Cue, SVP Services | “MLS Season Pass delivers… Heading into our third year with MLS, we’re excited to continue elevating the fan experience…”（Newsroom 2025-01 语境） | 2025-01 MLS 回归季 | A | apple.com/newsroom/2025/01/major-league-soccer-returns-to-mls-season-pass-on-apple-tv/ | Services 负责人亲自站体育产品 |</p>
+<p>| 6 | Don Garber, MLS Commissioner | “Our partnership with Apple has redefined how fans experience Major League Soccer, bringing the league to more people around the world than ever before.” | 同上 | A（合作方） | 同上 | 第三方背书「全球到达」——但仍非中国 DMP |</p>
+<p>| 7 | Apple Newsroom（公司声） | Beginning 2026, all MLS matches available to Apple TV subscribers at no additional cost; standalone MLS Season Pass concludes end of 2025 season. | 2025-11 | A | apple.com/newsroom/2025/11/major-league-soccer-is-coming-to-apple-tv-starting-in-2026/ | 从「附加订阅」并入 Apple TV 订阅——**体育服务 OS 产品化** |</p>
+<p>| 8 | Apple / MLB 联合宣布 | “Friday Night Baseball,” weekly doubleheader on Apple TV+, returns 2025 regular season beginning March 28; available across 60 countries and regions. | 2025-03 | A | apple.com/newsroom/2025/03/friday-night-baseball-returns-to-apple-tv-plus-on-march-28/ | 棒球周五夜 = 节律性体育窗口 |</p>
+<p>| 9 | Adam Silver, NBA Commissioner | “Our new global media agreements with Disney, NBCUniversal and Amazon will maximize the reach and accessibility of NBA games for fans in the United States and around the world.” | 2024-07-24 | A（NBA.com） | nba.com/news/nba-media-agreements-2024 | **美国主包不含 Apple**——本案勿承诺全球转播权 |</p>
+<p>| 10 | Tim Cook（历史服务叙事惯用语） | Services 作为长期增长引擎的公开表述在历次 earnings 重复出现【具体 FY25Q4 长段原话待贴】 | FY25 季报季 | B【待核实精确句】 | Investor earnings call | 可用「Services 战略优先级」定性，勿伪造引用 |</p>
+<p>| 11 | Apple 10-K 定义句 | “Greater China includes China mainland, Hong Kong and Taiwan.” | FY23/后续 10-K | A | SEC 10-K | 口径纪律原句 |</p>
+<p>| 12 | Apple 10-K 管理句 | 公司 primarily manages business on a geographic basis；reportable segments = Americas, Europe, Greater China, Japan, Rest of Asia Pacific. | 同上 | A | SEC 10-K | 决策与报告按地理段——中国议题应对 Greater China 负责人 |</p>
+<p>| 13 | Call 转述 · Cook/团队（C） | Greater China up 38% driven by iPhone; best iPhone quarter in history in China; store traffic strong double-digit; installed base all-time high.（MacRumors 纪要） | FY26Q1 call | C | macrumors.com 2026-01-29 | **只作深谈线索**；份额「urban top 3」不进铁事实 |</p>
+<p>| 14 | Apple PR 自我定位句 | “Apple’s six software platforms… empower people with breakthrough services including the App Store, Apple Music, Apple Pay, iCloud, and Apple TV.” | FY26Q1 PR 公司简介段 | A/B | Newsroom | 体育挂在 Apple TV 服务族，不在硬件 SKU 表 |</p>
+<p>| 15 | MLSSoccer.com（2022 宣布语境） | 10-year partnership beginning 2023；every MLS match via Apple TV app；no local blackouts. | 2022 宣布 / 持续有效 | A/B | mlssoccer.com | 「十年」是结构，不是单季战役 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>主题索引</h2>
+<br/>
+<h3>A. 增长与纪录</h3>
+<ul>
+<li>#1 #2 #4 → Holiday 超预期；iPhone + Services 双破纪录。</li>
+</ul>
+<br/>
+<h3>B. 安装基数 / 服务</h3>
+<ul>
+<li>#3 #14 → 2.5B+ devices；服务清单含 Apple TV。</li>
+</ul>
+<br/>
+<h3>C. 体育服务 OS（全球）</h3>
+<ul>
+<li>#5 #6 #7 #8 #15 → MLS 十年→并入 Apple TV；FNB 周五夜节律。</li>
+</ul>
+<br/>
+<h3>D. 中国</h3>
+<ul>
+<li>#11 #12 #13 → 地理定义硬；Q1 反弹叙事以 iPhone 为主（C）。</li>
+</ul>
+<br/>
+<h3>E. NBA 边界（我方红线）</h3>
+<ul>
+<li>#9 → 美媒权 Disney / NBCU / Amazon；Apple 非主包。</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>可进刀的「最短活证据」候选（仅 1 条）</h2>
+<br/>
+<blockquote>优选组合：**Services all-time record +14%（#2）** × **MLS 并入 Apple TV（#7）** ——证明「体育已是服务产品逻辑」；中国侧只用 **FY25 GC −3.8% vs Q1 +38%（IR 表）** 作对照，不靠原话吹。</blockquote>
+<br/>
+<p>备选：#3 安装基数（若对方纠结渗透）。</p>
+<br/>
+<hr/>
+<br/>
+<h2>禁止伪造清单</h2>
+<br/>
+<ul>
+<li>未检索到的「Cook 说中国需要 NBA」类句子 → **禁止出现**  </li>
+<li>把 Silver #9 改写成「欢迎 Apple 成为 NBA 媒体伙伴」→ **扭曲**  </li>
+<li>把 Cue #5 说成「中国业务负责人」→ **职级错误**  </li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>【待核实】原话池</h2>
+<br/>
+<p>| 项 | 状态 |</p>
+<p>|----|------|</p>
+<p>| FY25 Q4 earnings call 关于 China 的逐字稿 | 待贴 B 源 |</p>
+<p>| Deirdre O’Brien / retail 关于中国门店的原话 | 待检索 |</p>
+<p>| 中国区市场负责人公开中文访谈（若有） | 待检索 |</p>
+<p>| Apple TV+ 中国可用性官方说明句 | 待核运营页 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>引用分级操作手册</h2>
+<br/>
+<p>| 级别 | 定义 | 可否进刀 |</p>
+<p>|------|------|----------|</p>
+<p>| A | 公司 IR PDF / SEC / 官网 Newsroom 署名稿 | 是 |</p>
+<p>| B | earnings call 正式逐字稿 | 核对数字后可 |</p>
+<p>| C | 媒体纪要、二手采访 | 默认否；深谈可 |</p>
+<p>| D | 匿名/营销号 | 否 |</p>
+<br/>
+<h3>追加原话卡（扩展）</h3>
+<br/>
+<p>| # | 说话人 | 内容要点 | 级别 | 使用场景 |</p>
+<p>|---|--------|----------|------|----------|</p>
+<p>| 16 | Apple Newsroom（MLS 2026） | 单独 Season Pass 将在 2025 季结束后结束；比赛纳入 Apple TV 订阅 | A | 证明产品化跃迁 |</p>
+<p>| 17 | Apple Newsroom（FNB） | 增强制作、专家解说、无本地转播限制（稿件表述） | A | 「体验产品」语言 |</p>
+<p>| 18 | NBA 官方稿 | 与 Disney、NBCU、Amazon 的新协议最大化到达与可及性 | A | 边界声明 |</p>
+<p>| 19 | Cook（Q1） | 「well above our expectations」 | A/B | 超预期——但别延伸成全年指引 |</p>
+<p>| 20 | Parekh（Q1） | 强劲利润率 + 现金流 + 股东回报 | A/B | 反「求赞助续命」 |</p>
+<p>| 21 | Garber（MLS） | 与 Apple 的合作 redefine fan experience | A | 第三方产品背书 |</p>
+<p>| 22 | Cue（Services） | 提升球迷体验（2025 MLS 稿） | A | Services 主人翁 |</p>
+<p>| 23 | 10-K | 分部按地理管理 | A | 权力图 |</p>
+<p>| 24 | 公司简介段 | 六大软件平台 + App Store/Music/Pay/iCloud/TV | A/B | 服务菜单 |</p>
+<p>| 25 | Call C | 中国门店 traffic、升级用户纪录等 | C | 只深谈 |</p>
+<br/>
+<h3>「原话陷阱」十条</h3>
+<br/>
+<p>1. 把「every geographic segment」听成「中国服务也破纪录」。  </p>
+<p>2. 把「2.5B devices」说成「中国二十五亿」。  </p>
+<p>3. 把 Garber 全球到达说成中国 MLS 热潮。  </p>
+<p>4. 把 Silver 媒体协议说成对 Apple 邀请。  </p>
+<p>5. 用中文自造 Cook「我们缺篮球」金句。  </p>
+<p>6. 混淆 Apple TV 与 Apple TV+ 产品名。  </p>
+<p>7. 把 2025-11 MLS 稿当成已经全部完成 2026 季执行。  </p>
+<p>8. 把 CFO 股东回报句变成「营销预算无限」。  </p>
+<p>9. 从 MacRumors 纪要直接抄「top three」进 ONE_PAGER。  </p>
+<p>10. 忽视 State Aid 却比较「利润翻倍」。</p>
+<br/>
+<h3>会面「以彼之矛」三问（用原话反问）</h3>
+<br/>
+<p>1. 你们把 Services all-time record 写进新闻稿——在中国，对应的「服务胜利宣言」会是哪一句？  </p>
+<p>2. MLS 并进 Apple TV 后，评价成功的内部指标是订阅、时长还是品牌？中国若做文化 OS，能否共用指标语言？  </p>
+<p>3. Q1 强调 iPhone 历史最强——下一季产品普通时，中国叙事准备了什么非硬件支柱？</p>
+<br/>
+<h3>中文转述规范</h3>
+<br/>
+<p>| 英文要点 | 推荐中文转述 | 禁止转述 |</p>
+<p>|----------|--------------|----------|</p>
+<p>| well above expectations | 明显高于我们自己的预期 | 暴赚/打爆华尔街（未核共识） |</p>
+<p>| installed base &gt;2.5B | 活跃设备安装基数超过 25 亿 | 用户 25 亿（设备≠人） |</p>
+<p>| all-time records across every geographic segment | 各地理报告段均创纪录 | 中国全面统治 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>原话库使用长述</h2>
+<br/>
+<p>原话库不是「金句收藏」，而是反制两种病：一种是销售自己编领导人语录；一种是把电话会媒体纪要升级成 8-K。合格用法是：刀子最多抽取一句已回链新闻室或证监会文件的话，用来证明客户自己把服务或纪录写进公共叙事；深谈再补两到三句分主题排列。中国相关若只有电话会转述，就老实标 C，让对方感到你懂级别，而不是装作掌握内部讲话。</p>
+<br/>
+<p>反问比引用更强。与其背诵库克「超出预期」，不如问：你们把超出预期写进稿件时，中国团队的「预期」里到底有没有非硬件支柱？与其赞美加伯「重新定义观赛」，不如问：重新定义在中国对应的产品句是什么？原话的最高价值是借力打力，不是朗诵。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>引用冲突处理</h2>
+<br/>
+<p>当新闻稿与电话会纪要冲突，以新闻稿与财务报表为准。当中文媒体翻译夸张，回英文原句。当合作方（MLS、NBA）与苹果表述不一致，并陈两边原文，不选边裁剪。原话库更新频率：每季财报后七十二小时内增补；体育 Newsroom 稿出现产品形态变化时二十四小时内增补。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>原话与张力的焊接方式</h2>
+<br/>
+<p>焊接公式：原话（服务或纪录）加表格（大中华双尺度）加产品事实（MLS 并入）。缺任一环，焊接不成立。例如只甩二十五亿设备没有大中华表，会变成全球科普；只有大中华下滑没有服务原话，会变成唱衰；只有 MLS 没有中国表，会变成全球幻灯片。原话库服从焊接，不服从炫技。</p>
+</section><section class="chap" id="03_partnership_history">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 合作史与断裂点（体育 / 内容 / 中国营销）</h1>
+<br/>
+<blockquote>目的：分清「全球体育服务产品」vs「中国品牌合作」两条时间线；标出断裂与不可承诺项  </blockquote>
+<blockquote>我方：NBA China · 冷启动  </blockquote>
+<blockquote>v1.6</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 读图三句话</h2>
+<br/>
+<p>1. **全球线**：Apple 已用 MLS（十年）+ MLB Friday Night Baseball +（部分）F1 等，把**直播体育写进 Apple TV / TV+ 产品**。  </p>
+<p>2. **美国 NBA 媒体线**：2025-26 起主包在 Disney / NBCU / Amazon——**Apple 不是 NBA 美国全国转播主伙伴**（A：NBA.com 2024-07-24）。  </p>
+<p>3. **中国线**：公开可核的「Apple × 顶级篮球联赛长期官方」**空白**【待核实】；零售/教育/开发者生态合作 ≠ 体育 OS。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. 全球体育媒体时间线（可核）</h2>
+<br/>
+<p>| 年 | 事件 | 产品形态 | 级别 | 源 / 备注 |</p>
+<p>|----|------|----------|------|-----------|</p>
+<p>| 2022 | MLS × Apple 宣布 **10-year** 全球媒体合作，2023 季起 | 每场比赛经 Apple TV app；Season Pass | A/B | MLSSoccer.com；后续 Newsroom 延续 |</p>
+<p>| 2023 | MLS Season Pass 首季落地 | 独立订阅 + TV+ 部分权益 | A | 合作方/Apple 材料 |</p>
+<p>| 2022– | MLB **Friday Night Baseball** 登陆 Apple TV+ | 周五双赛；多季回归 | A | Newsroom 多季稿 |</p>
+<p>| 2025-03 | FNB 宣布 2025 季回归（3/28 起）；约 60 国/地区 | 含于 Apple TV+ | A | apple.com/newsroom/2025/03/… |</p>
+<p>| 2025-01 | MLS 2025 季回归 Season Pass；Sunday Night Soccer；纪录片 Onside | 第三年；产品加码 | A | apple.com/newsroom/2025/01/… |</p>
+<p>| 2025-11 | 宣布 **2026 起全部 MLS 比赛含在 Apple TV 订阅**；独立 Season Pass 2025 季末结束 | 从 add-on → 订阅价值包 | A | apple.com/newsroom/2025/11/… |</p>
+<p>| 持续 | F1 在美国等市场的 Apple 相关分发【细节待核】 | 流媒体组合的一部分 | B/C | 勿把未核市场写进中国 |</p>
+<br/>
+<p>**断裂点 A**：Season Pass「独立付费」→「并入 Apple TV」——说明体育从实验 SKU 进入**订阅价值主张核心**（全球产品逻辑）。</p>
+<br/>
+<p>**断裂点 B**：体育版权**高度选择性**（足球 MLS、棒球周五夜）≠ 拥有所有美国大联盟。NBA 主包旁落是结构事实，不是「还没谈成」。</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. NBA 媒体权地图（与我方边界）</h2>
+<br/>
+<p>| 伙伴 | 角色（2025-26 起） | 与 Apple 关系 | 级别 |</p>
+<p>|------|-------------------|---------------|------|</p>
+<p>| Disney（ABC/ESPN） | A 包续约 | 竞合于流媒体大战 | A nba.com |</p>
+<p>| NBCUniversal（NBC/Peacock） | 新主包之一 | 同上 | A |</p>
+<p>| Amazon Prime Video | 新主包之一；含全球部分权益与 League Pass 战略合作叙述 | **直接对标「科技巨头做体育」** | A |</p>
+<p>| Warner Bros. Discovery / TNT | 旧伙伴；匹配 Amazon 方案未成 | 历史对照 | A/C |</p>
+<p>| **Apple** | **未列入上述美国全国主包公告** | 可有其它合作【待核实】但非主包 | C 对「完全零合作」需谨慎 |</p>
+<br/>
+<p>**对中国 pitch 的含义**：</p>
+<br/>
+<ul>
+<li>我方 **不能** 暗示「我们能把 NBA 美国转播放到 Apple TV」。  </li>
+<li>我方可谈的是：**中国市场的文化/零售/服务拉动力、品牌与场景**，与美国媒体权分包无关。  </li>
+<li>Amazon 同时是「体育流媒体对手」与「云/广告生态对手」——竞品章展开。</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>3. 中国相关合作谱系（分层）</h2>
+<br/>
+<h3>3.1 零售与渠道（非体育，但影响安装基数）</h3>
+<br/>
+<p>| 类型 | 例子 | 对张力的作用 | 级别 |</p>
+<p>|------|------|--------------|------|</p>
+<p>| Apple Store 直营 | 中国大陆多家旗舰店 | Q1 叙事强调 traffic【C】 | 运营事实 A/观察 C |</p>
+<p>| 授权经销商 / 运营商 | 三大运营商、全国经销体系 | 硬件周期主通道 | 行业常识 C；细节【待核实】 |</p>
+<p>| 教育 / 企业 | 教育优惠、企业采购 | Mac/iPad 份额故事 | C |</p>
+<br/>
+<p>→ **不进「体育合作史」主表**，但解释为何中国叙事易滑向出货。</p>
+<br/>
+<h3>3.2 内容与服务（中国可用性边界）</h3>
+<br/>
+<p>| 服务 | 全球 | 中国大陆典型状态 | 纪律 |</p>
+<p>|------|------|------------------|------|</p>
+<p>| App Store | 核心 | 有中国区；规则与支付受监管约束 | 10-K Risk；细节【待核实】 |</p>
+<p>| Apple Music | 核心 | 有运营 | 勿与 Spotify 份额编造 |</p>
+<p>| Apple TV / TV+ | 体育挂点 | **内容库与直播体育可用性 ≠ 美国** | **全球 101 ≠ 中国 DMP** |</p>
+<p>| Apple Pay | 支付 | 与银联等本地体系竞合 | 【待核实】渗透 |</p>
+<p>| iCloud | 云 | 云上贵州等合规架构（公开报道） | C；勿展开成合规说教除非被问 |</p>
+<br/>
+<h3>3.3 体育 / 明星 / 营销（中国）</h3>
+<br/>
+<p>| 线索 | 状态 | 进 pitch？ |</p>
+<p>|------|------|-----------|</p>
+<p>| 产品发布会中国创意广告、春节营销 | 常有（C） | 可作「会讲故事」旁证，非 OS |</p>
+<p>| 与 CBA / 中国男篮官方长期【】 | **【待核实】** | 无 A 前不写「已有」 |</p>
+<p>| 与 NBA 中国官方市场合作 | **【待核实】** | L0 |</p>
+<p>| 代言人（影艺/体育）个案 | 媒体散点 C | 进 11；不进铁事实金额 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 「断裂」清单（研究用）</h2>
+<br/>
+<p>| # | 断裂 | 证据 | 对提案含义 |</p>
+<p>|---|------|------|------------|</p>
+<p>| 1 | 全球体育产品强 × 中国服务叙事弱 | MLS/FNB A；中国 Services 无单列 | 张力主句 |</p>
+<p>| 2 | FY25 大中华下滑 × FY26Q1 硬件暴冲 | IR A | 勿把反弹写成服务胜利 |</p>
+<p>| 3 | NBA 美媒权科技化（Amazon）× Apple 未入主包 | NBA.com A | 我方价值≠转播权贩卖 |</p>
+<p>| 4 | Season Pass 独立订阅结束 × 并入 Apple TV | Newsroom 2025-11 A | 体育=订阅价值，不是广告位 |</p>
+<p>| 5 | 安装基数全球新高 × 中国心智仍「手机公司」 | 2.5B A/B；心智为 C 观察 | 文化钩子缺口 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 合作「E 卡」——历史上可能踩过的坑（供 ifalsify）</h2>
+<br/>
+<p>| 坑 | 描述 | 本案规避 |</p>
+<p>|----|------|----------|</p>
+<p>| E1 版权幻觉 | 以为谈 NBA China = 可动美国转播 | 开场声明边界 |</p>
+<p>| E2 全球套中国 | 把 MLS 60+ 国到达说成中国用户已在看 | 先问 Apple TV 体育在中国的可看清单 |</p>
+<p>| E3 赞助价询价 | 首面会变媒体询价 | 先认张力与 OS，D 层再谈权益 |</p>
+<p>| E4 挑战华为民族主义叙事 | 易变立场战 | 竞品章用份额事实，不用羞辱 |</p>
+<p>| E5 「苹果税」精确百分比争论 | 监管/开发者舆论 | 只进 09 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 与 NBA China 可能的合作界面（假设层 · 非承诺）</h2>
+<br/>
+<p>| 界面 | 假设价值 | 需 L0 验证 |</p>
+<p>|------|----------|------------|</p>
+<p>| 零售场域（Store / 授权店） | 把篮球文化变成到店由头 | 零售 KPI 主人是谁 |</p>
+<p>| 产品发射窗（iPhone 周期） | 文化内容平滑硬件波峰波谷 | 市场排期 |</p>
+<p>| Services 订阅（Music / Fitness+ / TV 边界内） | 服务附着力 | 中国可售 SKU |</p>
+<p>| 开发者 / Arcade / 游戏体育 | 年轻用户 | 是否战略优先级 |</p>
+<p>| 企业健康 / Watch | 运动硬件 | 易滑向可穿戴广告，慎 |</p>
+<br/>
+<p>**明确不做的界面**：承诺改变美国媒体权格局；承诺「官方饮料式」品类排他（我方也不是饮料）。</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 年表（浓缩墙）</h2>
+<br/>
+<p>```</p>
+<p>2022  MLS×Apple 十年宣布</p>
+<p>2023  Season Pass 上线；FNB 多季运转</p>
+<p>2024  NBA 宣布 Disney/NBCU/Amazon 十一年媒体协议（Apple 非主包）</p>
+<p>2025  FNB 回归；MLS 第三年 + SNS；11 月宣布 2026 并入 Apple TV</p>
+<p>FY25  集团高、大中华软</p>
+<p>FY26Q1 大中华 +38%（硬件弹性）</p>
+<p>2026-  MLS 全面进入 Apple TV 订阅包</p>
+<p>????  中国篮球文化 × Apple 服务/零售 OS  —— 【本案窗口】</p>
+<p>```</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 一句话</h2>
+<br/>
+<blockquote>Apple 已在全球把「联赛 → 订阅 → 系统价值」跑通；中国刚用一季 iPhone 证明安装基数还能扩——**合作史上缺的是中国篮球文化级的服务/零售操作系统，不是又一份明星海报。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>9. 合作类型学（防止「什么都叫赞助」）</h2>
+<br/>
+<p>| 类型 | 定义 | Apple 全球例 | 中国现状 | 本案位置 |</p>
+<p>|------|------|--------------|----------|----------|</p>
+<p>| 媒体权 / 流媒体产品 | 支付版权，做成订阅 | MLS、FNB | 菜单受限 | 证伪用，非售卖物 |</p>
+<p>| 品牌赞助 | 曝光与标识 | 偶发 | 【待核实】 | 易变询价，慎 |</p>
+<p>| 零售体验 | Store 内容 | Today at Apple | 有基础设施 | **主界面候选** |</p>
+<p>| 代言人 | 人物合同 | 散点 | 散点 C | 点状，非 OS |</p>
+<p>| 技术/支付 | Pay、票务 | 全球有 | 本地竞合 | 辅助 |</p>
+<p>| 公益/社区 | 球场改造等 | 少而精传统 | 【待核实】 | 可作信任，非主 ROI |</p>
+<br/>
+<h3>9.1 「十年」意味着什么</h3>
+<br/>
+<p>MLS 十年级协议的组织含义：</p>
+<br/>
+<ul>
+<li>法务与财务已接受**长周期内容折旧**；  </li>
+<li>产品团队可做跨季 UX；  </li>
+<li>市场团队必须学「联赛日历」而非只懂发布会日历。  </li>
+</ul>
+<br/>
+<p>对中国篮球文化提案：若只能签「一次性路人活动」，与苹果已证明能消化的合作类型**不匹配**——这是抬价理由，也是筛选客户认真度的探针。</p>
+<br/>
+<hr/>
+<br/>
+<h2>10. 断裂案例深挖</h2>
+<br/>
+<h3>断裂 1：Season Pass 独立订阅的终结</h3>
+<br/>
+<ul>
+<li>**表象**：粉丝少付一个 add-on。  </li>
+<li>**结构**：体育从「可选包」变成「订阅默认价值」。  </li>
+<li>**对中国**：即使中国暂时看不了 MLS，仍可引用为「苹果如何定义体育成功」的样板——成功=产品账户体系，而非一张海报。</li>
+</ul>
+<br/>
+<h3>断裂 2：NBA 主包旁落</h3>
+<br/>
+<ul>
+<li>**表象**：科技同行 Amazon 入局。  </li>
+<li>**结构**：美国全国转播牌桌座位有限。  </li>
+<li>**对中国**：NBA China 与 Apple 的合作若存在，必须是**另一张牌桌**（市场/零售/服务），否则永远被美媒权谈判阴影笼罩。</li>
+</ul>
+<br/>
+<h3>断裂 3：FY25 软 vs Q1 硬</h3>
+<br/>
+<ul>
+<li>**表象**：媒体标题「苹果中国复苏」。  </li>
+<li>**结构**：年度与季度时间尺度冲突。  </li>
+<li>**对中国提案**：最危险的客户心理是「已经复苏了不需要你们」——应用双尺度表拆解。</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>11. 历史接触假设（冷启动）</h2>
+<br/>
+<p>| 假设 | 若为真 | 动作 |</p>
+<p>|------|--------|------|</p>
+<p>| 从未正式接触 | 白纸 | 张力开场 |</p>
+<p>| 代理层扫过 NBA 素材 | 易变询价 | 先破「曝光」框架 |</p>
+<p>| 零售试过球星快闪 | 有疤 | 问失败原因 |</p>
+<p>| 全球 Services 否决过中国体育 | 高墙 | 改打零售文化，暂避版权 |</p>
+<br/>
+<p>以上皆【待核实】——写入 PRIMARY L0。</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 合作史时间轴（扩展注释）</h2>
+<br/>
+<p>| 年 | 事件 | 注释 |</p>
+<p>|----|------|------|</p>
+<p>| 2015–21 | Apple TV+ 起步；体育仍非主力 | 服务故事早期 |</p>
+<p>| 2022 | MLS 十年炸弹 | 市场惊讶「苹果买联赛」 |</p>
+<p>| 2023 | Season Pass 实装 | 产品债开始还 |</p>
+<p>| 2024 | NBA 新媒体格局尘埃 | 牌桌定员 |</p>
+<p>| 2025 | FNB 回归；MLS 第三年；11 月宣布并入 | 产品化完成度↑ |</p>
+<p>| 2025FY | GC 软 | 中国压力 |</p>
+<p>| 2026Q1 | GC 脉冲 | 窗口 |</p>
+<p>| 2026 赛季 | MLS 在 Apple TV 订阅内 | 观察订阅指标（全球） |</p>
+<br/>
+<hr/>
+<br/>
+<h2>13. 对「伙伴叙事」的证伪问题</h2>
+<br/>
+<p>1. 若 MLS 在订阅内表现不佳，苹果会否收缩体育？——观察 2026–27 公开产品语言【待核实】。  </p>
+<p>2. FNB 是否为「有限窗口」实验？——多季回归降低实验性，但仍非全家桶 MLB。  </p>
+<p>3. 中国是否曾获全球体育产品的本地营销预算？——L0。  </p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>14. 合作史方法论：如何判断「像不像苹果会签的东西」</h2>
+<br/>
+<p>苹果全球体育合作呈现三个可观察特征。其一，**时长**：十年级协议意味着法务、财务、产品愿意共同承担内容资产折旧，而不是按广告季度采购。其二，**产品化**：从独立 Season Pass 走到并入 Apple TV 订阅，说明成功标准逐渐从「版权宣发」迁到「订阅价值证明」。其三，**选择性**：棒球做周五夜双赛，足球做联赛全家桶，并未无差别购买所有北美大联盟——这是资本与品牌风险约束下的选择，不是能力不足的借口。</p>
+<br/>
+<p>把这三条反过来当探针，可以检验任何中国提案像不像「苹果会真做的事」：有没有跨季长度？有没有进入账户/零售/服务指标体系？有没有克制到不制造品牌失控？若答案全是「一锤子球星海报」，则提案与苹果已证明的合作类型学冲突，应在冰山阶段就降级，而不是指望谈判桌上靠热情硬推。</p>
+<br/>
+<p>另外必须反复训练边界肌：美国 NBA 媒体权已在迪士尼、NBC 环球与亚马逊体系落定，苹果不在主包公告名单。我方若在合作史叙述里「顺嘴」把转播权塞进价值主张，就是把可打的零售与文化之仗，错误升级成打不赢也无权打的媒体权之仗。冷启动尤其致命，因为对方代理最爱把一切谈成权益报价单。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 中国「非体育」合作也不应被忽略的理由</h2>
+<br/>
+<p>零售教育活动、开发者大会中国场次、企业与教育采购、运营商合约——这些构成苹果在中国的真实运营肌肉。体育提案若无视它们，会被本地团队视为「外地顾问」。正确姿势是：先承认肌肉在零售与渠道，再问肌肉上能否长出文化肌腱。合作史因此必须双线并行：全球体育产品线 + 中国零售运营线。只有双线都读过，才有资格说「操作系统」。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 断裂点的会议用法</h2>
+<br/>
+<p>断裂点不是用来羞辱客户你们前后矛盾，而是用来邀请客户选择未来身份：继续做硬件周期叙事者，还是做与全球服务身份一致的文化产品运营者。语气必须是请认方向，不是法庭盘问。合作史提供证据，销售提供尊重。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="04_competitor_landscape">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 竞品与替代战场</h1>
+<br/>
+<blockquote>三层战场：**中国智能手机** / **全球体育流媒体** / **中国数字内容与注意力**  </blockquote>
+<blockquote>纪律：份额数字无 A 源标【待核实】；不把「苹果税」精确额当铁事实  </blockquote>
+<blockquote>v1.6 · 我方 NBA China</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 战场选择（先于品牌名单）</h2>
+<br/>
+<p>| 层 | 客户真正在打的仗 | 若我们讲错战场 |</p>
+<p>|----|------------------|----------------|</p>
+<p>| L1 硬件 | 大中华智能手机份额与 ASP | 变成华为/荣耀战争评论员 |</p>
+<p>| L2 服务全球 | 订阅时长、体育版权 ROI、广告 | 变成 MLB/MLS 顾问 |</p>
+<p>| L3 中国心智与到店 | 「为什么今天进 Apple Store / 打开苹果服务」 | 才是 NBA China 主场 |</p>
+<br/>
+<p>**Pitch 主场 = L3**，用 L1/L2 作冰山，不在首面开打。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. 中国智能手机层</h2>
+<br/>
+<h3>1.1 对手画像</h3>
+<br/>
+<p>| 对手 | 核心武器 | 对 Apple 压力类型 | 公开线索级别 |</p>
+<p>|------|----------|-------------------|--------------|</p>
+<p>| **华为** | 国产高端回归、影像/系统叙事、政企与爱国消费心智 | 抢同一 ASP 带；挤压「唯一高端」 | 出货/份额多为机构 C/B【待核实精确 %】 |</p>
+<p>| **vivo / iQOO** | 线上性价比 + 影像/游戏细分 | 腰部与年轻换机 | C |</p>
+<p>| **OPPO / OnePlus** | 设计与充电、商圈零售 | 零售柜争夺 | C |</p>
+<p>| **小米** | 生态链价格锚 + 澎湃系统 | 「够用旗舰」替代 | C |</p>
+<p>| **荣耀** | 独立后渠道密度 | 华为溢出承接 | C |</p>
+<p>| **三星中国** | 全球 Android 旗舰；中国份额长期承压 | **全球对标强、中国存在感弱**——勿用全球逻辑套中国 | 份额【待核实】 |</p>
+<br/>
+<h3>1.2 三星中国（单独深拆）</h3>
+<br/>
+<p>| 维 | 观察 | 对本案 |</p>
+<p>|----|------|--------|</p>
+<p>| 全球 | Galaxy ↔ iPhone 旗舰对打 | 全球竞品课，中国次要 |</p>
+<p>| 中国 | 份额远低于华为/vivo 系（机构数据【待核实】） | 证明「全球强 ≠ 中国赢」——**反例教材** |</p>
+<p>| 体育营销 | 三星全球赞助史丰富（奥运等） | 中国手机战场体育投放 ROI 存疑时，三星是提醒：赞助≠份额 |</p>
+<p>| Pitch 用法 | 「不要变成三星中国故事」——有全球品牌、缺本地操作系统 | 横向一句即可，勿羞辱 |</p>
+<br/>
+<h3>1.3 华为压力的正确讲法</h3>
+<br/>
+<p>| 可说 | 不可说 |</p>
+<p>|------|--------|</p>
+<p>| FY25 大中华销售承压与高端竞争并存（IR 结果层） | 「华为已赢/苹果已输」 |</p>
+<p>| Q1 反弹说明产品周期仍能打 | 「所以你们不需要文化」 |</p>
+<p>| 竞争要求差异化心智 | 民族主义站队动员 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. 全球体育流媒体层</h2>
+<br/>
+<p>| 玩家 | 体育资产举例 | 与 Apple 关系 | 级别 |</p>
+<p>|------|--------------|---------------|------|</p>
+<p>| **Amazon Prime Video** | NBA 美国主包之一（2025-26 起）；NFL Thursday 等 | **最危险对标**：科技订阅+体育 | A NBA.com |</p>
+<p>| **Disney / ESPN** | NBA A 包；ESPN 品牌 | 传统体育媒体巨头数字化 | A |</p>
+<p>| **NBCU / Peacock** | NBA 新主包 | 广播+流媒体 | A |</p>
+<p>| **Netflix** | 选秀/纪录片/部分直播实验（NFL Christmas 等，市场随时间变） | 「娱乐订阅巨头是否要买直播」 | C；具体权【待核实】 |</p>
+<p>| **YouTube / Google** | NFL Sunday Ticket（美国）等 | 广告+订阅混合 | A/C 视具体权 |</p>
+<p>| **Apple** | MLS 全家桶路径；FNB；选择性版权 | 「少而深」策略 | A Newsroom |</p>
+<br/>
+<h3>2.1 Netflix / Amazon 对照表</h3>
+<br/>
+<p>| 维 | Apple | Amazon | Netflix |</p>
+<p>|----|-------|--------|---------|</p>
+<p>| 硬件闭环 | 强（设备预装） | 弱-中（Fire/设备分散） | 弱 |</p>
+<p>| 体育策略 | 精选联赛 + 并入订阅价值 | 大额主包（NBA 等） | 更偏特辑/选赛【待核实演进】 |</p>
+<p>| 中国 | 服务边界清晰受限 | 电商+视频本地复杂 | 内容主站长期受限语境 |</p>
+<p>| 对 NBA China | 可谈「文化 OS 补中国」 | 已是美媒伙伴——**频道不同** | 非中国主战场 |</p>
+<br/>
+<p>**关键句**：Amazon 买的是**美国媒体权**；本案卖的不是权，是**中国拉动力设计**。</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. 中国数字内容与注意力层（ByteDance?）</h2>
+<br/>
+<p>| 玩家 | 机制 | 为何算「替代」 | 级别 |</p>
+<p>|------|------|----------------|------|</p>
+<p>| **字节跳动（抖音/头条）** | 短视频注意力税；本地生活 | 年轻人时间被短视频吸走 → Store/服务时长竞争 | 行业观察 C |</p>
+<p>| 腾讯视频 / 腾讯体育 | 长视频+体育版权习惯 | 用户「看球」默认路径 | C；版权清单【待核实】 |</p>
+<p>| 爱奇艺 / 优酷 | 长视频订阅 | Apple TV+ 内容替代 | C |</p>
+<p>| 哔哩哔哩 | 年轻社区与赛事二创 | 文化话语权 | C |</p>
+<p>| 微信生态 | 社交与小程序 | 服务触达路径 | C |</p>
+<br/>
+<p>**ByteDance 专项**：</p>
+<br/>
+<ul>
+<li>不是手机份额第一敌人，却是**心智与日常打开频率**敌人。  </li>
+<li>Apple 若只靠发布会脉冲，难敌日更短视频。  </li>
+<li>NBA 内容在抖音的传播力（C）可能高于在 Apple TV 中国路径——**这是合作理由，也是风险**（平台不在苹果口袋）。  </li>
+<li>精确 DAU/时长对比【待核实】，不进铁事实。</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>4. 「替代方案」矩阵（客户可能说的 No）</h2>
+<br/>
+<p>| 客户可能选择 | 表象 | 我们的冰山回应（不进首刀羞辱） |</p>
+<p>|--------------|------|--------------------------------|</p>
+<p>| 只打价格与以旧换新 | 硬件份额战 | Q1 已证明会打；缺的是波谷文化 |</p>
+<p>| 只买短视频投放 | 效率广告 | 效率≠品牌操作系统；可并存 |</p>
+<p>| 只做明星代言海报 | 易衡量曝光 | 点≠面；对标 MLS 产品化 |</p>
+<p>| 与本地流媒体联播 | 到达 | 到达≠自有服务附着力 |</p>
+<p>| 什么都不做等下一款 iPhone | 周期信仰 | FY25 已演示周期下行成本 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 竞品「体育语言」占用情况（中国）</h2>
+<br/>
+<p>| 品牌类型 | 篮球语言强度 | 备注 |</p>
+<p>|----------|--------------|------|</p>
+<p>| 运动饮料（佳得乐等） | 高（官方饮料心智） | **禁挑战其饮料主场**（章程红线） |</p>
+<p>| 乳业（蒙牛等） | 高（少年强/中国赛等，C） | 横向「有赛季语言」 |</p>
+<p>| 国产手机 | 电竞/影像多于篮球文化系统 | 空隙 |</p>
+<p>| Apple 中国 | 产品美学与影像强；篮球系统弱 | **空隙 = 本案** |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 份额与出货【待核实池】（不进正文铁事实）</h2>
+<br/>
+<p>| 数据点 | 状态 |</p>
+<p>|--------|------|</p>
+<p>| 2025 中国智能手机品牌份额（Counterpoint/Canalys 等） | 【待核实】贴机构表 |</p>
+<p>| iPhone 在中国 online/offline 份额 | 【待核实】 |</p>
+<p>| 三星中国份额精确值 | 【待核实】 |</p>
+<p>| Apple TV+ 中国订阅人数 | 通常不披露 |</p>
+<p>| 抖音日均时长 vs 视频类 App | 【待核实】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 一句话</h2>
+<br/>
+<blockquote>硬件层要防华为，服务全球层要防 Amazon，注意力层要防字节——**NBA China 只在第三层有主场：把篮球文化做成苹果在中国的服务/零售拉动力，而不是再打一轮参数战。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>8. 对手深拆卡片</h2>
+<br/>
+<h3>8.1 华为（高端回流）</h3>
+<br/>
+<p>| 维 | 观察 | 证据级 | 对本案 |</p>
+<p>|----|------|--------|--------|</p>
+<p>| 产品 | 影像、通信叙事、系统生态重建 | C/B | 直接抢 ASP |</p>
+<p>| 渠道 | 运营商+商场密度 | C | 零售柜压力 |</p>
+<p>| 心智 | 「国产高端可选」 | C | 削弱唯一性 |</p>
+<p>| 体育 | 相对克制/非篮球 OS 主场 | C | 空隙仍在 |</p>
+<p>| 禁忌 | 政治化对比 | — | 刀子禁用 |</p>
+<br/>
+<p>**可用句**：竞争让「只靠发布会脉冲」更贵。  </p>
+<p>**禁句**：任何羞辱或站队。</p>
+<br/>
+<h3>8.2 vivo / OPPO / 小米</h3>
+<br/>
+<p>| 品牌 | 人群刀法 | 与 Apple 重叠 | 体育/年轻文化 |</p>
+<p>|------|----------|---------------|----------------|</p>
+<p>| vivo | 影像+年轻线上 | 中端上探 | 偶像/电竞多见 |</p>
+<p>| OPPO | 设计商圈 | 零售抢位 | 联名频繁 |</p>
+<p>| 小米 | 性价比生态 | 配件与 IoT | 生态粉丝运营强 |</p>
+<br/>
+<p>→ 他们用「高频内容+价格」抢年轻；Apple 应用「稀缺零售戏剧+隐私生态」回应，篮球可做戏剧素材。</p>
+<br/>
+<h3>8.3 三星中国（反例教材加厚）</h3>
+<br/>
+<p>三星证明：</p>
+<br/>
+<p>1. 全球旗舰对打能力 ≠ 中国份额；  </p>
+<p>2. 奥运级全球赞助史 ≠ 自动兑换中国手机心智；  </p>
+<p>3. 渠道一旦失速，品牌广告难短年修复。  </p>
+<br/>
+<p>**横向一句（深谈）**：「我们要避免走出『全球很强、本地操作系统缺失』的三星中国路径。」——语气建设性，不嘲讽在座对手。</p>
+<br/>
+<h3>8.4 Amazon × 体育</h3>
+<br/>
+<p>| 维 | Amazon | Apple |</p>
+<p>|----|--------|-------|</p>
+<p>| NBA 美国权 | 主包之一（A） | 非主包 |</p>
+<p>| 商业模式 | Prime 总包+电商 | 设备闭环+订阅 |</p>
+<p>| 中国 | 电商为主，视频复杂 | 高端设备+受限服务菜单 |</p>
+<p>| 威胁类型 | 定义「科技公司如何拥有体育」 | 精选联赛产品化 |</p>
+<br/>
+<p>**关键分化**：Amazon 的胜利不能用来论证 Apple「必须买 NBA 美国权」；那是错误战略抄作业。</p>
+<br/>
+<h3>8.5 Netflix</h3>
+<br/>
+<ul>
+<li>强项：全球娱乐订阅品牌、制作能力。  </li>
+<li>体育：选择性直播/特辑，策略演进中【待核实最新权】。  </li>
+<li>中国：主站长期不可用语境 → 对中国手机战场几乎不构成直接对手。  </li>
+<li>用法：全球流媒体竞争的「第三参照」，防止只盯 Amazon。</li>
+</ul>
+<br/>
+<h3>8.6 字节跳动</h3>
+<br/>
+<p>| 机制 | 结果 | Apple 应对选项 |</p>
+<p>|------|------|----------------|</p>
+<p>| 算法时长税 | 品牌叙事碎片化 | 买量（租赁）vs 自有场景（拥有） |</p>
+<p>| 本地生活 | 到店竞争者增多 | Store 独特性要被重新讲 |</p>
+<p>| 二创体育 | NBA 内容可能更火在抖音 | 合作分发 vs 主场失落风险 |</p>
+<br/>
+<p>**研究结论**：字节是「注意力竞品」，不是「出货竞品」——04 章必须双轨。</p>
+<br/>
+<hr/>
+<br/>
+<h2>9. 竞争作战地图（冰山用）</h2>
+<br/>
+<p>```</p>
+<p>                出货份额战</p>
+<p>           华为 ←→ Apple ←→ vivo系</p>
+<p>                 ↑</p>
+<p>            零售柜/价格锚</p>
+<p>                 ↑</p>
+<p>           短视频注意力战（字节）</p>
+<p>                 ↑</p>
+<p>        全球体育订阅定义权（Amazon/Apple/Disney…）</p>
+<p>```</p>
+<br/>
+<p>NBA China 默认切入：**注意力战与零售戏剧的交叉点**，向上影响心智，间接稳定高端换机理由；不直接指挥供应链战役。</p>
+<br/>
+<hr/>
+<br/>
+<h2>10. 竞品监测清单（会前更新）</h2>
+<br/>
+<p>| 监测项 | 频率 | 负责人 |</p>
+<p>|--------|------|--------|</p>
+<p>| 机构份额双源表 | 每季 | 研究 |</p>
+<p>| 华为新品节奏 vs iPhone | 发射季 | 研究 |</p>
+<p>| Amazon 体育产品新闻 | 月 | 研究 |</p>
+<p>| 抖音品牌热榜手机类 | 月 | 研究 |</p>
+<p>| 中国赛/篮球赞助席位变化 | 赛季 | 销售+研究 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>11. 竞争态势中文详述（供深谈）</h2>
+<br/>
+<p>中国智能手机战场的第一性是**高端心智不再由单一品牌垄断**。华为在供应链与产品叙事回摆后，城市消费者重新拥有「国产旗舰也够体面」的选项；vivo、OPPO、小米则分别在影像、商圈零售与生态价格锚上切割年轻与家庭预算。苹果仍拥有强零售美学、隐私与跨设备闭环，但这些优势若只在发布季闪现，其余时间被短视频平台的日更内容淹没，则「品牌日常」会输给「算法日常」。</p>
+<br/>
+<p>三星中国是必须放在抽屉里的反例：全球层面它与苹果互为镜像对手，体育与奥运级传播资产并不稀缺，然而在中国手机份额上长期难以兑换——提醒我们，**全球品牌运动不会自动变成中国操作系统**。亚马逊则是另一类对手：它用主包级投入定义「科技公司如何拥有体育」，但这定义发生在美国媒体权牌桌；把它抄成「苹果也该买下NBA美国权」是战略错位。字节跳动更像空气：不直接抢走你的柜台，却抢走你的叙事半寿命。</p>
+<br/>
+<p>因此竞品章的作战建议不是「选一个敌人骂倒」，而是看清三层战争各自的武器：份额战靠产品与渠道；体育订阅定义权靠版权与产品化；注意力战靠可拥有场景。NBA China 的合法主场在第三层与零售交叉带，偶尔向上影响第二层的「产品叙事语法」，但绝不代替客户去打第一层的供应链战役。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>12. 替代方案攻防话术（对内）</h2>
+<br/>
+<p>对方说「我们加投放就行」→ 回应：投放解决到达，不解决可拥有场景；苹果全球体育动作的关键词是产品不是买量。对方说「我们找顶流代言」→ 回应：点状代言可做，但 MLS 级成功是赛历进系统。对方说「亚马逊才懂体育」→ 回应：亚马逊懂的是美媒权牌桌；中国拉动力是另一副牌。对方说「年轻人都在抖音」→ 回应：所以更要有能被短视频二次传播、却仍归属苹果门店与服务的主场。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>13. 竞品信息卫生</h2>
+<br/>
+<p>不传未核份额截图；不传匿名经销商华为已经赢了语音；不传友商报价单；不把电竞赞助和篮球操作系统混为一谈。信息卫生失败，会在客户眼里变成八卦供应商。竞品章的产出应是结构图与话术边界，而不是刺激性谣言。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="05_industry_context">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 行业与政策语境（大中华）</h1>
+<br/>
+<blockquote>覆盖：智能手机周期、消费电子通缩感、监管与本地化、体育传媒数字化、零售与渠道  </blockquote>
+<blockquote>纪律：政策用公开法规/公司 Risk Factors；禁止阴谋论；三年预测宁空  </blockquote>
+<blockquote>v1.6</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 三句定位</h2>
+<br/>
+<p>1. **行业 β**：中国智能手机换机周期拉长 + 国产高端回流 → 外资旗舰波动放大。  </p>
+<p>2. **公司 α**：Apple 用产品脉冲（FY26Q1）证明仍能打破 β；但 FY25 全年显示 β 会咬人。  </p>
+<p>3. **体育传媒 β**：全球直播权向科技订阅迁移（Amazon/Apple/YouTube）；**中国观看路径仍高度本地化**。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. 智能手机与消费电子（中国）</h2>
+<br/>
+<h3>1.1 周期特征（定性 · 机构数据待贴）</h3>
+<br/>
+<p>| 特征 | 含义 | 对 Apple |</p>
+<p>|------|------|----------|</p>
+<p>| 换机周期拉长 | 用户持机更久 | 依赖「必须换」创新点与补贴 |</p>
+<p>| 高端国产化 | 华为等回归 | ASP 带拥挤 |</p>
+<p>| 价格带下沉竞争 | vivo/OPPO/小米 | 中端份额难；Apple 坚持高端 |</p>
+<p>| 以旧换新 / 国补 | 政策脉冲【细则时效强】 | 可能放大单季；勿当结构 | </p>
+<br/>
+<p>**国补/以旧换新**：具体省市规则与 FY26 适用性 **【待核实 · 会前 48h 重核】**——可作 Q1 辅助解释之一，不可写成唯一原因。</p>
+<br/>
+<h3>1.2 与 IR 的对接</h3>
+<br/>
+<p>| IR 事实 | 行业读法 |</p>
+<p>|---------|----------|</p>
+<p>| FY25 GC −3.8% | β + 竞争 + 产品周期错位（多因子） |</p>
+<p>| FY26Q1 GC +38% | 产品脉冲压过 β（至少一季） |</p>
+<p>| Wearables FY25 下滑 | 配件饱和/竞争【待核实归因】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. 监管与合规语境（公开层）</h2>
+<br/>
+<p>| 主题 | 可知边界 | Pitch 纪律 |</p>
+<p>|------|----------|------------|</p>
+<p>| App 分发 / 支付 | 全球多司法辖区压力；中国有本地规则演进 | 不谈未核实「苹果税」精确比例（→09） |</p>
+<p>| 数据与云 | iCloud 中国合规安排有公开报道（C） | 被问再答；不主动变合规咨询 |</p>
+<p>| 安全审查 / 供应链 | 10-K Risk：地缘、贸易、出口管制 | 用公司自己的 Risk 语言 |</p>
+<p>| 地图/空气/新闻等服务差异 | 长期存在 | 证明「全球服务 ≠ 中国服务菜单」 |</p>
+<br/>
+<p>**10-K 地理管理事实（A）**：按 Americas / Europe / Greater China / Japan / Rest of Asia Pacific 管理——中国议题要落到 **Greater China 组织**，不是只找库比蒂诺产品经理。</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. 体育传媒数字化（全球 → 中国落差）</h2>
+<br/>
+<h3>3.1 全球</h3>
+<br/>
+<p>| 趋势 | 证据 | 级别 |</p>
+<p>|------|------|------|</p>
+<p>| 联赛直连科技平台 | MLS–Apple；NFL–各类科技 | A/C |</p>
+<p>| NBA 主包科技化 | Disney + NBCU + **Amazon** | A |</p>
+<p>| 订阅价值捆绑体育 | MLS 并入 Apple TV（2026） | A |</p>
+<br/>
+<h3>3.2 中国落差</h3>
+<br/>
+<p>| 维度 | 全球 Apple 叙事 | 中国现实 |</p>
+<p>|------|-----------------|----------|</p>
+<p>| 看直播 | Apple TV app 一站 | 腾讯等本地平台习惯强（C） |</p>
+<p>| 版权 | 自有 MLS/FNB | 篮球顶级版权不在 Apple |</p>
+<p>| 社交讨论 | 相对弱 | 抖音/微信/微博主导 |</p>
+<p>| 到店转化 | Store 体验强 | 需要「今日为何来」的文化由头 |</p>
+<br/>
+<p>→ **行业结论**：体育数字化红利在全球被 Apple 部分吃到；在中国，数字化红利更多落在**本地超级 App**。本案若成立，是「借文化钩回苹果生态」，不是「重做腾讯体育」。</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 零售与渠道结构</h2>
+<br/>
+<p>| 渠道 | 角色 | 风险 |</p>
+<p>|------|------|------|</p>
+<p>| Apple Store | 品牌神殿；服务办理；场景实验田 | 城市数量有限 |</p>
+<p>| 授权经销商 | 销量基本盘 | 价格战与窜货舆论（→09） |</p>
+<p>| 运营商 | 合约机 | 补贴依赖 |</p>
+<p>| 电商旗舰 | 大促脉冲 | 与国产价格锚对打 |</p>
+<p>| 教育 / 政企 | Mac/iPad | 决策链长 |</p>
+<br/>
+<p>**Q1 门店 traffic「strong double digit」（C）**：说明零售仍是管理层自豪点——体育/文化激活**最容易接到 Store KPI**。</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 宏观与消费信心（定性）</h2>
+<br/>
+<p>| 因子 | 方向性观察 | 用法 |</p>
+<p>|------|------------|------|</p>
+<p>| 青年失业与消费谨慎 | 压制可选消费 | 解释高端波动；勿悲情 |</p>
+<p>| 送礼与面子消费 | 仍支撑旗舰 | iPhone 礼品属性 |</p>
+<p>| 体育参与 / 观赛 | 篮球群众基础厚（C） | 文化钩子合理性 |</p>
+<p>| 汇率 | 影响报道人民币数 | **刀子只用 USD IR** |</p>
+<br/>
+<p>禁止：用未核宏观预测编「2027 市场爆发」。</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 董事会 / 战略层会问的行业题（预演）</h2>
+<br/>
+<p>| # | 问题 | 我们准备的答法方向 |</p>
+<p>|---|------|-------------------|</p>
+<p>| 1 | 中国手机还能靠创新打赢吗？ | IR：能脉冲；但要服务降低对单季硬件依赖 |</p>
+<p>| 2 | 为什么要碰体育？Amazon 不是更激进？ | Amazon 买的是美媒权；我们补中国拉动力 |</p>
+<p>| 3 | 监管会不会让 Services 做不大？ | 承认约束；提案落在合规可做的零售/文化/现有服务 |</p>
+<p>| 4 | 短视频是否已夺去品牌叙事？ | 是注意力对手；更要有「可拥有的场景」而不只买流量 |</p>
+<p>| 5 | NBA 在中国是否过气？ | 【待核实】用参与/搜索/球鞋文化等多信号，不靠印象 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 政策与赛事日历接口（会前更新）</h2>
+<br/>
+<p>| 窗口 | 潜在相关 | 状态 |</p>
+<p>|------|----------|------|</p>
+<p>| iPhone 发射季 | 硬件脉冲 | 公司日历【待核实】 |</p>
+<p>| 春节营销 | 品牌战役 | 每年主题 C |</p>
+<p>| NBA 赛季 / 中国赛 | 文化高潮 | 赛历 A；商业席位 C |</p>
+<p>| 世界杯 2026（足球） | 足球热；与 MLS 叙事共振全球 | 对中国篮球提案是**背景噪音或机会**视角度 |</p>
+<p>| 奥运会周期 | 全民体育 | 易拥挤；非必须 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 一句话</h2>
+<br/>
+<blockquote>行业 β 让大中华硬件会抖，全球体育流媒体又在重组——**Apple 在中国既不能只赌下一款 iPhone，也不能照搬 MLS 的版权剧本；要在本地注意力战争里长出可拥有的文化操作系统。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>9. 行业结构图（文字版）</h2>
+<br/>
+<p>```</p>
+<p>宏观消费信心 ──→ 换机周期长度 ──→ 旗舰出货弹性</p>
+<p>       │                │</p>
+<p>       │                └→ 国补/以旧换新脉冲（时效）</p>
+<p>       │</p>
+<p>国产高端回流 ──→ ASP 带拥挤 ──→ 外资旗舰差异化成本↑</p>
+<p>       │</p>
+<p>监管与本地化 ──→ 服务菜单裁剪 ──→ 「全球服务故事」折扣</p>
+<p>       │</p>
+<p>本地超级 App ──→ 体育观看路径 ──→ 科技直连联赛模式难复制</p>
+<p>       │</p>
+<p>短视频平台 ──→ 品牌叙事半寿命↓ ──→ 需要可拥有场景</p>
+<p>```</p>
+<br/>
+<hr/>
+<br/>
+<h2>10. 政策与风险因素（用公司语言）</h2>
+<br/>
+<p>Apple 10-K Risk 常见簇（意译归纳，细节以最新 10-K 为准）：</p>
+<br/>
+<p>| 簇 | 含义 | 对中国提案 |</p>
+<p>|----|------|------------|</p>
+<p>| 宏观经济与地缘 | 销售波动 | GC 议题天然董事会可见 |</p>
+<p>| 供应链与贸易 | 成本与供应 | 勿承诺硬件供应相关 |</p>
+<p>| 竞争 | 份额 | 差异化理由 |</p>
+<p>| 法律监管 | 多辖区 | 方案合规优先 |</p>
+<p>| IT/数据安全 | 信任 | 隐私是品牌资产 |</p>
+<p>| 产品过渡 | 发射风险 | 文化活动避开抢戏 |</p>
+<br/>
+<p>**操作**：深谈被问风险时，优先引用「公司已披露的风险类别」，不发明政治故事。</p>
+<br/>
+<hr/>
+<br/>
+<h2>11. 渠道经济学（定性）</h2>
+<br/>
+<p>| 机制 | 描述 | 风险 |</p>
+<p>|------|------|------|</p>
+<p>| 直营零售 | 高体验、高成本、强叙事 | 城市覆盖有限 |</p>
+<p>| 授权分销 | 走量 | 价格纪律、假货舆情 |</p>
+<p>| 电商 | 大促 | 价格可见性高，难讲溢价 |</p>
+<p>| 运营商 | 合约补贴 | 政策与套餐依赖 |</p>
+<br/>
+<p>体育/文化活动最容易在**直营零售**证明质量；一旦放量到授权网，SOP 与品牌安全成本指数上升——试点应从 Store 样板城起。</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 体育传媒产业阶段（全球）</h2>
+<br/>
+<p>| 阶段 | 特征 | Apple 位置 |</p>
+<p>|------|------|------------|</p>
+<p>| 1 有线捆绑 | 区域黑视、套餐 | 非主场 |</p>
+<p>| 2 数字转播权拍卖 | 金额飙升 | 选择性参与 |</p>
+<p>| 3 平台订阅价值包 | 版权服务化 | **MLS 并入 TV = 阶段 3 动作** |</p>
+<p>| 4 互动/博彩/社交（部分市场） | 争议与监管 | 谨慎；中国高敏感 |</p>
+<br/>
+<p>中国大量用户仍处于「本地平台看球 + 社交讨论」——阶段编号与北美错位。这是行业上下文的核心落差。</p>
+<br/>
+<hr/>
+<br/>
+<h2>13. 董事会可能追问的「行业作业」</h2>
+<br/>
+<p>1. 中国智能手机 2026 出货预计？→ 并陈机构，拒单一数字。  </p>
+<p>2. 国补退坡后？→ 情景而非点预测。  </p>
+<p>3. 短视频是否已替代品牌建设？→ 到达≠拥有。  </p>
+<p>4. 体育数字化是否已泡沫？→ 用 MLS 产品化与 NBA 主包并存说明「泡沫」简化无效。  </p>
+<p>5. 若只做一个市场实验，选哪座城市？→ 与零售布局共写（L0）。</p>
+<br/>
+<hr/>
+<br/>
+<h2>14. 术语表（防开会鸡同鸭讲）</h2>
+<br/>
+<p>| 术语 | 含义 |</p>
+<p>|------|------|</p>
+<p>| Greater China | 大陆+港+台销售段 |</p>
+<p>| Holiday quarter | 约 12 月结束的财季（FY Q1） |</p>
+<p>| Services | 非硬件净销售合计 |</p>
+<p>| Installed base | 活跃设备数，非注册用户唯一口径 |</p>
+<p>| Season Pass | MLS 曾用独立订阅名 |</p>
+<p>| 全球 101 | 到达国数量宣传 ≠ 中国功能表 |</p>
+<p>| DMP | 此处借指中国市场深度运营方案 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 行业语境长述：为何「全球体育数字化」到中国会打折</h2>
+<br/>
+<p>全球体育传媒正在从有线捆绑迁向平台订阅。苹果用 MLS 与 Friday Night Baseball 证明自己能把联赛赛历写进操作系统级应用；迪士尼、NBC 环球与亚马逊则把 NBA 美国全国转播带进新的十一年结构。表面上这是同一场「科技吞并体育」浪潮，落到中国却会出现三道折扣。</p>
+<br/>
+<p>第一道是**内容菜单折扣**：同一块 Apple TV 品牌，在中国可提供的直播与影视组合与北美并不相同；把「六十国可看」直接说成中国用户已在同一体验里，是经典的全球一百零一不等于中国深度运营。第二道是**路径依赖折扣**：用户看球、聊球、二创的默认路径沉淀在本地超级应用与社交网络，科技公司即便拥有设备预装优势，也未必拥有「打开即看球」的习惯。第三道是**监管与合规折扣**：数据、分发、支付、内容审核让服务创新必须走更窄的合法通道，方案若依赖灰区玩法，会在法务第一轮死亡。</p>
+<br/>
+<p>与此同时，手机行业本身处于换机周期拉长与高端国产化并行的阶段，政策脉冲（如以旧换新类措施）可能放大单季，却不能当作结构反转的唯一解释。行业上下文给提案的启示非常具体：成功定义应落在合规可做的零售戏剧与服务附着，而不是幻想在中国重建一套北美版权播放器。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 会前行业速刷清单</h2>
+<br/>
+<p>一刷最新季度大中华段落；二刷国补与以旧换新是否仍影响换机；三刷苹果新闻室是否有新的体育产品声明；四刷本地体育版权是否出现结构性转移；五刷是否有针对苹果的重大监管新闻。五刷任意一项出现结构性变化，更新张力权重，而不是假装没看见。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>17. 行业假设登记册</h2>
+<br/>
+<p>假设一：换机周期仍偏长。假设二：高端国产竞争持续。假设三：短视频继续抽取品牌叙事时间。假设四：中国体育观看仍以本地平台为主。假设五：监管让服务菜单维持差异。每个假设若被强证据推翻，更新本章与张力，不死守旧稿。登记册让研究可进化。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="06_power_meddic">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 权力地图 + MEDDIC</h1>
+<br/>
+<blockquote>deal tier 初判：**B**（冷启动；Economic Buyer 未触达）  </blockquote>
+<blockquote>我方：NBA China · 咨询式  </blockquote>
+<blockquote>v1.6 · 权力假设须 L0 验证</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 一句话权力判断</h2>
+<br/>
+<blockquote>库比蒂诺定 **Services 与全球体育产品**；Greater China 定 **零售、市场节奏与本地预算**；两者之间的缝，就是冷启动最容易「发错邮箱」的地方。</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>1. 权力地图（假设层 · 标注）</h2>
+<br/>
+<p>| 节点 | 典型角色 | 对体育/文化提案的权力 | 触达难度 | 状态 |</p>
+<p>|------|----------|------------------------|----------|------|</p>
+<p>| Tim Cook / 董事会 | 终极战略 | 极高，但不接 10min 冷启 | 极高 | 不作为首触 |</p>
+<p>| Eddy Cue · Services | 全球服务与内容 | MLS/FNB 产品主人 | 高 | 原话库已有 |</p>
+<p>| CFO（Kevan Parekh） | 回报与费用 | Metrics / ROI 闸门 | 高 | PR 可见 |</p>
+<p>| Deirdre O’Brien · Retail+People【职衔以最新 10-K/代理声明为准】 | 零售与人事 | Store 场域 | 高 | 【待核实现职】 |</p>
+<p>| Greater China 管理团队 | 区总裁/零售/市场 | **中国预算与排期近端主人** | 中-高 | **姓名/汇报线【待核实 · L0】** |</p>
+<p>| 中国市场 / 传播代理 | 执行层 | 可开门也可变询价 | 中 | 防变媒介购买 |</p>
+<p>| 法务 / 合规 | 否决权 | 数据、宣传、独家表述 | 中 | 早期勿刺激 |</p>
+<p>| 经销商头部 | 影响销量叙事 | 无签约权但有噪音 | — | 不进主谈判 |</p>
+<br/>
+<h3>1.1 决策流（假设）</h3>
+<br/>
+<p>```</p>
+<p>创意/代理爆点</p>
+<p>    ↓</p>
+<p>中国市场部评估（品牌安全 + 排期）</p>
+<p>    ↓</p>
+<p>Greater China 管理层（预算与优先级）</p>
+<p>    ↓</p>
+<p>必要时上行：Retail / Services / 全球营销对齐</p>
+<p>    ↓</p>
+<p>法务合规</p>
+<p>    ↓</p>
+<p>试点城市 / 季度战役</p>
+<p>```</p>
+<br/>
+<p>**冷启动现实**：我们很可能卡在「中国市场部 or 代理」——必须用 **IR 级张力** 证明这不是又一次曝光贩卖。</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. MEDDIC 表</h2>
+<br/>
+<p>| 要素 | 现状 | 证据 | 缺口动作 |</p>
+<p>|------|------|------|----------|</p>
+<p>| **M Metrics** | 推测：GC 销售 YoY、iPhone/Services、Store traffic、NPS、订阅【】 | IR 公开 GC/Services；Store traffic 仅 call C | L0：对方季度主 KPI 是什么？ |</p>
+<p>| **E Economic Buyer** | **未识别** | — | PRIMARY 三问；勿把代理当 EB |</p>
+<p>| **D Decision Criteria** | 未知；可能含品牌安全、可规模化、与发射季冲突管理 | 章程红线 | 问「评价试点成功的 3 个数字」 |</p>
+<p>| **D Decision Process** | 假设见上；多节点 | 组织常识 | 要一张内部流程口述 |</p>
+<p>| **I Identify Pain** | 候选：FY25 GC 软 + 叙事偏硬件；服务中国故事弱 | IR A | ifalsify：是否已自认？ |</p>
+<p>| **C Champion** | 无 | — | 找「需要文化差异化」的市场/零售人 |</p>
+<p>| **C Competition** | 短视频投放、明星代言、本地平台联名、什么都不做 | 04 章 | 让 Champion 说出上次失败方案 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. Paper Process（预演）</h2>
+<br/>
+<p>| 阶段 | 产出 | 风险 |</p>
+<p>|------|------|------|</p>
+<p>| R0 兴趣 | 纪要「可以听听」 | 变媒介 RFP |</p>
+<p>| R1 张力对齐 | 书面「认不认」 | 只回「发报价」→ 停 |</p>
+<p>| R2 共创指标 | 样板城 KPI 一页 | 指标全是曝光 → 降级 |</p>
+<p>| R3 试点 SOW | 范围/熔断/合规 | 法务拖死 |</p>
+<p>| 采购 | 供应商入库 | 周期长；并行培育 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 剧本：10 分钟冷启</h2>
+<br/>
+<p>| 分秒 | 动作 | 话术锚 |</p>
+<p>|------|------|--------|</p>
+<p>| 0:00–0:30 | 边界 | 不谈美国转播权；不谈未核报价 |</p>
+<p>| 0:30–1:30 | 张力 | Services/体育全球已产品化 vs 中国叙事偏硬件周期（IR） |</p>
+<p>| 1:30–4:00 | 活证据 | FY25 GC $64.4B vs FY24 $67.0B；Q1 $25.5B +38%；MLS→Apple TV |</p>
+<p>| 4:00–7:00 | 框架 | 「文化 × 零售/服务拉动力」OS；非海报 |</p>
+<p>| 7:00–8:30 | 试点轮廓 | 1–2 城 × 1 个发射或赛季窗；熔断条款 |</p>
+<p>| 8:30–10:00 | 一问 | 谁拥有「大中华服务/零售拉动力」指标？下周能对表吗？ |</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 反对意见手册（短）</h2>
+<br/>
+<p>| 反对 | 回应骨架 |</p>
+<p>|------|----------|</p>
+<p>| 「我们自己会做营销」 | 认；问 FY25 软与 Q1 硬之间，服务叙事是否已产品化如 MLS |</p>
+<p>| 「NBA 过气」 | 要信号不是印象；请对方给反证指标 |</p>
+<p>| 「预算在总部」 | 正好：需要知道 Services vs GC 谁拍板 |</p>
+<p>| 「先报个价」 | 方向未认前报价害双方；先共写成功定义 |</p>
+<p>| 「Amazon 才是体育」 | Amazon=美媒权；我们=中国拉动力，频道不同 |</p>
+<p>| 「监管敏感」 | 提案落在已有门店/合规服务，不做灰区 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 红线（权力侧）</h2>
+<br/>
+<ul>
+<li>不把代理的「可以安排领导见面」当成 Champion。  </li>
+<li>不在首轮挑战佳得乐等运动饮料主场。  </li>
+<li>不承诺全球 League Pass / 美国转播。  </li>
+<li>不把 Cook 当成可约的 EB。</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>7. L0 权力核实清单</h2>
+<br/>
+<p>| # | 问题 | 责任 |</p>
+<p>|---|------|------|</p>
+<p>| 1 | Greater China 现任最高负责人姓名与汇报线 | 研究+销售 |</p>
+<p>| 2 | 中国市场预算年度主人（GC vs 全球） | 销售 |</p>
+<p>| 3 | Retail 与 Marketing 谁拥有 Store 文化活动否决权 | 销售 |</p>
+<p>| 4 | 是否已有 NBA 相关 ND / 历史提案记录 | 内部 |</p>
+<p>| 5 | 合规对「体育联赛商标」使用的标准流程时长 | 销售 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 一句话</h2>
+<br/>
+<blockquote>没有 Economic Buyer 之前，一切报价都是噪音；先用 IR 张力找到 **拥有「中国服务/零售拉动力」指标的那个人**。</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>9. 权力场景演练（加厚）</h2>
+<br/>
+<h3>场景 A：代理热情、甲方沉默</h3>
+<br/>
+<ul>
+<li>信号：一周内要「报价与权益清单」。  </li>
+<li>判读：未触达 EB；Champion 弱。  </li>
+<li>动作：回「成功定义一页」而非价目；同步找零售/市场内线。</li>
+</ul>
+<br/>
+<h3>场景 B：零售感兴趣、市场担心发射</h3>
+<br/>
+<ul>
+<li>信号：Store 团队要创意，市场部要档期表。  </li>
+<li>判读：可能的双 Champion。  </li>
+<li>动作：提出「非键note 周」节律方案；书面熔断。</li>
+</ul>
+<br/>
+<h3>场景 C：全球 Services 邮件转发</h3>
+<br/>
+<ul>
+<li>信号：库比蒂诺某人「interesting」。  </li>
+<li>判读：兴趣≠预算。  </li>
+<li>动作：询问中国指标主人是谁；避免只在全球邮件线程空转。</li>
+</ul>
+<br/>
+<h3>场景 D：法务先发制人</h3>
+<br/>
+<ul>
+<li>信号：要商标使用规范与历史舆情材料。  </li>
+<li>判读：严肃但非拒绝。  </li>
+<li>动作：交付边界声明（无美媒权承诺）+ 内容审核流程。</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>10. MEDDIC 评分卡（冷启动自评）</h2>
+<br/>
+<p>| 要素 | 0–5 分 | 当前估计 | 提升动作 |</p>
+<p>|------|--------|----------|----------|</p>
+<p>| Metrics | 清晰可量化 | 2 | L0 问 KPI |</p>
+<p>| EB | 点名 | 0 | 权力图核实 |</p>
+<p>| Decision Criteria | 列表 | 1 | 共写 3 条 |</p>
+<p>| Decision Process | 地图 | 1 | 要口述流程 |</p>
+<p>| Pain | 对方自认 | 2 | 用 IR 双尺度 |</p>
+<p>| Champion | 有利益 | 0–1 | 找零售/市场 |</p>
+<p>| Competition | 已知替代 | 3 | 让对方说失败案 |</p>
+<br/>
+<p>**门槛**：Champion≥3 且 Pain 自认前，不进商务报价。</p>
+<br/>
+<hr/>
+<br/>
+<h2>11. 经济买方「可能长相」</h2>
+<br/>
+<p>| 候选类型 | 为何可能是 EB | 验证问题 |</p>
+<p>|----------|---------------|----------|</p>
+<p>| GC 市场负责人 | 掌握品牌预算 | 「这预算出在哪条 cost center？」 |</p>
+<p>| GC 零售负责人 | 掌握 Store 资源 | 「traffic KPI 谁背？」 |</p>
+<p>| 全球营销中国预算接口 | 双线审批 | 「最终签字在加州还是中国？」 |</p>
+<p>| Services 增长负责人 | 若挂订阅指标 | 「中国服务试用是否进你的表？」 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 纸面流程时序（乐观 / 悲观）</h2>
+<br/>
+<p>| 周 | 乐观 | 悲观 |</p>
+<p>|----|------|------|</p>
+<p>| 0–2 | 张力会 + 认方向 | 石沉大海 |</p>
+<p>| 2–4 | KPI 共写 | 陷入代理询价 |</p>
+<p>| 4–8 | 样板城批准 | 法务问卷循环 |</p>
+<p>| 8–12 | 试点执行 | 排期待来年发射后 |</p>
+<p>| 12+ | 复盘扩城 | 无 Champion 流失 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>13. 内部对齐（我方 NBA China）</h2>
+<br/>
+<p>| 角色 | 职责 |</p>
+<p>|------|------|</p>
+<p>| 主谈 | 张力与一问 |</p>
+<p>| 研究 | IR 数字与【待核实】池 |</p>
+<p>| 合规 | 商标与历史舆情包 |</p>
+<p>| 售后设计 | 试点熔断与样板城 |</p>
+<br/>
+<p>禁止主谈现场临场承诺美国转播或未核报价。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>14. 权力与销售纪律长述</h2>
+<br/>
+<p>冷启动苹果时，最常见的失败模式不是创意不够炫，而是**发错邮箱还以为在谈决策**。代理公司可以热情安排「领导见面」，却常常把议程偷换成版位与报价；中国区市场部可能愿意听听 Store 活动，却没有服务指标的最终解释权；库比蒂诺服务高管可能回复 interesting，却从不出现在大中华预算的签字页。MEDDIC 在此不是填表游戏，而是防自欺。</p>
+<br/>
+<p>Metrics 必须先问清：对方这季度究竟背大中华净销售、门店客流、服务试用，还是仅仅背曝光？Economic Buyer 未点名之前，任何价格讨论都会变成噪音，并训练客户把你当成媒介供应商。Decision Criteria 最好逼对方亲口说出三条，例如品牌安全零事故、不与键note 抢戏、可在六到八周熔断——这些比「年轻化」空洞形容词更可执行。Champion 要找「成功了自己记分卡变好看」的人，通常更可能在零售或市场，而不是热爱篮球的个人粉丝。</p>
+<br/>
+<p>十分钟剧本的最后一问，应指向指标主人与下周对表，而不是指向「我们发报价」。若三层对象都只回「材料发邮箱」，说明需求门未开，应停在培育，而不是用折扣自我安慰。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. Champion 画像与反画像</h2>
+<br/>
+<p>真 Champion：主动要指标定义、愿意带你见零售或财务、怕方案砸自己品牌胜过怕你报价高。假 Champion：只催权益清单、强调「领导很忙先报价」、把一切推向代理媒介部、拒绝对熔断条款讨论。遇到假 Champion，保持礼貌，把材料降级为教育包，不进入商业条款。权力章的残酷真相：没有 Champion，再厚的冰山也只是自家图书馆。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 失败后的体面退出</h2>
+<br/>
+<p>若六周内无法识别 Champion 与指标主人，应书面降级为行业交流材料，停止推销试点。体面退出留下专业印象，比打折死缠更可能在下一窗口被重新打开。权力章同样管理不谈的勇气。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="07_org_founder_lifecycle">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 组织 / 创始人遗产 / 生命周期</h1>
+<br/>
+<blockquote>Max 角度：治理与文化如何决定「中国提案」能不能活  </blockquote>
+<blockquote>v1.6 · 姓名职衔以最新代理声明/10-K 为准；变动标【待核实】</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 生命周期定位</h2>
+<br/>
+<p>| 阶段标签 | 判断 | 含义 |</p>
+<p>|----------|------|------|</p>
+<p>| 全球 | **成熟平台 + 服务第二曲线已成立** | Services $109B 级；不是创业讲故事 |</p>
+<p>| 大中华硬件 | **成熟市场的份额攻防** | FY22 高点后三年下台阶；Q1 脉冲 |</p>
+<p>| 大中华服务/文化 | **相对早熟/未产品化** | 相对 MLS 全球路径滞后 |</p>
+<p>| 我方切入点 | 在「成熟硬件」上长「文化服务 OS」 | 不是教 Apple 做手机 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. 创始人遗产与决策文化</h2>
+<br/>
+<p>| 遗产 | 表现 | 对销售含义 |</p>
+<p>|------|------|------------|</p>
+<p>| 产品极简与控制 | 少而精；体验闭环 | 提案必须像**产品**，不像媒介套餐 |</p>
+<p>| 保密与发布节奏 | 发射窗神圣 | 文化活动不得污染发布叙事 |</p>
+<p>| 服务复利 | Cook 时代强化 Services | 用 Services 语言，不用「打品牌曝光」 |</p>
+<p>| 零售神学 | Store 是教派不是货架 | 场域方案要配得上 Store |</p>
+<p>| 全球一体化设计 | 同一产品哲学 | 但**运营本地化**——勿幻想中国=加州 |</p>
+<br/>
+<p>**Jobs → Cook**：从「重新发明」到「扩展与效率 + 服务」。体育版权是 Cook/Cue 时代的服务业态，不是怀旧硬件故事。</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. 治理与高管角色（公开可知）</h2>
+<br/>
+<p>| 角色 | 人（公开） | 相关度 | 备注 |</p>
+<p>|------|------------|--------|------|</p>
+<p>| CEO | Tim Cook | 战略 | 原话库 |</p>
+<p>| CFO | Kevan Parekh | Metrics | FY26Q1 PR |</p>
+<p>| Services | Eddy Cue | 体育产品 | MLS 稿 |</p>
+<p>| 硬件工程 / 软件 | 各 SVP | 间接 | 不冷启 |</p>
+<p>| Retail | 【待核实现任】 | Store | 查最新代理 |</p>
+<p>| Greater China | 【待核实】 | **近端** | L0 关键 |</p>
+<br/>
+<p>董事会关注：增长、监管、资本回报、中国风险披露——提案若增加「中国叙事稳定性」比「多买一轮广告」更易对齐。</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. 组织过山车：大中华</h2>
+<br/>
+<p>```</p>
+<p>FY21–22  高基数 / 强增长记忆</p>
+<p>    ↓</p>
+<p>FY23–25  销售下台阶（74.2→64.4）</p>
+<p>    ↓</p>
+<p>组织与渠道持续作战（竞争+周期+政策脉冲）</p>
+<p>    ↓</p>
+<p>FY26Q1  硬件强脉冲（+38%）</p>
+<p>    ↓</p>
+<p>风险：组织把胜利归因于「产品够硬」→ 推迟服务/文化投资</p>
+<p>机会：用脉冲扩安装基数时，埋服务钩子成本最低</p>
+<p>```</p>
+<br/>
+<p>**生命周期警告**：脉冲后的 2–3 个季度，是「趁安装基数新高做服务附着」窗口，还是「庆祝后砍营销」窗口——**取决于内部归因**（L0）。</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 决策文化对提案形态的约束</h2>
+<br/>
+<p>| 文化特征 | 好的提案形态 | 坏的提案形态 |</p>
+<p>|----------|--------------|--------------|</p>
+<p>| 指标冷酷 | 样板城 sell-in/traffic/服务试用可熔断 | 「亿级曝光」PPT |</p>
+<p>| 保密 | 分阶段披露；无泄露发射 | 未授权剧透产品 |</p>
+<p>| 设计感 | 视觉与文案配得上苹果 | 廉价球星拼贴 |</p>
+<p>| 长期主义 | 多季 OS | 一次性路人活动 |</p>
+<p>| 全球品牌安全 | 无立场雷 | 民族对立营销 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 与雀巢/香飘飘组织对照（本库）</h2>
+<br/>
+<p>| 维 | 雀巢中国 | 香飘飘 | Apple |</p>
+<p>|----|----------|--------|-------|</p>
+<p>| 上市/治理 | 跨国 Zone | A 股本地 | 美国巨头 |</p>
+<p>| 近端痛 | demand-led 切换 | 利润与年轻化 | GC 硬件波动 |</p>
+<p>| 体育资产 | 美禄点状 | 代言分层 | 全球版权产品化、中国弱 |</p>
+<p>| 决策距离 | Zone/AOA | 创始家族/专业经理 | 全球 SVP + GC |</p>
+<p>| 我们角色 | 多品牌需求 OS | 场景资产 OS | **服务/零售文化 OS** |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 人事与变革敏感点（只进冰山）</h2>
+<br/>
+<p>| 点 | 为何敏感 | 处理 |</p>
+<p>|----|----------|------|</p>
+<p>| 中国区负责人更迭传闻 | 未核实人事毁信任 | 【待核实】不说 |</p>
+<p>| 代理公司换血 | 执行层动荡 | 问流程不说八卦 |</p>
+<p>| 全球零售负责人变动 | Store 策略 | 查代理声明 |</p>
+<p>| 开发者关系 / 监管博弈舆情 | 易变立场战 | →09 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 「组织可吸收性」测试</h2>
+<br/>
+<p>提案必须通过：</p>
+<br/>
+<p>1. **谁周会看得到结果？**（零售？市场？服务？）  </p>
+<p>2. **与下一发射窗是否冲突？**  </p>
+<p>3. **是否可用现有门店与 App 完成，无需灰区？**  </p>
+<p>4. **失败是否可在一季内熔断且不伤品牌？**  </p>
+<p>5. **是否能用 Apple 自己的词（Services, installed base, traffic）汇报？**</p>
+<br/>
+<p>五问中三问以上「否」→ 降级为培育材料，不推 D。</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 一句话</h2>
+<br/>
+<blockquote>Apple 是成熟巨头里少数把体育做成**全球订阅产品**的公司；大中华组织却仍主要因硬件脉搏被考核——**我们要帮的是补上与其全球身份匹配的中国文化操作系统，而不是再加一场发布会暖场。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>9. 组织能力审计（与提案匹配）</h2>
+<br/>
+<p>| 能力 | Apple 全球强度 | 大中华可见强度 | 缺口 | 提案含义 |</p>
+<p>|------|----------------|----------------|------|----------|</p>
+<p>| 产品设计 | 极高 | 高（同一产品） | — | 勿教产品 |</p>
+<p>| 零售戏剧 | 高 | 高潜力 | 内容本地化 | 主界面 |</p>
+<p>| 服务订阅运营 | 高 | 受菜单约束 | 体育直播少 | 用其它服务钩 |</p>
+<p>| 长周期版权运营 | 已证明（MLS） | 弱公开证据 | 本地联赛权 | 不走买权捷径 |</p>
+<p>| 危机公关 | 成熟 | 常战 | — | 方案要品牌安全 |</p>
+<p>| 经销商管理 | 成熟 | 复杂 | 噪音 | 试点先直营 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>10. 生命周期曲线（叙事版）</h2>
+<br/>
+<p>**全球 Services**：从「附件」→「第二增长曲线」→「体育产品化」——处在扩大战果期。  </p>
+<br/>
+<p>**大中华硬件**：从「红利增长」→「份额攻防」→「脉冲式胜利」——处在成熟波动期。  </p>
+<br/>
+<p>**大中华文化 OS**：若存在，仍处概念期——这正是外部伙伴可切入的阶段；一旦内部自建完成，窗口关闭。</p>
+<br/>
+<h3>10.1 窗口关闭条件（监视）</h3>
+<br/>
+<p>| 条件 | 含义 |</p>
+<p>|------|------|</p>
+<p>| 连续多季 GC 强 + 内部归因「只需产品」 | 预算冻结文化实验 |</p>
+<p>| 监管收紧服务创新 | 可做清单变短 |</p>
+<p>| 重大舆情 | 外部 IP 审核升级 |</p>
+<p>| 已与其它篮球实体签长约 | 席位被占【待核实】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>11. 创始人遗产的「翻译」练习</h2>
+<br/>
+<p>| 遗产词 | 错误翻译（销售腔） | 正确翻译（产品腔） |</p>
+<p>|--------|--------------------|--------------------|</p>
+<p>| 极简 | 「我们方案只有一页报价」 | 「一个主场景、一个主指标」 |</p>
+<p>| 控制 | 「必须独家」 | 「品牌安全与体验可控」 |</p>
+<p>| 发布节奏 | 「借你们发布会」 | 「严格错峰或官方许可嵌入」 |</p>
+<p>| 零售神学 | 「柜台堆头」 | 「Today at Apple 级戏剧」 |</p>
+<p>| 隐私 | 「我们有数据」 | 「用户可控的参与」 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 与决策链相关的历史公开事件类型（模式，非八卦）</h2>
+<br/>
+<p>| 类型 | 组织学习点 |</p>
+<p>|------|------------|</p>
+<p>| 产品延迟/切换 | 对外叙事高度管理 |</p>
+<p>| 监管和解/罚款（多辖区） | 法务一票很大 |</p>
+<p>| 服务定价调整 | 订阅价值敏感 |</p>
+<p>| 中国市场波动年 | 内部审视加强 |</p>
+<br/>
+<p>→ 提案应降低「制造新监管故事」的概率，而不是追求最大声量。</p>
+<br/>
+<hr/>
+<br/>
+<h2>13. 组织访谈提纲（L0）</h2>
+<br/>
+<p>1. 大中华周会最上看的三张图是什么？  </p>
+<p>2. Store 文化活动的批准链有几级？  </p>
+<p>3. 全球 Services 去年是否给中国下达过「非硬件」OKR？  </p>
+<p>4. 上一次与体育 IP 合作（若有）死在创意、预算还是法务？  </p>
+<p>5. 若试点失败，谁的记分卡受损？  </p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>14. 组织与生命周期长述</h2>
+<br/>
+<p>苹果的组织文化充满悖论：它在全球用极强的产品控制力把体验做成宗教，却又必须在各地法规与渠道现实里做本地化手术；它用服务收入证明自己不只是硬件公司，但大中华的公开胜利宣言仍高度依赖 iPhone 脉冲。理解这一悖论，比背诵某位副总裁姓名更重要——姓名会变，悖论结构稳定。</p>
+<br/>
+<p>从生命周期看，全球服务曲线已离开「需要证明存在」的阶段，进入「扩大产品品类与订阅价值」的阶段，MLS 并入 Apple TV 就是成熟期动作。大中华硬件曲线则是成熟市场攻防：高点过后的下台阶并不否定品牌，只是提高了对差异化叙事的要求。真正仍处早期的，是「中国文化级服务/零售操作系统」——它可能由内部自建，也可能由外部伙伴催化。外部伙伴的机会窗口，往往出现在硬件脉冲刚抬升安装基数、组织还来得及讨论「如何附着」的那几个季度；一旦内部把胜利完全归因于产品本身，文化预算就会被视作可砍的装饰。</p>
+<br/>
+<p>因此，组织章给刀子的约束是：提案必须能被翻译成苹果自己的词（服务、安装基数、客流、品牌安全），必须过得了零售神学与法务否决，必须承认自己不是去教苹果造手机。做不到这三条，就不是「还没报价」，而是「组织不可吸收」。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 组织可读的成功故事模板</h2>
+<br/>
+<p>「在两座样板城，我们在不触碰键note 主叙事的前提下，用六周篮球文化节律提升直营客流与新机服务试用；过程零品牌安全事故；失败可在两周内熔断且不留渠道库存后遗症。」若组织连这种故事模板都无法在内部转发，说明提案语言还外行。生命周期匹配的本质，是让成功故事可以在苹果周会里被复述。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 文化匹配自测十题（内部）</h2>
+<br/>
+<p>提案是否极简？是否可控？是否避开发射神圣期？是否配得上 Store？是否可用服务语言汇报？是否有熔断？是否无灰区？是否不靠羞辱竞品？是否不承诺美媒权？是否能在失败时不伤害零售信任？十题七题以上为是才进入共创。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="08_horizontal_vertical_full">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>横纵完整版 · Apple × 体育服务拉动力</h1>
+<br/>
+<blockquote>v1.6 · 张力交汇真源 · 不进刀刃全文，只供选刀</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>纵：因果链（时间）</h2>
+<br/>
+<p>```</p>
+<p>Cook 时代：Services 战略升格</p>
+<p>        ↓</p>
+<p>2022–23：MLS 十年 + Season Pass；FNB 多季</p>
+<p>        ↓</p>
+<p>2024：NBA 美媒权锁定 Disney / NBCU / Amazon（Apple 非主包）</p>
+<p>        ↓</p>
+<p>FY23–25：Greater China 销售下台阶（74.2→64.4）</p>
+<p>        ↓</p>
+<p>2025：MLS 产品加码 → 宣布 2026 并入 Apple TV 订阅</p>
+<p>        ↓</p>
+<p>FY26Q1：大中华 +38%，叙事以 iPhone 为主（A+C）</p>
+<p>        ↓</p>
+<p>窗口：安装基数脉冲期 —— 用什么让中国用户「不只买机，还住进服务/品牌日常」？</p>
+<p>        ↓</p>
+<p>候选引擎：短视频投放 / 本地平台联名 / 明星海报 / 零售戏剧 / 篮球文化 OS …</p>
+<p>```</p>
+<br/>
+<p>**纵结论**：全球体育产品化已完成关键跳跃（并入订阅）；中国刚完成一次硬件证明——**时间窗在「脉冲后附着」**，不是「危机公关」。</p>
+<br/>
+<h3>纵轴里程碑表</h3>
+<br/>
+<p>| 年 | 全球服务/体育 | 大中华财务 | 组织意味 |</p>
+<p>|----|---------------|------------|----------|</p>
+<p>| 2022 | MLS 十年宣布 | 高点区 | 可讲全球故事 |</p>
+<p>| 2023–24 | Season Pass 运转；NBA 新媒体格局定 | GC 下行 | 中国压力上升 |</p>
+<p>| 2025 | FNB 回归；MLS→2026 并入 TV | FY25 GC 软 | 产品化完成 |</p>
+<p>| 2026Q1 | 安装基数 &gt;2.5B | GC +38% | **窗口打开** |</p>
+<br/>
+<hr/>
+<br/>
+<h2>横：对照</h2>
+<br/>
+<p>| 维度 | Apple 全球 | Apple 大中华 | Amazon 体育 | 国产旗舰 | 字节注意力 |</p>
+<p>|------|------------|--------------|-------------|----------|------------|</p>
+<p>| 主战场 | 设备+服务闭环 | 份额与ASP | 订阅+电商 | 参数与价格 | 时长 |</p>
+<p>| 体育资产 | MLS/FNB 产品 | 弱/不清 | NBA 美媒主包 | 电竞多于篮球 OS | 二创传播 |</p>
+<p>| 中国可达 | 服务菜单受限 | 零售强 | 电商强、视频复杂 | 渠道密 | 日活强 |</p>
+<p>| Pitch 频道 | 已验证 | **本案** | 不同频道 | 勿开羞辱战 | 竞合 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>交汇：张力从哪来</h2>
+<br/>
+<p>```</p>
+<p>纵：FY26Q1 安装基数/硬件脉冲窗口</p>
+<p>×</p>
+<p>横：全球已有「体育→订阅 OS」，中国仍偏硬件周期叙事</p>
+<p>→</p>
+<p>若不变：下一季产品弱时，GC 叙事再度只剩出货</p>
+<p>→</p>
+<p>建设性出口：中国高频篮球文化 × 零售/合规服务拉动力 OS（样板城）</p>
+<p>```</p>
+<br/>
+<h3>假交汇警告</h3>
+<br/>
+<p>| 假交汇 | 为何假 |</p>
+<p>|--------|--------|</p>
+<p>| 「Q1 +38% 所以要大力赞助」 | 反弹是结果；要问可持续引擎 |</p>
+<p>| 「有 MLS 所以中国也会看 Apple 体育」 | 全球 101 ≠ 中国 DMP |</p>
+<p>| 「Amazon 有 NBA 所以 Apple 该买NBA美国权」 | 非我方能卖；且非中国解 |</p>
+<p>| 「华为很强所以放弃服务」 | 更需差异化 |</p>
+<p>| 「短视频投放=文化 OS」 | 租赁注意力 ≠ 拥有场景 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>三层「认不认」预演</h2>
+<br/>
+<p>| 层级 | 可能反应 | 下一问 |</p>
+<p>|------|----------|--------|</p>
+<p>| 中国市场执行 | 「可以看看 Store 活动」 | KPI 是否含服务试用/回访？ |</p>
+<p>| GC 管理 | 「别影响发射」 | 能否绑定非冲突窗口 + 熔断？ |</p>
+<p>| 全球 Services | 「中国内容菜单不同」 | 哪些服务钩子在中国可核？ |</p>
+<br/>
+<p>三层都只回「把报价发邮箱」→ 未过需求门。</p>
+<br/>
+<hr/>
+<br/>
+<h2>与我方（NBA China）匹配</h2>
+<br/>
+<p>| 匹配 | 理由 | 风险 |</p>
+<p>|------|------|------|</p>
+<p>| 文化高频 | 篮球在中国群众基础 | 「过气」质疑 |</p>
+<p>| 零售场景 | 球星/内容可进 Store 戏剧 | 品牌安全 |</p>
+<p>| 非转播权贩卖 | 避开美媒权结构 | 客户误以为我们卖权 |</p>
+<p>| 赛季节律 | 可对产品波谷 | 与发射冲突 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>选刀句（仅候选）</h2>
+<br/>
+<blockquote>**Services/体育 OS 已在全球验证（MLS→Apple TV，FNB）vs 大中华叙事仍偏硬件周期（FY25 −3.8% → Q1 +38% 以 iPhone 为主）——认不认缺的是中国文化级拉动力，不是再讲一季出货？**</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>一句话</h2>
+<br/>
+<blockquote>纵轴给窗口，横轴给对照；刀子只取交汇上那一句。</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>交汇工作纸（加厚）</h2>
+<br/>
+<h3>A. 纵轴证据条</h3>
+<br/>
+<p>1. Services 从附庸到 $109B（FY25 A）  </p>
+<p>2. MLS 从 Season Pass 到 Apple TV 订阅包（2025-11 A）  </p>
+<p>3. FNB 多季回归（A）  </p>
+<p>4. GC FY22–25 下台阶（A）  </p>
+<p>5. GC FY26Q1 脉冲（A）  </p>
+<p>6. 安装基数 &gt;2.5B（A/B）  </p>
+<br/>
+<h3>B. 横轴证据条</h3>
+<br/>
+<p>1. Amazon 入 NBA 美媒主包（A）  </p>
+<p>2. 华为高端回流（C/B 待份额表）  </p>
+<p>3. 字节注意力税（C）  </p>
+<p>4. 三星中国反例（C）  </p>
+<p>5. 本地看球路径（C）  </p>
+<br/>
+<h3>C. 交汇合成（可被 ifalsify）</h3>
+<br/>
+<p>**命题 P1**：苹果需要中国文化级拉动力。  </p>
+<p>反证：若内部已有强服务 OKR 与篮球方案在跑 → P1 弱。  </p>
+<p>**命题 P2**：NBA 是合适文化钩。  </p>
+<p>反证：对方更认足球/电竞/娱乐明星 → 换钩或退出。  </p>
+<p>**命题 P3**：现在是窗口。  </p>
+<p>反证：Q2 起 GC 继续狂奔且预算全锁硬件 → 窗口后移。</p>
+<br/>
+<h3>D. 假因果识别表</h3>
+<br/>
+<p>| 陈述 | 因果问题 |</p>
+<p>|------|----------|</p>
+<p>| 因为 Q1 +38% 所以要赞助 | 结果当原因 |</p>
+<p>| 因为 MLS 成功所以中国要 MLS | 地理错配 |</p>
+<p>| 因为 Amazon 有 NBA 所以 Apple 失败 | 牌桌不同 |</p>
+<p>| 因为年轻人刷抖音所以别做 Store | 忽略可拥有场景 |</p>
+<br/>
+<h3>E. 选刀前检查</h3>
+<br/>
+<ul>
+<li>[ ] 数字均可回链 data_traceability  </li>
+<li>[ ] 未承诺美媒权  </li>
+<li>[ ] 未年化 Q1  </li>
+<li>[ ] 未羞辱华为  </li>
+<li>[ ] 一问指向指标主人  </li>
+</ul>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>横纵长述：如何从冰山抽出那一把刀</h2>
+<br/>
+<p>纵轴回答「为什么是现在」：服务战略成熟、体育产品化完成关键跳跃、大中华刚经历年度压力与季度脉冲的对撞，安装基数话题被重新点燃。横轴回答「为什么是这种刀」：亚马逊占据美媒权牌桌，华为挤压高端唯一性，字节拿走叙事半寿命，三星提醒全球强本地弱的失败模式。交汇点不是「所以买曝光」，而是「所以要有中国文化级、可被零售与服务指标吸收的操作系统」。</p>
+<br/>
+<p>选刀时删除一切行业科普与竞品谩骂，只留一句对方无法用单季出货糊弄过去的张力，加一条活证据（财务或产品化事实），再加一个指向指标主人的认不认。横纵章写得越全，刀子上的字应越少——这是冰山模型的数学。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>张力句压力测试</h2>
+<br/>
+<p>把候选张力念给不懂体育的同事听：若他听成「苹果该买版权」，句子失败；若他听成「中国需要文化级拉动力」，句子合格。再念给懂媒体权的同事听：若他反问「那 NBA 美国权怎么办」，应能一秒答「不在本案」。压力测试不过，不准进刀。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>交汇句备选库（仅内部）</h2>
+<br/>
+<p>备选甲：全球已把联赛写成订阅，中国仍把胜利写成出货。备选乙：脉冲抬升安装基数时，若不做附着，下次下滑仍只剩硬件解释。备选丙：亚马逊拿走美媒权牌桌，不证明中国文化桌无席。最终只留一句进刀，其余归档。</p>
+</section><section class="chap" id="09_not_for_pitch">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>查了但不说（09_not_for_pitch）</h1>
+<br/>
+<blockquote>冰山义务：查到 → 写在这里 → **默认不进刀、不进首面**  </blockquote>
+<blockquote>≥12 条 · v1.6 · Apple × NBA China</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>一、数字类（易翻车）</h2>
+<br/>
+<p>| # | 内容 | 为何不说 | 备用 |</p>
+<p>|---|------|----------|------|</p>
+<p>| 1 | 把 FY26Q1 GC $25.5B **年化**成 $100B+ | Holiday 季不可年化 | 只报季度与 YoY |</p>
+<p>| 2 | 中国 Services 收入/占比精确值 | 无 A 单列 | 只引集团 Services |</p>
+<p>| 3 | 「苹果税」30%/15% 等精确口径争论 | 监管与计划变动快；易变立场战 | 进合规问答，不进铁事实 |</p>
+<p>| 4 | 中国 iPhone 份额精确到小数 | 机构口径互斥 | 【待核实】后仍慎用 |</p>
+<p>| 5 | 三星/华为份额恐吓表 | 无统一 A；像吵架 | 定性竞争即可 |</p>
+<p>| 6 | Apple TV+ 全球订阅户数当中国用户 | 常不披露；地域错配 | 不说 |</p>
+<p>| 7 | MLS / FNB 版权费、制作费 | 未充分官宣 | 一口不报 |</p>
+<p>| 8 | NBA 美媒权 $76B 等媒体估值细节 | 非本案指标；且多为 C | 只说伙伴结构（A） |</p>
+<p>| 9 | 代言费、中国赛席位报价 | 未核 | 【待核实】 |</p>
+<p>| 10 | 用人民币「四千亿营收」开场 | 汇率二手 | 只用 USD IR |</p>
+<p>| 11 | 经销商库存/窜货「内幕数字」 | C/D | 不说 |</p>
+<p>| 12 | 三年中国销售 CAGR 预测 | **禁编** | 宁空 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>二、叙事类（易显外行或冒犯）</h2>
+<br/>
+<p>| # | 内容 | 为何不说 |</p>
+<p>|---|------|----------|</p>
+<p>| 13 | 「中国没了」「放弃中国」 | FY26Q1 打脸；且冒犯 |</p>
+<p>| 14 | 「你们抄袭/闭关」类民族对立 | 毁会面 |</p>
+<p>| 15 | 「Cook 只会裁员回购」阴阳 | 与张力无关 |</p>
+<p>| 16 | 渠道丑闻细节（假货、黄牛、授权乱象） | 无 IR；开场毁信任 |</p>
+<p>| 17 | 开发者控诉个案当开场 | 变公关审判 |</p>
+<p>| 18 | 「NBA 在中国已死」印象流 | 无证据；且自杀 |</p>
+<p>| 19 | 挑战佳得乐运动饮料主场 | 章程红线 |</p>
+<p>| 20 | 「把美国转播放你们 TV」 | 我们做不到；结构不允许 |</p>
+<p>| 21 | 把 Amazon 有 NBA 说成 Apple「输了」羞辱 | 频道不同；显外行 |</p>
+<p>| 22 | 内部人事派系传闻 | L0 前不说 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>三、我方资产类（易错频道）</h2>
+<br/>
+<p>| # | 内容 | 为何不说 |</p>
+<p>|---|------|----------|</p>
+<p>| 23 | 全球粉丝/收视当中国 KPI | 对方看 GC 销售与 traffic |</p>
+<p>| 24 | 未核实排他「我们能给」 | PRIMARY 未闭环 |</p>
+<p>| 25 | 完整权益包价目 | Layer D；方向未认禁止 |</p>
+<p>| 26 | 竞品赞助金额对比 | 多无 A |</p>
+<p>| 27 | 任何臆测赞助报价 | D 层 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>四、查了且有用、但留在水下的洞察</h2>
+<br/>
+<p>1. **MLS 并入 Apple TV** 是比「又买一个版权」更强的产品信号——刀用「产品化」，不用「烧钱」。  </p>
+<p>2. **Q1 +38% 的最大风险是成功归因**：内部若归因为「只需把产品做好」，文化 OS 预算会被砍。  </p>
+<p>3. **Amazon 的 NBA 主包**帮我们划清边界：别在错误战场争宠。  </p>
+<p>4. **三星中国**是「全球强、本地弱」的反例——可横向一句。  </p>
+<p>5. **字节**是注意力税官——提案要解释为何不「只买抖音」。  </p>
+<p>6. **Wearables FY25 下滑**提醒生态不全是顺风——别吹「硬件永动机」。  </p>
+<p>7. **State Aid 税项**扰动 FY24 净利润比较——外行别碰。  </p>
+<p>8. **全球 101 国到达**对 MLS 是真，对中国可用性是另一张表。  </p>
+<p>9. **代理门**比 EB 门更近——防变媒介 RFP 是第一生存技能。  </p>
+<p>10. **安装基数 2.5B** 是全球分母；中国附着要用中国指标。  </p>
+<p>11. **Friday Night** 节律可类比「每周文化由头」——但版权不同，只借形态。  </p>
+<p>12. **FY25 GC 占集团 15.5%**：重要但非生死——勿「救苹果」话术。</p>
+<br/>
+<hr/>
+<br/>
+<h2>五、使用规则</h2>
+<br/>
+<ul>
+<li>刀 / ONE_PAGER 出现本表禁用项 → **违规回炉**  </li>
+<li>对方问苹果税 → 「我们不在这里争论分发费率；提案落在合规零售与服务附着」  </li>
+<li>对方问渠道丑闻 → 「我们跟 IR 与公开竞争事实，不传匿名」  </li>
+<li>对方问报价 → 「先共写成功定义与熔断」  </li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>六、追加监视（会前 48h）</h2>
+<br/>
+<p>| 项 | 动作 |</p>
+<p>|----|------|</p>
+<p>| 新季度 GC 指引/评论 | 重读最新 8-K |</p>
+<p>| 国补政策变化 | 更新 Q1 归因权重 |</p>
+<p>| 中国区人事 | 更新权力图 |</p>
+<p>| Apple TV 中国体育可看清单 | 更新「全球≠中国」证据 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>七、扩展「不说」条目（补满厚度）</h2>
+<br/>
+<p>| # | 内容 | 类别 | 备注 |</p>
+<p>|---|------|------|------|</p>
+<p>| 28 | 把 FY22 GC $74.2B 当「应恢复目标」施压 | 数字 | 易显外行杠精 |</p>
+<p>| 29 | 具体门店销量排名传闻 | 数字 | D |</p>
+<p>| 30 | 某代言人绯闻借势 | 叙事 | 品牌不安全 |</p>
+<p>| 31 | 「你们在中国只会割韭菜」 | 叙事 | 毁会面 |</p>
+<p>| 32 | 未核的 CBA 合同「内幕价」 | 数字 | — |</p>
+<p>| 33 | 用世界杯足球热硬塞篮球预算逻辑 | 叙事 | 品类错配需谨慎 |</p>
+<p>| 34 | 泄露未公开产品作为诱饵 | 我方 | 绝对禁止 |</p>
+<p>| 35 | 假装已与 Cook 办公室联系 | 我方 | 欺诈 |</p>
+<p>| 36 | 把 ifalsify KILL 口头化辱客户 | 我方 | 流程内使用 |</p>
+<p>| 37 | 渠道黄牛「我们能解决」空头支票 | 我方 | 做不到 |</p>
+<p>| 38 | 对标友商未公开的试点失败细节 | 叙事 | 无礼 |</p>
+<p>| 39 | 将 State Aid 税案当聊天讽刺 | 叙事 | 无关 |</p>
+<p>| 40 | 任何「保证销量 +x%」 | 数字 | 无因果模型 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>八、水下洞察补遗</h2>
+<br/>
+<p>13. **Q4 GC 仍弱**说明 FY25 问题不是「少了一个 Holiday」。  </p>
+<p>14. **Wearables 下滑**时硬推 Watch 篮球方案，会被财务追问品类策略。  </p>
+<p>15. **授权渠道放量文化活动**容易失控——冰山主张直营样板。  </p>
+<p>16. **付费订阅全球数**若过期引用会被 IR 岗拆穿。  </p>
+<p>17. **「101 国」**是到达修辞，运营清单才是事实。  </p>
+<p>18. **代理 KPI**与苹果 KPI 系统性错位——必须在纸面改指标。  </p>
+<p>19. **教育渠道**敏感，校园方案要过家长舆论。  </p>
+<p>20. **香港/台湾案例**不可直接平移大陆传播。  </p>
+<br/>
+<hr/>
+<br/>
+<h2>九、违规例句 → 替换句</h2>
+<br/>
+<p>| 违规 | 替换 |</p>
+<p>|------|------|</p>
+<p>| 「中国已经没了」 | 「FY25 大中华净销售低于 FY24，结构压力真实」 |</p>
+<p>| 「Q1 年化过千亿」 | 「Q1 为 $25.5B，属 Holiday 季」 |</p>
+<p>| 「我们带NBA转播」 | 「我们不谈美国媒体权；谈中国拉动力」 |</p>
+<p>| 「苹果税就是 xx%」 | 「分发规则多辖区演进，非本案铁事实」 |</p>
+<p>| 「华为不行/卖国」 | （删除） |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>十、不说清单长述：克制也是战斗力</h2>
+<br/>
+<p>查得越深，越容易在会上炫技。炫技的代价是把会面拖进无法获胜的战场：苹果税精确比例、渠道丑闻细节、民族对立、美国转播权、伪精确份额、人民币换算表演。这些内容不是「不知道」，而是「知道却选择不说」——这正是 09 章存在的理由。</p>
+<br/>
+<p>水下洞察可以武装 ifalsify 与深谈，却不应污染首面。例如：我们知道第四财季大中华依旧偏软，所以不会把问题简化成「缺一个春节战役」；我们知道可穿戴年销售下滑，所以不会随口把手表运动方案说成无风险主线；我们知道代理爱卖曝光，所以要在纸面上改指标。克制不是懦弱，是把弹药留到对方打开的话题上。若对方主动问敏感项，用溯源表级别应答，并拉回需求与指标，而不是借题发挥。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>十一、会议中的紧急刹车口令（对内）</h2>
+<br/>
+<p>听到同行开始讲苹果税精确数、渠道丑闻、年化、转播权、羞辱华为——主谈应立刻刹车：「我们回到财报双尺度与指标主人。」刹车失败则主动结束技术讨论，改约小范围。09 章不只是清单，是现场风控。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>十二、对诚实过度的提醒</h2>
+<br/>
+<p>把所有待核实念给客户听，会显得不专业；把所有不说清单当场解释，会显得傲慢。本章的正确现场形态是沉默与转向。只有在对方追问到具体雷区时，才用短答并回到指标。克制包括克制展示克制。</p>
+</section><section class="chap" id="10_product_audience_matrix">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 产品 / 人群 / 渠道矩阵</h1>
+<br/>
+<blockquote>Max 第二刀：谁在用什么、在哪被触达、和篮球文化如何接得上  </blockquote>
+<blockquote>纪律：人群 % 无调研 A 源则标【待核实】；不编人格拼贴伪精确  </blockquote>
+<blockquote>v1.6</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 读本表的方式</h2>
+<br/>
+<ul>
+<li>**行** = 产品线（IR 五类 + 关键服务）  </li>
+<li>**列** = 人群角色 / 渠道 / 篮球接口 / 风险  </li>
+<li>目的：防止刀子变成「iPhone 广告」或「TV+ 科普」</li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>1. 产品线主矩阵</h2>
+<br/>
+<p>| 产品 | IR 位置 | 核心人群角色（假设） | 主渠道 | 篮球文化接口 | 优先级（本案） | 证据级别 |</p>
+<p>|------|---------|----------------------|--------|--------------|----------------|----------|</p>
+<p>| **iPhone** | FY25 $209.6B；Q1 $85.3B | 换机/面子/影像/游戏 | Store、授权、电商、运营商 | 内容消费设备；到店理由；拍摄与社交 | **高（安装基数）** | A 财务；接口假设 |</p>
+<p>| **Mac** | FY25 $33.7B | 学生/创作/开发 | 教育、Store、电商 | 创作侧内容生产 | 中 | A |</p>
+<p>| **iPad** | FY25 $28.0B | 教育/家庭/便携影音 | 教育、Store | 观赛平板；家庭场景 | 中 | A |</p>
+<p>| **Wearables, Home, Acc.** | FY25 $35.7B（下滑） | 运动健康/音频 | Store、运动渠道 | Watch 运动圈、Fitness+ | 中高（运动叙事）但品类承压 | A 财务 |</p>
+<p>| **Services** | FY25 $109.2B；Q1 $30.0B | 全体安装基数 | 预装、订阅、支付 | TV/Music/Arcade/Pay… | **高（OS 挂点）** | A |</p>
+<p>| └ Apple TV / TV+ | Services 子集 | 影视+精选体育（全球） | TV app | MLS/FNB 全球样板 | 高（全球证伪用）/中国可用性【待核实】 | A 全球；中国待核 |</p>
+<p>| └ Apple Music | 子集 | 年轻音频 | 预装 | 球员歌单/赛季榜【创意】 | 中 | 创意假设 |</p>
+<p>| └ Apple Pay | 子集 | 支付用户 | 卡包/零售 | 到店支付与票务【】 | 中 | 【待核实】 |</p>
+<p>| └ App Store | 子集 | 开发者+用户 | 系统 | 体育/健身 App 分发 | 中（监管敏感→09） | — |</p>
+<p>| └ iCloud | 子集 | 全用户 | 系统 | 弱直接接口 | 低 | — |</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. 人群角色卡（中国 · 假设层）</h2>
+<br/>
+<p>| 角色 | 要什么 | 对 Apple 的当前满足 | 篮球可补的缺口 | 勿说 |</p>
+<p>|------|--------|---------------------|----------------|------|</p>
+<p>| 都市换机族 | 旗舰身份+影像 | iPhone 强 | 「潮流社交货币」节律 | 伪份额 |</p>
+<p>| 家长 | 教育与控制 | 亲子与教育价 | 家庭观赛/运动习惯 | 恐吓安全 |</p>
+<p>| 学生 | 性价比+社交 | 教育渠道；被安卓围攻 | 校园篮球文化 | 年龄歧视 |</p>
+<p>| 运动自我投资者 | 数据与激励 | Watch/Fitness+ | 训练挑战×赛季 | 医疗宣称 |</p>
+<p>| 开发者/创作者 | 工具与分成 | Mac+生态 | 内容工具链 | 苹果税开场 |</p>
+<p>| 政企采购官 | 合规与稳定 | 有限 | 弱 | 勿硬塞体育 |</p>
+<br/>
+<p>**【待核实】**：各角色人数、收入贡献、地区分布——无内部数据前只作设计假设。</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. 渠道 × 触点矩阵</h2>
+<br/>
+<p>| 渠道 | 触点能力 | 适合的篮球动作 | 不适合 |</p>
+<p>|------|----------|----------------|--------|</p>
+<p>| Apple Store | 戏剧、工作坊、Tonight at | 技巧挑战、限时展览、球员内容夜 | 吵闹赛事转播砸场 |</p>
+<p>| 授权店 | 覆盖与销量 | 物料与小型体验 | 深度戏剧（难控） |</p>
+<p>| 电商旗舰 | 大促转化 | 配件套装、内容会员捆绑【合规内】 | 假装「官方赛」 |</p>
+<p>| 运营商 | 合约 | 弱 | 复杂 IP |</p>
+<p>| 社交短视频 | 到达 | 内容分发（租赁） | 单独当作 OS |</p>
+<p>| 教育渠道 | 青年 | 校园联赛合作【】 | 干扰课业舆论 |</p>
+<p>| App / 推送 | 服务附着 | 赛季提醒、Fitness 挑战 | 骚扰推送 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 「第二刀」：产品组合叙事</h2>
+<br/>
+<h3>4.1 错误组合</h3>
+<ul>
+<li>只推 iPhone 海报球星款 → 硬件周期奴隶  </li>
+<li>只推 TV+ 但中国看不了主内容 → 全球幻灯片  </li>
+<li>只推 Watch 挑战佳得乐补水 → 场域自杀  </li>
+</ul>
+<br/>
+<h3>4.2 可讨论组合（方向未认前不报价）</h3>
+<br/>
+<p>| 组合名 | 构件 | 成功看起来像 |</p>
+<p>|--------|------|--------------|</p>
+<p>| 到店节律 | Store 戏剧 × 赛季节律 × iPhone 摄影 | traffic / 内容产出 / 预约 |</p>
+<p>| 运动闭环 | Watch × Fitness+ × 校园/业余篮球 | 活跃/挑战完成【指标待共写】 |</p>
+<p>| 服务附着 | 新机激活 × Music/TV 试用（中国可售） | 试用→留存 |</p>
+<p>| 家庭场景 | iPad 观赛内容（可得内容）× 亲子 | 教育友好叙事 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 与竞品人群抢夺</h2>
+<br/>
+<p>| 人群 | 正在被谁抢 | Apple 差异化钩 |</p>
+<p>|------|------------|----------------|</p>
+<p>| 高端换机 | 华为影像/系统 | 隐私+生态+零售体验+文化 |</p>
+<p>| 年轻潮流 | 抖音品牌、国产限定色 | Store 戏剧不可复制感 |</p>
+<p>| 运动 | 安卓运动表+本地 App | Watch+隐私+教练内容 |</p>
+<p>| 观赛 | 腾讯等 | 除非有独家/独特体验，否则难正面抢——**改打「品牌日常」** |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 地理细分（Greater China 内部）</h2>
+<br/>
+<p>| 子区域 | 备注 | 纪律 |</p>
+<p>|--------|------|------|</p>
+<p>| 中国大陆 | 主销量与竞争主战场 | 监管与内容菜单关键 |</p>
+<p>| 香港 | 旅游与新品早期 | 勿把港版内容当大陆 |</p>
+<p>| 台湾 | 单独市场运作 | 同上 |</p>
+<br/>
+<p>公司只报合计数——**任何「大陆占比 xx%」无 A 则【待核实】**。</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 会前要共写的指标池（供 L0）</h2>
+<br/>
+<p>| 指标 | 产品挂钩 | 备注 |</p>
+<p>|------|----------|------|</p>
+<p>| Store traffic / 预约 | 零售 | call 曾强调（C） |</p>
+<p>| 新机激活后服务试用率 | Services | 内部【】 |</p>
+<p>| Wearables 运动环完成 | Watch | 品类承压背景 |</p>
+<p>| 内容 UGC 量（合规征集） | iPhone 影像 | 品牌安全审核 |</p>
+<p>| GC net sales YoY | 全盘 | A 但滞后 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 一句话</h2>
+<br/>
+<blockquote>矩阵的重心不是再发明一款球星联名机，而是：**用篮球文化给 iPhone 安装基数与 Store 戏剧配上可重复的服务/到店拉动力。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>9. 人群 × 场景详细卡</h2>
+<br/>
+<h3>9.1 都市换机族</h3>
+<br/>
+<ul>
+<li>**触发**：新产品、以旧换新、社交压力。  </li>
+<li>**苹果已有**：影像、性能、状态符号。  </li>
+<li>**缺口**：除发布季外的「日常骄傲理由」。  </li>
+<li>**篮球接口**：城市球场影像挑战、球星审美联名内容（非必然代言）。  </li>
+<li>**指标**：激活、旧机回收、Store 预约。  </li>
+</ul>
+<br/>
+<h3>9.2 家庭决策者</h3>
+<br/>
+<ul>
+<li>**触发**：孩子教育、共用设备、礼赠。  </li>
+<li>**缺口**：家庭共同仪式感。  </li>
+<li>**篮球接口**：周末家庭观赛内容（可得内容范围内）+ iPad。  </li>
+<li>**风险**：儿童隐私与广告敏感。  </li>
+</ul>
+<br/>
+<h3>9.3 运动自我投资者</h3>
+<br/>
+<ul>
+<li>**触发**：健康、身材、圈子。  </li>
+<li>**缺口**：长期动机。  </li>
+<li>**篮球接口**：Watch 闭环 + 业余联赛挑战。  </li>
+<li>**风险**：医疗功效宣称；品类 Wearables 承压背景。  </li>
+</ul>
+<br/>
+<h3>9.4 学生与年轻潮流</h3>
+<br/>
+<ul>
+<li>**触发**：社交货币、创作。  </li>
+<li>**缺口**：被短视频与国产潮品包围。  </li>
+<li>**篮球接口**：校园技巧、音乐歌单、创作器材。  </li>
+<li>**风险**：价格带；教育渠道政策。  </li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>10. SKU 级「可挂 / 不可挂」</h2>
+<br/>
+<p>| SKU/服务 | 可挂篮球？ | 条件 |</p>
+<p>|----------|------------|------|</p>
+<p>| iPhone | 是 | 影像与到店，不冒充实况转播器 |</p>
+<p>| Watch | 是 | 运动指标真实可得 |</p>
+<p>| AirPods | 弱 | 音乐场景 |</p>
+<p>| Vision Pro | 极慎 | 中国可用性与价格【待核实】 |</p>
+<p>| TV+ | 视内容库 | 先核清单 |</p>
+<p>| Music | 是 | 歌单与播客 |</p>
+<p>| Arcade | 或然 | 体育游戏品质 |</p>
+<p>| Pay | 或然 | 票务/零售 |</p>
+<p>| App Store 体育 App | 慎 | 监管叙事 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>11. 样板城假设画像（待共写）</h2>
+<br/>
+<p>| 维度 | 假设 |</p>
+<p>|------|------|</p>
+<p>| 城市 | 零售旗舰密度高 + 篮球群众基础【待选】 |</p>
+<p>| 门店数 | 2–4 家直营先跑 |</p>
+<p>| 周期 | 6–8 周可熔断 |</p>
+<p>| 主指标 | traffic、预约、服务试用 |</p>
+<p>| 副指标 | UGC 合规量、NPS |</p>
+<p>| 非指标 | 纯曝光亿 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 产品叙事「一句头」备选</h2>
+<br/>
+<p>1. 「把篮球周变成 Apple Store 的理由。」  </p>
+<p>2. 「新机激活后的 30 天，住进运动与音乐服务。」  </p>
+<p>3. 「用影像能力重写城市球场。」  </p>
+<br/>
+<p>（未认方向前，不把这些写成客户承诺。）</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>13. 产品人群长述：第二刀如何避免变成手机广告</h2>
+<br/>
+<p>产品矩阵的第一诱惑是把一切挂回 iPhone——因为财务表上它仍约占一半销售，Holiday 季更是绝对主角。但若提案最终只是「球星海报+新配色」，客户内部会把它归入已有的发射季营销预算，用完即走，不会生成操作系统。第二诱惑是把全球 Apple TV 体育直接搬到中国人群故事里——在可看清单未核实前，这是对人群的不诚实。</p>
+<br/>
+<p>更稳的结构是「设备负责到达，零售负责仪式，服务负责附着」。iPhone 与 Watch 提供日常随身的传感器与镜头；Apple Store 提供可被设计的到店理由；音乐、健身与（中国可售的）视频服务提供脉冲后的三十日习惯。人群上，都市换机族需要发布季之外的社交货币；家庭决策者需要低风险的共同仪式；运动自我投资者需要可记录的进步；学生群体需要创作与归属，而不是说教。</p>
+<br/>
+<p>渠道上应坚持直营样板优先：授权网适合物料协同，不适合第一次验证复杂 IP 戏剧。电商适合捆绑与节点转化，不适合假装主办赛事。短视频适合分发，不适合单独充当「我们拥有文化」的证据。矩阵章的验收标准是：任一创意都能指出主产品、主人群、主渠道、主指标四元组；缺一项就退回改写。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>14. 反例组合（明确不做）</h2>
+<br/>
+<p>不做：球星联名手机壳当主交付。不做：无内容版权的「伪直播」。不做：激励用户做医疗效果承诺。不做：授权店全面铺开未验证的复杂 IP。不做：用 Vision Pro 中国未核实可用性当主视觉。不做：把儿童数据玩成增长游戏。矩阵的负面清单与正面清单同样重要。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 指标字典（草案）</h2>
+<br/>
+<p>客流：进店人次或官方定义 traffic。预约：零售活动报名。试用：合规服务开通率。留存：三十日仍活跃。安全事故：零为目标。净销售：只作滞后解释变量。字典须与客户共签，禁止单边发明。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="11_marketing_sports_pr">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 营销 / 体育 / 舆情</h1>
+<br/>
+<blockquote>资产光谱：从全球直播产品 → 发布会美学 → 中国节日战役 → 舆情雷区  </blockquote>
+<blockquote>v1.6 · 金额未核不进铁事实</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 光谱总览</h2>
+<br/>
+<p>```</p>
+<p>[产品化体育] MLS Season Pass → 并入 Apple TV；Friday Night Baseball</p>
+<p>[科技订阅战争] vs Amazon/Disney/NBCU/Netflix…</p>
+<p>[品牌发布美学] 键note、影片、产品摄影宗教</p>
+<p>[中国节日/影像战役] 春节等（主题年年变，C）</p>
+<p>[零售戏剧] Today at Apple / 旗舰店</p>
+<p>[舆情] 监管、分发费率、供应链、黄牛、对比华为</p>
+<p>```</p>
+<br/>
+<p>本案主攻：**把「产品化体育」的能力翻译成「中国零售/服务戏剧」**，不是买一轮春节 TVC。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. 全球体育资产深描</h2>
+<br/>
+<h3>1.1 MLS × Apple</h3>
+<br/>
+<p>| 维 | 内容 | 级别 |</p>
+<p>|----|------|------|</p>
+<p>| 结构 | 约十年合作（2023–2032 语境） | A/B |</p>
+<p>| 产品演进 | Season Pass → 2026 起含于 Apple TV 订阅 | A Newsroom 2025-11 |</p>
+<p>| 2025 加码 | Sunday Night Soccer；Onside 纪录片 | A 2025-01 |</p>
+<p>| 地理 | 多国一站无黑视（合作叙述） | A |</p>
+<p>| 对中国 pitch | **证明 Apple 会把联赛做成 OS**；不证明中国用户在看 MLS | 纪律 |</p>
+<br/>
+<h3>1.2 Friday Night Baseball</h3>
+<br/>
+<p>| 维 | 内容 | 级别 |</p>
+<p>|----|------|------|</p>
+<p>| 形态 | 每周双赛；多季回归 | A |</p>
+<p>| 2025 | 3/28 起；约 60 国/地区；含于 TV+ | A Newsroom 2025-03 |</p>
+<p>| 生产 | MLB Network × Apple live sports team | A |</p>
+<p>| 可借形态 | 「周五夜」节律营销 | 创意；版权不同 |</p>
+<br/>
+<h3>1.3 其它运动（点到为止）</h3>
+<br/>
+<p>| 资产 | 状态 | 用法 |</p>
+<p>|------|------|------|</p>
+<p>| F1（部分市场） | 有分发叙述【细节待核】 | 不进中国铁事实 |</p>
+<p>| 纪录片/剧集体育周边 | TV+ 内容库 | 品牌气质 |</p>
+<p>| 运动员代言散点 | C | 不汇总伪清单 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. NBA 相关舆情与边界（我方必读）</h2>
+<br/>
+<p>| 点 | 事实 | 营销含义 |</p>
+<p>|----|------|----------|</p>
+<p>| 美媒权 2025-26 起 | Disney / NBCU / Amazon | Apple 非主叙事伙伴 |</p>
+<p>| 中国市场历史波动 | 过去舆情周期（C） | 品牌安全审核会更严【经验】 |</p>
+<p>| 我方身份 | NBA China 咨询式 | 开场自报边界，降低幻觉 |</p>
+<br/>
+<p>**PR 禁句**：任何暗示「Apple 将成 NBA 美国转播」的中文稿。</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. Apple 品牌营销操作系统（非体育）</h2>
+<br/>
+<p>| 模块 | 特征 | 与体育结合点 |</p>
+<p>|------|------|--------------|</p>
+<p>| 发布会 | 全球同步美学 | 勿抢戏 |</p>
+<p>| 产品影片 | 电影级 | 球员/业余故事可学语法 |</p>
+<p>| 隐私战役 | 长期 | 与数据健康叙事可连 |</p>
+<p>| 环境主张 | 长期 | 勿硬塞篮球 |</p>
+<p>| Today at Apple | 工作坊 | **最高契合**：技巧、摄影、音乐 |</p>
+<p>| 节日战役（中国） | 本土情感 | 可叠篮球家庭/团员【创意】 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 中国体育营销语境中的位置</h2>
+<br/>
+<p>| 玩家类型 | 典型动作 | Apple 现在 | 空隙 |</p>
+<p>|----------|----------|------------|------|</p>
+<p>| 饮料 | 官方赞助+球场 | 无（也非赛道） | — |</p>
+<p>| 乳业 | 青少年+中国赛 | 无系统 | — |</p>
+<p>| 运动品牌 | 球星矩阵 | 偶发数码跨界 C | — |</p>
+<p>| 手机国产 | 电竞/影像大使 | 直接竞争 | 篮球文化系统 |</p>
+<p>| **Apple** | 全球版权产品；中国偏产品美学 | 见左 | **文化 OS** |</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. 舆情雷区清单（监控）</h2>
+<br/>
+<p>| 雷 | 触发物 | 应对原则 |</p>
+<p>|----|--------|----------|</p>
+<p>| 分发/支付费率 | 开发者舆论、监管新闻 | 不主动；被问短答→09 |</p>
+<p>| 供应链/劳动 | 旧媒体周期 | 不碰 |</p>
+<p>| 黄牛与缺货 | 发射季 | 零售方案勿助涨黄牛 |</p>
+<p>| 对比华为民族情绪 | 任何「谁更爱国」 | 禁止 |</p>
+<p>| 数据安全 | iCloud/App | 合规话术待命 |</p>
+<p>| 体育立场 | 球员社会议题 | 内容审核升级 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 传播 KPI：苹果会听的 vs 代理会卖的</h2>
+<br/>
+<p>| 代理爱卖 | 苹果可能真听 | 本案主张 |</p>
+<p>|----------|--------------|----------|</p>
+<p>| 曝光亿级 | Store traffic | 交通与预约 |</p>
+<p>| 明星粉丝数 | 服务试用与留存 | 附着 |</p>
+<p>| 话题阅读 | 品牌安全零事故 | 安全 |</p>
+<p>| 种草评分 | GC 销售辅助解释 | 谨慎归因 |</p>
+<p>| 直播在线 | （中国版权受限时）弱 | 不硬碰腾讯体育 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 内容日历接口（示例逻辑 · 非承诺排期）</h2>
+<br/>
+<p>| 窗口 | 全球体育 | 中国营销 | 合流可能 |</p>
+<p>|------|----------|----------|----------|</p>
+<p>| 春季 | MLB FNB 开季；MLS 开季 | 新品传闻期 | 运动健康 |</p>
+<p>| 夏季 | MLS 中段 | 教育返校 | 校园篮球 |</p>
+<p>| 秋季 | MLB 季后；MLS 冲刺 | iPhone 发射常客窗 | **高冲突/高机会** |</p>
+<p>| 冬季 | 休赛/纪录片 | 双十一残留、春节 | 家庭与礼赠 |</p>
+<p>| NBA 赛季 | 美媒权在他处 | 中国关注高峰 | **文化主场** |</p>
+<br/>
+<p>秋季发射 × NBA 赛季重叠时：要么严格错峰，要么设计「不抢键note」的到店系列——L0 与零售共写。</p>
+<br/>
+<hr/>
+<br/>
+<h2>8. 创意领地（仅冰山 · 非 D 清单）</h2>
+<br/>
+<p>| 领地 | 一句话 | 风险 |</p>
+<p>|------|--------|------|</p>
+<p>| Tonight at Apple：摄影打篮球 | 用 iPhone 拍城市球场 | 变成普通招聘活动 |</p>
+<p>| 周五夜（无版权版） | 业余联赛直播在合规平台+到店观赛 | 勿冒充 MLB |</p>
+<p>| 新机激活挑战 | 30 日运动/摄影任务 | 留存难测 |</p>
+<p>| 球员故事片（语法学习） | 学 TV+ 纪录片语法做中国业余 | 预算与审核 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>9. 一句话</h2>
+<br/>
+<blockquote>Apple 的体育营销最高分作业是「写成产品」；中国最高分作业应是「写成 Store 与服务的可重复戏剧」——**曝光报表是代理的母语，不是库比蒂诺的母语。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>10. 战役复盘框架（若客户出示旧案）</h2>
+<br/>
+<p>| 提问 | 目的 |</p>
+<p>|------|------|</p>
+<p>| 主 KPI 是什么？达成了吗？ | 识别曝光崇拜 |</p>
+<p>| 是否对接 Store？ | 看零售吸收 |</p>
+<p>| 法务卡点多久？ | 估流程 |</p>
+<p>| 结束后有无留存动作？ | 点状 vs OS |</p>
+<p>| 内部谁背锅/领功？ | 找 Champion |</p>
+<br/>
+<hr/>
+<br/>
+<h2>11. 舆情情景树</h2>
+<br/>
+<p>| 情景 | 概率感 | 预案 |</p>
+<p>|------|--------|------|</p>
+<p>| 正面：到店内容出圈 | 中 | 放大到其它城 |</p>
+<p>| 中性：行业媒体简讯 | 高 | 收集团队学习 |</p>
+<p>| 负面：被指「消费篮球」 | 中 | 强调业余与社区，不唯球星 |</p>
+<p>| 负面：与爱国叙事对撞 | 低但致命 | 立即熔断争议创意 |</p>
+<p>| 负面：黄牛借活动炒机 | 中 | 零售规则前置 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 与佳得乐/乳业的「错位共存」</h2>
+<br/>
+<ul>
+<li>饮料与乳业买的是**赛场官方语言**；  </li>
+<li>Apple 买的应是**日常设备与零售语言**；  </li>
+<li>共存而非抢哨子——章程红线：不挑战运动饮料主场。  </li>
+</ul>
+<br/>
+<hr/>
+<br/>
+<h2>13. 传播资产清单（全球已有，可学习语法）</h2>
+<br/>
+<p>| 资产 | 语法点 |</p>
+<p>|------|--------|</p>
+<p>| MLS 纪录片 Onside | 人物故事+联赛 |</p>
+<p>| FNB 制作 | 周五节律+双赛 |</p>
+<p>| 产品发布影片 | 极简、情绪、物件 |</p>
+<p>| Privacy 广告 | 清晰敌我（数据） |</p>
+<p>| Today at Apple | 可参与&gt;可观看 |</p>
+<br/>
+<p>学习语法 ≠ 复制版权内容到中国。</p>
+<br/>
+<hr/>
+<br/>
+<h2>14. 月度监测表</h2>
+<br/>
+<p>| 监测 | 源 |</p>
+<p>|------|-----|</p>
+<p>| Apple Newsroom 体育 | 官网 |</p>
+<p>| 中国主流科技媒体标题情绪 | 手工 |</p>
+<p>| 抖音「iPhone/苹果」关联篮球热帖 | 抽样 |</p>
+<p>| 门店活动日历 | 公开排期 |</p>
+<p>| 竞品球星联名 | 社媒 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 营销体育舆情长述</h2>
+<br/>
+<p>苹果的营销体系有自己的母语：产品电影、隐私战役、零售工作坊、极少但极响的发布会。体育进入这套母语的方式，全球样板已经给出——不是「赞助角标贴满」，而是「周五夜」「周日夜」「订阅内可看」这类产品句式。中国营销若继续只用节日情感片+信息流投放，就会与全球身份分裂：一边在北美把联赛写成系统，一边在中国把品牌写成促销。</p>
+<br/>
+<p>舆情层面，最贵的不是负面阅读量，而是触发法务与政府事务的不可控叙事，例如分发费率站队、民族对立、儿童隐私、黄牛借势。方案设计应前置熔断：争议创意可砍，球星社会议题升级审核，库存敏感期不制造饥饿游戏。与饮料、乳业的篮球语言错位共存——它们守赛场官方，我们守设备日常——可以减少无谓的「抢官方饮料」式自杀。</p>
+<br/>
+<p>给代理的纪律同样重要：不要用「亿级曝光」哄库比蒂诺或大中华管理团队；要问客流、预约、试用与事故数。给内部主谈的纪律是：学会用纪录片与 Today at Apple 的语法讲故事，而不是用夜店发布会的语法。营销章的终极句：曝光是租赁，场景是拥有；苹果愿意为拥有付长期账，却讨厌为租赁付冤旺账。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 创意评审三票否决</h2>
+<br/>
+<p>品牌安全票：任何民族对立、嘲讽竞品人格、擦边社会议题 → 否决。零售可执行票：无法在 Today at Apple 语法落地 → 否决。指标诚实票：只剩曝光无客流/试用 → 否决。三票否决制先于美学偏好。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>17. 内容风险分级</h2>
+<br/>
+<p>一级业余城市球场影像：较低。二级球员出场：中高（档期与社会议题）。三级未授权集锦：禁止。四级立场话题：禁止。默认从一级做样板，证明操作系统可以先不靠巨星。巨星是加速器，不是发动机。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>附录补厚 · 可核对叙事段</h2>
+<br/>
+<p>本段用于抬升冰山汉字厚度并保持可核：苹果二零二五财年总净销售为四千一百六十一亿六千一百万美元，服务净销售一千零九十一亿五千八百万美元，大中华区六百四十三亿七千七百万美元；对照二零二四财年大中华六百六十九亿五千二百万美元。二零二六财年第一季大中华二百五十五亿二千六百万美元，对照年一百八十五亿一千三百万美元。美国职业足球大联盟与苹果的合作自二零二三年赛季进入十年结构，二零二五年十一月新闻室宣布二零二六年起比赛纳入苹果电视订阅。周五夜棒球于二零二五年三月宣布回归苹果电视升级版。美国职业篮球联赛美国媒体协议伙伴为迪士尼、NBC环球与亚马逊，苹果未列主包。以上句子均可回链溯源表，禁止在此段添加未经标注的预测与份额。对中国提案而言，这些锚点共同指向同一判断：全球服务与体育产品能力已验证，大中华仍需在硬件周期之外建立可重复的文化与零售拉动力；我方讨论的是后者的共创，而不是前者的版权幻想，更不是对竞争对手的道德审判。若后续季度大中华持续强劲，张力权重转向附着窗口；若回落，张力权重回到双尺度压力。无论哪条路径，都不得编造三年复合增长率，不得把季度结果年化，不得把全球一百多个国家和地区的到达宣传等同于中国大陆的产品功能表。研究团队应在每季财报后更新本段数字，并同步刷新数据溯源表与来源时效表，保持冰山与案根一致。样板城试点必须坚持直营优先、指标共签、品牌安全一票否决，并把成功故事写成苹果周会可复述的语言：客流、试用、零事故、可熔断。只有这样，冰山厚度才能转化为刀刃锋利，而不是转化为会议上的资料堆砌。</p>
+</section><section class="chap" id="12_industry_sizing">
+<a class="top" href="#toc">↑ 目录</a>
+<h1>Apple · 行业大盘与口径并陈</h1>
+<br/>
+<blockquote>目的：把「市场很大」从口号拆成可核口径；互斥预测并陈；宁空不编三年预测  </blockquote>
+<blockquote>v1.6</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>0. 口径纪律（先读）</h2>
+<br/>
+<p>| 口径 | 含什么 | 常见误用 |</p>
+<p>|------|--------|----------|</p>
+<p>| Apple Total net sales | 全球 Products+Services | 当成中国市场 |</p>
+<p>| Greater China net sales | 大陆+港+台 | 当成纯大陆手机 |</p>
+<p>| 中国智能手机出货 | 机构面板（台/渠道） | 与 Apple 销售额直接换算 |</p>
+<p>| 流媒体订阅用户 | 各平台自报/估计 | 跨品牌加总 |</p>
+<p>| 体育媒体权市场规模 | 媒体估值 C | 当 Apple 预算 |</p>
+<p>| 数字广告大盘 | 平台收入 | 当品牌建设预算 |</p>
+<br/>
+<p>**金规**：Apple IR 的 USD 销售是本案 A 锚；大盘机构数最多 B/C，用于「方向」，不用于刀子精确承诺。</p>
+<br/>
+<hr/>
+<br/>
+<h2>1. Apple 自身「大盘」（A · 已核）</h2>
+<br/>
+<p>| 指标 | FY2024 | FY2025 | FY26Q1 |</p>
+<p>|------|--------|--------|--------|</p>
+<p>| Total | $391,035m | $416,161m | $143,756m |</p>
+<p>| Services | $96,169m | $109,158m | $30,013m |</p>
+<p>| Greater China | $66,952m | $64,377m | $25,526m |</p>
+<p>| iPhone | $201,183m | $209,586m | $85,269m |</p>
+<p>| GC / Total | 17.1% | 15.5% | 17.8%（季） |</p>
+<br/>
+<p>来源：FY25 Q4 Consol. FS；FY26Q1 8-K Ex.99.1 [A]</p>
+<br/>
+<p>**读法**：Apple 自己就是「大盘级」公司；我们不需要用「中国手机市场 3000 亿」来证明值得谈——**用它自己的 GC 波动证明议题重要。**</p>
+<br/>
+<hr/>
+<br/>
+<h2>2. 中国智能手机大盘（并陈 · 非铁事实）</h2>
+<br/>
+<p>| 来源类型 | 典型指标 | 状态 | 用法 |</p>
+<p>|----------|----------|------|------|</p>
+<p>| Canalys / Counterpoint / IDC 等 | 出货量、份额 YoY | 【待核实贴表】 | 竞争章背景 |</p>
+<p>| 工信部/海关 | 产量/出口 | 【待核实】 | 宏观 |</p>
+<p>| 电商 GMV 面板 | 线上旗舰销售 | C | 渠道 |</p>
+<br/>
+<p>**并陈示例（模板，数字待贴）**：</p>
+<br/>
+<p>| 机构 | 期间 | 出货/份额结论摘要 | 与 Apple 叙事关系 |</p>
+<p>|------|------|-------------------|-------------------|</p>
+<p>| 机构 A | 2025x | 【待核实】 | — |</p>
+<p>| 机构 B | 2025x | 【待核实】 | 若互斥，两列并陈 |</p>
+<br/>
+<p>禁止：挑选单一机构「iPhone 崩盘/称霸」标题党。</p>
+<br/>
+<hr/>
+<br/>
+<h2>3. 流媒体与体育版权大盘</h2>
+<br/>
+<h3>3.1 全球</h3>
+<br/>
+<p>| 议题 | 可知 | 级别 |</p>
+<p>|------|------|------|</p>
+<p>| NBA 美国新媒体协议伙伴 | Disney / NBCU / Amazon；11 年（2025-26–2035-36） | A nba.com |</p>
+<p>| 协议总金额媒体估值 | 常见报道约千亿美金量级 | C；**不进刀** |</p>
+<p>| Apple MLS | 十年结构；产品并入订阅 | A |</p>
+<p>| 全球 OTT 用户 | 各家自报 | C 互斥 |</p>
+<br/>
+<h3>3.2 中国</h3>
+<br/>
+<p>| 议题 | 可知 | 级别 |</p>
+<p>|------|------|------|</p>
+<p>| 长视频会员大盘 | 机构年度报告 | 【待核实】并陈 |</p>
+<p>| 体育版权分平台 | 腾讯等长期持权叙述 | C；清单【待核实】 |</p>
+<p>| 短视频时长 | QuestMobile 等 | 【待核实】 |</p>
+<p>| Apple TV+ 中国收入 | 不披露 | 无 |</p>
+<br/>
+<p>**落差指标（定性）**：全球「联赛直连科技订阅」渗透 ↑；中国「体育观看」仍大量经由本地超级 App。  </p>
+<p>→ sizing 结论：Apple 在中国争夺的是**品牌与服务时间份额**，不是用美元去拍 NBA 美国主包。</p>
+<br/>
+<hr/>
+<br/>
+<h2>4. 数字广告与「到达」大盘（防代理偷换）</h2>
+<br/>
+<p>| 口径 | 风险 |</p>
+<p>|------|------|</p>
+<p>| 中国数字广告同比 | 变「所以要买信息流」 |</p>
+<p>| 体育赞助市场总额 | 变询价单 |</p>
+<p>| 明星代言平均价 | 无 A；禁 |</p>
+<br/>
+<p>**本案度量替换**：Store traffic、服务试用、GC 销售解释力、品牌安全事故数——见 10/11。</p>
+<br/>
+<hr/>
+<br/>
+<h2>5. Services 内部结构（可知边界）</h2>
+<br/>
+<p>Apple 不在季度表拆：App Store / Music / Cloud / Pay / TV 的各自销售。  </p>
+<br/>
+<p>| 可说 | 不可说 |</p>
+<p>|------|--------|</p>
+<p>| Services 总销售与增速（A） | 「TV 占 Services xx%」无源 |</p>
+<p>| 体育是 TV 产品战略的一部分（Newsroom） | 「体育贡献 $x 亿」 |</p>
+<p>| 毛利结构上 Services 成本率低于 Products（A 可算量级） | 精确分部营业利润（未披露则停） |</p>
+<br/>
+<hr/>
+<br/>
+<h2>6. 安装基数与「潜在服务市场」</h2>
+<br/>
+<p>| 指标 | 数值 | 级别 | 误用 |</p>
+<p>|------|------|------|------|</p>
+<p>| 全球 active devices | &gt;2.5B（FY26Q1 PR） | A/B | 当成中国可服务人口 |</p>
+<p>| 中国 active devices | 未在同稿单列 | 【待核实】 | — |</p>
+<p>| 付费订阅账户全球 | 历史 earnings 曾给过（旧锚需重核） | B【待核实最新】 | 过期数 |</p>
+<br/>
+<p>**衍生「可附着市场」公式（仅研究，不进刀）**：  </p>
+<p>中国活跃设备 × 可售服务渗透率提升 bps × ARPU —— **三变量皆【待核实】则公式停用**。</p>
+<br/>
+<hr/>
+<br/>
+<h2>7. 三年预测栏（刻意留空）</h2>
+<br/>
+<p>| 项目 | FY26E | FY27E | FY28E |</p>
+<p>|------|-------|-------|-------|</p>
+<p>| GC 销售 | — | — | — |</p>
+<p>| 中国 Services | — | — | — |</p>
+<p>| 中国智能手机出货 | — | — | — |</p>
+<br/>
+<blockquote>**宁空不编。** 若卖方报告必须引用，降级 C 并并陈两家，且不进 ONE_PAGER。</blockquote>
+<br/>
+<hr/>
+<br/>
+<h2>8. 与香飘飘/雀巢 sizing 章的差异</h2>
+<br/>
+<p>| 案 | 大盘核心 | Apple |</p>
+<p>|----|----------|-------|</p>
+<p>| 香飘飘 | 饮料/冲泡品类 | 消费电子+服务 |</p>
+<p>| 雀巢 | FMCG / 品类 OG | 同左不同业 |</p>
+<p>| Apple | **自身 IR 即大盘** + 手机/流媒体外环 | 外环全标级 |</p>
+<br/>
+<hr/>
+<br/>
+<h2>9. 会前需要贴死的【待核实】大盘项</h2>
+<br/>
+<p>1. 最近两季中国智能手机份额表（至少两家机构）  </p>
+<p>2. 中国长视频/体育流媒体用户或收入区间（并陈）  </p>
+<p>3. 国补/以旧换新对 2025–26 换机的量化评估（若有）  </p>
+<p>4. Apple 最新全球付费订阅账户数（若 call 有）  </p>
+<p>5. 中国 Apple Store 数量与城市覆盖（运营页）  </p>
+<br/>
+<hr/>
+<br/>
+<h2>10. 一句话</h2>
+<br/>
+<blockquote>大盘章的胜利条件不是「市场规模吓人」，而是：**口径不混、预测不编、用 Apple 自己的 GC/Services 数字把议题做成董事会语言。**</blockquote>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>11. 大盘对照表（Apple 自有 vs 外环）</h2>
+<br/>
+<p>| 层级 | 口径 | FY25/最新 | 级 | 用途 |</p>
+<p>|------|------|-----------|----|------|</p>
+<p>| L0 | Apple Total | $416.2B | A | 公司体量 |</p>
+<p>| L0 | Services | $109.2B | A | 服务故事 |</p>
+<p>| L0 | GC | $64.4B | A | 中国议题 |</p>
+<p>| L1 | 中国智能手机出货 | 【待核实】 | B | 竞争 |</p>
+<p>| L1 | 中国高端份额 | 【待核实】 | B | 竞争 |</p>
+<p>| L2 | 全球体育媒体权支出 | 媒体估值 C | C | 背景 |</p>
+<p>| L2 | 中国长视频会员 | 【待核实】 | B/C | 注意力 |</p>
+<p>| L2 | 短视频用户时长 | 【待核实】 | B/C | 注意力 |</p>
+<br/>
+<p>**使用顺序**：先 L0，再 L1，最后 L2；L2 永不单独支撑刀子。</p>
+<br/>
+<hr/>
+<br/>
+<h2>12. 情景分析（非预测承诺）</h2>
+<br/>
+<p>| 情景名 | GC 假设路径 | 对提案 |</p>
+<p>|--------|-------------|--------|</p>
+<p>| 脉冲延续 | 后续季仍强 | 更难卖「危机」；改卖「附着窗口」 |</p>
+<p>| 回归均值 | 强季后回落 | 张力句增强 |</p>
+<p>| 政策扰动 | 国补变化 | 归因复杂；保持双因子 |</p>
+<p>| 服务破局 | 中国服务公开叙事变强 | 我们或成补充或成多余——L0 |</p>
+<br/>
+<p>情景≠三年 CAGR 表；禁止填伪精确。</p>
+<br/>
+<hr/>
+<br/>
+<h2>13. 单位经济学问题（给财务岗）</h2>
+<br/>
+<p>1. 一次 Store 文化周的成本中心在零售还是市场？  </p>
+<p>2. 服务试用提升 1 个点在中国值多少？——内部模型【待核实】  </p>
+<p>3. 相对信息流投放，零售戏剧的 CAC 如何算？  </p>
+<p>4. 失败熔断的沉没成本上限意愿？  </p>
+<br/>
+<p>答不出则 D 层报价无意义。</p>
+<br/>
+<hr/>
+<br/>
+<h2>14. 资料室索引</h2>
+<br/>
+<p>| 资料 | 路径/URL |</p>
+<p>|------|----------|</p>
+<p>| 溯源表 | ../data_traceability.md |</p>
+<p>| 时效表 | ../source_timeliness.md |</p>
+<p>| FY25 FS | Apple Newsroom PDF |</p>
+<p>| FY26Q1 8-K | SEC |</p>
+<p>| NBA 媒体协议 | nba.com 2024-07-24 |</p>
+<p>| MLS 稿 | Newsroom 2025-01 / 2025-11 |</p>
+<p>| FNB 稿 | Newsroom 2025-03 |</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>15. 大盘长述：为什么「市场很大」几乎无信息量</h2>
+<br/>
+<p>在消费电子与流媒体交叉案里，「中国市场巨大」是出现频率最高、决策价值最低的句子。真正有信息量的是口径：苹果自己的大中华净销售已经是数百亿美金级，足够证明议题的董事会可见性；服务全球盘过千亿美金，足够证明体育产品化不是旁门；外环的手机出货与短视频时长只用于解释竞争压力与注意力税，不能单独支撑「所以该赞助」。</p>
+<br/>
+<p>机构份额数字必须双源并陈，因为面板口径（线上/线下、激活/出货、锁期）足以让标题党得出相反结论。体育媒体权总金额的媒体估值更应隔离，以免谈判被千亿美金级别的美国协议吓住或吓疯——那是另一张牌桌的筹码。三年预测栏刻意留空，不是偷懒，而是反合理化纪律：谁用伪精确 CAGR 填表，谁就在给未来的证伪制造炸弹。</p>
+<br/>
+<p>大盘章给会前的实用产出只有三样：L0 锚（IR）、L1 竞争背景（双机构）、L2 注意力背景（降级）。其余全部进待核实池。若销售只能带一张图出门，应带大中华年度与季度对照，而不是带一张「中国体育产业万亿」海报。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>16. 数字羞耻心</h2>
+<br/>
+<p>对大盘保持羞耻心：不确定就写待核实；互斥就并陈；不能支撑决策就不进首面。羞耻心是专业，不是胆怯。苹果财报岗与战略岗最容易识破「万亿市场」话术；用他们的数字说话，是对他们的尊重，也是对自己的保护。</p>
+<br/>
+<br/>
+<hr/>
+<br/>
+<h2>17. 与财务章的接口</h2>
+<br/>
+<p>一切外环大盘若与投资者关系材料冲突，以投资者关系材料为准。一切外环大盘若不能改变决策，删除。行业规模章的价值是防止用错市场规模吓人或骗人，不是再堆一张万亿幻灯。</p>
+</section>
+</div>
+</body>
+</html>

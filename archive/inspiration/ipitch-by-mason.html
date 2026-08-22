@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="theme-color" content="#0a0a0c"/>
+  <title>iPitch · Cursor Agent 化升级设计</title>
+  <meta name="description" content="以动态汇报形式讲解 iPitch 从单次 Prompt 生成升级为 Cursor Agent 工作流的设计。"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/agent-upgrade-presentation.css"/>
+</head>
+<body>
+  <div class="deck-shell" id="deck-shell">
+    <header class="deck-header">
+      <a class="brand" href="ui/PitchStudio刀刃.html" aria-label="返回 iPitch Workbench">
+        <span class="brand-mark" aria-hidden="true">iP</span>
+        <span class="brand-copy">
+          <strong>iPitch</strong>
+          <span>Cursor Agent 化升级</span>
+        </span>
+      </a>
+
+      <div class="header-meta" aria-label="演示文稿信息">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>Architecture Brief</span>
+      </div>
+
+      <div class="header-actions">
+        <button class="header-button" type="button" id="agenda-button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h14"/></svg>
+          <span>目录</span>
+        </button>
+        <button class="header-button icon-only" type="button" id="fullscreen-button" aria-label="切换全屏演示">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="slides" id="slides" aria-live="polite">
+      <section class="slide slide--hero is-active" data-slide="0" aria-label="第 1 页：升级命题">
+        <div class="slide-no">01 <span>/ 11</span></div>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">汇报主题 · iPitch 2.0</p>
+            <h1>从「一次生成」<br/>到「<em>可审计</em>的<br/>Agent 生产线」</h1>
+            <p class="hero-lede">
+              不是简单换一个更强的模型，而是把 iPitch 的研究、反证、合成与验收，升级为可运行、可恢复、可追溯的工作流。
+            </p>
+            <div class="hero-callout">
+              <span class="callout-index">01</span>
+              <p>让每一次 pitch 都有<strong>事实底稿、独立反证、明确责任与可复盘产物</strong>。</p>
+            </div>
+          </div>
+
+          <figure class="hero-visual">
+            <img src="assets/agent-upgrade/ipitch-agent-hero.png" alt="从单次 Prompt 分流为多个协作 Agent 并最终形成文档产物的示意图"/>
+            <figcaption>
+              <span>ONE PROMPT</span>
+              <i></i>
+              <span>MULTI-AGENT DELIVERY</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <div class="hero-footnote">
+          <span>Cursor Agent · GitHub Skills · Server Artifacts · Programmatic Gates</span>
+          <span class="scroll-hint">按 <kbd>→</kbd> 开始</span>
+        </div>
+      </section>
+
+      <section class="slide slide--problem" data-slide="1" aria-label="第 2 页：为什么需要升级">
+        <div class="slide-no">02 <span>/ 11</span></div>
+        <div class="section-heading">
+          <p class="eyebrow">为什么现在必须升级</p>
+          <h2>当前系统不是“不够聪明”，<br/>而是<strong>被压缩成一次回答</strong>。</h2>
+        </div>
+
+        <div class="problem-layout">
+          <article class="old-flow-card">
+            <div class="flow-caption">TODAY · SINGLE TURN</div>
+            <div class="one-shot-flow">
+              <div class="flow-node flow-node--input">
+                <span class="node-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v9a2.5 2.5 0 0 1-2.5 2.5H11l-4.2 3.2c-.7.5-1.7 0-1.7-.9V17.7A2.5 2.5 0 0 1 4 15.5z"/></svg>
+                </span>
+                <div><b>用户输入</b><small>公司 + 碎片情报</small></div>
+              </div>
+              <span class="flow-line" aria-hidden="true"></span>
+              <div class="flow-node flow-node--model">
+                <span class="node-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/><circle cx="12" cy="12" r="4"/></svg>
+                </span>
+                <div><b>单次模型调用</b><small>一段长 Prompt</small></div>
+              </div>
+              <span class="flow-line flow-line--warn" aria-hidden="true"></span>
+              <div class="flow-node flow-node--output">
+                <span class="node-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></svg>
+                </span>
+                <div><b>全部文件</b><small>研究 + 刀刃 + 证伪</small></div>
+              </div>
+            </div>
+            <div class="compression-note">
+              <span></span>
+              <p>研究、溯源、反证、合成、验收被压缩进同一次输出。</p>
+            </div>
+          </article>
+
+          <div class="problem-grid">
+            <article class="problem-card">
+              <span class="card-index">01</span>
+              <h3>来源不可靠</h3>
+              <p>没有真实检索时，账本可能“看起来正确”，却无法确认链接、时效与来源等级。</p>
+            </article>
+            <article class="problem-card">
+              <span class="card-index">02</span>
+              <h3>阶段会缩水</h3>
+              <p>一个回复里塞满 R1 文件，容易前后矛盾、局部变薄，也无法局部重跑。</p>
+            </article>
+            <article class="problem-card">
+              <span class="card-index">03</span>
+              <h3>门禁只看表面</h3>
+              <p>文件名存在不代表内容达标；“有报告”不等于“报告通过验收”。</p>
+            </article>
+            <article class="problem-card">
+              <span class="card-index">04</span>
+              <h3>红队不独立</h3>
+              <p>同一个模型既写方案又自我批评，很难真正推翻自己刚刚建立的观点。</p>
+            </article>
+            <article class="problem-card problem-card--wide">
+              <span class="card-index">05</span>
+              <h3>无法团队化运行</h3>
+              <p>浏览器直连模型 API，意味着 Key、CORS、审计、成本、长任务与历史记录都没有可靠的工程归属。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide--principle" data-slide="2" aria-label="第 3 页：升级原则">
+        <div class="slide-no">03 <span>/ 11</span></div>
+        <div class="principle-layout">
+          <figure class="iceberg-visual">
+            <img src="assets/agent-upgrade/ipitch-evidence-visual.png" alt="由大量可追溯研究材料支撑简洁 Pitch 刀刃的冰山示意图"/>
+            <figcaption>深研究在水下，短刀刃在会面桌上。</figcaption>
+          </figure>
+          <div class="principle-copy">
+            <p class="eyebrow">升级原则</p>
+            <h2>我们需要的不是“更长的 Prompt”，而是<strong>更可信的生产过程</strong>。</h2>
+            <div class="principle-list">
+              <div class="principle-item">
+                <span>01</span>
+                <div><h3>事实先于叙事</h3><p>每条关键数字回到来源、时间与可信等级，而不是让模型补全记忆。</p></div>
+              </div>
+              <div class="principle-item">
+                <span>02</span>
+                <div><h3>独立角色互相制衡</h3><p>研究者不能既是作者又是审稿人；反证和 Grill 必须有独立视角。</p></div>
+              </div>
+              <div class="principle-item">
+                <span>03</span>
+                <div><h3>产物与过程都可审计</h3><p>任何结论都能回看：谁做的、基于什么、过了哪些门禁、哪里被修复过。</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide--architecture" data-slide="3" aria-label="第 4 页：目标架构">
+        <div class="slide-no">04 <span>/ 11</span></div>
+        <div class="section-heading section-heading--compact">
+          <p class="eyebrow">目标架构</p>
+          <h2>前端负责体验，后端负责<strong>编排</strong>，<br/>Cursor Agent 负责<strong>执行</strong>。</h2>
+        </div>
+
+        <div class="architecture-map" aria-label="iPitch Cursor Agent 目标架构图">
+          <article class="architecture-layer architecture-layer--ui">
+            <div class="layer-label"><span>01</span> EXPERIENCE</div>
+            <div class="architecture-card">
+              <div class="architecture-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+              </div>
+              <div><h3>iPitch 前端</h3><p>输入、轮次选择、进度、历史、预览、下载、删除。</p></div>
+            </div>
+          </article>
+          <div class="architecture-arrow" aria-hidden="true"><span>提交任务</span><i></i></div>
+          <article class="architecture-layer architecture-layer--backend">
+            <div class="layer-label"><span>02</span> ORCHESTRATION</div>
+            <div class="architecture-card architecture-card--primary">
+              <div class="architecture-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2M16 4h5v5"/></svg>
+              </div>
+              <div><h3>后端 Run Orchestrator</h3><p>创建 run、调度 Agent、记录阶段、持久化、重试与权限控制。</p></div>
+            </div>
+            <div class="architecture-chip-row">
+              <span>Cursor SDK</span><span>状态机</span><span>Artifact API</span>
+            </div>
+          </article>
+          <div class="architecture-arrow" aria-hidden="true"><span>派发角色任务</span><i></i></div>
+          <article class="architecture-layer architecture-layer--agent">
+            <div class="layer-label"><span>03</span> INTELLIGENCE</div>
+            <div class="architecture-card architecture-card--agent">
+              <div class="architecture-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 7v5c0 4.7 3.4 7.8 8 9 4.6-1.2 8-4.3 8-9V7z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div><h3>Cursor Agent + GitHub Skills</h3><p>在绑定仓库中读取协议、模板、案例与不同角色 Skill，执行多阶段任务。</p></div>
+            </div>
+          </article>
+          <div class="architecture-arrow architecture-arrow--down" aria-hidden="true"><span>产物 + 状态</span><i></i></div>
+          <article class="architecture-layer architecture-layer--quality">
+            <div class="layer-label"><span>04</span> EVIDENCE &amp; CONTROL</div>
+            <div class="architecture-card architecture-card--quality">
+              <div class="architecture-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18H5z"/><path d="m8 12 2.2 2.2L16 8.5M8 17h8"/></svg>
+              </div>
+              <div><h3>磁盘 Artifact Store + Gate Checker</h3><p>统一保存 Markdown、日志、质量报告；程序检查并决定是否定向修复。</p></div>
+            </div>
+          </article>
+        </div>
+
+        <aside class="architecture-summary">
+          <span>核心变化</span>
+          <p>把 “Prompt” 从唯一的流程引擎，变成整个系统中一个受控的执行环节。</p>
+        </aside>
+      </section>
+
+      <section class="slide slide--roles" data-slide="4" aria-label="第 5 页：Agent 角色设计">
+        <div class="slide-no">05 <span>/ 11</span></div>
+        <div class="roles-layout">
+          <div class="roles-copy">
+            <p class="eyebrow">多 Agent 不等于多几个 Prompt</p>
+            <h2>角色由 <strong>Skills</strong> 定义，<br/>协作由后端<strong>编排</strong>。</h2>
+            <p class="roles-lede">每个 Skill 必须写清输入、输出、禁止事项和验收标准。这样每一步才可以被替换、测试和追责。</p>
+            <div class="role-pills">
+              <button class="role-pill is-selected" type="button" data-role="plan">Research Planner</button>
+              <button class="role-pill" type="button" data-role="research">Research</button>
+              <button class="role-pill" type="button" data-role="challenge">ifalsify / Grill</button>
+              <button class="role-pill" type="button" data-role="synthesize">Knife</button>
+              <button class="role-pill" type="button" data-role="check">Gate Repair</button>
+            </div>
+            <div class="role-inspector" id="role-inspector" aria-live="polite">
+              <span class="role-inspector-label">ROLE BRIEF</span>
+              <h3>Research Planner</h3>
+              <p>把模糊客户输入转译为研究问题、资料优先级与 source tier 要求，为后续检索建立边界。</p>
+            </div>
+          </div>
+          <figure class="roles-visual">
+            <img src="assets/agent-upgrade/ipitch-agent-orchestra.png" alt="由 Plan、Research、Challenge、Synthesize、Check 五个角色围绕编排中心协作的示意图"/>
+            <figcaption>每一个节点都只承担一个可验收的责任。</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="slide slide--workflow" data-slide="5" aria-label="第 6 页：R1 工作流">
+        <div class="slide-no">06 <span>/ 11</span></div>
+        <div class="section-heading section-heading--compact">
+          <p class="eyebrow">R1 工作流重构</p>
+          <h2>把“一次性写完”改成一条能<strong>暂停、校验、修复</strong>的生产线。</h2>
+        </div>
+
+        <div class="workflow-shell">
+          <div class="workflow-rail" aria-hidden="true"></div>
+          <ol class="workflow-list">
+            <li class="workflow-step is-highlighted">
+              <span class="workflow-step-no">01</span>
+              <div><strong>Target Resolve</strong><small>识别公司、别名、ticker 与必要假设</small></div>
+              <em>Target Skill</em>
+            </li>
+            <li class="workflow-step">
+              <span class="workflow-step-no">02</span>
+              <div><strong>Research Plan</strong><small>定义研究问题、优先级、来源标准</small></div>
+              <em>Planner Skill</em>
+            </li>
+            <li class="workflow-step">
+              <span class="workflow-step-no">03</span>
+              <div><strong>Source &amp; Ledger</strong><small>检索、抽取、建立事实与溯源账本</small></div>
+              <em>Research + Ledger</em>
+            </li>
+            <li class="workflow-step">
+              <span class="workflow-step-no">04</span>
+              <div><strong>Iceberg Write</strong><small>基于可追溯底稿生成结构化研究</small></div>
+              <em>Writer Skill</em>
+            </li>
+            <li class="workflow-step workflow-step--critical">
+              <span class="workflow-step-no">05</span>
+              <div><strong>ifalsify + Grill</strong><small>独立攻击主张、发现反证与盲区</small></div>
+              <em>Reviewer Skills</em>
+            </li>
+            <li class="workflow-step">
+              <span class="workflow-step-no">06</span>
+              <div><strong>Knife Synthesis</strong><small>只从通过的事实和反证中提炼短刀刃</small></div>
+              <em>Knife Skill</em>
+            </li>
+            <li class="workflow-step workflow-step--gate">
+              <span class="workflow-step-no">07</span>
+              <div><strong>Gate &amp; Repair</strong><small>不达标就局部重跑，不把不确定性带给客户</small></div>
+              <em>Checker + Repair</em>
+            </li>
+          </ol>
+          <aside class="workflow-outcome">
+            <p>最终交付</p>
+            <div class="file-stack">
+              <span>00_charter.md</span>
+              <span>data_traceability.md</span>
+              <span>ifalsify_report.md</span>
+              <span class="file-stack--front">B_knife.md</span>
+            </div>
+            <strong>每份文件都有<br/>可追溯的来处。</strong>
+          </aside>
+        </div>
+      </section>
+
+      <section class="slide slide--evidence" data-slide="6" aria-label="第 7 页：可信度与质量门禁">
+        <div class="slide-no">07 <span>/ 11</span></div>
+        <div class="evidence-layout">
+          <div class="evidence-copy">
+            <p class="eyebrow">从“模型说完成”到“系统验收通过”</p>
+            <h2>Programmatic Gate Checker<br/>是系统的<strong>验收线</strong>。</h2>
+            <p>它不会相信文件名，也不会相信模型的自评。它只读取产物内容，并给出可追溯的通过或失败理由。</p>
+            <div class="gate-example">
+              <div class="gate-example-head">
+                <span>quality_passport.json</span>
+                <b>R1 / CONDITIONAL</b>
+              </div>
+              <div class="gate-check"><i class="is-pass"></i><span>必需文件齐全</span><strong>PASS</strong></div>
+              <div class="gate-check"><i class="is-pass"></i><span>反证条目 ≥ 5</span><strong>PASS</strong></div>
+              <div class="gate-check"><i class="is-fail"></i><span>冰山研究字数 ≥ 8000</span><strong>REPAIR</strong></div>
+              <div class="gate-check"><i class="is-pass"></i><span>R2 iPod / shelf 分轨</span><strong>PASS</strong></div>
+            </div>
+          </div>
+          <div class="evidence-loop">
+            <div class="loop-node loop-node--source"><span>Artifacts</span><small>读取产物</small></div>
+            <div class="loop-node loop-node--check"><span>Check</span><small>程序验收</small></div>
+            <div class="loop-node loop-node--route"><span>Route</span><small>定位失败阶段</small></div>
+            <div class="loop-node loop-node--repair"><span>Repair</span><small>定向补强</small></div>
+            <svg class="loop-lines" viewBox="0 0 560 420" aria-hidden="true">
+              <path d="M125 135 C230 80, 320 80, 420 140"/>
+              <path d="M452 180 C500 260, 445 325, 337 333"/>
+              <path d="M280 345 C175 370, 92 316, 105 225"/>
+              <path d="M80 180 C52 145, 70 113, 125 135"/>
+            </svg>
+            <span class="loop-center">不通过<br/><strong>不交付</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide--artifacts" data-slide="7" aria-label="第 8 页：磁盘产物和历史">
+        <div class="slide-no">08 <span>/ 11</span></div>
+        <div class="artifact-layout">
+          <figure class="artifact-visual">
+            <img src="assets/agent-upgrade/ipitch-artifact-store.png" alt="Markdown 与 JSON 产物落到磁盘并通过审计门禁后显示在仪表盘中的示意图"/>
+          </figure>
+          <div class="artifact-copy">
+            <p class="eyebrow">团队级运行的基础设施</p>
+            <h2>Agent 的“答案”不是一段文本，<br/>而是一组<strong>可管理的产物</strong>。</h2>
+            <div class="artifact-tree" aria-label="服务器磁盘目录示例">
+              <div><b>server-data/ipitch-runs/</b></div>
+              <div class="tree-indent">└─ <b>{run_id}/</b></div>
+              <div class="tree-indent-2">├─ run.json <small>运行主记录</small></div>
+              <div class="tree-indent-2">├─ stages.json <small>阶段状态与重试</small></div>
+              <div class="tree-indent-2">├─ quality_passport.json <small>门禁结果</small></div>
+              <div class="tree-indent-2">└─ artifacts/ <small>最终交付</small></div>
+            </div>
+            <div class="artifact-benefits">
+              <span>可预览</span><span>可下载</span><span>可历史追溯</span><span>可局部重跑</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide slide--operations" data-slide="8" aria-label="第 9 页：用户体验和运行控制">
+        <div class="slide-no">09 <span>/ 11</span></div>
+        <div class="section-heading section-heading--compact">
+          <p class="eyebrow">用户体验不是旁观任务</p>
+          <h2>用户看到的不是 Agent 的复杂性，<br/>而是一次<strong>可掌控的项目运行</strong>。</h2>
+        </div>
+        <div class="ops-layout">
+          <article class="ops-card ops-card--run">
+            <div class="ops-card-head">
+              <span class="ops-label">RUN CENTER</span>
+              <span class="status-pill status-pill--live">R1 运行中</span>
+            </div>
+            <h3>蔚来 · 品牌增长 Pitch</h3>
+            <div class="run-progress">
+              <span class="run-progress-line"><i style="width: 71%"></i></span>
+              <b>5 / 7 阶段</b>
+            </div>
+            <ul class="stage-mini-list">
+              <li class="is-done"><i></i>Target Resolve</li>
+              <li class="is-done"><i></i>Source &amp; Ledger</li>
+              <li class="is-active"><i></i>ifalsify + Grill</li>
+              <li><i></i>Gate &amp; Repair</li>
+            </ul>
+          </article>
+
+          <article class="ops-card ops-card--history">
+            <div class="ops-card-head">
+              <span class="ops-label">HISTORY</span>
+              <button type="button" class="mini-icon-button" aria-label="筛选历史记录">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+              </button>
+            </div>
+            <div class="history-row">
+              <span class="history-dot history-dot--pass"></span>
+              <div><b>NIO / R1</b><small>12 artifacts · 4 小时前</small></div>
+              <button class="delete-demo" type="button" aria-label="删除 NIO R1 历史记录">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M9 7l1-3h4l1 3M6 7l1 14h10l1-14"/></svg>
+              </button>
+            </div>
+            <div class="history-row">
+              <span class="history-dot history-dot--repair"></span>
+              <div><b>客户 A / R2</b><small>等待 Gate Repair</small></div>
+              <button class="delete-demo" type="button" aria-label="删除客户 A R2 历史记录">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M9 7l1-3h4l1 3M6 7l1 14h10l1-14"/></svg>
+              </button>
+            </div>
+            <div class="history-row">
+              <span class="history-dot history-dot--pass"></span>
+              <div><b>客户 B / R3</b><small>Close Pack 已交付</small></div>
+              <button class="delete-demo" type="button" aria-label="删除客户 B R3 历史记录">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M9 7l1-3h4l1 3M6 7l1 14h10l1-14"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <article class="ops-card ops-card--control">
+            <span class="ops-label">CONTROL PLANE</span>
+            <div class="control-list">
+              <div><i></i><span>创建、取消、重试 run</span></div>
+              <div><i></i><span>统一控制 Cursor Key 与权限</span></div>
+              <div><i></i><span>删除前二次确认与审计记录</span></div>
+              <div><i></i><span>异步进度，不阻塞用户页面</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="slide slide--roadmap" data-slide="9" aria-label="第 10 页：落地路线">
+        <div class="slide-no">10 <span>/ 11</span></div>
+        <div class="section-heading section-heading--compact">
+          <p class="eyebrow">分阶段落地，不一次性过度工程化</p>
+          <h2>先让 R1 <strong>跑通且可观察</strong>，<br/>再把能力扩展到真正的团队系统。</h2>
+        </div>
+        <div class="roadmap">
+          <article class="roadmap-step roadmap-step--now">
+            <div class="roadmap-number">01</div>
+            <p>POC</p>
+            <h3>后端 + Cursor Agent</h3>
+            <ul>
+              <li>创建 run 与异步进度</li>
+              <li>R1 拆为 4–6 个 stage</li>
+              <li>产物写入服务器磁盘</li>
+              <li>基础 Gate Checker</li>
+            </ul>
+            <span class="roadmap-status">先验证闭环</span>
+          </article>
+          <article class="roadmap-step">
+            <div class="roadmap-number">02</div>
+            <p>TRUST</p>
+            <h3>真实检索 + Source Ledger</h3>
+            <ul>
+              <li>检索 / MCP / 企业资料源</li>
+              <li>每条事实带来源和时效</li>
+              <li>研究只能引用账本事实</li>
+            </ul>
+            <span class="roadmap-status">建立可信度</span>
+          </article>
+          <article class="roadmap-step">
+            <div class="roadmap-number">03</div>
+            <p>RIGOR</p>
+            <h3>独立 Reviewer + Repair</h3>
+            <ul>
+              <li>ifalsify / Grill 独立 run</li>
+              <li>门禁失败自动定向修复</li>
+              <li>保留修复理由</li>
+            </ul>
+            <span class="roadmap-status">建立严谨度</span>
+          </article>
+          <article class="roadmap-step">
+            <div class="roadmap-number">04</div>
+            <p>TEAM</p>
+            <h3>团队级 Pitch OS</h3>
+            <ul>
+              <li>案例库与版本管理</li>
+              <li>Sales 回填与轮次恢复</li>
+              <li>评测集与效果对比</li>
+            </ul>
+            <span class="roadmap-status">建立复利</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="slide slide--close" data-slide="10" aria-label="第 11 页：结论和决策">
+        <div class="slide-no">11 <span>/ 11</span></div>
+        <div class="close-layout">
+          <div class="close-copy">
+            <p class="eyebrow">建议的决策</p>
+            <h2>批准一个 R1 POC，<br/>验证 iPitch 能否成为<strong>可信的 Agent 工作流</strong>。</h2>
+            <p>这次升级的价值，不是让输出看起来更“AI”，而是让关键商业判断从生成到交付都能被解释、质询与复盘。</p>
+            <div class="decision-box">
+              <span>本次要确认</span>
+              <ul>
+                <li><i></i>采用 Node / Vercel 级别轻后端</li>
+                <li><i></i>使用 Cursor SDK 连接 Skills 仓库</li>
+                <li><i></i>R1 优先，磁盘 Artifact Store 优先</li>
+                <li><i></i>Gate Checker 作为不可省略的验收层</li>
+              </ul>
+            </div>
+          </div>
+          <div class="close-visual" aria-hidden="true">
+            <div class="close-orbit close-orbit--one"></div>
+            <div class="close-orbit close-orbit--two"></div>
+            <div class="close-core">
+              <span>iP</span>
+              <small>TRUSTED<br/>PITCH OS</small>
+            </div>
+            <div class="close-tag close-tag--a">Evidence</div>
+            <div class="close-tag close-tag--b">Skills</div>
+            <div class="close-tag close-tag--c">Gates</div>
+            <div class="close-tag close-tag--d">Artifacts</div>
+          </div>
+        </div>
+        <footer class="close-footer">
+          <span>iPitch Cursor Agent 化升级设计</span>
+          <span>2026 · Internal Architecture Brief</span>
+        </footer>
+      </section>
+    </main>
+
+    <nav class="deck-navigation" aria-label="演示文稿导航">
+      <button class="nav-button" type="button" id="prev-button" aria-label="上一页">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5-7 7 7 7"/></svg>
+      </button>
+      <div class="slide-dots" id="slide-dots" aria-label="跳转至指定页"></div>
+      <div class="page-counter"><span id="current-page">01</span><i></i><span>11</span></div>
+      <button class="nav-button" type="button" id="next-button" aria-label="下一页">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5 7 7-7 7"/></svg>
+      </button>
+    </nav>
+    <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+    <div class="presentation-toast" id="presentation-toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="js/agent-upgrade-presentation.js"></script>
+</body>
+</html>

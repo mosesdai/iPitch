@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>蔚来 NIO · 会前关键信息</title>
+<style>
+:root{
+  --ink:#152028;--muted:#5a6a76;--line:#c9d2da;--bg:#eef2f4;--paper:#fbfcfd;--panel:#ffffff;
+  --accent:#1d4ed8;--accent-soft:#dbeafe;--warn:#8a5a12;--warn-soft:#f7efd9;
+  --kill:#9b2c2c;--kill-soft:#f8e8e8;--ok:#1a6b45;--chip:#dce6ec;
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 500px at 8% -10%, #d9e4f5 0%, transparent 55%),radial-gradient(900px 420px at 100% 0%, #d7dde4 0%, transparent 50%),var(--bg);
+  font-size:12.2px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.page{max-width:1180px;margin:18px auto 28px;padding:18px 20px 16px;background:var(--paper);border:1px solid var(--line);box-shadow:0 10px 36px rgba(21,32,40,.06)}
+.top{display:grid;grid-template-columns:1fr auto;gap:12px 18px;align-items:end;padding-bottom:12px;margin-bottom:12px;border-bottom:2px solid var(--ink)}
+.brand{font-size:22px;font-weight:750;margin:0;line-height:1.15}
+.brand span{color:var(--accent);font-weight:650;font-size:15px;margin-left:8px}
+.sub{margin:5px 0 0;color:var(--muted);font-size:11.5px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.badge{font-size:10.5px;font-weight:700;padding:4px 8px;border:1px solid var(--line);background:var(--chip)}
+.badge.cond{background:var(--warn-soft);border-color:#e0c788;color:var(--warn)}
+.badge.kill{background:var(--kill-soft);border-color:#e3b4b4;color:var(--kill)}
+.verdict{grid-column:1/-1;background:linear-gradient(90deg,var(--accent-soft),#f3f6f8 70%);border-left:3px solid var(--accent);padding:8px 12px;font-size:12.5px;font-weight:600}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:14px 16px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.block{background:var(--panel);border:1px solid var(--line);padding:9px 11px 10px}
+.block h2{margin:0 0 7px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:750;display:flex;align-items:center;gap:8px}
+.block h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.block p{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;font-size:11.3px}
+th,td{border-bottom:1px solid var(--line);padding:3.5px 5px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:650;font-size:10.5px}
+tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 4px;margin-left:3px;border:1px solid var(--line);color:var(--muted);background:#f4f7f9}
+.tag.a{color:var(--ok);border-color:#b7d8c6;background:#edf7f1}
+.tag.w{color:var(--warn);border-color:#e0c788;background:var(--warn-soft)}
+.em{font-weight:700}.down{color:var(--kill)}.up{color:var(--ok)}
+.matrix{display:grid;grid-template-columns:56px 1fr 1fr;gap:4px;font-size:11px}
+.matrix .h,.matrix .r{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:5px 6px;text-align:center}
+.matrix .cell{border:1px solid var(--line);padding:6px 7px;background:#fff;min-height:52px}
+.matrix .lab{font-weight:750;color:var(--accent);font-size:10px;margin-bottom:2px}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.swot div{border:1px solid var(--line);padding:6px 7px;background:#fff;min-height:48px}
+.swot strong{display:block;font-size:10.5px;color:var(--accent);margin-bottom:2px}
+.t1{background:var(--ink);color:#f3f6f8;padding:9px 11px;border:none}
+.t1 h2{color:#93c5fd}.t1 h2::after{background:rgba(255,255,255,.18)}
+.t1 .line{font-size:13px;font-weight:700;line-height:1.4;margin:0 0 8px}
+.asks{margin:0;padding-left:16px}.asks li{margin:0 0 4px}
+.killbox{background:var(--kill-soft);border:1px solid #e3b4b4;padding:7px 9px;font-size:11px}
+.killbox strong{color:var(--kill)}
+.l0{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:11px}.l0 span{color:var(--muted)}
+.foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10.5px}
+.use{background:var(--accent-soft);border:1px solid #bfdbfe;padding:7px 10px;font-size:11.5px}.use strong{color:var(--accent)}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.top{grid-template-columns:1fr}.badges{justify-content:flex-start}.l0,.swot{grid-template-columns:1fr}}
+@media print{body{background:#fff}.page{max-width:none;margin:0;padding:8mm;border:none;box-shadow:none}.block,.t1,.use,.killbox{break-inside:avoid}@page{size:A4 landscape;margin:8mm}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 class="brand">蔚来 NIO<span>会前关键信息</span></h1>
+      <p class="sub">NYSE:NIO / HKEX:9866 · 损益锚 Q1-2026 · 交付锚 2026-04/05/06 + Q2-2026 · 真源 ONE_PAGER.md · 非话术稿 / 不写权益包 · ifalsify CONDITIONAL · 写作日 2026-08-09</p>
+    </div>
+    <div class="badges">
+      <span class="badge cond">证伪核查：有条件推进</span>
+      <span class="badge">数据以 NIO IR 为准</span>
+      <span class="badge kill">禁编 Q2 损益 / 三年预测</span>
+    </div>
+    <div class="verdict">
+      一句话裁决：交付斜率是真的（Q2 <span class="num em">107,658</span>，自算 YoY <span class="em up">+49.4%</span>）；乐道 <span class="num">12,029 → 11,743</span> 峰值没变台阶；GAAP 仍亏 —— 缺<span class="em">可核销的三品牌分层 OS</span>，不是下一张代言合同。
+      <span class="em">禁用</span>：「你们连指引都没达到」/「现金 482 亿所以能上大赞助」/「交付新高 = 全面复苏」/ 粉丝·CPM 开场 / 竞品排名恐吓 / 未核实排他 / 先甩权益包。
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="col">
+      <section class="block">
+        <h2>01 · 阶段 / 治理</h2>
+        <p><span class="em">阶段</span> 品牌澄清期 × 精打细算期并存：交付上斜率、损益仍亏、费用有闸门 <span class="tag a">A</span><span class="tag">C</span></p>
+        <p><span class="em">品牌结构</span> 蔚来（精神/高端）· 乐道（家庭）· 萤火虫（青年/小车）<span class="tag a">A</span></p>
+        <p><span class="em">生命周期</span> 2014 FE → 2018 用户企业/IPO → 2019 危机卖 FE 保换电 → 2023–24 多品牌 → 2025Q4 首次单季 GAAP 经营利润 → 2026Q1 Non-GAAP 连续第二季转正、GAAP 仍亏</p>
+        <p>无单一 CMO；三品牌 KPI / 预算是否分家决定提案形态；CFO 费用闸门不可绕 <span class="tag">推断 · 须 L0</span></p>
+      </section>
+
+      <section class="block">
+        <h2>02 · 交付（A 源主链）· 交付与损益必须分句</h2>
+        <table>
+          <thead><tr><th></th><th>2026-04</th><th>2026-05</th><th>2026-06</th><th>Q2 合计</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>全品牌</td>
+              <td class="num">29,356</td>
+              <td class="num">37,705</td>
+              <td class="num"><span class="em">40,597</span></td>
+              <td class="num"><span class="em">107,658</span></td>
+            </tr>
+            <tr>
+              <td>蔚来</td>
+              <td class="num">【缺 A】</td>
+              <td class="num">20,013</td>
+              <td class="num">21,908 <span class="tag a">+9.5%</span></td>
+              <td class="num">不加总</td>
+            </tr>
+            <tr>
+              <td>乐道</td>
+              <td class="num">5,352 <span class="tag w">C</span></td>
+              <td class="num"><span class="em">12,029</span></td>
+              <td class="num"><span class="em down">11,743</span> <span class="tag w">−2.4%</span></td>
+              <td class="num">混源 · 不进刀</td>
+            </tr>
+            <tr>
+              <td>萤火虫</td>
+              <td class="num">【缺 A】</td>
+              <td class="num">5,663</td>
+              <td class="num">6,946 <span class="tag a">+22.7%</span></td>
+              <td class="num">不加总</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px">季度 <span class="em">A 对 A</span>：Q2-2025 <span class="num">72,056</span> → Q2-2026 <span class="num">107,658</span>，自算 <span class="em up">+49.4%</span> · 累计交付 <span class="num em">1,188,715</span>（至 2026-06-30）· H1 自算 <span class="num">191,123</span></p>
+        <p>指引 vs 实绩：Q2 指引 <span class="num">110,000–115,000</span><span class="tag a">A</span> → 实际 <span class="num">107,658</span> → 自算 <span class="em">−2,342 台 / −2.1%</span> <span class="tag w">只作诊断 · 禁止催单</span></p>
+      </section>
+
+      <section class="block">
+        <h2>03 · 损益（只到 Q1-2026 · A）</h2>
+        <table>
+          <thead><tr><th>指标</th><th>2026 Q1</th><th>读法</th></tr></thead>
+          <tbody>
+            <tr><td>交付</td><td class="num">83,465</td><td>+98.3% YoY，但<span class="em">环比 Q4 −33.1%</span></td></tr>
+            <tr><td>品牌拆分</td><td class="num">58,543 / 13,339 / 11,583</td><td>乐道自算仅 <span class="em">16.0%</span></td></tr>
+            <tr><td>收入</td><td class="num">255.327 亿</td><td>+112.2%；量 + 大车结构</td></tr>
+            <tr><td>整车毛利率</td><td class="num">18.8%</td><td>四年新高 <span class="tag a">A</span></td></tr>
+            <tr><td>Non-GAAP 经营利润</td><td class="num up">+0.668 亿</td><td>连续第二季转正</td></tr>
+            <tr><td>GAAP 净亏损</td><td class="num em down">−3.321 亿</td><td><span class="em">闸门仍在</span></td></tr>
+            <tr><td>现金及等价物等</td><td class="num">482 亿</td><td>流动性 <span class="em">≠</span> 已批营销预算</td></tr>
+            <tr><td>Q2-2026 收入/毛利/现金</td><td class="num em">未披露</td><td><span class="em">宁空不编</span>（写作日 2026-08-09）</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px">⚠️ <span class="em">交付 +49.4% ≠ 可以花钱</span>：同期 GAAP 仍亏 · 全年整车毛利指引下调 <span class="em">17%–18%</span> <span class="tag w">B</span> · 单车成本 <span class="em">&gt;1 万元/车</span> <span class="tag w">B</span></p>
+        <p>营销 / 体育费用科目：<span class="em">财报未单列 →【只能当面问】</span> · 未来三年预测 →【无量化指引进正文】<span class="em">宁空不编</span></p>
+      </section>
+
+      <section class="block">
+        <h2>04 · 品牌 × 人群 × 体育资产</h2>
+        <table>
+          <thead><tr><th>品牌</th><th>Spirit / 人群</th><th>现有体育接口</th><th>强度</th></tr></thead>
+          <tbody>
+            <tr><td>蔚来</td><td>敢想有为 · 高端</td><td><span class="em">姚明</span> × ES9（2026-05-27）</td><td>强符号 / <span class="em">单点</span></td></tr>
+            <tr><td>乐道</td><td>轻松家庭</td><td><span class="em">上海申花</span>（座驾 · 球迷开放日，2026-01）</td><td>中 / <span class="em">形态已验证</span></td></tr>
+            <tr><td>萤火虫</td><td>自在发光 · 小车</td><td><span class="em">无公开体育合作</span></td><td><span class="em down">零</span></td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px"><span class="em">体育边界</span>：2019 卖 FE 保换电 = 资本纪律；<span class="em">2020–2025 体育安静期</span> → 可能<span class="em">没有历史预算基线</span>（最大反证 F-6）。精确人群漏斗：公司不披露 <span class="tag w">待核实</span></p>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="block">
+        <h2>05 · 他们说的 vs 实际发生的</h2>
+        <table>
+          <thead><tr><th>说的（C/B）</th><th>发生的（A）</th></tr></thead>
+          <tbody>
+            <tr><td>乐道要破 2 万/月</td><td>12,029 → 11,743，峰值未成台阶 <span class="tag w">不引用此原话</span></td></tr>
+            <tr><td>三品牌三种 Spirit</td><td>姚明只落蔚来 · 申花只落乐道 · 萤火虫全空</td></tr>
+            <tr><td>高端不该走互联网爆款</td><td>2026 仍是价值观 + 社群两条路 → <span class="em">我方反曝光的对方原话</span></td></tr>
+            <tr><td>力争 Non-GAAP 全年盈利</td><td>GAAP 仍亏；毛利指引下调 → 必须<span class="em">小额可停</span></td></tr>
+            <tr><td>短期回归本土</td><td>萤火虫 6 月自算 +22.7% → 分品牌分时间轴</td></tr>
+            <tr><td>不盲目降价冲量</td><td>Q2 未用价格补指引缺口 → <span class="em">和谐</span>，更需品牌侧办法</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="block">
+        <h2>06 · 竞争力 vs 危机</h2>
+        <div class="swot">
+          <div><strong>S</strong>交付斜率真实（Q2 自算 +49.4%）；累计 118.8 万；两个已验证体育模板；用户企业飞轮</div>
+          <div><strong>W</strong>GAAP 仍亏；乐道未站稳；第三接口全空；两模板互不通；L0 全空</div>
+          <div><strong>O</strong>澄清期需要一致性；申花模板可换项目换城；萤火虫青年线空缺</div>
+          <div><strong>T</strong>价格战常态；理想分流家庭预算；大额过不了 CFO 闸门；自建能力强</div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>07 · TOWS → 会面动作</h2>
+        <div class="matrix">
+          <div class="h"></div><div class="h">O</div><div class="h">T</div>
+          <div class="r">S</div>
+          <div class="cell"><div class="lab">SO</div>把姚明的<strong>语言</strong>（价值观先行）+ 申花的<strong>结构</strong>（一城一线一指标）合成一套三接口 OS</div>
+          <div class="cell"><div class="lab">ST</div>主动划界：不谈金额、不谈权益包，只谈方向与试验边界</div>
+          <div class="r">W</div>
+          <div class="cell"><div class="lab">WO</div>第一试验对象 = 乐道家庭线（量已成立 · 模板已验证）；萤火虫排二面</div>
+          <div class="cell"><div class="lab">WT</div>预置停损；禁用「交付新高 / 现金 482 亿 / 未达指引」制造 urgency</div>
+        </div>
+      </section>
+
+      <section class="block t1">
+        <h2>08 · 会面主打矛盾点（T1）+ 三问</h2>
+        <p class="line">乐道 5 月 12,029 → 6 月 11,743，破万的峰值没有变成台阶；同时蔚来正处在 Spirit 澄清期。一套体育叙事同时服务三种人，一定有一边被伤到。</p>
+        <p style="margin:0 0 6px;font-size:11.5px;opacity:.9">可谈：三接口分层 OS + 一城一试可熔断（<strong>任一层单独成立</strong>）· 核查：有条件推进 · <strong>本轮不报价</strong></p>
+        <ol class="asks">
+          <li>L80 起来之后，乐道<strong>家庭破圈</strong>的预算和 KPI，是跟申花一条线，还是<strong>另有 owner</strong>？</li>
+          <li>姚明这条，成功定义是 <strong>ES9 单点</strong>，还是<strong>三品牌各有一条可复用模板</strong>？</li>
+          <li>如果做体育，先过的是<strong>金额上限</strong>，还是 <strong>Spirit 一致性</strong>？</li>
+        </ol>
+      </section>
+
+      <section class="killbox">
+        <strong>禁用话术</strong>
+        「你们连自己的指引都没达到」· 「现金 482 亿，所以能上大赞助」· 「交付新高 = 全面复苏」· 「乐道需要帮助」· 「竞品都在做体育，你们落后了」· 「决赛圈会死一批」· 粉丝规模 / CPM 开场 · 任何未核实排他 · 当场报权益包
+      </section>
+
+      <section class="block">
+        <h2>09 · 只能当面问（销售 checklist 摘要）</h2>
+        <div class="l0">
+          <div>• 体育试验额度是否存在 <span>最大反证 F-6</span></div>
+          <div>• Economic Buyer / 否决人 <span>无则只诊断</span></div>
+          <div>• 三品牌 KPI 是否分家 <span>决定分层成立与否</span></div>
+          <div>• 马麟线是否已有 IP 在档 <span>决定 timing</span></div>
+          <div>• 申花是否含品类排他 <span>决定主试验对象</span></div>
+          <div>• 试点城选择权归属 <span>总部 or 区域</span></div>
+          <div>• 复盘主指标以哪一项算数 <span>不超过 3 个</span></div>
+          <div>• 未达标是否真会停 <span>停损条款可信度</span></div>
+        </div>
+        <p style="margin-top:6px;font-size:11px">完整 72h 勾选表 → <span class="em">PRIMARY_REQUIRED.md</span> · 证伪 10 条 → <span class="em">ifalsify_report.md</span></p>
+      </section>
+
+      <section class="use">
+        <strong>会前 30 秒：</strong>
+        ①扫交付三行（Q2 107,658 · 指引缺口 −2.1% · 乐道 12,029→11,743）
+        → ②盯「说的 vs 做的」（尤其 <strong>交付高增 ≠ 可以花钱</strong>）
+        → ③进门只带 T1 + 三问；细节回 research/，<strong>不先甩权益包</strong>
+      </section>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>cases/nio · 对齐雀巢 / 香飘飘会前标准：决策层 + 溯源（含自算算式）+ 销售三问 + CONDITIONAL</span>
+    <span>打印：A4 横向 · 单文件自含 CSS</span>
+  </footer>
+</div>
+</body>
+</html>

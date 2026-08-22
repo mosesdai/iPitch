@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>雀巢中国 · 会前关键信息</title>
+<style>
+:root{
+  --ink:#152028;--muted:#5a6a76;--line:#c9d2da;--bg:#eef2f4;--paper:#fbfcfd;--panel:#ffffff;
+  --accent:#1d4ed8;--accent-soft:#dbeafe;--warn:#8a5a12;--warn-soft:#f7efd9;
+  --kill:#9b2c2c;--kill-soft:#f8e8e8;--ok:#1a6b45;--chip:#dce6ec;
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 500px at 8% -10%, #d9e4f5 0%, transparent 55%),radial-gradient(900px 420px at 100% 0%, #d7dde4 0%, transparent 50%),var(--bg);
+  font-size:12.2px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+}
+.page{max-width:1180px;margin:18px auto 28px;padding:18px 20px 16px;background:var(--paper);border:1px solid var(--line);box-shadow:0 10px 36px rgba(21,32,40,.06)}
+.top{display:grid;grid-template-columns:1fr auto;gap:12px 18px;align-items:end;padding-bottom:12px;margin-bottom:12px;border-bottom:2px solid var(--ink)}
+.brand{font-size:22px;font-weight:750;margin:0;line-height:1.15}
+.brand span{color:var(--accent);font-weight:650;font-size:15px;margin-left:8px}
+.sub{margin:5px 0 0;color:var(--muted);font-size:11.5px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.badge{font-size:10.5px;font-weight:700;padding:4px 8px;border:1px solid var(--line);background:var(--chip)}
+.badge.cond{background:var(--warn-soft);border-color:#e0c788;color:var(--warn)}
+.badge.kill{background:var(--kill-soft);border-color:#e3b4b4;color:var(--kill)}
+.verdict{grid-column:1/-1;background:linear-gradient(90deg,var(--accent-soft),#f3f6f8 70%);border-left:3px solid var(--accent);padding:8px 12px;font-size:12.5px;font-weight:600}
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:14px 16px}
+.col{display:flex;flex-direction:column;gap:10px;min-width:0}
+.block{background:var(--panel);border:1px solid var(--line);padding:9px 11px 10px}
+.block h2{margin:0 0 7px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:750;display:flex;align-items:center;gap:8px}
+.block h2::after{content:"";flex:1;height:1px;background:var(--line)}
+.block p{margin:0 0 6px}
+table{width:100%;border-collapse:collapse;font-size:11.3px}
+th,td{border-bottom:1px solid var(--line);padding:3.5px 5px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:650;font-size:10.5px}
+tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tag{display:inline-block;font-size:9.5px;font-weight:700;padding:1px 4px;margin-left:3px;border:1px solid var(--line);color:var(--muted);background:#f4f7f9}
+.tag.a{color:var(--ok);border-color:#b7d8c6;background:#edf7f1}
+.tag.w{color:var(--warn);border-color:#e0c788;background:var(--warn-soft)}
+.em{font-weight:700}.down{color:var(--kill)}.up{color:var(--ok)}
+.matrix{display:grid;grid-template-columns:56px 1fr 1fr;gap:4px;font-size:11px}
+.matrix .h,.matrix .r{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:5px 6px;text-align:center}
+.matrix .cell{border:1px solid var(--line);padding:6px 7px;background:#fff;min-height:52px}
+.matrix .lab{font-weight:750;color:var(--accent);font-size:10px;margin-bottom:2px}
+.swot{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.swot div{border:1px solid var(--line);padding:6px 7px;background:#fff;min-height:48px}
+.swot strong{display:block;font-size:10.5px;color:var(--accent);margin-bottom:2px}
+.t1{background:var(--ink);color:#f3f6f8;padding:9px 11px;border:none}
+.t1 h2{color:#93c5fd}.t1 h2::after{background:rgba(255,255,255,.18)}
+.t1 .line{font-size:13px;font-weight:700;line-height:1.4;margin:0 0 8px}
+.asks{margin:0;padding-left:16px}.asks li{margin:0 0 4px}
+.killbox{background:var(--kill-soft);border:1px solid #e3b4b4;padding:7px 9px;font-size:11px}
+.killbox strong{color:var(--kill)}
+.l0{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:11px}.l0 span{color:var(--muted)}
+.foot{margin-top:10px;padding-top:8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10.5px}
+.use{background:var(--accent-soft);border:1px solid #bfdbfe;padding:7px 10px;font-size:11.5px}.use strong{color:var(--accent)}
+@media (max-width:900px){.grid{grid-template-columns:1fr}.top{grid-template-columns:1fr}.badges{justify-content:flex-start}.l0,.swot{grid-template-columns:1fr}}
+@media print{body{background:#fff}.page{max-width:none;margin:0;padding:8mm;border:none;box-shadow:none}.block,.t1,.use,.killbox{break-inside:avoid}@page{size:A4 landscape;margin:8mm}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="top">
+    <div>
+      <h1 class="brand">雀巢中国<span>会前关键信息</span></h1>
+      <p class="sub">Nestlé Greater China · FY2023–25 + H1/Q2-2026 · 真源 ONE_PAGER.md · 非话术稿 / 不写权益包 · ifalsify CONDITIONAL</p>
+    </div>
+    <div class="badges">
+      <span class="badge cond">证伪核查：有条件推进</span>
+      <span class="badge">数据以 Nestlé IR 为准</span>
+      <span class="badge kill">禁编三年预测</span>
+    </div>
+    <div class="verdict">
+      一句话裁决：Demand-led 已写进财报；美禄请过易建联；品类仍负 —— 缺可核销拉动力 OS，不是下一张代言合同。
+      <span class="em">禁用</span>：再签明星 / 拿 −6.4% 催大赞助 / 拿 Q2 +2% 催花钱 / 渠道丑闻 / 挑战佳得乐 / CPM。
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="col">
+      <section class="block">
+        <h2>01 · 阶段 / 治理</h2>
+        <p><span class="em">阶段</span> 校正后切换 demand-led（库存完成 · stable · 品类仍负） <span class="tag a">A</span></p>
+        <p><span class="em">生命周期</span> 独立大区(2022)→并入 AOA(2025-01)→马凯思(2025-07)→Navratil(2025-09)</p>
+        <p>跨品牌试验或须讲清对 RIG/sell-out；AOA 统筹权重上升 <span class="tag">推断</span></p>
+      </section>
+
+      <section class="block">
+        <h2>02 · 三年实绩（GCR）</h2>
+        <table>
+          <thead><tr><th></th><th>2023</th><th>2024</th><th>2025</th><th>2026Q2</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>销售 CHF</td>
+              <td class="num">5,037m Zone</td>
+              <td class="num">地理 5,432m</td>
+              <td class="num"><span class="em">4,876m</span> · 5.4%</td>
+              <td class="num">—</td>
+            </tr>
+            <tr>
+              <td>OG</td>
+              <td class="num up">+4.2%</td>
+              <td class="num">+2.1%</td>
+              <td class="num"><span class="em down">−6.4%</span></td>
+              <td class="num"><span class="em up">+2.0%</span> <span class="tag w">≠复苏</span></td>
+            </tr>
+            <tr>
+              <td>UTOP margin</td>
+              <td class="num">16.5%</td>
+              <td class="num">16.1% −40bps</td>
+              <td class="num">单列【待核实】</td>
+              <td class="num">—</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:6px">集团 A&M/销售 <span class="em">8.6%</span> <span class="tag a">A</span> · H1-26：库存完成 · demand-led · categories still negative</p>
+        <p>未来三年中国预测：【无单独指引进正文】——<span class="em">宁空不编</span></p>
+      </section>
+
+      <section class="block">
+        <h2>03 · 结构 · 产品 × 渠道</h2>
+        <table>
+          <thead><tr><th>切刀</th><th>读法</th></tr></thead>
+          <tbody>
+            <tr><td>库存校正</td><td>FY25 主因；H1-26 <span class="em">已完成</span> <span class="tag a">A</span></td></tr>
+            <tr><td>AOA ex-China</td><td>FY25 OG <span class="up">+6.1%</span> 对照拖累 <span class="tag a">A</span></td></tr>
+            <tr><td>咖啡</td><td>本土创新；IP/联名将增多 <span class="tag">C</span></td></tr>
+            <tr><td>美禄</td><td>运动饼干 × <span class="em">易建联</span> <span class="tag a">A</span></td></tr>
+            <tr><td>宠物</td><td>FY25 受中国库存拖累 <span class="tag a">A</span></td></tr>
+            <tr><td>渠道细拆</td><td>电商/经销商数量级 <span class="em">【需当面问】</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="block">
+        <h2>04 · 品牌 × 体育资产</h2>
+        <table>
+          <thead><tr><th>线</th><th>资产</th><th>边界</th></tr></thead>
+          <tbody>
+            <tr><td>美禄</td><td><span class="em">易建联</span> 2024</td><td>单品牌代言，非联赛体系</td></tr>
+            <tr><td>咖啡</td><td>联名 IP 预告</td><td>未见篮球系统占位</td></tr>
+            <tr><td>场域</td><td>2025-10 中国赛</td><td>矩阵有佳得乐/蒙牛；<span class="em">未见雀巢</span> <span class="tag">C</span></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="block">
+        <h2>05 · 他们说的 vs 实际发生的</h2>
+        <table>
+          <thead><tr><th>说的</th><th>发生的</th></tr></thead>
+          <tbody>
+            <tr><td>Demand-led</td><td>考核是否真转 sell-out → <span class="em">L0</span></td></tr>
+            <tr><td>Stable</td><td>+2% 但 categories negative</td></tr>
+            <tr><td>营销肌重建</td><td>8.6% 全球；中国同步？L0</td></tr>
+            <tr><td>咖啡要 IP</td><td>篮球系统仍缺席</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="block">
+        <h2>06 · 竞争力 vs 危机</h2>
+        <div class="swot">
+          <div><strong>S</strong>多品牌；易建联接口；IR 已承认问题</div>
+          <div><strong>W</strong>−6.4%；体育单点；跨 BU；L0 空</div>
+          <div><strong>O</strong>demand-led 窗口；咖啡要 IP；下沉</div>
+          <div><strong>T</strong>通缩现制；佳得乐/蒙牛场域；进货考核回潮</div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h2>07 · TOWS → 会面动作</h2>
+        <div class="matrix">
+          <div class="h"></div><div class="h">O</div><div class="h">T</div>
+          <div class="r">S</div>
+          <div class="cell"><div class="lab">SO</div>咖啡+美禄挂 demand-led 做场景 OS</div>
+          <div class="cell"><div class="lab">ST</div>划界零食/咖啡，避佳得乐</div>
+          <div class="r">W</div>
+          <div class="cell"><div class="lab">WO</div>样板城小试验，不达标即停</div>
+          <div class="cell"><div class="lab">WT</div>禁大额；禁 +2% 假 urgency</div>
+        </div>
+      </section>
+
+      <section class="block t1">
+        <h2>08 · 会面主打矛盾点（T1）+ 三问</h2>
+        <p class="line">Demand-led 已官宣 × 篮球资产仍停在美禄一个代言点——缺的是可核销拉动力 OS，不是下一张代言合同。</p>
+        <p style="margin:0 0 6px;font-size:11.5px;opacity:.9">可谈：双品牌场景系统 + 试点城小额试验（不达标即停）· 核查：有条件推进</p>
+        <ol class="asks">
+          <li>咖啡 / 美禄，KPI 与预算是不是<strong>两条线</strong>？体育/IP 算谁的账？</li>
+          <li>Demand-led 下，外部合作算 <strong>sell-out/品牌力</strong> 还是经销商<strong>进货</strong>？</li>
+          <li>校正完成后，2026 <strong>非代言类</strong>场景试验是冻结、单列，还是必须挂增长平台？</li>
+        </ol>
+      </section>
+
+      <section class="killbox">
+        <strong>禁用话术</strong>
+        「再签一个明星就能增长」· 「−6.4% 所以要大赞助」· 「Q2 +2% 证明翻盘」· 「你们渠道一塌糊涂」· 「我们来挑战佳得乐」
+      </section>
+
+      <section class="block">
+        <h2>09 · 只能当面问（销售 checklist 摘要）</h2>
+        <div class="l0">
+          <div>• Economic Buyer / 预算上限 <span>无则只诊断</span></div>
+          <div>• 易建联是否在档 <span>钩子强弱</span></div>
+          <div>• 进货 vs sell-out 考核 <span>决定主打矛盾点</span></div>
+          <div>• 跨 BU 可行性 <span>双品牌能否批</span></div>
+          <div>• 经销商/运营商评价 <span>试点怎么设计</span></div>
+          <div>• 佳得乐政策 / 样板城 <span>禁谈价前</span></div>
+        </div>
+        <p style="margin-top:6px;font-size:11px">完整 72h 勾选表 → <span class="em">PRIMARY_REQUIRED.md</span></p>
+      </section>
+
+      <section class="use">
+        <strong>会前 30 秒：</strong>
+        ①扫三年 OG + 库存完成 + 易建联
+        → ②盯「说的 vs 做的」（尤其 +2%≠复苏）
+        → ③进门只带主打矛盾点 + 三问；细节回完整研报
+      </section>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>cases/nestle · 对齐香飘飘会前标准：决策层 + 溯源 + 销售三问 + CONDITIONAL</span>
+    <span>打印：A4 横向 · 单文件自含 CSS</span>
+  </footer>
+</div>
+</body>
+</html>

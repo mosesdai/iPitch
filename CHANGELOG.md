@@ -1,5 +1,48 @@
 # CHANGELOG · iPitch
 
+## 2026-08-13 · 仓库目录合理化（期 L）
+
+- 退役进 `archive/`：根目录 `nio/`（已并入 `cases/nio`）、`server/`（已被 `engine/` 取代）、`ipitch by mason.html`（借思路稿）
+- 期 C 文档收拢至 `docs/phase-c/`（CLOUD / ASYNC / STAGE4 / ci-workflows）
+- 香飘飘 Max 输入材料 → `cases/xiangpiaopiao/_sources/max-ma/`；删重复 `cases/nio/_build_iceberg.py`、空壳 `protocols/pitchanyone.md`
+- 清本地 `runs/` 演示残留与 `.DS_Store`；README / SKILL / 纲领指针同步
+
+## 2026-08-13 · 去掉重复 UI 入口壳
+
+- 删除 `ui/app.html`、`ui/start.html`（仅重定向，易与工作台混淆）
+- 唯一界面入口：`ui/PitchStudio刀刃.html`（根 `index.html` 仍跳转至此）
+- **Engine Lab 并入工作台** `#engine-lab`；删除 `ui/EngineLab.html`（旧 URL 由 `engine.serve` 重定向）
+- **新增 `路演/`**：同事路演专用入口（README 剧本 + `index.html` + 雀巢/香飘飘/NIO/Apple 成品符号链接）
+
+## 2026-08-09 · UI 文件更名
+
+- `ui/ipitch-studio.html` → **`ui/PitchStudio刀刃.html`**；入口重定向已改
+- 桌面副本：`~/Desktop/temp/PitchStudio刀刃.html`（含 js/css；样例廊链到仓库 cases）
+
+## 2026-08-09 · UI 对齐 playbook v1.6（演示壳）
+
+- **样例廊**：`PitchStudio刀刃.html` 置顶链雀巢 / 香飘飘 / NIO 成品（HTML + PDF）
+- **门禁文案**：双材料 · PRIMARY 三问+72h · MAX_GAP · 厚度对标香飘飘（8000=硬下限）
+- **强制勾选**：ONE_PAGER / PRIMARY / MAX_GAP / ifalsify / 溯源；HTML 默认开
+- **CTA**：主按钮 =「导出 Prompt → Cursor」；次按钮 =「一键生成草稿预览」
+- `prompts.js` / `app.js` Gate Status / `i18n` / README 同步 v1.6
+- 诚实边界：同档厚包仍走 Cursor；UI 用于路演成品 + 导出流水线
+
+## 2026-07-31 · BD 可读性 + Intel 周报协议
+
+- 新增 `references/plain_language_glossary.md`：术语通俗对照（ifalsify/L0/人格资产/熔断…→ BD 直接可读的说法）+ 对外材料默认用通俗列的规则
+- 香飘飘案交付物按对照表改写：`ONE_PAGER.md`、`html/ONE_PAGER.html`、`html/FOR_MAX_PACK.html`（封面加术语速查）；桌面《给Max》PDF 已重出
+- 新增 `protocols/newsletter.md`：每周情报周报（①体育赞助雷达：全行业新官宣，剔除已合作品牌与运动装备类；②管道客户动态：watchlist 逐家扫产品/战略/组织/营销/财务/舆情，无动态也要写明）
+- 配套 `references/newsletter/`：`watchlist.md`（起始：中策/极兔/库迪/香飘飘）、`partners_exclude.md`、`weekly_template.md`；产出落 `newsletter/YYYY-Wxx.md`
+
+## 2026-07-29 · Max 角度覆盖表入库
+
+- 新增 `references/max_angle_coverage.md`：客观评价 Max pitch 角度（可取/不足）+ 映射到 `research/07·10·11·12` + 会前双材料标准
+- `references/round1_discover.md`：R1 增加 Max 覆盖检查与 `ONE_PAGER`（非刀子）
+- `ui/js/prompts.js`：冰山结构补强 Max 维度；禁止编造三年 CAGR
+- `protocols/ipitch.md`：account 流水线指向覆盖表
+- 香飘飘案验证：完整研报 + 一页关键可高于 Max sample，同时钉死预测/人群/日历纪律
+
 ## 2026-07-09 · UI 品牌：iPitch 工作台 / iPitch Workbench
 
 - 用户可见显示名：**iPitch 工作台**（中文）/ **iPitch Workbench**（英文）
@@ -62,13 +105,13 @@
 ## 2026-06-10 · 更名为 iPitch
 
 - 品牌 **`PitchIt`** → **`iPitch`**（受 iPod 启发）
-- 文件夹 **`_pitchit`** → **`_ipitch`**
+- 文件夹 **`_pitchit`** → **`_pitch.刀刃`**
 - 触发词 **`/pitchit`** → **`/ipitch`**；协议 `pitchit.md` → `ipitch.md`
 - Cursor skill → `~/.cursor/skills/ipitch/`
 
 ## 2026-06-10 · 产品化三轮流
 
-- **删除** `20260616pitchanyone/`（内容已在 `_ipitch`）
+- **删除** `20260616pitchanyone/`（内容已在 `_pitch.刀刃`）
 - 新增 **三轮体验**：R0 输入 → R1 报告+刀+iPod → R2 sales debrief+货架（**不含 iPod**）→ R3 预算收口+双轨交付
 - 新增 `protocols/three_round_flow.md`、`references/round0–3`、`references/shelf/`
 - 新增 `ui/start.html` 起手界面
@@ -76,11 +119,11 @@
 
 ## 2026-06-11
 
-- 文件夹 **`20260616pitchanyone`** 更名为 **`_ipitch`**
+- 文件夹 **`20260616pitchanyone`** 更名为 **`_pitch.刀刃`**
 - 触发词 **`/pitchanyone`** → **`/ipitch`**；Cursor skill → `~/.cursor/skills/ipitch/`
 
 ## 2026-06-10
 
-- 创建 `/Users/Eliam-Code/20260616pitchanyone/`（现 `_ipitch/`）
+- 创建 `/Users/Eliam-Code/20260616pitchanyone/`（现 `_pitch.刀刃/`）
 - NIO account-v3 + pitchvision A/B 迁入
 - Cursor skill：`~/.cursor/skills/pitchanyone/SKILL.md`（现 `ipitch`）
