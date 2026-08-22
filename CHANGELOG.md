@@ -43,6 +43,47 @@
 - `protocols/ipitch.md`：account 流水线指向覆盖表
 - 香飘飘案验证：完整研报 + 一页关键可高于 Max sample，同时钉死预测/人群/日历纪律
 
+## 2026-07-09 · 机制：搜索 + 人工 Grill + Pitchvision 马拉松
+
+### 源猎取（source_hunt）
+- 新步骤 `research/00_source_hunt.md` + 模板 `references/source_hunt_template.md`
+- Worker 可选 `POST /v1/search`（`TAVILY_API_KEY`）；UI 马拉松模式在 source_hunt 步注入结果
+- `/health` 返回 `searchConfigured`
+
+### 人工 Grill
+- 新步骤 `grill` → 可审计 `grill_report.md` + 模板 `references/grill_report_template.md`
+- UI：马拉松模式自动跑 grill 步；「导出 Grill 签核指引」按钮
+
+### Cursor / CLI 长跑
+- 导出包新增 `cursor_runbook.md`、`grill_command.txt`、`cursor_marathon_commands.txt`
+- UI **马拉松模式**：source_hunt → 分步 pitchvision（T5 / job / card）→ grill
+- Server：`--profile marathon`（12 步）；文档 `docs/PITCHVISION_MARATHON.md`
+
+## 2026-07-09 · 犀利度定义修正：深刻·启发·颠覆性创意（非哗众取宠）
+
+- KERNEL 明确：**犀利 ≠ 哗众取宠**；品质 = 结构性洞察 + disruptive 商业创意（iPod/pitchvision）
+- 增加 pitchvision 专步（勾选 iPod 时）；对标 `nio/pitchvision`（T5 旧品类失败 → 新品类）
+- Grill/ifalsify 增加反震惊体、反空洞颠覆口号、iPod 品类证伪规则
+
+## 2026-07-09 · 输出品质：简体中文 + 多步 R1 + 犀利度门禁
+
+### 根因修复（用户反馈：英文输出、内容薄、不够犀利）
+- **语言**：`ui/js/prompts.js` KERNEL 强制 R1 交付物默认**简体中文**（对标 `nio/account-v3`）；仅内部要求显式「英文交付」时例外
+- **厚度**：UI「生成产出」对 R1 研究/刀刃改为**七步多步编排**（每步独立 API 调用），避免单次 16k token 装不下 ≥8000 字冰山
+- **犀利度**：KERNEL 增加单文件最低字数、steelman、会面一句、读法列、L0【待核实】等硬约束
+- Gate Status 用实际 `research/*.md` 字数校验，未达标显示「品质未达标」
+- `server/` 步骤 prompt 与 KERNEL 同步简体中文 + 单文件最低字数
+- API `temperature` 略降至 0.35；research 步 `max_tokens` 16000
+
+## 2026-07-08 · Phase 1 — 完整七步 R1 编排
+
+### server/ 多步 R1（charter → files）
+- 补全 `tensions` / `knife` / `ifalsify` / `files` 的 stub 产出与期望文件契约
+- 编排器：`strict` 模式、passport JSON 校验、步骤进度含 missing 列表
+- 后步 prompt 优先注入关键 prior 文件（刀刃看张力，ifalsify 看刀，files 看门禁）
+- Golden：每步独立 stub 测试 + 全七步累积；对照 `nio/account-v3/` + KERNEL 门禁产物
+- CLI 默认 stub/dry 跑全流水线；仍复用 `ui/js/prompts.js` KERNEL 与 `protocols/` 片段
+- 范围外（Phase 2）：HTTP API、任务队列、UI 切换 live 编排
 ## 2026-07-09 · UI 品牌：iPitch 工作台 / iPitch Workbench
 
 - 用户可见显示名：**iPitch 工作台**（中文）/ **iPitch Workbench**（英文）

@@ -1,6 +1,9 @@
 /**
  * R1 multi-step pipeline definitions.
  * charter → timeliness → research → tensions → knife → ifalsify → files
+ *
+ * Protocol snippets come from protocols/ + references/.
+ * System KERNEL is loaded separately from ui/js/prompts.js (see load-kernel.js).
  */
 
 import { formatSnippetsForPrompt, loadProtocolSnippets } from "../lib/load-protocols.js";
@@ -15,6 +18,34 @@ export const R1_STEP_ORDER = [
   "ifalsify",
   "files"
 ];
+
+/** Marathon profile — see docs/PITCHVISION_MARATHON.md */
+export const MARATHON_STEP_ORDER = [
+  "charter",
+  "timeliness",
+  "source_hunt",
+  "research",
+  "tensions",
+  "knife",
+  "pitchvision_t5",
+  "pitchvision_job",
+  "pitchvision_card",
+  "grill",
+  "ifalsify",
+  "files"
+];
+
+export const ALL_STEP_IDS = [...new Set([...R1_STEP_ORDER, ...MARATHON_STEP_ORDER, "pitchvision"])];
+
+export function resolveStepsForOptions(options = {}) {
+  if (options.steps?.length) {
+    return options.steps.filter((id) => ALL_STEP_IDS.includes(id));
+  }
+  if (options.profile === "marathon") {
+    return [...MARATHON_STEP_ORDER];
+  }
+  return [...R1_STEP_ORDER];
+}
 
 const STEP_PROTOCOLS = {
   charter: [
@@ -32,13 +63,32 @@ const STEP_PROTOCOLS = {
     "protocols/ipitch.md",
     "protocols/three_round_flow.md"
   ],
+  source_hunt: [
+    "references/source_hunt_template.md",
+    "references/round1_discover.md",
+    "protocols/ipitch.md"
+  ],
   tensions: ["protocols/ipitch.md", "references/round1_discover.md"],
   knife: ["references/round1_discover.md", "protocols/ipitch.md"],
-  ifalsify: ["references/ifalsify_report_template.md"],
+  pitchvision: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  pitchvision_t5: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  pitchvision_job: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  pitchvision_card: ["protocols/pitchvision.md", "protocols/ipitch.md"],
+  grill: ["references/grill_report_template.md", "protocols/ipitch.md"],
+  ifalsify: ["references/ifalsify_report_template.md", "protocols/ipitch.md"],
   files: [
     "references/handoff_to_sales_template.md",
-    "references/quality_passport_template.md"
+    "references/quality_passport_template.md",
+    "protocols/three_round_flow.md"
   ]
+};
+
+/** Prefer these prior files when building context for later steps. */
+const PRIORITY_PRIOR = {
+  tensions: ["00_charter.md", "data_traceability.md", "research/01_IR_financial.md", "research/02_executive_quotes.md", "research/04_competitor_landscape.md", "research/06_power_meddic.md"],
+  knife: ["03_tensions.md", "data_traceability.md", "source_timeliness.md", "research/01_IR_financial.md", "research/02_executive_quotes.md"],
+  ifalsify: ["B_knife.md", "03_tensions.md", "data_traceability.md", "research/04_competitor_landscape.md", "research/09_not_for_pitch.md"],
+  files: ["00_charter.md", "B_knife.md", "03_tensions.md", "ifalsify_report.md", "data_traceability.md", "source_timeliness.md"]
 };
 
 function slugFromTarget(target) {
@@ -49,16 +99,25 @@ function slugFromTarget(target) {
     .slice(0, 32) || "case";
 }
 
-function priorFilesSummary(files, maxChars = 4000) {
+function priorFilesSummary(files, stepId, maxChars = 6000) {
   if (!files.length) return "(no prior files)";
+
+  const priority = PRIORITY_PRIOR[stepId] || [];
+  const ordered = [
+    ...priority
+      .map((name) => files.find((f) => f.name === name))
+      .filter(Boolean),
+    ...files.filter((f) => !priority.includes(f.name))
+  ];
+
   let out = "";
-  for (const f of files) {
+  for (const f of ordered) {
     const header = `\n--- ${f.name} ---\n`;
-    const body = f.content.slice(0, 1200);
-    const chunk = header + body + (f.content.length > 1200 ? "\n…\n" : "\n");
+    const body = f.content.slice(0, 1500);
+    const chunk = header + body + (f.content.length > 1500 ? "\n…\n" : "\n");
     if (out.length + chunk.length > maxChars) {
       out += `\n--- ${f.name} --- (${f.content.length} chars, truncated)\n`;
-      break;
+      continue;
     }
     out += chunk;
   }
@@ -66,6 +125,13 @@ function priorFilesSummary(files, maxChars = 4000) {
 }
 
 function buildInputBlock(input) {
+  const wantsEn = /english\s+output|英文交付|英文输出|deliverables?\s+in\s+english/i.test(
+    (input.internal || "").toLowerCase()
+  );
+  const langBlock = wantsEn
+    ? "## Output language\nWrite deliverables in **English** (user requested).\n"
+    : "## Output language\nWrite ALL deliverable `.md` bodies in **简体中文**. English only for tickers, proper nouns, direct quotes.\n";
+
   return [
     "## Target",
     input.target || "(not specified)",
@@ -77,7 +143,9 @@ function buildInputBlock(input) {
     input.internal || "(none)",
     "",
     "## Slug",
-    slugFromTarget(input.target)
+    slugFromTarget(input.target),
+    "",
+    langBlock
   ].join("\n");
 }
 
@@ -90,9 +158,12 @@ export function getStepDefinition(stepId) {
 }
 
 export function buildStepUserPrompt(stepId, input, priorFiles = []) {
+  if (!STEP_PROTOCOLS[stepId]) {
+    throw new Error(`Unknown R1 step: ${stepId}`);
+  }
   const snippets = loadProtocolSnippets(STEP_PROTOCOLS[stepId]);
   const protocolBlock = formatSnippetsForPrompt(snippets);
-  const prior = priorFilesSummary(priorFiles);
+  const prior = priorFilesSummary(priorFiles, stepId);
   const base = buildInputBlock(input);
 
   const instructions = {
@@ -101,7 +172,7 @@ export function buildStepUserPrompt(stepId, input, priorFiles = []) {
 Produce ONLY:
 - 00_charter.md
 
-Use the intake charter template. Resolve target entity (name, ticker, alias). State user want vs real problem. Mark tier assumptions and the single ask direction.
+简体中文正文。Use intake charter template. Resolve entity. User want vs real problem. Tier assumptions + single ask direction.
 `,
 
     timeliness: `
@@ -110,23 +181,30 @@ Produce ONLY:
 - source_timeliness.md
 - data_traceability.md
 
-Narrative vs behavior timeline; claim registry with tiers A–E. Ledger format: Claim | Value | Tier | Source.
-Build on charter context. Do not fabricate L0 facts.
+简体中文正文。Narrative vs behavior timeline; Claim | Value | Tier | Source ledger. Build on charter. Do not fabricate L0.
+`,
+
+    source_hunt: `
+# Step: source_hunt
+Produce ONLY:
+- research/00_source_hunt.md
+
+简体中文。references/source_hunt_template.md — ≥12 queries, source registry, gaps. Web search required when available.
 `,
 
     research: `
-# Step: research (iceberg)
-Produce ONLY these research files (structured iceberg, ≥8000 Chinese characters total across research/*.md):
-- research/README.md
-- research/01_IR_financial.md
-- research/02_executive_quotes.md (≥8 attributed quotes, tiered)
-- research/03_partnership_history.md
-- research/04_competitor_landscape.md (steelman best competitor)
-- research/05_industry_context.md
-- research/06_power_meddic.md (mark every L0 gap — do not guess)
-- research/09_not_for_pitch.md
+# Step: research (iceberg) — DEPTH REQUIRED
+Produce ONLY (简体中文, nio/account-v3 analyst memo style):
+- research/README.md (index + per-file 字数)
+- research/01_IR_financial.md (≥1200字, tables + 读法)
+- research/02_executive_quotes.md (≥1500字, ≥10 attributed quotes, tiered)
+- research/03_partnership_history.md (≥800字)
+- research/04_competitor_landscape.md (≥1200字, steelman competitor)
+- research/05_industry_context.md (≥800字)
+- research/06_power_meddic.md (≥800字, L0 gaps 【待核实】)
+- research/09_not_for_pitch.md (≥400字)
 
-Depth over brevity. Every number needs source tier; unverified → 【待核实】.
+Total research/*.md ≥8000 Chinese characters. Every number tiered; unverified → 【待核实】. No thin summaries.
 `,
 
     tensions: `
@@ -134,7 +212,8 @@ Depth over brevity. Every number needs source tier; unverified → 【待核实�
 Produce ONLY:
 - 03_tensions.md
 
-3–5 tensions. Main tension for knife must cite ≥3 A/B tier facts from prior research.
+简体中文。3–5 条张力：主张 vs 行为 + **结构性后果** + 会面一句（深刻、可讨论，**禁止哗众取宠/震惊体**）。
+主刀张力须 ≥3 条 A/B 级 prior research 事实。
 `,
 
     knife: `
@@ -142,7 +221,53 @@ Produce ONLY:
 Produce ONLY:
 - B_knife.md
 
-Exactly ONE tension, ONE live proof (A/B preferred), ONE ask. ≤2 printed pages. Include 「明确不说」. Reference ifalsify posture (pending step) and traceability.
+简体中文。ONE tension, ONE A/B proof, ONE ask；洞察来自冰山提炼，**非**口号堆砌；「明确不说」。
+`,
+
+    pitchvision: `
+# Step: pitchvision (iPod · disruptive business creativity)
+Produce ONLY (简体中文, 深刻·启发·可试点 — 对标 nio/pitchvision/):
+
+Minimum one concept under pitchvision/{concept-slug}/:
+- pitchvision/README.md
+- pitchvision/{concept-slug}/job_map.md (struggling moment, 非 feature 清单)
+- pitchvision/{concept-slug}/early_adopter.md
+- pitchvision/{concept-slug}/why_now.md
+- pitchvision/{concept-slug}/03_tension_T5.md (旧品类结构性失败 → 新品类)
+- pitchvision/{concept-slug}/product_card.md
+- pitchvision/{concept-slug}/B_vision_knife.md (≤2页, 不得复述 account B_knife)
+
+禁止哗众取宠、空洞颠覆口号、L4 市场规模编造、与 account 刀混写。
+`,
+
+    pitchvision_t5: `
+# Step: pitchvision_t5
+Produce ONLY:
+- pitchvision/README.md
+- pitchvision/concept-a/03_tension_T5.md
+`,
+
+    pitchvision_job: `
+# Step: pitchvision_job
+Produce ONLY:
+- pitchvision/concept-a/job_map.md
+- pitchvision/concept-a/early_adopter.md
+- pitchvision/concept-a/why_now.md
+`,
+
+    pitchvision_card: `
+# Step: pitchvision_card
+Produce ONLY:
+- pitchvision/concept-a/product_card.md
+- pitchvision/concept-a/B_vision_knife.md
+`,
+
+    grill: `
+# Step: grill
+Produce ONLY:
+- grill_report.md
+
+简体中文。references/grill_report_template.md — red-team + synthesize + 人工签核表。
 `,
 
     ifalsify: `
@@ -150,16 +275,14 @@ Exactly ONE tension, ONE live proof (A/B preferred), ONE ask. ≤2 printed pages
 Produce ONLY:
 - ifalsify_report.md
 
-Ruthless standalone report: hypothesis, ≥5 disconfirm items, asymmetry check, KILL/PIVOT/CONDITIONAL per claim, overall recommendation.
+简体中文。Hypothesis, ≥5 disconfirms, asymmetry, KILL/PIVOT/CONDITIONAL per claim, overall recommendation.
 `,
 
     files: `
 # Step: files (assembly)
 Produce ONLY:
-- handoff_to_sales.md (debate questions, PRIMARY gaps, iPod vs shelf note)
-- quality_passport.json (iceberg_char_count, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_tension, explicit_gaps)
-
-Summarize gates from all prior files. JSON must be valid.
+- handoff_to_sales.md (简体中文: debate, PRIMARY gaps, iPod vs shelf)
+- quality_passport.json (iceberg_char_count from actual research/*.md sum, num_a_tier_facts, num_b_tier_facts, ifalsify_verdict, main_tension, explicit_gaps)
 `
   };
 
@@ -180,6 +303,7 @@ export function expectedOutputsForStep(stepId) {
   const map = {
     charter: ["00_charter.md"],
     timeliness: ["source_timeliness.md", "data_traceability.md"],
+    source_hunt: ["research/00_source_hunt.md"],
     research: [
       "research/README.md",
       "research/01_IR_financial.md",
@@ -192,26 +316,87 @@ export function expectedOutputsForStep(stepId) {
     ],
     tensions: ["03_tensions.md"],
     knife: ["B_knife.md"],
+    pitchvision: [
+      "pitchvision/README.md",
+      "pitchvision/concept-a/job_map.md",
+      "pitchvision/concept-a/03_tension_T5.md",
+      "pitchvision/concept-a/product_card.md",
+      "pitchvision/concept-a/B_vision_knife.md"
+    ],
+    pitchvision_t5: ["pitchvision/README.md", "pitchvision/concept-a/03_tension_T5.md"],
+    pitchvision_job: [
+      "pitchvision/concept-a/job_map.md",
+      "pitchvision/concept-a/early_adopter.md",
+      "pitchvision/concept-a/why_now.md"
+    ],
+    pitchvision_card: [
+      "pitchvision/concept-a/product_card.md",
+      "pitchvision/concept-a/B_vision_knife.md"
+    ],
+    grill: ["grill_report.md"],
     ifalsify: ["ifalsify_report.md"],
     files: ["handoff_to_sales.md", "quality_passport.json"]
   };
   return map[stepId] || [];
 }
 
-/** Stub LLM responses for local dry runs (no API). */
-export function stubStepResponse(stepId, input) {
+function stubResearchPad(target) {
+  // ~200 Chinese chars × 8 files ≈ 1600+; pad more so stub clears iceberg gate in full runs
+  return "研".repeat(1100) + `\n\nStub iceberg for ${target}.`;
+}
+
+/** Stub LLM responses for local dry runs (no API). Shape matches expectedOutputsForStep. */
+export function stubStepResponse(stepId, input, priorFiles = []) {
   const slug = slugFromTarget(input.target);
   const target = input.target || "Example Co";
+  const pad = stubResearchPad(target);
 
   const stubs = {
     charter: formatFileBlock(
       "00_charter.md",
-      `# Charter · ${target}\n\n**用户要的是**：了解 ${target} 的合作机会\n**实际要解的是**：找到一条可验证的 10 分钟刀刃张力\n\n| slug | ${slug} |\n| mode | account |\n`
+      [
+        `# Charter · ${target}`,
+        "",
+        `**用户要的是**：了解 ${target} 的合作机会`,
+        "**实际要解的是**：找到一条可验证的 10 分钟刀刃张力",
+        "",
+        `| slug | ${slug} |`,
+        "| mode | account |",
+        "| tier | B (assumption) |",
+        "| ask direction | 分层方向认不认 → 试验对齐 |"
+      ].join("\n")
     ),
+
     timeliness: [
-      formatFileBlock("source_timeliness.md", `# source_timeliness · ${target}\n\n| 研究完成日 | stub |\n`),
-      formatFileBlock("data_traceability.md", `# data_traceability · ${target}\n\n| Claim | Value | Tier | Source |\n|---|---|---|---|\n`)
+      formatFileBlock(
+        "source_timeliness.md",
+        [
+          `# source_timeliness · ${target}`,
+          "",
+          "| 研究完成日 | stub |",
+          "| 叙事 vs 行为 | stub timeline — replace with A/B anchors |",
+          "",
+          "## L0 gaps",
+          "- Owner / budget 【待核实】"
+        ].join("\n")
+      ),
+      formatFileBlock(
+        "data_traceability.md",
+        [
+          `# data_traceability · ${target}`,
+          "",
+          "| Claim | Value | Tier | Source |",
+          "|---|---|---|---|",
+          `| Stub claim | n/a | E | stub for ${slug} |`
+        ].join("\n")
+      )
     ].join("\n\n"),
+
+    source_hunt: formatFileBlock(
+      "research/00_source_hunt.md",
+      `# 00_source_hunt · ${target}（stub）\n\n| 查询计划 | ≥12 条（live 填）|\n| 源注册表 | S01… |\n`
+    ),
+
     research: [
       "research/README.md",
       "research/01_IR_financial.md",
@@ -222,12 +407,159 @@ export function stubStepResponse(stepId, input) {
       "research/06_power_meddic.md",
       "research/09_not_for_pitch.md"
     ]
-      .map((name) => formatFileBlock(name, `# ${name}\n\nStub research for ${target}. ` + "研".repeat(200)))
-      .join("\n\n")
+      .map((name) => formatFileBlock(name, `# ${name}\n\n${pad}`))
+      .join("\n\n"),
+
+    tensions: formatFileBlock(
+      "03_tensions.md",
+      [
+        `# ${target} · 张力诊断（stub）`,
+        "",
+        "## T1 · 主刀张力（stub）",
+        "",
+        "| 侧 | 内容 |",
+        "|----|------|",
+        `| **主张** | ${target} 公开叙事与行为可能不一致 |`,
+        "| **行为** | 引用 prior research A/B 事实（live 时填） |",
+        "| **后果** | 一套方案打多线 → 品牌/预算撕裂 |",
+        "| **会面一句** | 「先认不认分层，再谈试点。」 |",
+        "| **L0** | owner / 预算 【待核实】 |",
+        "",
+        "## T2 · 次张力（stub）",
+        "单点资产 vs 可复用体系。",
+        "",
+        "## T3 · 次张力（stub）",
+        "全球叙事 vs 本土节奏。"
+      ].join("\n")
+    ),
+
+    knife: formatFileBlock(
+      "B_knife.md",
+      [
+        `# ${target} · 10 分钟刀子（stub）`,
+        "",
+        "## 核心结论（15 秒）",
+        `不卖曝光。先对齐 ${target} 的一条可验证张力。`,
+        "",
+        "## 张力（1 条）",
+        "> 公开主张与行为节奏可能打架——同一套方案会撕裂。",
+        "",
+        "**活证据**：见 data_traceability / research（live 时填 A/B）。",
+        "",
+        "## 唯一 ask",
+        "分层方向认不认 → 30min 试验对齐。",
+        "",
+        "## 明确不说",
+        "- 未 ✅ 的数字",
+        "- 权益包 / 价格",
+        "- 把 L0 装懂"
+      ].join("\n")
+    ),
+
+    pitchvision_t5: [
+      formatFileBlock("pitchvision/README.md", `# pitchvision · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/03_tension_T5.md", `# T5 · ${target}（stub）\n\n旧品类结构性失败 → 新品类。\n`)
+    ].join("\n\n"),
+
+    pitchvision_job: [
+      formatFileBlock("pitchvision/concept-a/job_map.md", `# job_map · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/early_adopter.md", `# early_adopter · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/why_now.md", `# why_now · ${target}\n`)
+    ].join("\n\n"),
+
+    pitchvision_card: [
+      formatFileBlock("pitchvision/concept-a/product_card.md", `# product_card · ${target}\n`),
+      formatFileBlock("pitchvision/concept-a/B_vision_knife.md", `# B_vision_knife · ${target}\n`)
+    ].join("\n\n"),
+
+    grill: formatFileBlock(
+      "grill_report.md",
+      `# grill_report · ${target}（stub）\n\n## Red-team\n- G1 stub\n\n## 人工签核\n| 策略 | | | 待填 |\n`
+    ),
+
+    ifalsify: formatFileBlock(
+      "ifalsify_report.md",
+      [
+        `# ifalsify_report · ${target}（stub）`,
+        "",
+        "**Hypothesis**: 主张力可在首面用一条 A/B 证据站住并换来试验对齐。",
+        "",
+        "## Disconfirm Hunt",
+        "### F-1: 类似 pitch 失败先例",
+        "- Source tier: C (stub)",
+        "### F-2: 竞品 steelman",
+        "- Source tier: C (stub)",
+        "### F-3: 行为 vs 主张",
+        "- Source tier: B (stub)",
+        "### F-4: 结构障碍（预算/owner）",
+        "- Source tier: L0",
+        "### F-5: 时机反证",
+        "- Source tier: C (stub)",
+        "",
+        "## Asymmetry Analysis",
+        "- Support:disconfirm ≈ 1:1 (stub) → downgrade confidence",
+        "",
+        "## Claim Verdicts",
+        "| Claim | Verdict | Experiment |",
+        "|-------|---------|------------|",
+        "| Main tension | CONDITIONAL | 48h 核对 A 源数字 |",
+        "",
+        "## Overall Recommendation",
+        "- Narrow scope; do not ship thin knife externally",
+        "**Confidence**: Low (stub)",
+        "**Biggest L0 gaps**: owner, budget"
+      ].join("\n")
+    ),
+
+    files: (() => {
+      const researchChars = priorFiles
+        .filter((f) => f.name.startsWith("research/") && f.name.endsWith(".md"))
+        .reduce((n, f) => n + f.content.length, 0);
+      const passport = {
+        iceberg_char_count: researchChars,
+        num_a_tier_facts: 0,
+        num_b_tier_facts: 0,
+        ifalsify_verdict: "CONDITIONAL",
+        main_tension: `stub main tension for ${target}`,
+        explicit_gaps: ["owner", "budget", "L0 MEDDIC"]
+      };
+      return [
+        formatFileBlock(
+          "handoff_to_sales.md",
+          [
+            `# handoff_to_sales · ${target}（stub）`,
+            "",
+            "| 字段 | 值 |",
+            "|------|-----|",
+            `| 公司 | ${target} |`,
+            `| slug | ${slug} |`,
+            "| tier | B |",
+            "| 刀刃 | B_knife.md |",
+            "| ask | 分层方向认不认 → 试验对齐 |",
+            "",
+            "## 销售必做",
+            "- 填 PRIMARY checklist",
+            "- 会上带 3 验证问",
+            "- 不说未 ✅ 数字",
+            "",
+            "## iPod vs 货架",
+            "R1 bespoke iPod（若有）**不得**进入 R2 火锅货架推荐。",
+            "",
+            "## Debate questions",
+            "1. 主张力认不认？",
+            "2. Owner 是谁？",
+            "3. 试点上限？"
+          ].join("\n")
+        ),
+        formatFileBlock("quality_passport.json", JSON.stringify(passport, null, 2))
+      ].join("\n\n");
+    })()
   };
 
-  if (stubs[stepId]) return stubs[stepId];
-  return formatFileBlock(`${stepId}_stub.md`, `# ${stepId} stub for ${target}\n`);
+  if (!stubs[stepId]) {
+    throw new Error(`No stub response for step: ${stepId}`);
+  }
+  return stubs[stepId];
 }
 
-export { slugFromTarget };
+export { slugFromTarget, STEP_PROTOCOLS };
