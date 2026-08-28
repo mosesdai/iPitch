@@ -106,10 +106,50 @@
       blurb: "会前双材料 · 销售三问 · 冰山 ≈29k · CONDITIONAL",
       blurb_en: "Dual pack · 3 sales Qs · ~29k iceberg · CONDITIONAL",
       links: [
-        { label: "打开给Max包", label_en: "Open Max pack", href: "../cases/transsion/html/传音控股_给Max会前包.html", primary: true },
+        { label: "打开合订包", label_en: "Open bound pack", href: "../cases/transsion/html/传音控股_给Max会前包.html", primary: true },
         { label: "打开一页关键", label_en: "Open one-pager", href: "../cases/transsion/html/传音控股_一页关键信息.html", primary: true },
         { label: "打开完整研报", label_en: "Open deep research", href: "../cases/transsion/html/research/传音控股_冰山深度研究.html", primary: true },
         { label: "案包入口", label_en: "Pack entry", href: "../cases/transsion/html/传音控股_会前双材料入口.html" },
+      ],
+    },
+    byd: {
+      id: "byd",
+      name: "比亚迪",
+      name_en: "BYD",
+      keys: ["比亚迪", "byd", "王朝", "海洋", "仰望", "腾势", "方程豹"],
+      fill: {
+        target: "比亚迪",
+        customer: "会面目的：全球信任/本地证明协议摸底；品牌×国家市场优先级待核实。",
+        internal: "游说金标；阅读序=一页纸→刀→跳出盒子；证伪 CONDITIONAL；L0 未关勿称终态。",
+      },
+      blurb: "游说金标 · 一页纸→刀→跳出盒子 · BD经验缺口 · CONDITIONAL",
+      blurb_en: "Lobby gold · one-pager→knife→disruptive · BD gap · CONDITIONAL",
+      links: [
+        { label: "打开全案入口", label_en: "Open case hub", href: "../cases/byd/deliver/index.html", primary: true },
+        { label: "打开可转发单文件", label_en: "Open portable HTML", href: "../cases/byd/deliver/BYD_全案入口_可转发.html", primary: true },
+        { label: "打开一页纸", label_en: "Open one-pager", href: "../cases/byd/deliver/ONE_PAGER.html" },
+        { label: "打开刀刃", label_en: "Open knife", href: "../cases/byd/deliver/B_knife.html" },
+        { label: "跳出盒子索引", label_en: "Open disruptive index", href: "../cases/byd/deliver/pitchvision_index.html" },
+      ],
+    },
+    geely: {
+      id: "geely",
+      name: "吉利国际",
+      name_en: "Geely International",
+      keys: ["吉利", "geely", "吉利国际", "gaic", "领克", "极氪", "lynk", "zeekr"],
+      fill: {
+        target: "吉利国际 / Geely International",
+        customer: "会面目的：国际运营学习协议 / 信任护照摸底；主体边界 GAIC vs 0175 vs ZGH 须分清。",
+        internal: "游说金标；阅读序=一页纸→刀→跳出盒子；证伪 CONDITIONAL；禁止混主体财务。",
+      },
+      blurb: "游说金标 · World+ Twin / Trust Passport · BD经验缺口 · CONDITIONAL",
+      blurb_en: "Lobby gold · World+ Twin / Trust Passport · BD gap · CONDITIONAL",
+      links: [
+        { label: "打开全案入口", label_en: "Open case hub", href: "../cases/geely-international/deliver/index.html", primary: true },
+        { label: "打开可转发单文件", label_en: "Open portable HTML", href: "../cases/geely-international/deliver/GEELY_全案入口_可转发.html", primary: true },
+        { label: "打开一页纸", label_en: "Open one-pager", href: "../cases/geely-international/deliver/ONE_PAGER.html" },
+        { label: "打开刀刃", label_en: "Open knife", href: "../cases/geely-international/deliver/B_knife.html" },
+        { label: "跳出盒子索引", label_en: "Open disruptive index", href: "../cases/geely-international/deliver/pitchvision_index.html" },
       ],
     },
   };
@@ -120,6 +160,8 @@
     nio: "chipNio",
     apple: "chipApple",
     transsion: "chipTranssion",
+    byd: "chipByd",
+    geely: "chipGeely",
   };
 
   const $ = (sel) => document.querySelector(sel);

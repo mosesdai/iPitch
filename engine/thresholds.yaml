@@ -1,5 +1,6 @@
 # Stage-2 / v1.6 aligned gates.
 # Hard mins keep demo runnable; soft_target encodes 香飘飘厚度取向 (WARN, not RED).
+# Lobby gold (byd / geely-international) uses --lobby-floor — RED on missing rails.
 
 min_chars:
   research_total: 400
@@ -11,7 +12,7 @@ min_chars:
 
 # Soft orientation (playbook v1.6 §四). Reported on passport; fails only if soft_fail: true
 soft_chars:
-  research_total: 8000
+  research_total: 12000   # L7: raise soft floor toward 香飘飘 / lobby gold
 soft_fail: false
 
 citation:
@@ -32,6 +33,20 @@ required_files:
   knife:
     - B_knife.md
 
+# L7 · lobby gold profile (checked by --lobby-floor; not demo RED)
+lobby_required:
+  - ONE_PAGER.md
+  - B_knife.md
+  - A_dossier.md
+  - ifalsify_report.md
+  - PRIMARY_REQUIRED.md
+  - MAX_GAP_AUDIT.md
+  - data_traceability.md
+lobby_min_research_files: 8
+lobby_min_disruptive_concepts: 2
+lobby_require_portable_html: true
+lobby_soft_research_chars: 20000
+
 allowed_prefixes:
   - research/
   - B_knife.md
@@ -41,6 +56,8 @@ allowed_prefixes:
   - PRIMARY_REQUIRED.md
   - MAX_GAP_AUDIT.md
   - html/
+  - deliver/
+  - pitchvision/
   - R2_evolved_report.md
   - R2_shelf_recommendations.md
   - R3_close_pack.md

@@ -461,7 +461,24 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--apply", type=Path)
     p.add_argument("--apply-stage", choices=R1_STAGES)
     p.add_argument("--run", type=Path)
+    p.add_argument(
+        "--portable",
+        nargs="*",
+        metavar="CASE",
+        help="Build off-machine single-file HTML (default: byd geely-international)",
+    )
+    p.add_argument(
+        "--lobby-floor",
+        nargs="*",
+        metavar="CASE",
+        help="Run lobby structure + public naming floor (default: byd geely-international)",
+    )
     args = p.parse_args(argv)
+
+    if args.portable is not None:
+        return cmd_portable(args.portable)
+    if args.lobby_floor is not None:
+        return cmd_lobby_floor(args.lobby_floor)
 
     if args.promote:
         if not args.from_run:
@@ -492,6 +509,37 @@ def main(argv: list[str] | None = None) -> int:
         args.mode = "demo"
 
     return run_r1(args.company, args.mode, offline=args.offline)
+
+
+def cmd_portable(cases: list[str]) -> int:
+    """L6: productize cases/_tools/build_portable_showcase.py behind engine CLI."""
+    import runpy
+
+    tools = ROOT / "cases" / "_tools" / "build_portable_showcase.py"
+    if not tools.is_file():
+        print(f"missing {tools}")
+        return 1
+    # Script currently builds both gold cases; optional filter later.
+    runpy.run_path(str(tools), run_name="__main__")
+    if cases:
+        print(f"(note) requested {cases}; builder currently emits byd + geely-international)")
+    return 0
+
+
+def cmd_lobby_floor(cases: list[str]) -> int:
+    tools = ROOT / "cases" / "_tools" / "check_lobby_floor.py"
+    if not tools.is_file():
+        print(f"missing {tools}")
+        return 1
+    import runpy
+
+    sys.argv = [str(tools)] + (cases or [])
+    try:
+        runpy.run_path(str(tools), run_name="__main__")
+    except SystemExit as e:
+        code = e.code
+        return int(code) if isinstance(code, int) else (1 if code else 0)
+    return 0
 
 
 def apply_envelopes_r1(

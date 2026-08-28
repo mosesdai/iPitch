@@ -176,6 +176,58 @@ class Handler(SimpleHTTPRequestHandler):
             )
             return
 
+        # L6 · rebuild off-machine single-file HTML from case MD
+        if parsed.path == "/api/cases/portable":
+            case = str(body.get("case") or "all").strip().lower()
+            allowed = {"all", "byd", "geely-international", "geely"}
+            if case not in allowed:
+                self._json(400, {"error": "bad case", "allowed": sorted(allowed)})
+                return
+            cmd = [sys.executable, "-m", "engine.run", "--portable"]
+            if case in {"byd", "geely-international", "geely"}:
+                slug = "geely-international" if case == "geely" else case
+                cmd.append(slug)
+            proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True)
+            files = []
+            for rel in (
+                "cases/byd/deliver/BYD_全案入口_可转发.html",
+                "cases/geely-international/deliver/GEELY_全案入口_可转发.html",
+                "cases/_export/BYD_全案入口_可转发.html",
+                "cases/_export/GEELY_全案入口_可转发.html",
+            ):
+                p = ROOT / rel
+                if p.is_file():
+                    files.append({"path": "/" + rel, "bytes": p.stat().st_size})
+            self._json(
+                200 if proc.returncode == 0 else 500,
+                {
+                    "ok": proc.returncode == 0,
+                    "returncode": proc.returncode,
+                    "stdout": (proc.stdout or "")[-1500:],
+                    "stderr": (proc.stderr or "")[-800:],
+                    "files": files,
+                },
+            )
+            return
+
+        # L7 · lobby structure + public naming floor
+        if parsed.path == "/api/cases/lobby-floor":
+            raw_cases = body.get("cases")
+            cmd = [sys.executable, "-m", "engine.run", "--lobby-floor"]
+            if isinstance(raw_cases, list) and raw_cases:
+                cmd.extend(str(c) for c in raw_cases)
+            proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True)
+            self._json(
+                200 if proc.returncode == 0 else 500,
+                {
+                    "ok": proc.returncode == 0,
+                    "returncode": proc.returncode,
+                    "stdout": (proc.stdout or "")[-4000:],
+                    "stderr": (proc.stderr or "")[-800:],
+                },
+            )
+            return
+
         self._json(404, {"error": "unknown endpoint"})
 
 

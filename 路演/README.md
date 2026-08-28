@@ -1,6 +1,9 @@
-# 路演 · Pitch Studio（约 12 分钟）
+# 路演 · Pitch Studio（约 12–15 分钟）
 
 本目录 = **唯一路演包**。打开这里就能演示。
+
+交付宪法：`cases/DELIVERABLE_CONTRACT.md`  
+工程纲领：`docs/ENGINEERING_PROGRAM.md`
 
 ## 怎么开（二选一）
 
@@ -14,7 +17,7 @@ python3 -m engine.serve
 
 然后打开 http://127.0.0.1:8765/路演/
 
-禁止用 Finder 双击 `.html`（`file://` 会空白）。
+禁止用 Finder 双击 `.html`（`file://` 会空白）——**可转发单文件**除外（那是离机专用）。
 
 ---
 
@@ -23,56 +26,68 @@ python3 -m engine.serve
 | 文件 | 用途 |
 |------|------|
 | `开路演.command` | 一键启动 |
-| `index.html` | 路演首页（浏览器里点进 Pitch Studio） |
+| `index.html` | 路演首页 |
 | `README.md` | 本讲法 |
-| `雀巢/` | 备用投屏（一页关键 / 冰山）→ 真源 `cases/nestle/html` |
-| `香飘飘/` | 备用对照 → 真源 `cases/xiangpiaopiao/html` |
+| `比亚迪/` | 游说金标 → `cases/byd/deliver` |
+| `吉利国际/` | 游说金标 → `cases/geely-international/deliver` |
+| `雀巢/` | 厚度对照 → `cases/nestle/html` |
+| `香飘飘/` | 标准源头 → `cases/xiangpiaopiao/html` |
 
 不要往这里另存 HTML；改 case 会自动反映。
 
 ---
 
-## 三幕
+## 三幕（主秀 = 游说金标）
 
-### 0–1 · 界面
+### 0–2 · 界面
 
-打开 Pitch Studio（已预填雀巢）：
+打开 Pitch Studio（预填 **比亚迪** 或 **吉利国际**）：
 
 > 这是以后 sales 自己用的屏：填客户，出会前包。
 
-### 1–7 · 输入 → 结果
+### 2–10 · 金标阅读序
 
 1. 点 **生成会前包**  
-2. 打开 **一页关键** + **完整研报**  
-3. 一句话：品质标准已经在这里  
+2. 打开 **全案入口** 或 **可转发单文件**  
+3. 按宪法顺序讲：
 
-备用：`雀巢/ONE_PAGER.html` · `雀巢/research/iceberg.html`
+```
+一页纸（5）→ 刀刃（10）→ disruptive - 跳出盒子（7）→ 追问再进 A / 冰山
+```
 
-### 7–12 · 资源
+4. 点出 **BD经验缺口**（缺口明示，不装已闭合）  
+5. 冰山侧栏展示：`研N - {标题}`
 
-> 今天靠个人算力。公司推广要 token / 算力，让 sales 自助跑。
+备用投屏：`比亚迪/index.html` · `吉利国际/index.html`
 
-### 口头占位 · Phase II / R2（不展开）
+### 10–15 · 资源 + 离机
 
-> 今天演示的是会前包（R1）。客户会后还有一轮：Sales 填现场情报 → 系统把主价值 C 映射到火锅货架组合（定制方案不上架）。下午路演不展开 R2；若被追问可打开 `cases/apple/R2_evolved_report.md` · `R2_shelf_recommendations.md`。
+> 今天靠个人算力做出金标。公司推广要 token / 算力，让 sales 自助跑。  
+> 离机转发：桌面 / `_export` 里的可转发单文件（无 CDN、系统中文字体）。
 
-**RUN 注（结构完整，非主秀）**：Pitch Studio 产品面已有真实 R2 六字段表单（个人 DeepSeek API Key → 进化报告 + 货架预览）。路演主路径仍是上方 R1；R2 仅在被追问「会后呢」时一指，勿用 API 草稿冒充 Apple/雀巢终态。配置 Key：顶栏「API 设置」。
+### 口头占位 · R2（不展开）
+
+> 今天演示的是会前包（R1）。会后还有 R2：Sales 填现场情报 → 货架组合（**跳出盒子**创意不上架）。勿把 API 草稿冒充金标终态。
+
 ---
+
+## 加演 · 厚度对照（雀巢 / 香飘飘）
+
+需要证明「标准从哪来」时：打开雀巢一页纸 + 冰山，或香飘飘源头。
 
 ## 加演 · 中英切换（Apple）
 
-1. 顶栏点 **EN**  
-2. 点 **Fill: Apple (EN pack)**  
-3. 点 **Generate pack**  
-4. 打开 **Open one-pager (EN)** + **Open deep research (EN)**  
-5. 再点 **中文** → 结果链接切回中文一页纸 / 冰山（同案双语）
-
-真源：`cases/apple/html/*_en.html` · `research/iceberg_en.html`（IR 数字与中文包一致，不编造）。
+顶栏 EN → Fill Apple → Generate → EN 一页纸 / 冰山。
 
 ---
 
 ## 不要说
 
 - 已全员云端可用  
-- 一键 API = 雀巢厚度（演示是产品面回放标杆）  
-- 门禁 / Cursor / CLI
+- 一键 API = 雀巢/比亚迪厚度  
+- 门禁 / Cursor 高级模型 / CLI（留给会后）  
+- 对外说 iPod / PitchVision / Max 缺口（改说 **跳出盒子** / **BD经验缺口**）
+
+## 要他们点头
+
+> 产品形态 + 游说金标 + 离机单文件已经能演示。下一步请公司开算力，让 sales 自己跑。

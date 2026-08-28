@@ -76,11 +76,115 @@ def check_one_pager(text: str) -> list[StructCheck]:
 
 
 def check_max_gap(text: str) -> list[StructCheck]:
+    """BD经验缺口审计（文件名可仍为 MAX_GAP_AUDIT.md）。"""
     out: list[StructCheck] = []
-    has_max = "Max" in text or "max" in text or "角度" in text
-    out.append(StructCheck("max_gap_mentions_max", has_max, "ok" if has_max else "missing Max 角度"))
+    has_label = (
+        "BD经验缺口" in text
+        or "BD经验" in text
+        or "经验缺口" in text
+        or "Max" in text
+        or "max" in text
+        or "角度" in text
+    )
+    out.append(
+        StructCheck(
+            "bd_gap_label",
+            has_label,
+            "ok" if has_label else "missing BD经验缺口 / 角度表",
+        )
+    )
     has_table = "|" in text and ("覆盖" in text or "✅" in text or "缺口" in text or "位置" in text)
-    out.append(StructCheck("max_gap_coverage_table", has_table, "ok" if has_table else "need coverage table"))
+    out.append(StructCheck("bd_gap_coverage_table", has_table, "ok" if has_table else "need coverage table"))
+    return out
+
+
+def check_lobby_case_root(case_dir: Path) -> list[StructCheck]:
+    """游说金标 / 高标 case 根目录结构地板（不依赖高级模型）。"""
+    out: list[StructCheck] = []
+    required = [
+        ("ONE_PAGER.md", "one_pager"),
+        ("B_knife.md", "knife"),
+        ("A_dossier.md", "dossier"),
+        ("ifalsify_report.md", "ifalsify"),
+        ("PRIMARY_REQUIRED.md", "primary"),
+        ("MAX_GAP_AUDIT.md", "bd_gap"),
+        ("data_traceability.md", "trace"),
+    ]
+    for fname, key in required:
+        ok = (case_dir / fname).is_file()
+        out.append(StructCheck(f"lobby_has_{key}", ok, fname if ok else f"missing {fname}"))
+
+    research = case_dir / "research"
+    md_n = len(list(research.glob("*.md"))) if research.is_dir() else 0
+    out.append(
+        StructCheck(
+            "lobby_research_files",
+            md_n >= 8,
+            f"{md_n} research md" if md_n >= 8 else f"need ≥8 research md, got {md_n}",
+        )
+    )
+
+    pv = case_dir / "pitchvision"
+    concepts = [p for p in pv.iterdir() if p.is_dir()] if pv.is_dir() else []
+    out.append(
+        StructCheck(
+            "lobby_disruptive_concepts",
+            len(concepts) >= 2,
+            f"{len(concepts)} pitchvision concepts" if len(concepts) >= 2 else "need ≥2 disruptive concepts",
+        )
+    )
+
+    not_for = list(research.glob("*not_for_pitch*")) if research.is_dir() else []
+    out.append(
+        StructCheck(
+            "lobby_not_for_pitch",
+            bool(not_for),
+            "ok" if not_for else "missing research/*not_for_pitch*",
+        )
+    )
+
+    deliver = case_dir / "deliver"
+    portable = list(deliver.glob("*可转发*.html")) if deliver.is_dir() else []
+    out.append(
+        StructCheck(
+            "lobby_portable_html",
+            bool(portable),
+            portable[0].name if portable else "missing deliver/*可转发*.html",
+        )
+    )
+
+    # L7 soft thickness: research CJK/alnum chars vs soft target (WARN via detail prefix)
+    soft_target = 20000
+    total_chars = 0
+    if research.is_dir():
+        for md in research.glob("*.md"):
+            total_chars += len(re.findall(r"[\u4e00-\u9fffA-Za-z0-9]", md.read_text(encoding="utf-8", errors="ignore")))
+    soft_ok = total_chars >= soft_target
+    out.append(
+        StructCheck(
+            "lobby_research_soft_thickness",
+            soft_ok,
+            f"{total_chars} chars (≥{soft_target})" if soft_ok else f"WARN soft {total_chars} < {soft_target} (not RED)",
+        )
+    )
+    # Soft miss should not fail lobby floor hard — flip passed=True but keep WARN detail
+    if not soft_ok:
+        out[-1] = StructCheck(out[-1].name, True, out[-1].detail)
+    return out
+
+
+def check_public_naming(text: str) -> list[StructCheck]:
+    """对外可见文案禁词（允许文件路径 pitchvision/ MAX_GAP 出现在 code/路径中时需人工看）。"""
+    out: list[StructCheck] = []
+    # Strip code/path-ish tokens for soft check
+    scrubbed = re.sub(r"`[^`]+`", "", text)
+    scrubbed = re.sub(r"\[[^\]]*\]\([^)]+\)", "", scrubbed)
+    bad_ipod = bool(re.search(r"(?<![A-Za-z/])iPod(?![A-Za-z])", scrubbed))
+    bad_pv = "PitchVision" in scrubbed or "Pitchvision" in scrubbed
+    bad_max = "Max 缺口" in scrubbed or "MAX GAP 审计" in scrubbed
+    out.append(StructCheck("public_no_ipod", not bad_ipod, "clean" if not bad_ipod else "strip outward iPod"))
+    out.append(StructCheck("public_no_pitchvision", not bad_pv, "clean" if not bad_pv else "use disruptive - 跳出盒子"))
+    out.append(StructCheck("public_no_max_gap_label", not bad_max, "clean" if not bad_max else "use BD经验缺口"))
     return out
 
 

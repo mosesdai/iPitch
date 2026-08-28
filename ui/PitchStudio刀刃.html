@@ -55,6 +55,8 @@
     </div>
 
     <div class="demo-chips" id="demo-chips" data-i18n-aria="demoChipsAria" aria-label="演示快捷填充">
+      <button type="button" class="chip" data-fill="byd" data-i18n="chipByd">填：比亚迪</button>
+      <button type="button" class="chip" data-fill="geely" data-i18n="chipGeely">填：吉利国际</button>
       <button type="button" class="chip" data-fill="nestle" data-i18n="chipNestle">填：雀巢中国</button>
       <button type="button" class="chip" data-fill="xpp" data-i18n="chipXpp">填：香飘飘</button>
       <button type="button" class="chip" data-fill="nio" data-i18n="chipNio">填：蔚来 NIO</button>
@@ -161,6 +163,28 @@
     <p class="field-hint" data-i18n="galleryProductHint">需要横向对比时再打开。路演主路径用上方「生成」。</p>
     <div class="gallery-grid">
       <article class="gallery-item">
+        <h3>BYD / 比亚迪 <span class="tag" data-i18n="galleryTagLobby">游说金标</span></h3>
+        <div class="gallery-links">
+          <a href="../cases/byd/deliver/index.html" target="_blank" rel="noopener" data-i18n="galleryEntry">入口</a>
+          <a href="../cases/byd/deliver/BYD_全案入口_可转发.html" target="_blank" rel="noopener" data-i18n="galleryPortable">可转发单文件</a>
+          <a href="../cases/byd/deliver/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/byd/deliver/B_knife.html" target="_blank" rel="noopener" data-i18n="galleryKnife">刀刃</a>
+          <a href="../cases/byd/deliver/pitchvision_index.html" target="_blank" rel="noopener" data-i18n="galleryDisruptive">跳出盒子</a>
+          <button type="button" class="btn btn-secondary btn-sm" data-rebuild-portable="byd" data-i18n="rebuildPortable">重建可转发</button>
+        </div>
+      </article>
+      <article class="gallery-item">
+        <h3>Geely International / 吉利国际 <span class="tag" data-i18n="galleryTagLobby">游说金标</span></h3>
+        <div class="gallery-links">
+          <a href="../cases/geely-international/deliver/index.html" target="_blank" rel="noopener" data-i18n="galleryEntry">入口</a>
+          <a href="../cases/geely-international/deliver/GEELY_全案入口_可转发.html" target="_blank" rel="noopener" data-i18n="galleryPortable">可转发单文件</a>
+          <a href="../cases/geely-international/deliver/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
+          <a href="../cases/geely-international/deliver/B_knife.html" target="_blank" rel="noopener" data-i18n="galleryKnife">刀刃</a>
+          <a href="../cases/geely-international/deliver/pitchvision_index.html" target="_blank" rel="noopener" data-i18n="galleryDisruptive">跳出盒子</a>
+          <button type="button" class="btn btn-secondary btn-sm" data-rebuild-portable="geely-international" data-i18n="rebuildPortable">重建可转发</button>
+        </div>
+      </article>
+      <article class="gallery-item">
         <h3>Nestlé / 雀巢中国 <span class="tag" data-i18n="galleryTagBenchmark">标杆</span></h3>
         <div class="gallery-links">
           <a href="../cases/nestle/html/ONE_PAGER.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
@@ -192,7 +216,7 @@
       <article class="gallery-item">
         <h3>Transsion / 传音控股</h3>
         <div class="gallery-links">
-          <a href="../cases/transsion/html/传音控股_给Max会前包.html" target="_blank" rel="noopener">给Max包</a>
+          <a href="../cases/transsion/html/传音控股_给Max会前包.html" target="_blank" rel="noopener" data-i18n="galleryBoundPack">合订包</a>
           <a href="../cases/transsion/html/传音控股_一页关键信息.html" target="_blank" rel="noopener" data-i18n="galleryOnePager">一页关键</a>
           <a href="../cases/transsion/html/research/传音控股_冰山深度研究.html" target="_blank" rel="noopener" data-i18n="galleryResearch">完整研报</a>
           <a href="../cases/transsion/html/传音控股_会前双材料入口.html" target="_blank" rel="noopener" data-i18n="galleryEntry">入口</a>
@@ -237,7 +261,7 @@
       <label class="check-item"><input type="checkbox" name="out" value="ifalsify" checked disabled/><span data-i18n="outIfalsify">反昏君证伪报告</span></label>
       <label class="check-item"><input type="checkbox" name="out" value="traceability" checked disabled/><span data-i18n="outTraceability">数据溯源账本</span></label>
       <label class="check-item"><input type="checkbox" name="out" value="handoff" checked/><span data-i18n="outHandoff">Sales Handoff</span></label>
-      <label class="check-item"><input type="checkbox" name="out" value="ipod"/><span data-i18n="outIpod">iPod 突破性创意</span></label>
+      <label class="check-item"><input type="checkbox" name="out" value="ipod"/><span data-i18n="outIpod">disruptive - 跳出盒子</span></label>
       <label class="check-item"><input type="checkbox" name="out" value="shelf"/><span data-i18n="outShelf">火锅货架组合</span></label>
       <label class="check-item"><input type="checkbox" name="out" value="close"/><span data-i18n="outClose">收口清单</span></label>
       <label class="check-item"><input type="checkbox" name="out" value="talking"/><span data-i18n="outTalking">说辞 / 首问 5 句</span></label>
@@ -253,7 +277,9 @@
     <div class="btn-row btn-row-cta">
       <button type="button" class="btn btn-primary" id="export-btn" data-i18n="exportPrompt">导出 Prompt → Cursor</button>
       <button type="button" class="btn btn-secondary" id="generate-btn" data-i18n="generate">一键生成草稿预览</button>
+      <button type="button" class="btn btn-secondary" id="staged-generate-btn" data-i18n="stagedGenerate">分阶段 DeepSeek 草稿（非金标）</button>
     </div>
+    <p class="field-hint" data-i18n="stagedHint">分阶段 = 研究大纲 → 证伪 → 一页纸/刀/跳出盒子；每页顶栏标明 API DRAFT，不可当游说金标。</p>
     <p class="field-hint cta-hint" data-i18n="ctaHint">一键 API ≠ 雀巢厚度。路演请用页顶「生成会前包」。</p>
   </details>
 
@@ -279,6 +305,8 @@
       <button type="button" class="btn btn-secondary" data-lab-mode="fail">假引用 → RED</button>
       <button type="button" class="btn btn-secondary" data-lab-mode="fail-v16">缺 PRIMARY → RED</button>
       <button type="button" class="btn btn-secondary" id="refresh-runs" data-i18n="labRefresh">刷新 runs</button>
+      <button type="button" class="btn btn-secondary" id="rebuild-portable-all" data-i18n="rebuildPortableAll">重建全部可转发</button>
+      <button type="button" class="btn btn-secondary" id="run-lobby-floor" data-i18n="runLobbyFloor">跑游说地板门禁</button>
     </div>
     <p id="lab-status" class="field-hint">尚未运行</p>
     <pre class="passport" id="passport-out">护照将显示在这里</pre>
@@ -371,6 +399,7 @@
 <script src="js/app.js" defer></script>
 <script src="js/product-demo.js" defer></script>
 <script src="js/r2-form.js" defer></script>
+<script src="js/staged-pipeline.js" defer></script>
 <script>
 (function () {
   const statusEl = document.getElementById("lab-status");
@@ -420,6 +449,51 @@
     btn.addEventListener("click", () => runMode(btn.getAttribute("data-lab-mode")));
   });
   document.getElementById("refresh-runs").addEventListener("click", refreshRuns);
+
+  async function rebuildPortable(caseId) {
+    statusEl.textContent = "重建可转发单文件中… " + (caseId || "all");
+    outEl.textContent = "…";
+    try {
+      const data = await api("/api/cases/portable", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ case: caseId || "all" }),
+      });
+      statusEl.textContent = data.ok
+        ? ("可转发已重建 · " + (data.files || []).map(f => f.path).join(" · "))
+        : ("重建失败 rc=" + data.returncode);
+      outEl.textContent = (data.stdout || "") + "\n" + (data.stderr || "") + "\n" + JSON.stringify(data.files || [], null, 2);
+    } catch (e) {
+      statusEl.textContent = "失败：请先 python3 -m engine.serve";
+      outEl.textContent = String(e);
+    }
+  }
+
+  async function runLobbyFloor() {
+    statusEl.textContent = "跑游说地板门禁…";
+    outEl.textContent = "…";
+    try {
+      const data = await api("/api/cases/lobby-floor", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cases: ["byd", "geely-international"] }),
+      });
+      statusEl.textContent = data.ok ? "游说地板门禁 PASS" : ("门禁未过 rc=" + data.returncode);
+      outEl.textContent = (data.stdout || "") + "\n" + (data.stderr || "");
+    } catch (e) {
+      statusEl.textContent = "失败：请先 python3 -m engine.serve";
+      outEl.textContent = String(e);
+    }
+  }
+
+  document.querySelectorAll("[data-rebuild-portable]").forEach((btn) => {
+    btn.addEventListener("click", () => rebuildPortable(btn.getAttribute("data-rebuild-portable")));
+  });
+  const allBtn = document.getElementById("rebuild-portable-all");
+  if (allBtn) allBtn.addEventListener("click", () => rebuildPortable("all"));
+  const floorBtn = document.getElementById("run-lobby-floor");
+  if (floorBtn) floorBtn.addEventListener("click", runLobbyFloor);
+
   refreshRuns();
 })();
 </script>

@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>比亚迪 BYD · 全案入口（可转发单文件）</title>
+<style>:root{
+  --ink:#0f172a;--muted:#475569;--line:#cbd5e1;--paper:#ffffff;--bg:#e8eef3;
+  --accent:#0b4f7a;--accent2:#1d6fa5;--soft:#e7f2fa;--warn:#92400e;--warnbg:#fef3c7;
+  --ok:#065f46;--rail:#0f2740;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font-family:"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:linear-gradient(180deg,#d9e5ef 0%,var(--bg) 220px,#f4f7fa 100%);
+  font-size:15px;line-height:1.7}
+a{color:var(--accent2)}
+.shell{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}
+.rail{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;background:var(--rail);color:#e2e8f0;padding:22px 16px 40px}
+.rail .brand{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;font-weight:700}
+.rail h1{font-size:1.15rem;margin:10px 0 6px;color:#fff;line-height:1.35}
+.rail .sub{font-size:12px;color:#94a3b8;margin-bottom:14px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 8px;border-radius:999px;
+  background:var(--warnbg);color:var(--warn);margin:0 0 14px}
+.rail nav a{display:block;color:#cbd5e1;text-decoration:none;padding:8px 10px;border-radius:8px;font-size:13px;margin:2px 0}
+.rail nav a:hover,.rail nav a:focus{background:rgba(255,255,255,.08);color:#fff}
+.rail nav .g{margin:14px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.main{padding:28px 28px 80px;max-width:980px}
+.hero{background:linear-gradient(135deg,#0b4f7a 0%,#1d6fa5 55%,#0ea5e9 140%);color:#fff;
+  border-radius:18px;padding:28px 26px;margin-bottom:22px;box-shadow:0 18px 40px rgba(15,39,64,.18)}
+.hero h2{margin:0 0 8px;font-size:1.6rem}
+.hero p{margin:0;opacity:.92;max-width:46em}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:18px 0 8px}
+.cards a{display:block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  color:#fff;text-decoration:none;border-radius:12px;padding:12px 14px;font-size:13px}
+.cards a strong{display:block;font-size:14px;margin-bottom:4px}
+.sec{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 22px 26px;margin:0 0 18px;
+  box-shadow:0 8px 24px rgba(15,23,42,.04)}
+.sec > .label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2.sec-title{margin:0 0 12px;font-size:1.35rem;color:var(--accent);border:0;padding:0}
+.md-h1{font-size:1.2rem;color:var(--accent);margin:0 0 12px}
+h3{font-size:1.05rem;margin:22px 0 8px;color:#1e3a5f;padding-left:10px;border-left:3px solid #7dd3fc}
+h4,h5{font-size:.98rem;margin:16px 0 6px;color:#334155}
+p{margin:0 0 12px}ul,ol{margin:0 0 14px;padding-left:22px}li{margin-bottom:6px}
+blockquote{margin:12px 0;padding:12px 14px;background:var(--soft);border-left:4px solid var(--accent2);color:#1e293b;border-radius:0 8px 8px 0}
+.tbl{overflow-x:auto;margin:12px 0 16px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft);color:var(--accent);font-weight:650}
+code{font-size:12px;background:#eef2f7;padding:1px 5px;border-radius:3px}
+pre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;overflow-x:auto;font-size:12px;white-space:pre-wrap}
+hr{border:none;border-top:1px solid var(--line);margin:18px 0}
+.foot{margin-top:28px;font-size:12px;color:var(--muted)}
+.note{background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:12px 14px;margin:12px 0;font-size:13px;color:#78350f}
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:relative;height:auto;max-height:none}
+}
+@media print{
+  body{background:#fff}
+  .shell{display:block}
+  .rail{display:none}
+  .sec{break-inside:avoid;box-shadow:none}
+  .hero{box-shadow:none}
+  @page{size:A4;margin:12mm}
+}</style>
+</head>
+<body>
+<div class="shell">
+<aside class="rail">
+  <div class="brand">iPitch Showcase</div>
+  <h1>比亚迪 BYD</h1>
+  <div class="sub">单文件全案 · 离机可看 · 左侧锚点跳转</div>
+  <span class="badge">证伪 CONDITIONAL · L0 未关</span>
+  <nav>
+    <div class="g">速览</div>
+    <a href="#top">封面</a>
+    <div class="g">会前主件</div><a href="#one">会前一页纸</a><a href="#knife">刀刃 · 10分钟</a><a href="#a">中间层 A</a><a href="#ifalsify">证伪</a><a href="#primary">PRIMARY 三问</a><a href="#max">BD经验缺口</a><a href="#tensions">张力池</a><a href="#trace">数据溯源</a><a href="#charter">立项</a><div class="g">disruptive - 跳出盒子</div><a href="#xbox-index">跳出盒子 · 索引</a><a href="#xbox-1">跳出盒子 1</a><a href="#xbox-2">跳出盒子 2</a><div class="g">最厚调研 · 冰山</div><a href="#r01">研1 - 比亚迪 IR 财务精读</a><a href="#r02">研2 - 比亚迪高管原话库</a><a href="#r03">研3 - 比亚迪合作史：从“借势”到“系统共创”</a><a href="#r04">研4 - 竞品格局：不是“谁销量第二”，而是谁在争夺下一种信任</a><a href="#r05">研5 - 行业背景：规模越大，品牌与经营质量越难同时成立</a><a href="#r06">研6 - 权力地图与 MEDDIC：谁能让合作从“好看”变成“可运行”</a><a href="#r07">研7 - 组织、品牌矩阵与生命周期</a><a href="#r08">研8 - 横向×纵向完整版</a><a href="#r09">研9 - 查了但首面不说</a><a href="#r10">研10 - 出海×品牌×体育×内容边界</a><a href="#r11">研11 - 技术×体验地图：参数如何变成用户进度</a><a href="#r12">研12 - 海外市场原型：不要把“全球”当成一个国家</a><a href="#r13">研13 - 反证与风险：为什么这两个创意可能根本不该做</a><a href="#r14">研14 - 体育权益运营深拆：从合同附件到国家可调用资产</a><a href="#r15">研15 - 五品牌路由与市场作战：同一技术，不同进度</a><a href="#r16">研16 - 经营归因、实验与数据治理：怎样证明“信任”不是漂亮词</a><a href="#r17">研17 - 本地信任链：不同市场到底要证明什么</a><a href="#r18">研18 - 决策层 Grill 与反方案例：这个命题为什么值得谈、又为什么可能不该买</a><a href="#r19">研19 - A 源原话路由：高层语言怎样约束合作设计</a><a href="#r20">研20 - 比亚迪冰山研究索引</a>
+  </nav>
+</aside>
+<main class="main" id="top">
+  <div class="hero">
+    <h2>比亚迪 BYD · 游说全案包</h2>
+    <p>车、工厂和权益已全球化；信任不能继续按每一个赞助 campaign 重做。下一道门是可调用、可归因、可复利的本地信任协议。</p>
+    
+    <div class="cards">
+      <a href="#one"><strong>① 一页纸</strong>会前对齐</a>
+      <a href="#knife"><strong>② 刀刃</strong>10 分钟开门</a>
+      <a href="#xbox-1"><strong>③ disruptive - 跳出盒子</strong>全球信任协议 Global Trust Protocol</a>
+      <a href="#a"><strong>④ 深谈 A</strong>判断层</a>
+      <a href="#r01"><strong>⑤ 冰山</strong>最厚调研</a>
+      <a href="#ifalsify"><strong>证伪</strong>CONDITIONAL</a>
+    </div>
+  </div>
+  <div class="note">
+    <strong>使用说明：</strong>本文件是<strong>自包含单 HTML</strong>，可单独微信/邮件转发。左侧目录均可点击跳转；外链（财报 URL）需联网。
+    数字与主张仍受 CONDITIONAL 约束——内部流程/合同/预算未核前，勿写成已证实结论。
+  </div>
+  <section class="sec" id="one"><div class="label">会前一页纸</div><h2 class="sec-title">ONE PAGER · 会前关键信息</h2><h2 class='md-h1'>比亚迪 · 会前关键信息 v1.0</h2>
+<blockquote><p><strong>CONDITIONAL / 待 ifalsify L0 关闭</strong> · 时间锚：2025 年报、2026Q1、2026 年 7 月产销与截至 2026-08-26 官方动作</p><p><strong>禁用话术：</strong> 缺曝光 / 缺年轻化 / 不会做体育 / 合作必带销量 / 我们统一全球 CRM</p><p>非会面话术稿；数字回 <code>data_traceability.md</code></p></blockquote>
+<h3>左列 · 经营底座</h3>
+<h4>生命周期与战略</h4>
+<div class='tbl'><table><thead><tr><th>项</th><th>判断</th><th>证据</th></tr></thead><tbody><tr><td>阶段</td><td>规模领导者进入利润质量、高端化与世界品牌制度期</td><td>2025 年报</td></tr><tr><td>战略语言</td><td>“以技术为根、以出海为引擎”；打造具有本地品牌属性的产品</td><td>王传福，2026-03-27</td></tr><tr><td>能力基因</td><td>垂直整合、技术普惠、底层系统共创</td><td>年报/官方发布</td></tr><tr><td>当前矛盾</td><td>海外增长与利润纪律同时发生</td><td>年报+Q1</td></tr></tbody></table></div>
+<h4>三年实绩</h4>
+<div class='tbl'><table><thead><tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>2026Q1</th></tr></thead><tbody><tr><td>营收</td><td>6,023.15亿</td><td>7,771.02亿</td><td><strong>8,039.65亿 +3.46%</strong></td><td><strong>1,502.25亿 -11.82%</strong></td></tr><tr><td>归母净利</td><td>300.41亿</td><td>402.54亿</td><td><strong>326.19亿 -18.97%</strong></td><td><strong>40.85亿 -55.38%</strong></td></tr><tr><td>经营现金流</td><td>—</td><td>—</td><td><strong>591.36亿 -55.66%</strong></td><td><strong>27.90亿 -67.48%</strong></td></tr></tbody></table></div>
+<p>未来三年收入/利润/销量：<strong>【无公司量化指引，留空】</strong>。</p>
+<h4>收入与经营结构（2025）</h4>
+<ul><li>汽车相关：6,486.46 亿元，占 80.68%；</li><li>境外：3,107.41 亿元，占 38.65%，同比 +40.05%；</li><li>境内同比 -11.17%；</li><li>经销收入占 54.33%，直销 45.67%；</li><li>研发投入 634.41 亿元，占营收 7.89%。</li></ul>
+<p>2026 年 1–7 月新能源车销量 223.44 万辆，同比 -8.98%；7 月出口 18.05 万辆（产销快报未经审计）。不能只讲出海胜利，也不能用短期压力推销营销。</p>
+<h4>品牌×用户进度</h4>
+<div class='tbl'><table><thead><tr><th>品牌/系列</th><th>官方底座</th><th>外部 Job 假说</th></tr></thead><tbody><tr><td>王朝</td><td>主流、品质、新国潮</td><td>成熟可靠地承担家庭</td></tr><tr><td>海洋</td><td>年轻、科技、个性</td><td>低门槛进入城市电动生活</td></tr><tr><td>腾势</td><td>科技安全新豪华</td><td>家庭/商务被稳定照顾</td></tr><tr><td>方程豹</td><td>新能源个性化</td><td>专业系统降低探索门槛</td></tr><tr><td>仰望</td><td>百万级极致技术</td><td>少量、高可信工程见证</td></tr></tbody></table></div>
+<p>价格、国家人群比例、品牌预算：<strong>【待核实】</strong>。</p>
+<h4>已有体育/体验底座</h4>
+<ul><li>2024 欧洲杯官方出行合作伙伴；</li><li>2024 美洲杯拉美区域合作；</li><li>2025 泰国足球联赛/国家队、U-21（合同细节待核）；</li><li>2025–2028 国际米兰全球汽车合作伙伴，约 70 辆车、特别版；</li><li>2026 ANOC 香港大会，腾势指定用车；</li><li>中国滑板队、郑州全地形赛车场。</li></ul>
+<p>结论不是“缺体育”，而是现有资产是否可复用、可路由、可验收。</p>
+<h3>右列 · 判断层</h3>
+<h4>他们说的 vs 已发生 vs 未知</h4>
+<div class='tbl'><table><thead><tr><th>他们说的</th><th>已发生</th><th>仍未知</th></tr></thead><tbody><tr><td>技术为根、出海为引擎</td><td>海外收入近四成</td><td>体育对经营增量</td></tr><tr><td>具有本地品牌属性</td><td>工厂、总部、经销、滚装船</td><td>用户是否形成本地信任</td></tr><tr><td>好体验人人可享</td><td>赛车场、闪充、智能化责任</td><td>海外体验能否标准化</td></tr><tr><td>国米探索更多可能</td><td>车队、特别版、三年关系</td><td>数据、国家调用、转化</td></tr></tbody></table></div>
+<h4>竞争力 vs 危机</h4>
+<div class='tbl'><table><thead><tr><th>竞争力</th><th>危机/约束</th></tr></thead><tbody><tr><td>技术与制造深度</td><td>技术多、品牌多，解释复杂</td></tr><tr><td>海外规模与本地制造</td><td>本地信任不能靠出口自动获得</td></tr><tr><td>多品牌覆盖价格/生活方式</td><td>统一曝光稀释分辨</td></tr><tr><td>顶级体育资产已在手</td><td>公开资料未见经营归因</td></tr><tr><td>经销网络</td><td>活动可能给门店增加低质负担</td></tr><tr><td>体验与责任语言</td><td>安全、数据、合同一票否决</td></tr></tbody></table></div>
+<h4>SWOT→TOWS</h4>
+<ul><li><strong>S×O：</strong> 用现有权益和技术真相，建立国家可调用的小试；</li><li><strong>S×T：</strong> 本地工厂/服务+共同作者，抵御陌生品牌解释成本；</li><li><strong>W×O：</strong> 用品牌 Job 路由共享技术，不做五品牌换皮；</li><li><strong>W×T：</strong> 不加第二套 IP；基线、对照、未达即停。</li></ul>
+<h4>主打矛盾 T1</h4>
+<blockquote><p><strong>车、工厂和权益都全球化了；若信任仍按每个赞助 campaign 重做，全球声量不会自动沉淀为本地可调用、可归因、可复利的资产。</strong></p></blockquote>
+<p>这是<strong>待验证假说</strong>，不是客户事实。</p>
+<h4>三问</h4>
+<ol><li>哪个足球指标让经营团队愿意续约？</li><li>多品牌调用同一权益时，谁决定讲什么、哪里不讲？</li><li>两国试点用哪条“未达到就停”杀死？</li></ol>
+<h4>两条 disruptive - 跳出盒子</h4>
+<ul><li><strong>全球信任协议</strong>：把现有关系变成合同可查、品牌可选、国家可配、经营可验收的协议。</li><li><strong>五分钟技术联赛</strong>：让用户五分钟亲证一项技术，正确理解后再进入试驾。</li></ul>
+<h3>证伪裁决</h3>
+<p>支持:反证 = <strong>5:12（0.42:1）</strong>；总体 <strong>CONDITIONAL / PIVOT-ready</strong>。<br/>若内部已有成熟运营层，KILL A；若五分钟任务不提高理解与到店质量，KILL B；若品牌不是前三经营问题，整案退居解释或停止。</p></section><section class="sec" id="knife"><div class="label">刀刃 · 10分钟</div><h2 class="sec-title">刀刃</h2><h2 class='md-h1'>BYD · 一把刀</h2>
+<blockquote><p><strong>ifalsify：CONDITIONAL / 待 L0</strong></p><p>禁用：缺曝光 · 缺年轻化 · 不会做体育 · 合作必带销量 · 全球 CRM 承诺</p></blockquote>
+<h3>0:00–1:00 · 先承认你们已经做到的</h3>
+<p>你们不缺全球化。</p>
+<p>2025 年，境外收入已占 <strong>38.65%</strong>；车、工厂、滚装船和团队到了全球。体育也不是空白：欧洲杯、国米、泰国足球、ANOC，已经从大赛走到三年俱乐部关系、车队和腾势官方用车。</p>
+<p>所以今天不谈“再买一次全球曝光”。</p>
+<h3>1:00–3:00 · 只问一个矛盾</h3>
+<blockquote><p><strong>车、工厂和权益都全球化了；信任，会不会还在按每一个赞助 campaign 重新做一遍？</strong></p></blockquote>
+<p>一个全球权益到了不同国家：</p>
+<ul><li>王朝、海洋、腾势该谁讲？</li><li>合同到底允许什么？</li><li>国家公司怎么改成本地任务？</li><li>经销商接到的是有效试驾，还是又一批扫码？</li><li>赛季结束，留下用户进度、门店能力，还是一份触达报告？</li></ul>
+<p>公开资料不能回答这些。也可能你们已经做得很好——那我们就把这个命题当场杀掉。</p>
+<h3>3:00–7:00 · 一个出口</h3>
+<h4>全球信任协议</h4>
+<p>不是平台先行，也不是 another dashboard。</p>
+<p>先拿一个现有 IP 做最小试点：</p>
+<ol><li><strong>合同可查</strong>：人物、场地、内容、品牌、国家、数据；</li><li><strong>品牌只选一个 Job</strong>：不让五品牌换皮；</li><li><strong>国家只解一个本地“不敢买”</strong>；</li><li><strong>用户亲证一项已发布技术</strong>；</li><li><strong>经销商只接一个 CTA</strong>；</li><li><strong>统一事件 ID，有对照，未达即停</strong>。</li></ol>
+<p>创意轨道见 disruptive - 跳出盒子 A：<strong>全球信任协议</strong>。<br/>体验楔子可用 disruptive - 跳出盒子 B：<strong>五分钟技术联赛</strong>——不是集章，而是五分钟正确理解一项技术及边界，再进入试驾。</p>
+<h3>7:00–9:00 · 先杀小，再谈大</h3>
+<p>一个 IP、一个品牌、一个国家；若需要学习跨国复用，再加一个对照国家。</p>
+<p>不新增第二套全球 IP，不先开发软件，不预填 ROI。</p>
+<p>三条 Kill：</p>
+<ul><li>协议让国家上线更慢；</li><li>五分钟任务不提高技术理解与到店质量；</li><li>经销商不愿第二次开。</li></ul>
+<p>任一成立，不扩张。</p>
+<h3>9:00–10:00 · 只要一个决定</h3>
+<blockquote><p><strong>请给我们看一份已经结束赛季的真实运营链：从合同，到品牌，到国家，到经销，再到续约指标。</strong></p></blockquote>
+<p>如果链已经成熟，我们不卖这套协议。<br/>如果中间确有一段每次重做，我们只共同定义一个可被杀死的小试点。</p>
+<p><strong>唯一 ask：允许一次 90 分钟 L0 工作会，带品牌、海外经营、一个国家市场/经销代表与法务数据，共同判定这个缺口到底存在不存在。</strong></p></section><section class="sec" id="a"><div class="label">中间层 A</div><h2 class="sec-title">A 档案 · 深谈精华</h2><h2 class='md-h1'>比亚迪深度研究档案 · 水线精华</h2>
+<blockquote><p>冰山全文：<code>research/</code> · 时间锚：2026-08-26</p><p>ifalsify：<strong>CONDITIONAL / PIVOT-ready</strong> · 内部流程缺口未证</p></blockquote>
+<h3>一页结论</h3>
+<ol><li><strong>海外不是故事，是收入结构。</strong> 2025 境外收入 3,107.41 亿元，占 38.65%，同比 +40.05%；覆盖 119 个国家和地区、整车出口突破 100 万辆。[A1]</li><li><strong>增长质量正在审判新增合作。</strong> 2025 营收 +3.46%，归母净利 -18.97%，经营现金流 -55.66%；2026Q1 压力加深。[A1][A2]</li><li><strong>它不缺体育。</strong> 欧洲杯、美洲杯、国米、泰国足球、ANOC、中国滑板队已构成多类型资产；“再买曝光”不是洞察。</li><li><strong>它也不缺技术故事。</strong> 闪充、刀片电池、智能化责任、云辇/易三方/易四方和灵鸢均有真实母体；缺口假说是“如何被用户完成、被品牌区分、被国家调用”。</li><li><strong>主刀不是批评能力，而是升级单位。</strong> 从一个 campaign 一次复盘，升级为合同可查、品牌可路由、国家可调用、门店可承接、结果可停止。</li><li><strong>最大风险是我们看错。</strong> 内部可能已有成熟运营层；经营瓶颈可能在产品/渠道/金融；因此只能 CONDITIONAL。</li></ol>
+<h3>经营图</h3>
+<div class='tbl'><table><thead><tr><th>维度</th><th>已证事实</th><th>决策含义</th></tr></thead><tbody><tr><td>财务</td><td>2025 收入新高、利润/现金流下降</td><td>新合作默认有罪</td></tr><tr><td>海外</td><td>境外收入近四成、制造/总部/运输布局</td><td>从出口转本地经营</td></tr><tr><td>渠道</td><td>经销收入占 54.33%</td><td>门店不是 CTA 装饰</td></tr><tr><td>研发</td><td>投入 634.41 亿元、超12万工程师</td><td>创意必须尊重技术真相</td></tr><tr><td>多品牌</td><td>王朝/海洋/腾势/方程豹/仰望</td><td>一个权益不能五品牌换皮</td></tr><tr><td>体育</td><td>大赛、俱乐部、国家足球、治理/青年</td><td>优化现有资产先于新增</td></tr></tbody></table></div>
+<h3>公司语言</h3>
+<ul><li>“以技术为根、以出海为引擎”；</li><li>“打造具有本地品牌属性的产品”；</li><li>“好技术，就应该人人可享”；</li><li>“好体验，更要人人可享”；</li><li>“敢为”以敬畏生命、规则与技术为边界；</li><li>灵鸢合作“不只是把无人机放在车上”，而是底层融合。</li></ul>
+<p>因此我方必须满足：技术真、本地有作者、体验可完成、规则可审查、合作改变使用机制。</p>
+<h3>五品牌路由</h3>
+<ul><li><strong>王朝：</strong> 家庭、成熟、可靠承担；</li><li><strong>海洋：</strong> 城市、轻进入、年轻科技；</li><li><strong>腾势：</strong> 安全新豪华、家庭/商务从容；</li><li><strong>方程豹：</strong> 专业系统降低探索门槛；</li><li><strong>仰望：</strong> 邀请制工程见证。</li></ul>
+<p>共享技术不是问题；五品牌共用“冠军、激情、绿色”才是问题。</p>
+<h3>体育资产从哪一步断</h3>
+<p>公开可见进展：</p>
+<ol><li>大赛出行与展示；</li><li>三年俱乐部关系；</li><li>车队使用与特别版；</li><li>腾势承担高端官方用车；</li><li>自有赛车场把技术变体验。</li></ol>
+<p>公开资料未能证明：</p>
+<ul><li>合同是否允许国家/子品牌模块化调用；</li><li>球迷数据与 consent；</li><li>国家/经销商重复调用；</li><li>试驾/订单增量；</li><li>赛季后资产留存。</li></ul>
+<p>这不是“没有”，而是 L0 必问。</p>
+<h3>市场原型</h3>
+<div class='tbl'><table><thead><tr><th>市场</th><th>信任任务假说</th><th>现有入口</th><th>不应做</th></tr></thead><tbody><tr><td>欧洲</td><td>长期服务、残值、本地承诺</td><td>欧洲总部/工厂、国米/UEFA</td><td>用注册高增讲胜利</td></tr><tr><td>巴西/拉美</td><td>从进口到当地共同作者</td><td>工厂、美洲杯、SHARK</td><td>把拉美当一国</td></tr><tr><td>泰国</td><td>工厂就业+足球+经销连成一件事</td><td>本地制造、泰足</td><td>总部 KV 翻译</td></tr><tr><td>中东</td><td>极端环境、高端服务、产业伙伴</td><td>沙特阿美、区域布局</td><td>沙漠速度模板</td></tr><tr><td>香港</td><td>大会服务结转腾势 SOP</td><td>ANOC 指定用车</td><td>拿嘉宾数当大众触达</td></tr></tbody></table></div>
+<p>国家用户洞察、价格、产品与服务就绪均【待核实】。</p>
+<h3>MEDDIC</h3>
+<ul><li><strong>Metrics：</strong> 权益调用、理解、consent、到店、对照 uplift、重复调用、零事故；目标值待基线。</li><li><strong>Economic Buyer：</strong> 集团品牌/海外经营/单品牌联合假说；具体未知。</li><li><strong>Criteria：</strong> 技术真、本地可配、品牌清楚、经销接得住、可停止、安全数据通过。</li><li><strong>Process：</strong> sponsor→品牌/国家→权益→法务安全→财务采购→试点；实际未知。</li><li><strong>Pain：</strong> 资产与经营张力有 A 源；流程割裂没有一手证据。</li><li><strong>Champion：</strong> 能同时调品牌、国家、经销并接受 Kill 的负责人。</li><li><strong>Competition：</strong> 现有 agency、效果广告、国家各做各的、自有赛车场、什么都不做。</li></ul>
+<h3>主张力</h3>
+<blockquote><p>比亚迪已经把车、工厂和顶级体育权益带到全球；下一道门不是再买一次全球曝光，而是让每个本地市场都能把同一份技术实力转成可调用、可归因、可复利的信任。</p></blockquote>
+<h3>两个新品类</h3>
+<h4>A · 全球信任协议</h4>
+<p>合同字段→品牌 Job→国家任务→经销 CTA→事件证据→Kill。<br/>MVP 不开发软件，只跑一个 IP、一个品牌、一个国家/两国对照。</p>
+<h4>B · 五分钟技术联赛</h4>
+<p>用户在安全边界内亲证一项技术；通过价值/条件/边界理解后保存 Proof、进入第二任务或试驾。不是集章活动。</p>
+<h3>最强反方</h3>
+<ol><li>内部已有成熟系统；</li><li>品牌不是经营瓶颈；</li><li>数据不可得；</li><li>经销拒绝；</li><li>五分钟做浅；</li><li>效果广告更优；</li><li>总部协议更慢；</li><li>合同不允许；</li><li>安全/数据风险；</li><li>高端品牌降格。</li></ol>
+<p>支持:反证 5:12，故不升置信。</p>
+<h3>会面姿势</h3>
+<p>不教客户体育，不卖 SKU，不报大平台。先承认其全球化与技术能力，再问一个运营问题；客户若有成熟证据，主动杀死我方假说。这种可被反驳，才有资格进入决策层。</p>
+<h3>索引</h3>
+<ul><li>财务：<code>research/01_IR_financial.md</code></li><li>原话：<code>02</code>、<code>19</code></li><li>合作/权益：<code>03</code>、<code>10</code>、<code>14</code></li><li>品牌/市场：<code>07</code>、<code>12</code>、<code>15</code>、<code>17</code></li><li>测量：<code>16</code></li><li>反方：<code>13</code>、<code>18</code>、<code>ifalsify_report.md</code></li><li>数字：<code>data_traceability.md</code></li></ul></section><section class="sec" id="ifalsify"><div class="label">证伪</div><h2 class="sec-title">ifalsify 证伪报告</h2><h2 class='md-h1'>ifalsify_report · 比亚迪</h2>
+<p><strong>Date:</strong> 2026-08-26<br/><strong>Mode:</strong> 反方优先 · 默认无 SURVIVES<br/><strong>Overall:</strong> <strong>CONDITIONAL / PIVOT-ready</strong></p>
+<h3>可证伪 Hypothesis</h3>
+<blockquote><p>比亚迪已把车、工厂和体育权益带到全球，但现有全球体育关系在“合同权益→品牌路由→国家调用→经销承接→经营归因”之间可能仍需重复搭建；若这一缺口真实，一套轻量全球信任协议加一个五分钟技术证明试点，会比再买曝光更能提高现有权益复用与高质量试驾。公开资料只证明资产与经营张力，<strong>不证明内部流程缺口</strong>。</p></blockquote>
+<h3>Disconfirm Hunt</h3>
+<h4>F1 · 内部早已有成熟全球运营层</h4>
+<ul><li><strong>Attacks:</strong> 官网不披露不等于没有系统。</li><li><strong>Evidence:</strong> BYD 已有多国运营、全球权益和成熟组织；内部 toolkit/CRM/复盘【待核实】。</li><li><strong>Strength:</strong> <strong>Severe</strong></li><li><strong>Experiment:</strong> 看一份已结束赛季从合同到国家复盘的真实工单。若调用、路由、经销与归因成熟，A 概念 <strong>KILL</strong>。</li></ul>
+<h4>F2 · 当前前三经营问题不是品牌/体验</h4>
+<ul><li><strong>Attacks:</strong> 2026 压力可能来自产品、价格、库存、服务、金融或贸易。</li><li><strong>Evidence:</strong> 财报只证明压力，不证明原因。</li><li><strong>Strength:</strong> <strong>Fatal</strong></li><li><strong>Experiment:</strong> 海外经营负责人排序前三问题；品牌信任/技术理解/试驾质量不在其中，则不争主预算。</li></ul>
+<h4>F3 · 球迷数据不可合法获得</h4>
+<ul><li><strong>Attacks:</strong> 合同、GDPR、国家系统不允许用户身份层。</li><li><strong>Strength:</strong> <strong>Severe</strong></li><li><strong>Experiment:</strong> 法务确认数据角色、用途与跨境；用户级不可行则降为门店级增量，不能卖全球 CRM。</li></ul>
+<h4>F4 · 经销商不愿承接</h4>
+<ul><li><strong>Attacks:</strong> 低质扫码、人员和试驾容量让门店承担成本。</li><li><strong>Evidence:</strong> 2025 经销收入占 54.33%，经销是经营主体，不是末端工具。[A1]</li><li><strong>Strength:</strong> <strong>Severe</strong></li><li><strong>Experiment:</strong> 访谈试点门店，由其定义任务时长、容量、激励与 Kill；无 champion 则 B <strong>KILL</strong>。</li></ul>
+<h4>F5 · 五分钟把技术做浅</h4>
+<ul><li><strong>Attacks:</strong> 用户只记得好玩/球星，误解闪充或辅助驾驶。</li><li><strong>Strength:</strong> <strong>Severe</strong></li><li><strong>Experiment:</strong> 盲测价值、条件、边界和品牌；误导高于普通展示即停。</li></ul>
+<h4>F6 · 效果广告更便宜</h4>
+<ul><li><strong>Attacks:</strong> 同预算效果投放带来更多可追踪试驾。</li><li><strong>Strength:</strong> <strong>High</strong></li><li><strong>Experiment:</strong> 同城同期比较到店质量、品牌理解和长期资产；三项均无优势则回广告。</li></ul>
+<h4>F7 · 总部协议制造新官僚</h4>
+<ul><li><strong>Attacks:</strong> 权益矩阵、工单和 dashboard 让国家更慢。</li><li><strong>Strength:</strong> <strong>High</strong></li><li><strong>Experiment:</strong> MVP 不开发软件；比较 brief→上线周期、返工、第二国复用。更慢且无改善则 A <strong>KILL</strong>。</li></ul>
+<h4>F8 · 多品牌路由只是已有 brand book</h4>
+<ul><li><strong>Attacks:</strong> Brand Router 可能只是换名。</li><li><strong>Strength:</strong> <strong>High</strong></li><li><strong>Experiment:</strong> 抽一个真实激活，看是否已连合同、国家、车型、CTA、对照和停止；已完整则不单卖。</li></ul>
+<h4>F9 · 现有权益不允许任务化</h4>
+<ul><li><strong>Attacks:</strong> 人物、场地、数据、商标、抽奖和试驾受限。</li><li><strong>Strength:</strong> <strong>Severe</strong></li><li><strong>Experiment:</strong> Rights API 由合同生成；合同不可调用的模块删除，不让创意反推权利。</li></ul>
+<h4>F10 · 安全/数据风险吞噬收益</h4>
+<ul><li><strong>Attacks:</strong> 驾驶、充电、未成年人或隐私事故会放大。</li><li><strong>Strength:</strong> <strong>Fatal</strong></li><li><strong>Experiment:</strong> 静态/模拟优先；产品安全、法务、保险一票否决。</li></ul>
+<h4>F11 · 高端品牌不适合大众联赛</h4>
+<ul><li><strong>Attacks:</strong> 腾势/仰望被人流与集章降格。</li><li><strong>Strength:</strong> <strong>High</strong></li><li><strong>Experiment:</strong> 腾势用 hospitality，仰望邀请制见证；若仍以人流验收则移出。</li></ul>
+<h4>F12 · IP 方不愿把球迷变线索</h4>
+<ul><li><strong>Attacks:</strong> 任务化伤害球迷关系。</li><li><strong>Strength:</strong> <strong>High</strong></li><li><strong>Experiment:</strong> 基础体验不强迫 consent；IP 方共同设计。无法兼容则停。</li></ul>
+<h3>Asymmetry</h3>
+<div class='tbl'><table><thead><tr><th>侧</th><th>计数</th><th>说明</th></tr></thead><tbody><tr><td>支持</td><td>5</td><td>海外收入结构、多品牌、现有体育组合、经销占比、利润纪律</td></tr><tr><td>反证</td><td>12</td><td>F1–F12</td></tr><tr><td>比率</td><td><strong>0.42:1</strong></td><td>远低于 2:1 自嗨线，不得上调置信</td></tr></tbody></table></div>
+<h3>Claim Verdicts</h3>
+<div class='tbl'><table><thead><tr><th>Claim</th><th>Verdict</th><th>条件</th></tr></thead><tbody><tr><td>T1：信任按 campaign 重做</td><td><strong>CONDITIONAL</strong></td><td>必须取得真实流程缺口</td></tr><tr><td>全球信任协议可提高复用</td><td><strong>CONDITIONAL</strong></td><td>周期不变慢、第二国复用改善</td></tr><tr><td>五分钟任务提高试驾质量</td><td><strong>CONDITIONAL</strong></td><td>与普通展示有对照</td></tr><tr><td>BYD 不会做体育</td><td><strong>KILL</strong></td><td>公开资产已否定</td></tr><tr><td>BYD 缺年轻化</td><td><strong>KILL</strong></td><td>公司已有公开战略与动作</td></tr><tr><td>体育会拉动销量</td><td><strong>KILL</strong></td><td>无内部基线与因果证据</td></tr><tr><td>全球球迷 CRM 可统一</td><td><strong>KILL</strong></td><td>合同/数据未核</td></tr><tr><td>所有品牌适用同一联赛</td><td><strong>KILL</strong></td><td>高端必须分级</td></tr><tr><td>若数据不可用</td><td><strong>PIVOT</strong></td><td>转门店级增量/经销自有任务</td></tr><tr><td>若品牌非经营瓶颈</td><td><strong>PIVOT/KILL</strong></td><td>退居解释层或结束</td></tr></tbody></table></div>
+<h3>Overall Recommendation</h3>
+<ol><li><strong>允许内部 grill 与 L0 会面。</strong></li><li>只谈“验证现有权益是否值得安装可调用、可验收结构”，不宣称缺口已证实。</li><li>只从一个 Economic Buyer、一个 IP、一个品牌、一个国家、一个任务开始。</li><li>顶栏必须印 <strong>CONDITIONAL</strong>。</li><li><strong>禁用话术：</strong> 缺曝光、缺年轻化、不会做体育、合作必带销量、我们统一全球 CRM。</li></ol>
+<p><strong>Confidence:</strong> Medium-Low<br/><strong>升级条件:</strong> 关闭合同、KPI、流程、经销、数据、预算、对照与 Kill。</p>
+<h3>来源</h3>
+<ul><li>[A1] BYD 2025 年报：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>全量反方：<code>research/13_disconfirm_risks.md</code>、<code>research/18_impress_grill_and_decision_cases.md</code></li></ul></section><section class="sec" id="primary"><div class="label">PRIMARY 三问</div><h2 class="sec-title">PRIMARY · 三问 + 72h</h2><h2 class='md-h1'>PRIMARY_REQUIRED · 比亚迪</h2>
+<div class='tbl'><table><thead><tr><th>字段</th><th>值</th></tr></thead><tbody><tr><td>tier</td><td>A / lobbying showcase</td></tr><tr><td>状态</td><td><strong>open</strong></td></tr><tr><td>证伪</td><td><strong>CONDITIONAL</strong></td></tr><tr><td>阻塞</td><td>会面人、真实流程缺口、合同、KPI/基线、Economic Buyer、数据与经销承接</td></tr></tbody></table></div>
+<h3>为何必须 L0</h3>
+<p>外部 A 源能证明：海外收入已占 38.65%、体育资产已跨赛事/俱乐部/国家/高端治理、多品牌复杂度上升、利润与现金流要求投入可验收。外部资料<strong>不能证明</strong> BYD 内部存在 CRM 割裂、国家不能调用、经销商嫌线索差或品牌争夺权益。</p>
+<h3>待验证假说</h3>
+<p><strong>假说：</strong> 一个现有全球权益仍需在不同国家和品牌重复搭建运营链；轻量协议+技术任务可提高调用与试驾质量。<br/><strong>若真：</strong> 一个 IP×一个品牌×一个国家先试，合同先行、对照、未达即停。<br/><strong>若假：</strong> 若已有成熟运营层，discard A；若经营瓶颈不在品牌/体验，退居解释层或结束；若数据不可用，PIVOT 到门店级匿名增量。</p>
+<h3>会面三问（恰好 3 个）</h3>
+<ol><li><strong>过去两年全球足球权益里，哪一个指标让经营团队真正愿意续约——不是传播团队愿意汇报？</strong></li><li><strong>王朝、海洋、腾势等品牌调用同一全球权益时，谁决定各自讲什么、在哪些国家不讲？</strong></li><li><strong>如果只用一个赛季、两个国家做试点，您愿意用哪条“未达到就停”的指标杀死它？</strong></li></ol>
+<h3>首面后 72h checklist</h3>
+<ul><li>[ ] 客户 business problem 原话与前三经营问题排序</li><li>[ ] 见面人正式职权、initiator、Economic Buyer、veto、champion</li><li>[ ] 一个已结束赛季的真实运营地图/复盘</li><li>[ ] 国米或其他目标合同：地域、品牌、人物、场地、内容、数据、排他</li><li>[ ] 当前 KPI、历史基线、续约指标与最不可信指标</li><li>[ ] 目标国家、品牌、车型、上市/库存/服务窗口</li><li>[ ] 国家公司与经销商可承接容量、激励、反对意见</li><li>[ ] CRM/consent/data controller/跨境与删除架构</li><li>[ ] 产品安全、保险、未成年人、辅助驾驶宣传边界</li><li>[ ] 预算 owner；沉没权益费 vs 新增激活/系统/门店成本</li><li>[ ] 试点/对照城市与观察窗</li><li>[ ] 主指标、即时停与一轮后停</li><li>[ ] IP 方对任务化与球迷体验的态度</li><li>[ ] 当前 agency roster、职责和不可替代能力</li></ul>
+<h3>明确不说（L0 closed 前）</h3>
+<ul><li>体育合作预算、赞助金额、排他与球迷数据权限</li><li>全球粉丝数=有效触达或线索</li><li>BYD 不会做体育/缺年轻化/缺全球化</li><li>2026 压力由品牌或体育造成</li><li>合作一定拉动销量</li><li>我方能统一全球 CRM</li><li>2026–2028 收入、销量、ROI 预测</li><li>“兜底”无限化、辅助驾驶=自动驾驶</li><li>20,000 座闪充站已建成（这是目标）</li></ul>
+<h3>L0 关闭标准</h3>
+<p>只有合同可调用、经营问题真实、一个买家与执行链明确、基线/对照可得、安全数据通过、Kill 已写，状态才从 open 改为 closed。</p></section><section class="sec" id="max"><div class="label">BD经验缺口</div><h2 class="sec-title">BD经验缺口审计</h2><h2 class='md-h1'>BD经验缺口审计 · 比亚迪</h2>
+<blockquote><p>目标：BD经验角度全覆盖，但不靠预测与内部猜测填满表格。状态截至 2026-08-26。</p></blockquote>
+<div class='tbl'><table><thead><tr><th>BD经验要求</th><th>覆盖位置</th><th>状态/超越点</th></tr></thead><tbody><tr><td>成立、大事记、生命周期</td><td><code>research/07</code>、<code>08</code></td><td>✅ 电池→整车→新能源单向门→多品牌→全球运营→责任体验</td></tr><tr><td>使命/愿景/价值语言</td><td><code>02</code>、<code>19</code></td><td>✅ 署名原话、日期、URL；原话→设计/Kill</td></tr><tr><td>创始人/高管/决策</td><td><code>06</code></td><td>⚠️ 公开职务已证；项目审批/汇报线 L0</td></tr><tr><td>三年收入/利润/现金流</td><td><code>01</code>、<code>data_traceability</code></td><td>✅ 2023–2025+2026Q1；口径分开</td></tr><tr><td>未来三年趋势</td><td><code>01</code>、<code>ONE_PAGER</code></td><td><strong>【留空】</strong> 无公司量化指引，不编</td></tr><tr><td>收入按业务/地区/渠道</td><td><code>01</code></td><td>✅ 业务、境内外、直销/经销</td></tr><tr><td>销量/出口</td><td><code>01</code>、溯源表</td><td>✅ 年报+月报；月报标未经审计</td></tr><tr><td>品牌/系列矩阵</td><td><code>07</code>、<code>15</code></td><td>✅ 官方定位；+五种用户 Job 路由</td></tr><tr><td>产品/技术</td><td><code>11</code></td><td>✅ 技术→痛点→行为→边界；非 SKU 目录</td></tr><tr><td>价格/人群</td><td><code>07</code>、<code>15</code></td><td>⚠️ 官方定位有；国家价格/人群%【待核实】</td></tr><tr><td>海外市场</td><td><code>10</code>、<code>12</code>、<code>17</code></td><td>✅ 区域原型+八段本地信任链；不冒充国家洞察</td></tr><tr><td>行业大盘/政策</td><td><code>05</code></td><td>✅ 渗透、出口、智能责任、政策边界</td></tr><tr><td>竞品 3–5 家</td><td><code>04</code></td><td>✅ Tesla/Geely/SAIC/Xiaomi/Toyota steelman</td></tr><tr><td>过往营销/体育</td><td><code>03</code>、<code>10</code>、<code>14</code></td><td>✅ 资产时间线；+合同七层与36问</td></tr><tr><td>组织/渠道</td><td><code>06</code>、<code>14</code></td><td>✅ Power/MEDDIC/RACI；内部流程明示未知</td></tr><tr><td>指标/ROI</td><td><code>16</code></td><td>✅ 事件字典、漏斗、四类实验、四本账</td></tr><tr><td>SWOT/TOWS</td><td><code>ONE_PAGER</code></td><td>✅ 证据化；不把机会写成结果</td></tr><tr><td>“说的 vs 做的”</td><td><code>ONE_PAGER</code></td><td>✅ 愿景/实绩/未知分开</td></tr><tr><td>主张力</td><td><code>03_tensions</code></td><td>✅ T1；一张力</td></tr><tr><td>证伪</td><td><code>ifalsify_report</code>、<code>13</code>、<code>18</code></td><td>✅ 12 反证；0.42:1；CONDITIONAL</td></tr><tr><td>三问+72h</td><td><code>PRIMARY_REQUIRED</code></td><td>✅ 恰好三问；72h 完整</td></tr><tr><td>数据溯源</td><td><code>data_traceability</code></td><td>✅ 数字 A 源；未知明示</td></tr><tr><td>不进 pitch</td><td><code>research/09</code></td><td>✅ 48 条</td></tr><tr><td>disruptive - 跳出盒子 新品类</td><td><code>pitchvision/</code></td><td>✅ A 全球信任协议；B 五分钟技术联赛</td></tr></tbody></table></div>
+<h3>最大未闭缺口</h3>
+<ol><li>会面人、Economic Buyer、预算与采购；</li><li>内部前三经营问题与真实流程缺口；</li><li>体育合同全权益/排他/数据边界；</li><li>当前 KPI、基线、续约逻辑；</li><li>国家/品牌/车型优先级；</li><li>经销商承接与评价；</li><li>CRM/consent/跨境架构；</li><li>安全、保险、未成年人规则；</li><li>试点与对照；</li><li>2026 中报尚未纳入本案时间锚【待发布/核实】。</li></ol>
+<h3>裁决</h3>
+<p><strong>BD经验公开资料角度已覆盖；销售事实闸口未闭。</strong><br/>可称“v1.0 研究与会面假说”，不可称“已找到客户内部痛点”或“会前最终包已完成”。</p></section><section class="sec" id="tensions"><div class="label">张力池</div><h2 class="sec-title">张力候选</h2><h2 class='md-h1'>比亚迪张力候选</h2>
+<blockquote><p>本轮仅选一条进会面主刀。事实与推断分离；未做 L0 前总体状态为 CONDITIONAL。</p></blockquote>
+<h3>T1【主刀推荐】车已全球化，信任仍按赞助项目一次次重做</h3>
+<p><strong>他们公开相信：</strong> “以技术为根、以出海为引擎”，并要打造“具有本地品牌属性”的产品。<br/><strong>实际发生：</strong> 2025 境外收入增长 40.05%、占 38.65%，覆盖 119 个国家和地区；同时足球资产已包括欧洲杯、国米、泰国足球等。<br/><strong>张力：</strong> 车、工厂和权益都到了全球，但若每个赛事、国家、品牌仍各做一套 campaign，全球声量不会自动沉淀为本地可调用、可归因的信任。<br/><strong>受伤指标：</strong> 权益激活率、品牌分辨度、试驾质量、内容复用、每有效线索成本。基线【待核实】。<br/><strong>出口：</strong> 建立“全球技术信任协议”——一个权益关系，按品牌 Job 与国家场景路由，用户完成技术任务，数据回到本地经营。<br/><strong>认不认：</strong> “你们现在最缺的是更多全球曝光，还是让已经买到的全球权益在每个国家真正留下可验收资产？”</p>
+<h3>T2 技术普惠越成功，多品牌越容易只剩“都是比亚迪技术”</h3>
+<p><strong>事实：</strong> 天神之眼、云辇、闪充等能力跨价格带和品牌扩展；年报同时要求差异化多品牌生态。<br/><strong>张力：</strong> 共享技术提高规模效率，却可能降低王朝/海洋/腾势/方程豹/仰望的精神分辨度。<br/><strong>受伤指标：</strong> 品牌正确归类、价格带溢价、跨品牌蚕食【待核实】。<br/><strong>出口：</strong> 体育不是统一 KV，而是同一技术被路由成五种用户 Job。<br/><strong>风险：</strong> 若内部已有成熟 brand routing，该张力应降级。</p>
+<h3>T3 从“好技术人人可享”到“好体验人人可完成”</h3>
+<p><strong>事实：</strong> 全民智驾、全民赛道、闪充网络均强调普惠。<br/><strong>张力：</strong> 发布会能证明技术存在，却不能替全球用户完成第一次理解、信任与使用。<br/><strong>受伤指标：</strong> 功能激活、体验完成、试驾与安全信心【待核实】。<br/><strong>出口：</strong> 5–10 分钟标准化技术任务网络。<br/><strong>适合对象：</strong> 产品体验/国家市场，而非纯品牌一号位。</p>
+<h3>T4 出海增长越快，全球“大一统内容”越危险</h3>
+<p><strong>事实：</strong> 拉美、欧洲、亚太、中东增长逻辑不同；公司强调全球化+本地化。<br/><strong>张力：</strong> 总部需要规模效率，本地需要文化相关性；单一全球创意可能两头不讨好。<br/><strong>出口：</strong> 全球母协议、本地共同作者、统一验收。<br/><strong>风险：</strong> 容易变成普通“glocal”咨询话术，必须用实际合同/流程缺口证明。</p>
+<h3>T5 体育已经证明能触达，尚未证明能复利</h3>
+<p><strong>事实：</strong> 国米三年合作有车队、特别版和内容机会；欧洲杯有官方用车与球迷广场。<br/><strong>张力：</strong> 每个项目能产生峰值，却未见公开证据说明用户身份、经销调用和品牌资产跨赛季累积。<br/><strong>出口：</strong> 球迷任务身份层。<br/><strong>风险：</strong> 数据权限可能被 IP 合同禁止；需先查，不可把猜测当事实。</p>
+<h3>主张力候选一句</h3>
+<blockquote><p><strong>比亚迪已经把车、工厂和顶级体育权益带到全球；下一道门不是再买一次全球曝光，而是让每个本地市场都能把同一份技术实力转成可调用、可归因、可复利的信任。</strong></p></blockquote></section><section class="sec" id="trace"><div class="label">数据溯源</div><h2 class="sec-title">数据溯源表</h2><h2 class='md-h1'>比亚迪数据溯源表</h2>
+<blockquote><p>✅=已对 A 源核对；⚠️=A 源发布但未经审计/或由 A 源数值计算；【待核实】=不得现场当事实说。</p></blockquote>
+<div class='tbl'><table><thead><tr><th>数据点</th><th>数值</th><th>时间锚</th><th>级别</th><th>来源</th><th>状态</th></tr></thead><tbody><tr><td>营业收入</td><td>8,039.65亿元</td><td>2025</td><td>A</td><td>[A1]年报主要会计数据</td><td>✅</td></tr><tr><td>营业收入</td><td>7,771.02亿元</td><td>2024</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>营业收入</td><td>6,023.15亿元</td><td>2023</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>归母净利润</td><td>326.19亿元</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>归母净利润</td><td>402.54亿元</td><td>2024</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>归母净利润</td><td>300.41亿元</td><td>2023</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>扣非归母净利润</td><td>294.46亿元</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>经营现金流净额</td><td>591.36亿元</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>总资产</td><td>8,837.30亿元</td><td>2025末</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>汽车相关业务收入</td><td>6,486.46亿元</td><td>2025</td><td>A</td><td>[A1]MD&amp;A</td><td>✅</td></tr><tr><td>汽车相关业务收入占比</td><td>80.68%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>手机部件等收入</td><td>1,552.37亿元</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>境外收入</td><td>3,107.41亿元</td><td>2025</td><td>A</td><td>[A1]收入构成</td><td>✅</td></tr><tr><td>境外收入占比</td><td>38.65%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>境外收入同比</td><td>+40.05%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>境内收入同比</td><td>-11.17%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>直销收入占比</td><td>45.67%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>经销收入占比</td><td>54.33%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>研发投入</td><td>634.41亿元</td><td>2025</td><td>A</td><td>[A1]研发投入表</td><td>✅</td></tr><tr><td>研发投入占营收</td><td>7.89%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>研发工程师</td><td>超12万人</td><td>2025末</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>累计申请专利</td><td>超7.1万项</td><td>2025末</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>新能源车销量</td><td>4,602,436辆</td><td>2025</td><td>A</td><td>[A1]产销量表</td><td>✅</td></tr><tr><td>境外覆盖</td><td>119个国家和地区</td><td>2025末</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>整车出口</td><td>突破100万辆</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>腾势/方程豹/仰望销量</td><td>近40万辆</td><td>2025</td><td>A</td><td>[A1]董事长致辞</td><td>✅</td></tr><tr><td>方程豹销量同比</td><td>+316%</td><td>2025</td><td>A</td><td>[A1]</td><td>✅</td></tr><tr><td>2026Q1营收</td><td>1,502.25亿元</td><td>2026Q1</td><td>A</td><td>[A2]</td><td>✅</td></tr><tr><td>2026Q1营收同比</td><td>-11.82%</td><td>2026Q1</td><td>A</td><td>[A2]</td><td>✅</td></tr><tr><td>2026Q1归母净利</td><td>40.85亿元</td><td>2026Q1</td><td>A</td><td>[A2]</td><td>✅</td></tr><tr><td>2026Q1归母净利同比</td><td>-55.38%</td><td>2026Q1</td><td>A</td><td>[A2]</td><td>✅</td></tr><tr><td>2026Q1经营现金流</td><td>27.90亿元</td><td>2026Q1</td><td>A</td><td>[A2]</td><td>✅</td></tr><tr><td>2026年1–7月销量</td><td>2,234,379辆</td><td>2026-07 YTD</td><td>A</td><td>[A3]未经审计产销公告</td><td>⚠️</td></tr><tr><td>1–7月销量同比</td><td>-8.98%</td><td>2026-07 YTD</td><td>A</td><td>[A3]</td><td>⚠️</td></tr><tr><td>7月销量</td><td>317,892辆</td><td>2026-07</td><td>A</td><td>[A3]</td><td>⚠️</td></tr><tr><td>7月出口</td><td>180,538辆</td><td>2026-07</td><td>A</td><td>[A3]</td><td>⚠️</td></tr><tr><td>闪充站目标</td><td>2026年底全国20,000座</td><td>目标非实绩</td><td>A</td><td>[A4]官网发布会</td><td>✅目标</td></tr><tr><td>国米合作期限</td><td>3年</td><td>2025-07起</td><td>A</td><td>[A5]官网</td><td>✅</td></tr><tr><td>国米车队</td><td>约70辆新能源车</td><td>合作期</td><td>A</td><td>[A5]</td><td>✅</td></tr><tr><td>ANOC服务代表</td><td>1,200余名</td><td>2026大会</td><td>A</td><td>[A6]官网</td><td>✅</td></tr><tr><td>体育合作预算</td><td>未披露</td><td>—</td><td>—</td><td>—</td><td>【待核实】</td></tr><tr><td>国米粉丝转化</td><td>未披露</td><td>—</td><td>—</td><td>—</td><td>【待核实】</td></tr><tr><td>全球CRM统一率</td><td>未披露</td><td>—</td><td>—</td><td>—</td><td>【待核实】</td></tr><tr><td>各品牌营销预算</td><td>未披露</td><td>—</td><td>—</td><td>—</td><td>【待核实】</td></tr><tr><td>2026–2028收入/销量预测</td><td>公司未提供量化指引</td><td>—</td><td>—</td><td>—</td><td>留空</td></tr></tbody></table></div>
+<h3>竞品 A 源</h3>
+<div class='tbl'><table><thead><tr><th>公司</th><th>数据</th><th>时间</th><th>来源</th><th>状态</th></tr></thead><tbody><tr><td>Tesla</td><td>交付1,636,129辆；汽车收入695.16亿美元</td><td>2025</td><td>[C1]SEC 10-K/IR</td><td>✅</td></tr><tr><td>吉利汽车</td><td>销量3,024,567辆；收入3,452.32亿元</td><td>2025</td><td>[C2]HKEX</td><td>✅</td></tr><tr><td>上汽</td><td>销量450.7万辆；海外107.1万辆；收入6,562.44亿元</td><td>2025</td><td>[C3]公司年报</td><td>✅</td></tr><tr><td>小米</td><td>智能电动车交付411,082辆；汽车收入1,033亿元</td><td>2025</td><td>[C4]HKEX</td><td>✅</td></tr><tr><td>丰田</td><td>合并销量959.5万辆；海外751.3万辆</td><td>FY2026</td><td>[C5]Toyota IR</td><td>✅</td></tr></tbody></table></div>
+<h3>URL</h3>
+<ul><li>[A1] https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803001.pdf</li><li>[A3] https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0802/2026080200027.pdf</li><li>[A4] https://www.bydglobal.com/cn/news/2026-03-06/1617162762962</li><li>[A5] https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A6] https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li><li>[C1] https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm</li><li>[C2] https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0318/2026031800309.pdf</li><li>[C3] https://www.saicmotor.com/english/images/investor_relations/annual_report/2026/4/21/0DFE68E4BCB74B01ACFAE92C344763FF.pdf</li><li>[C4] https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042800526.pdf</li><li>[C5] https://global.toyota/pages/global_toyota/ir/financial-results/2026_4q_summary_en.pdf</li></ul></section><section class="sec" id="charter"><div class="label">立项</div><h2 class="sec-title">立项章程</h2><h2 class='md-h1'>Pitch 立项 · 比亚迪（BYD）</h2>
+<div class='tbl'><table><thead><tr><th>字段</th><th>内容</th></tr></thead><tbody><tr><td>日期</td><td>2026-08-26</td></tr><tr><td>客户</td><td>比亚迪股份有限公司（SZSE:002594 / HKEX:1211）</td></tr><tr><td>用途</td><td><strong>游说主案例</strong> — 用 Cursor 高级模型按 <code>/pitchsop</code> 交付，impress 对象</td></tr><tr><td>会面人 / 时长</td><td>【待核实】· 本轮先交三件套 + disruptive - 跳出盒子，未锁约会</td></tr><tr><td>成功定义</td><td>□成单 □愿谈 □共创 — 本轮：<strong>可对外预演的高品质三件套</strong></td></tr><tr><td>时间锚</td><td>最新年报/中报、月度销量、出海与品牌动作（以 IR/港交所 A 源为准）</td></tr><tr><td>红线</td><td>不编三年增速；不把媒体金额当官宣；不把「缺年轻化」当主刀；体育/赞助未核实金额不上正文</td></tr><tr><td>三件套</td><td>①最厚 <code>research/</code> ②中间层 <code>A_dossier</code> + <code>ONE_PAGER</code> ③薄 <code>B_knife</code></td></tr><tr><td><strong>强制</strong></td><td>≥2 条 <strong>disruptive - 跳出盒子</strong> 新品类合作创意（与货架分轨；禁止哗众取宠）</td></tr><tr><td>对标</td><td><code>cases/xiangpiaopiao</code> 厚度 + <code>archive/nio/pitchvision</code> 创意品质</td></tr></tbody></table></div>
+<h3>本轮范围</h3>
+<p>用户指令（2026-08-26）：脱离 DeepSeek 机；在 Cursor chat 完成同等逻辑；品质拉满；<strong>必须有创意 disruptive（跳出盒子）式商业合作建议</strong>。</p>
+<h3>禁止</h3>
+<ul><li>未过 iceberg / ifalsify 写对外刀子</li><li>把货架 SKU 清单当会面主菜</li><li>空洞「颠覆」口号无 Job / 旧品类→新品类证明</li></ul></section><section class="sec" id="xbox-index"><div class="label">跳出盒子 · 索引</div><h2 class="sec-title">disruptive - 跳出盒子 · 总览</h2><h2 class='md-h1'>BYD disruptive - 跳出盒子：两种新品类，不是两个 Campaign</h2>
+<h3>判定标准</h3>
+<p>王传福评价大疆合作时说，合作“绝不只是把无人机放在车上”，而是从底层技术出发形成整车集成系统。以下两个概念也按此标准：</p>
+<div class='tbl'><table><thead><tr><th></th><th>A · 全球信任协议 Global Trust Protocol</th><th>B · 五分钟技术联赛 Five-Minute Proof League</th></tr></thead><tbody><tr><td>旧品类</td><td>全球体育赞助包/各国激活</td><td>发布会/试驾会/球迷广场展示</td></tr><tr><td>新品类</td><td>多品牌×多国家的权益路由与验收协议</td><td>用户亲自完成技术证明的赛季制网络</td></tr><tr><td>Job</td><td>同一全球权益在每个市场留下不同但可比较的本地信任资产</td><td>让陌生用户在五分钟内从“听说技术强”到“我亲自完成过”</td></tr><tr><td>主受益者</td><td>集团品牌、海外经营、国家公司</td><td>海洋/腾势/方程豹优先，按任务路由</td></tr><tr><td>Why now</td><td>境外收入近四成、国米合作在期、利润承压</td><td>闪充/全民赛道/安全兜底把体验变成公司战略</td></tr><tr><td>验收</td><td>国家/经销商调用、品牌分辨、试驾 uplift、资产留存</td><td>完成率、有效 consent、试驾到店、功能理解、安全</td></tr></tbody></table></div>
+<h3>为什么两个</h3>
+<ul><li>A 是<strong>操作系统</strong>：解决集团规模、多品牌精度与国家本地化。</li><li>B 是<strong>用户界面</strong>：解决技术发布与用户亲证之间的最后一公里。</li><li>可单独试点；若同时采用，B 的任务数据由 A 路由与治理。</li></ul>
+<h3>不做</h3>
+<ul><li>不卖潜在粉丝总数；</li><li>不承诺未经验证的 ROI；</li><li>不替换现有国米、欧洲杯或国家合作；</li><li>不让所有品牌同时露出；</li><li>不做公共道路竞技；</li><li>不假设 IP 方会分享球迷数据。</li></ul>
+<h3>建议会面使用</h3>
+<p>先用 A 讨论战略结构；若对方认可“权益无法复利”，再展示 B 作为可见产品。若对方只关心单一品牌增长，直接从 B 的一个国家、一个任务、一个 CTA 开始。</p></section><section class="sec" id="xbox-1"><div class="label">跳出盒子 1</div><h2 class="sec-title">全球信任协议 Global Trust Protocol</h2><h3>Job Map · 全球信任协议</h3>
+<h2 class='md-h1'>Job Map · 全球信任协议</h2>
+<h3>When</h3>
+<ul><li>海外收入已近四成，出海从出口进入本地运营；</li><li>同一集团有五种品牌/系列 Job；</li><li>全球体育关系越来越多；</li><li>国家公司需要增长，总部需要统一，CFO 需要归因。</li></ul>
+<h3>Want</h3>
+<p>集团品牌/海外经营想：</p>
+<blockquote><p>“一个全球权益，在不同市场不做同一张海报；但所有市场仍使用同一套品牌、安全、数据和验收语言。”</p></blockquote>
+<h3>But</h3>
+<div class='tbl'><table><thead><tr><th>现在 hire 的方案</th><th>实际妥协</th></tr></thead><tbody><tr><td>总部全球 Campaign</td><td>高效率、低本地相关</td></tr><tr><td>各国独立 agency</td><td>高相关、重复成本、不可比较</td></tr><tr><td>一个 IP 覆盖所有品牌</td><td>集团声量高、品牌分辨低</td></tr><tr><td>只做效果广告</td><td>可归因，但不能沉淀世界品牌</td></tr><tr><td>赛事赞助复盘</td><td>触达很多，经营链未知</td></tr></tbody></table></div>
+<h3>Struggling moment</h3>
+<blockquote><p>“赛季末，全球报告说触达了很多人；国家总经理问：我的经销商用了什么？品牌 GM 问：用户记住的是 BYD 还是我的品牌？财务问：明年为什么续？三份报告互相回答不了。”</p></blockquote>
+<p>这是外部假说，必须在首面验证。</p>
+<h3>New Job</h3>
+<p><strong>Install a trust-routing protocol</strong>：把体育权益像技术平台一样模块化，让品牌、国家与经销商调用，并留下统一证据。</p>
+<h3>Functional jobs</h3>
+<ol><li>权益可查；</li><li>品牌可选；</li><li>国家可配置；</li><li>用户可 consent；</li><li>经销可承接；</li><li>数据可比较；</li><li>未达标可停止。</li></ol>
+<h3>Emotional jobs</h3>
+<ul><li>总部不再害怕本地化失控；</li><li>国家公司不再觉得全球权益与自己无关；</li><li>品牌 GM 不再担心被集团 logo 淹没；</li><li>CFO 不再只收到媒体等价价值。</li></ul>
+<h3>Social job</h3>
+<p>让 BYD 看起来不是“购买世界舞台的中国公司”，而是“给本地伙伴留下可持续能力的世界公司”。</p>
+<h3>Forces</h3>
+<p><strong>Push：</strong> 利润承压、权益碎片、多品牌复杂。<br/><strong>Pull：</strong> 现有国米关系、海外规模、技术真相。<br/><strong>Anxiety：</strong> 数据合规、组织协同、系统过重。<br/><strong>Habit：</strong> 继续按 campaign 和年度预算采购。</p>
+<h3>Adoption wedge</h3>
+<p>不先建平台。先用表单+权益矩阵+品牌任务卡+统一事件 ID 跑两个国家；证明调用与增量后再产品化。</p>
+<h3>Outcome statement</h3>
+<p>在不增加第二套全球 IP 的前提下，提高重点国家对现有权益的有效调用与经营承接，同时保持各品牌认知分辨；具体目标在基线后共同设定。</p>
+<h3>Vision Card · 全球信任协议</h3>
+<h2 class='md-h1'>Vision Card · 全球信任协议</h2>
+<h3>一句话</h3>
+<blockquote><p>不是再买一个全球 IP，而是给已经买到的全球关系安装一套“品牌路由、国家调用、经营验收”的协议。</p></blockquote>
+<h3>旧品类 → 新品类</h3>
+<p><strong>旧：全球体育赞助包</strong><br/>总部买权益，agency 做 KV，各国转发，赛季末汇总触达。</p>
+<p><strong>新：Global Trust Protocol（全球信任协议）</strong><br/>把权益拆成可配置接口：每个国家选一个本地张力、每个品牌选一个用户 Job、每次激活选一个技术证据、每个经销商接一个经营 CTA；全球只统一安全、数据、品牌与验收规则。</p>
+<h3>Job</h3>
+<p>当 BYD 同时进入 119 个国家和地区、拥有多个品牌与多项体育关系时，集团品牌和海外经营团队想要：</p>
+<blockquote><p><strong>只维护一套全球关系与标准，却让每个国家留下自己的信任资产；CFO 看到的不是潜在触达，而是权益被谁调用、用户完成了什么、经营链留下了什么。</strong></p></blockquote>
+<h3>Why now</h3>
+<ul><li>2025 境外收入 3,107.41 亿元，占 38.65%，同比增长 40.05%；</li><li>国米三年合作正在运行，仍有重构空间；</li><li>2025 归母净利润下降 18.97%，2026Q1下降 55.38%，投入必须可验收；</li><li>多品牌高端化加速，统一曝光会稀释品牌；</li><li>王传福已明确要“打造具有本地品牌属性的产品”。</li></ul>
+<h3>产品构件</h3>
+<ol><li><strong>Rights API</strong>：合同允许哪些国家、品牌、球员、场地、内容与数据动作；</li><li><strong>Brand Router</strong>：王朝/海洋/腾势/方程豹/仰望各自 Job 与禁用语；</li><li><strong>Local Mission Kit</strong>：国家公司从模板选择本地议题、技术任务和 CTA；</li><li><strong>Proof Ledger</strong>：记录调用、完成、consent、试驾、对照与资产留存；</li><li><strong>Kill Switch</strong>：未达门槛、合规失败或经销无能力，自动不扩张。</li></ol>
+<h3>它改变的不是传播物，而是一次权益的“调用方式”</h3>
+<p>旧流程的单位是 campaign；新协议的单位是一次可审计调用：</p>
+<p><code>合同字段 → 一个品牌 Job → 一个国家问题 → 一个用户任务 → 一个经营 CTA → 一条停止规则</code></p>
+<p>若交付仍是权益盘点、brand book、toolkit 和 dashboard，它就不是新品类，只是 agency 服务换名。</p>
+<h3>三个现场画面</h3>
+<ol><li><strong>意大利/国米：</strong> 国家团队不先要一张 KV，而从 Rights API 选择可用人物/场地；海洋只证明一个城市技术 Job，门店接第二任务。</li><li><strong>泰国主场：</strong> 当地工厂员工、球队与经销商共同定义本地问题；总部只锁技术、安全、数据与品牌边界。</li><li><strong>香港/腾势：</strong> ANOC 车队服务不以人流复盘，而结转为可复制的礼宾、调度、充电与反馈 SOP。</li></ol>
+<p>以上是设计原型，不代表合同已允许或已经执行。</p>
+<h3>首个最小试点</h3>
+<ul><li>一个现有 IP：优先国米；</li><li>两个国家：一个成熟欧洲市场+一个增长市场，具体【待核实】；</li><li>两个品牌以内；</li><li>一个赛季窗口；</li><li>一项技术任务；</li><li>一个经营 CTA；</li><li>必须设对照城市/门店。</li></ul>
+<h3>可验收指标</h3>
+<ul><li>目标国家中实际调用协议的比例；</li><li>母权益被本地复用次数；</li><li>品牌 Job 正确识别；</li><li>有效 consent 与任务完成；</li><li>试驾预约、到店及对照 uplift；</li><li>经销商重复调用；</li><li>每有效试驾/增量订单成本；</li><li>安全、投诉、隐私事故为 0。</li></ul>
+<p>目标值不预填，先取得基线。</p>
+<h3>90 天验证路径</h3>
+<ul><li><strong>0–30 天：</strong> 取得真实合同与已结束赛季复盘；画出现流程；若无缺口，KILL。</li><li><strong>31–60 天：</strong> 不写代码，用权益矩阵、品牌卡、国家工单、事件 ID 跑桌面演练。</li><li><strong>61–90 天：</strong> 一个国家小流量上线；比较旧流程的周期、返工、调用与门店结果。</li></ul>
+<h3>Grill：决策层会怎么打</h3>
+<div class='tbl'><table><thead><tr><th>质疑</th><th>回答/实验</th></tr></thead><tbody><tr><td>“我们早有全球 toolkit”</td><td>看它是否连接合同、品牌、CTA、对照与停止；已连接则不卖</td></tr><tr><td>“总部又加审批”</td><td>把 brief→上线周期列主指标；更慢且无改善即停</td></tr><tr><td>“GDPR 不允许”</td><td>降级门店级/运营级，不承诺用户身份</td></tr><tr><td>“这只是 dashboard”</td><td>MVP 不开发软件；先证明第二国复用</td></tr><tr><td>“谁买单？”</td><td>只找一个 Economic Buyer；没有就不做平台梦</td></tr></tbody></table></div>
+<h3>一句话 disruptive 检验</h3>
+<blockquote><p>跳出盒子，不是把旧权益播得更响；全球信任协议必须改变“权益怎样被国家调用和留下证据”，否则不成立。</p></blockquote>
+<h3>不是</h3>
+<ul><li>不是 CRM 大重构；</li><li>不是 another dashboard；</li><li>不是要求俱乐部交出全部球迷数据；</li><li>不是五品牌一起露出；</li><li>不是咨询报告；试点必须能跑。</li></ul>
+<h3>杀死条件</h3>
+<ul><li>现有合同不允许国家/品牌模块化调用；</li><li>无法取得用户 consent 或连接任何经营 CTA；</li><li>国家公司/经销商不愿执行；</li><li>对照实验无增量且品牌分辨无改善；</li><li>单次本地化成本高于继续独立制作。</li></ul>
+<h3>证据</h3>
+<p>财务与海外：[A1] 2025 年报；季度：[A2] 2026Q1；国米：[A3] 官网 2025-07-22。详见根目录 <code>data_traceability.md</code>。</p></section><section class="sec" id="xbox-2"><div class="label">跳出盒子 2</div><h2 class="sec-title">五分钟技术联赛 Five-Minute Proof League</h2><h3>Job Map · 五分钟技术联赛</h3>
+<h2 class='md-h1'>Job Map · 五分钟技术联赛</h2>
+<h3>When</h3>
+<ul><li>消费者在赛事/商场/门店只停留很短；</li><li>技术发布很强，但参数难以跨语言传播；</li><li>经销商需要比抽奖扫码更高质量的线索；</li><li>体育关系需要跨赛季留下用户资产；</li><li>体验必须严格安全、可复制。</li></ul>
+<h3>Want</h3>
+<p>国家市场/经销商想：</p>
+<blockquote><p>“不用先讲十分钟技术课，让用户亲自完成一件小事，就理解为什么这项技术与自己有关；完成后愿意迈向试驾。”</p></blockquote>
+<h3>But</h3>
+<div class='tbl'><table><thead><tr><th>现在 hire 的</th><th>得到的妥协</th></tr></thead><tbody><tr><td>展车+讲解员</td><td>参数多，参与弱</td></tr><tr><td>扫码抽奖</td><td>线索多，意向低</td></tr><tr><td>长试驾</td><td>证明强，吞吐低</td></tr><tr><td>炫技视频</td><td>传播强，用户没亲证</td></tr><tr><td>赛道活动</td><td>体验强，门槛/安全/规模受限</td></tr></tbody></table></div>
+<h3>Struggling moment</h3>
+<blockquote><p>“球迷在半场走过展车，只剩五分钟。销售只能让他扫码；用户拿了礼品，却仍说不出 BYD 的技术与另一辆新能源车有什么不同。”</p></blockquote>
+<h3>New Job</h3>
+<p><strong>Turn five minutes into owned proof</strong>：把五分钟从广告停留变成一项可完成、可带走、可继续的技术证据。</p>
+<h3>Progress chain</h3>
+<ol><li>被赛事/本地故事吸引；</li><li>选择与自己有关的任务；</li><li>完成一项安全体验；</li><li>用自己的话复述技术价值；</li><li>同意保存 Proof Card；</li><li>完成第二项或预约试驾；</li><li>在门店/赛季继续，而不是活动结束失联。</li></ol>
+<h3>Brand routing</h3>
+<ul><li>海洋：城市、年轻、轻技术任务；</li><li>王朝：家庭可靠与文化叙事；</li><li>腾势：家庭空间、安全、礼宾；</li><li>方程豹：专业教练降低探索门槛；</li><li>仰望：邀请制工程见证，不做大众打卡。</li></ul>
+<h3>Forces</h3>
+<p><strong>Push：</strong> 展示难归因、线索低质。<br/><strong>Pull：</strong> 闪充/赛车场/体育触点已存在。<br/><strong>Anxiety：</strong> 体验是否变幼稚、是否安全、是否影响高端。<br/><strong>Habit：</strong> 活动 KPI 仍按人流和扫码。</p>
+<h3>Design principles</h3>
+<ol><li>一次只教一件事；</li><li>用户做，不是主持人说；</li><li>任务不依赖危险驾驶；</li><li>完成证据不夸大产品能力；</li><li>CTA 比礼品更重要；</li><li>按品牌拆，不做集团大杂烩；</li><li>数据最小化与明确 consent；</li><li>每个任务都能被杀死。</li></ol>
+<h3>Outcome</h3>
+<p>在相同赛事触点与门店容量下，让任务完成者的技术理解、有效 consent、试驾到店质量高于普通展示活动；目标幅度只在取得历史基线后设定。</p>
+<h3>disruptive 类比</h3>
+<p>跳出盒子，不是「更大的唱片广告」，而是「把一千首歌放进口袋」——换使用方式，不是换声量。<br/>五分钟技术联赛不是“更大的汽车展台”，而是：</p>
+<blockquote><p><strong>把一次 BYD 工程验证放进每个球迷的五分钟。</strong></p></blockquote>
+<h3>Vision Card · 五分钟技术联赛</h3>
+<h2 class='md-h1'>Vision Card · 五分钟技术联赛</h2>
+<h3>一句话</h3>
+<blockquote><p>把“看一场比赛、看一次发布会、看一辆展车”改造成“我在五分钟内亲自完成一项 BYD 技术证明”。</p></blockquote>
+<h3>旧品类 → 新品类</h3>
+<p><strong>旧：球迷广场展车/发布会/周末试驾活动。</strong><br/>用户看参数、拍照、扫码抽奖，活动与赛季彼此断开。</p>
+<p><strong>新：Five-Minute Proof League（五分钟技术联赛）。</strong><br/>每轮只证明一个已发布能力；用户在闪充站、球迷广场、赛车场或门店完成安全任务，得到可验证“Proof Card”，累积成赛季身份并进入试驾/服务。</p>
+<h3>Job</h3>
+<p>当海外消费者知道 BYD 但不理解其技术差异时，国家市场和经销商想：</p>
+<blockquote><p><strong>让一个陌生用户在比赛日前五分钟完成“从听说到亲证”，并把这次亲证变成可同意、可跟进的高质量试驾起点。</strong></p></blockquote>
+<h3>任务例（须产品/法务批准）</h3>
+<ul><li><strong>闪充换人</strong>：在车辆安全静止充电期间完成短任务，展示“等待变短”；不做充电竞速。</li><li><strong>安全反应室</strong>：模拟器解释主动安全与兜底边界；不在道路触发危险。</li><li><strong>一杯水底盘课</strong>：封闭低速场地体验车身控制；不承诺绝对不洒。</li><li><strong>家庭空间排兵</strong>：在腾势静态车内完成比赛日家庭装备装载。</li><li><strong>方程豹探索证</strong>：专业教练带领完成一个低速地形技能。</li></ul>
+<p>仰望不做大众集章，使用邀请制“工程见证”。</p>
+<p>每个任务必须让用户答对三件事才算完成：</p>
+<ol><li>这项技术替我解决什么；</li><li>它在什么条件下成立、不能替我做什么；</li><li>它属于哪个品牌/车型。</li></ol>
+<p>只记得“好玩、球星、一杯水”不算完成。</p>
+<h3>Why now</h3>
+<ul><li>公司语言已从“好技术人人可享”扩展到“好体验人人可享”；</li><li>郑州全地形赛车场证明体验基础设施方向；</li><li>闪充把补能触点压缩为五到十分钟新媒介；</li><li>智能化兜底使“责任”本身成为可体验品牌资产；</li><li>传统体育展示无法回答利润承压下的归因。</li></ul>
+<h3>赛季结构</h3>
+<ol><li>每月一项技术；</li><li>每国一个本地故事；</li><li>每品牌一个 Job；</li><li>每任务一个 Proof Card；</li><li>完成两项后才邀请试驾，避免低质扫码；</li><li>赛季末不是抽大奖，而是用户/经销商/工程师共同复盘“完成了什么”。</li></ol>
+<h3>Proof Card 不是奖章</h3>
+<p>它只记录：地点、任务、规则版本、理解通过和下一步。它不证明驾驶资质、不保证所有工况表现、不等于俱乐部会员，也不等于购买意向。用户可匿名完成基础任务；保存或预约时才按当地规则取得对应 consent。</p>
+<h3>三条品牌赛道</h3>
+<ul><li><strong>大众赛道（王朝/海洋）：</strong> 低门槛理解与家庭/城市进度；</li><li><strong>技能赛道（方程豹）：</strong> 教练、封闭低速、分级训练；</li><li><strong>见证赛道（腾势/仰望）：</strong> hospitality 或邀请制工程档案，不追求人流。</li></ul>
+<p>这不是五品牌同时开赛；每一站只出现一个主品牌。</p>
+<h3>可验收指标</h3>
+<ul><li>到场→开始→完成率；</li><li>技术理解前后变化；</li><li>有效 consent；</li><li>完成两项后的试驾预约与到店；</li><li>对照门店 uplift；</li><li>经销商重复开赛；</li><li>Proof Card 分享/保存（不作为唯一指标）；</li><li>事故、投诉、误导宣传、数据违规为 0。</li></ul>
+<h3>为什么是“联赛”</h3>
+<p>不是为了竞技驾驶，而是为了：</p>
+<ul><li>有赛季节奏，避免一次性；</li><li>有标准规则，不同国家可比较；</li><li>有主客场，本地创作者可加入；</li><li>有晋级，但晋级的是理解与体验，不是速度。</li></ul>
+<h3>杀死条件</h3>
+<ul><li>五分钟无法让用户理解一项技术；</li><li>场地/保险/产品安全无法标准化；</li><li>consent 与试驾链无法连接；</li><li>任务完成者的试驾质量不高于普通活动；</li><li>用户只记得俱乐部，不记得品牌 Job。</li></ul>
+<h3>首个 MVP</h3>
+<p>一个国家、一个品牌、一家俱乐部、10 家以内门店/触点、一个任务、一个 CTA、一个对照组。数量最终由运营容量决定。</p>
+<h3>现场原型</h3>
+<h4>原型 1 · 五分钟闪充，不做竞速</h4>
+<p>车辆静止、条件透明；用户在充电期间完成“价值+条件”短问答。验收不是充得最快，而是用户不再把发布会参数误解为所有车型/温度下的保证。</p>
+<h4>原型 2 · 安全反应室，不上公共道路</h4>
+<p>模拟器让用户识别接管与责任边界；若完成后更多人误以为是自动驾驶，立即 Kill。</p>
+<h4>原型 3 · 腾势家庭排兵</h4>
+<p>静态车内完成多人、装备与比赛日行程安排，证明“被照顾的从容”；CTA 是家庭深度体验，不是抽奖。</p>
+<h3>90 天验证</h3>
+<ul><li>先测普通展示基线；</li><li>处理组只增加一个技术任务，不同时加明星/折扣；</li><li>主指标选“理解通过且实际到店”；</li><li>同城同期对照；</li><li>经销商不愿重复、理解不升或误导上升即停。</li></ul>
+<h3>Grill</h3>
+<div class='tbl'><table><thead><tr><th>质疑</th><th>回答/实验</th></tr></thead><tbody><tr><td>“五分钟太浅”</td><td>理解不过不发 Proof；必要时改深度预约，名字不绑架技术</td></tr><tr><td>“效果广告更便宜”</td><td>比到店质量、品牌理解与赛后资产；均不优就回广告</td></tr><tr><td>“门店接不住”</td><td>门店定义时长与容量；无 champion 不上线</td></tr><tr><td>“高端被做低”</td><td>腾势/仰望不用大众联赛</td></tr><tr><td>“球迷数据拿不到”</td><td>匿名体验+门店级增量，不卖 CRM</td></tr></tbody></table></div>
+<h3>一句话 disruptive 检验</h3>
+<blockquote><p>不是把汽车展台做得更热闹，而是把一次严谨的 BYD 工程验证放进用户真正拥有的五分钟。</p></blockquote></section><section class="sec" id="r01"><div class="label">研1 - 比亚迪 IR 财务精读</div><h2 class="sec-title">比亚迪 IR 财务精读</h2><h2 class='md-h1'>比亚迪 IR 财务精读</h2>
+<blockquote><p>时间锚：2025 年报（2026-03-27 发布）与 2026Q1（2026-04-28 发布）。财务数字只采用港交所/巨潮 A 源；月销量公告虽为 A 源发布，但公司明确标注“未经审计”。</p></blockquote>
+<h3>先给决策层的四个判断</h3>
+<ol><li><strong>规模继续增长，利润承压已经进入报表。</strong> 2025 年营业收入 8,039.65 亿元，同比增长 3.46%；归母净利润 326.19 亿元，同比下降 18.97%。2026Q1 营收 1,502.25 亿元，同比下降 11.82%；归母净利润 40.85 亿元，同比下降 55.38%。这不是“品牌没声量”的证据，而是所有新增合作必须回答经营质量与归因的硬约束。[A1][A2]</li><li><strong>海外已经从故事变成收入结构。</strong> 2025 年境外收入 3,107.41 亿元，占营业收入 38.65%，同比增长 40.05%；境内收入同比下降 11.17%。海外不是附属传播市场，而是增长结构本身。[A1]</li><li><strong>研发不是营销修辞。</strong> 2025 年研发投入 634.41 亿元，同比增长 17.13%，占营收 7.89%；年报披露超 12 万名研发工程师、累计申请专利超 7.1 万项。[A1]</li><li><strong>销量“总盘承压、出口抬升”同时发生。</strong> 2026 年 1–7 月新能源车累计销量 223.44 万辆，同比下降 8.98%；7 月单月销量 31.79 万辆，同比下降 10.54%，但当月出口 18.05 万辆。不能只讲出海热度，也不能只用国内承压否定全球化。[A3]</li></ol>
+<h3>三年实绩</h3>
+<div class='tbl'><table><thead><tr><th>指标</th><th>2023</th><th>2024</th><th>2025</th><th>2025 同比</th><th>解释</th></tr></thead><tbody><tr><td>营业收入</td><td>6,023.15 亿元</td><td>7,771.02 亿元</td><td>8,039.65 亿元</td><td>+3.46%</td><td>规模新高，但增长显著放缓</td></tr><tr><td>归母净利润</td><td>300.41 亿元</td><td>402.54 亿元</td><td>326.19 亿元</td><td>-18.97%</td><td>经营质量压力显性化</td></tr><tr><td>扣非归母净利润</td><td>284.62 亿元</td><td>369.83 亿元</td><td>294.46 亿元</td><td>-20.38%</td><td>不是非经常项造成的表面波动</td></tr><tr><td>总资产（年末）</td><td>6,795.48 亿元</td><td>7,833.56 亿元</td><td>8,837.30 亿元</td><td>+12.83%</td><td>全球化、产能与技术投入扩大</td></tr><tr><td>经营现金流净额</td><td>1,697.25 亿元</td><td>1,333.54 亿元</td><td>591.36 亿元</td><td>-55.66%</td><td>合作提案必须克制“只算曝光”</td></tr></tbody></table></div>
+<p>来源：[A1] 2025 年报主要会计数据、现金流量表。金额由元换算为亿元，除以 1 亿，未改变口径。</p>
+<h3>2025 收入剖面</h3>
+<h4>按业务</h4>
+<ul><li>汽车、汽车相关产品及其他产品：6,486.46 亿元，同比增长 5.06%，占集团收入 80.68%。</li><li>手机部件、组装及其他产品：1,552.37 亿元，同比下降 2.74%，占 19.31%。</li><li>年报财务附注中的合同收入与管理层概述存在租赁等分类微差，本文采用管理层讨论披露口径；如做模型，应回到附注 45。</li></ul>
+<h4>按地区</h4>
+<ul><li>中国（含港澳台）：4,932.24 亿元，占 61.35%，同比下降 11.17%。</li><li>境外：3,107.41 亿元，占 38.65%，同比增长 40.05%。</li><li><strong>推断</strong>：全球体育/内容合作不能再按“总部买全球曝光、各国自行转化”的旧赞助逻辑。海外收入已足够大，要求权益能被国家市场拆用、品牌能被车型/经销商/试驾链路接住。</li></ul>
+<h4>按销售模式</h4>
+<ul><li>直销收入 3,672.11 亿元，占 45.67%，同比下降 1.59%。</li><li>经销收入 4,367.54 亿元，占 54.33%，同比增长 8.12%。</li><li><strong>对合作设计的意义</strong>：转化不能只统计总部内容触达；经销商是否调用、是否形成试驾/交付、是否有国家市场 co-op 才是商业闭环。</li></ul>
+<h3>研发与营销费用的边界</h3>
+<p>2025 年研发费用 579.78 亿元，研发投入 634.41 亿元；销售费用 261.85 亿元，较 2024 年 240.85 亿元增长。研发投入与研发费用并非同一口径，禁止互换。我们不掌握体育赞助在销售费用中的拆分，也不掌握各品牌营销预算，均列【待核实】。</p>
+<p>对销售的含义不是“预算大”，而是：</p>
+<ul><li>技术发布拥有强真相密度，内容合作必须把可体验技术变成用户进度，不能再造空洞品牌词。</li><li>净利润和现金流承压时，新增合作要从“买曝光”升级为“可验收市场基础设施”。</li><li>若不能取得国家市场、品牌、车型、线索、试驾与成交的基线，宁可不报 ROI。</li></ul>
+<h3>最新季度与月度压力</h3>
+<p>2026Q1：</p>
+<div class='tbl'><table><thead><tr><th>指标</th><th>2026Q1</th><th>2025Q1</th><th>同比</th></tr></thead><tbody><tr><td>营业收入</td><td>1,502.25 亿元</td><td>1,703.60 亿元</td><td>-11.82%</td></tr><tr><td>归母净利润</td><td>40.85 亿元</td><td>91.55 亿元</td><td>-55.38%</td></tr><tr><td>扣非归母净利润</td><td>41.48 亿元</td><td>81.72 亿元</td><td>-49.24%</td></tr><tr><td>经营现金流净额</td><td>27.90 亿元</td><td>85.81 亿元</td><td>-67.48%</td></tr><tr><td>研发费用</td><td>113.44 亿元</td><td>142.23 亿元</td><td>-20.25%（据 A2 数值计算）</td></tr></tbody></table></div>
+<p>2026 年 1–7 月：</p>
+<ul><li>新能源车累计销量 223.44 万辆，同比下降 8.98%。</li><li>乘用车累计销量 219.61 万辆，同比下降 9.19%。</li><li>纯电累计 110.45 万辆，同比下降 7.06%；插混累计 109.16 万辆，同比下降 11.25%。</li><li>7 月出口 18.05 万辆；累计出口数未在该公告直接列示，本文不自行求和替代正式累计披露。</li></ul>
+<p>这组数据形成主张力：<strong>海外增长不能只被传播为“走出去”，它必须成为在本地留下信任、体验和经销商资产的经营系统；否则全球声量与季度利润表之间没有桥。</strong></p>
+<h3>不编三年预测</h3>
+<p>公司未在上述 A 源提供 2026–2028 营收、利润或销量量化指引。未来三年预测全部【留空/待核实】。员工持股计划披露的考核门槛不是公司业绩指引，不得拿来写预测。</p>
+<h3>投资者会追问的十问</h3>
+<ol><li>2026Q1 利润降幅大于收入降幅的主要可持续/一次性因素分别是什么？</li><li>2025 境外收入中汽车业务占比、区域毛利和经销/直销结构是什么？</li><li>2026 年出口高增能否抵消国内销量承压，且当地库存与终端注册如何？</li><li>海外本地制造后，品牌投入由总部还是国家公司承担？</li><li>王朝/海洋与腾势、方程豹、仰望在海外如何避免认知重叠？</li><li>足球合作已有曝光、试驾、线索、成交、经销商调用的哪些基线？</li><li>闪充站建设与海外落地对资本开支和合作伙伴的要求是什么？</li><li>2025 销售费用增长中，出海市场建设、体育权益、渠道支持分别多少？</li><li>经销收入占比上升后，全球用户数据如何回流总部？</li><li>若合作只提高知名度但不提高试驾与品牌溢价，谁有权叫停？</li></ol>
+<h3>A 源</h3>
+<ul><li>[A1] 港交所，BYD 2025 年年度报告全文，2026-03-27：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A1b] 巨潮资讯同版年报：https://static.cninfo.com.cn/finalpage/2026-03-28/1225045351.PDF</li><li>[A2] 港交所，2026 第一季度报告，2026-04-28：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803001.pdf</li><li>[A3] 港交所，2026 年 7 月产销快报，2026-08-02：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0802/2026080200027.pdf</li></ul></section><section class="sec" id="r02"><div class="label">研2 - 比亚迪高管原话库</div><h2 class="sec-title">比亚迪高管原话库</h2><h2 class='md-h1'>比亚迪高管原话库</h2>
+<blockquote><p>只收可定位到时间、场合、署名和官方页面的原话。引号内尽量保持官方原文；年报董事长致辞因 PDF 文本换行，仅做连续句摘录，不拼接不存在的句子。</p></blockquote>
+<h3>可直接使用的原话（14 条）</h3>
+<h4>1. 王传福：增长的安全性</h4>
+<blockquote><p>“比亚迪作为新能源汽车引领者，坚信技术创新带来的增长才是最安全长久的，这也是比亚迪一贯的追求。”</p></blockquote>
+<ul><li>人物：王传福，比亚迪董事长、执行董事兼总裁</li><li>时间/场合：2026-03-27，2025 年报董事长致辞</li><li>用途：证明技术不是传播包装，而是经营合法性。</li><li>来源：[A1] 年报第“董事长致辞”。</li></ul>
+<h4>2. 王传福：2026 战略主轴</h4>
+<blockquote><p>“我们坚持以技术为根、以出海为引擎，奋力向高生长、向远而行、向新出发，打造世界级的中国品牌。”</p></blockquote>
+<ul><li>时间/场合：2026-03-27，2025 年报董事长致辞</li><li>来源：[A1]</li></ul>
+<h4>3. 王传福：全球化不是出口</h4>
+<blockquote><p>“我们将充分利用两个市场、两种资源，携手全球产业链伙伴，打造具有本地品牌属性的产品，给全球消费者提供更多绿色技术和环保体验。”</p></blockquote>
+<ul><li>时间/场合：2026-03-27，2025 年报董事长致辞</li><li>来源：[A1]</li><li>研究含义：新品类合作必须帮助“本地品牌属性”形成，而不只是把中国内容翻译出去。</li></ul>
+<h4>4. 王传福：智能化的判断</h4>
+<blockquote><p>“电动化上半场看电池，智能化下半场看芯片。”</p></blockquote>
+<ul><li>时间/场合：2026-05-28，“敢为”智能化战略发布会</li><li>来源：[A2] 比亚迪官网新闻，2026-05-29</li></ul>
+<h4>5. 王传福：敢为的约束</h4>
+<blockquote><p>“真正的‘敢为’，从来不是无所畏惧，而是心怀对生命、对规则、对技术的敬畏，明知难而为之，始终做难而正确的事，敢为人先，一路向前！”</p></blockquote>
+<ul><li>时间/场合：2026-05-28，“敢为”智能化战略发布会</li><li>来源：[A2]</li><li>用途：体育精神合作可以从“速度/胜利”升级为“承担后果的敢为”。</li></ul>
+<h4>6. 王传福：治根</h4>
+<blockquote><p>“这些顽疾，必须要治根。所有的根源，就是充电慢和低温充电难。”</p></blockquote>
+<ul><li>时间/场合：2026-03-05，“闪充中国 改变世界”发布会</li><li>来源：[A3] 比亚迪官网新闻，2026-03-06</li><li>用途：比亚迪惯用的是“根因—技术—普及”叙事；合作创意也应解决根因，不做装饰。</li></ul>
+<h4>7. 王传福：技术普惠</h4>
+<blockquote><p>“好技术，就应该人人可享！”</p></blockquote>
+<ul><li>时间/场合：2025-02-10，比亚迪智能化战略发布会</li><li>来源：[A4] 比亚迪官网新闻，2025-02-11</li></ul>
+<h4>8. 王传福：跨界合作不是硬件相加</h4>
+<blockquote><p>“比亚迪和大疆的合作，绝不只是把无人机放在车上那么简单，而是从底层技术出发，从0到1，设计并开发了整车集成系统，成功做到了车和无人机的深度融合，最终达到1+1&gt;2的效果。”</p></blockquote>
+<ul><li>时间/场合：2025-03-02，灵鸢智能车载无人机系统发布会</li><li>来源：[A5] 比亚迪官网新闻，2025-03-03</li><li>用途：这是 disruptive - 跳出盒子 的判定标准：不是权益叠加，而是新品类系统。</li></ul>
+<h4>9. 王传福：油电同速</h4>
+<blockquote><p>“为了彻底解决用户的充电焦虑，我们的追求，就是让电动车的充电时间，和燃油车的加油时间一样短，也就是在充电速度上实现‘油电同速’。”</p></blockquote>
+<ul><li>时间/场合：2025-03-17，超级 e 平台发布会</li><li>来源：[A6] 比亚迪官网新闻，2025-03-18</li></ul>
+<h4>10. 李柯：全球新能源解决方案</h4>
+<blockquote><p>“作为一家世界级的新能源科技公司，比亚迪一直致力于为全球用户构建新能源解决方案。”</p></blockquote>
+<ul><li>人物：李柯，比亚迪执行副总裁兼美洲地区总裁</li><li>时间/场合：2024-05-14，BYD SHARK 墨西哥全球首发</li><li>来源：[A7] 比亚迪官网新闻，2024-05-15</li></ul>
+<h4>11. 李柯：国米合作的开放边界</h4>
+<blockquote><p>“我们很高兴能与国际米兰足球俱乐部合作。国米在全球拥有庞大的群众基础，这与比亚迪不谋而合。我们的品牌充满激情、创新精神和对未来人才的投资，我们将在未来的赛季中，基于共同愿景探索更多可能。”</p></blockquote>
+<ul><li>时间/场合：2025-07-21，比亚迪×国际米兰签约</li><li>来源：[A8] 比亚迪官网新闻，2025-07-22</li><li>注意：原话没有承诺线索、销量或独家数据权益，不能替它补齐。</li></ul>
+<h4>12. 李云飞：体验普惠</h4>
+<blockquote><p>“好技术，要人人可享；好体验，更要人人可享。”</p></blockquote>
+<ul><li>人物：李云飞，比亚迪集团品牌及公关处总经理</li><li>时间/场合：2025-08-14，比亚迪郑州全地形赛车场开业</li><li>来源：[A9] 比亚迪官网新闻，2025-08-15</li><li>用途：从“赛车场”升级为可复制的体验基础设施，是公司已有语言。</li></ul>
+<h4>13. 李云飞：世界级品牌与青年</h4>
+<blockquote><p>“一路走来，比亚迪坚持创新与自我突破，践行企业社会责任，立志打造令人尊敬的世界级品牌。我们非常重视年轻群体，也在不断深化品牌的年轻化战略，与年轻人同频共振。”</p></blockquote>
+<ul><li>时间/场合：2023-11-22，比亚迪签约中国滑板队</li><li>来源：[A10] 比亚迪官网新闻，2023-11-23</li><li>边界：公司确实公开说“年轻化”；本案仍不把“缺年轻化”当主刀。</li></ul>
+<h4>14. 刘学亮：本地化不是口号</h4>
+<blockquote><p>“比亚迪进入泰国三年，不仅致力于为泰国消费者提供最好的技术、最好的服务和最好的产品，更始终将企业命运与社会发展紧密相连。”</p></blockquote>
+<ul><li>人物：刘学亮，比亚迪亚太汽车销售事业部总经理</li><li>时间/场合：2025-07，比亚迪泰国工厂投产一周年暨第 9 万辆交付</li><li>来源：[A11] 比亚迪官网新闻，2025-07-09</li><li>用途：体育合作必须留下本地就业、服务、用户或社区资产，才符合其“本地化深耕”。</li></ul>
+<h3>供应方/合作方可用原话</h3>
+<h4>欧足联 Guy-Laurent Epstein</h4>
+<blockquote><p>“这次合作非常契合我们构建绿色欧洲杯的愿景，我们看好比亚迪对欧洲杯绿色转型的促进作用。”</p></blockquote>
+<ul><li>时间/场合：2024-01-12，2024 欧洲杯官方出行合作伙伴官宣</li><li>来源：[A12]</li></ul>
+<h4>国际米兰 Giorgio Ricci</h4>
+<blockquote><p>“此次合作将为双方带来面向国际的活动与内容新机遇，助力触达全球球迷与消费者。”</p></blockquote>
+<ul><li>时间/场合：2025-07-21，国米签约</li><li>来源：[A8]</li><li>研究含义：这只是合作愿景，不是已实现结果。</li></ul>
+<h3>原话的共同语法</h3>
+<ol><li><strong>先定义根因</strong>：充电慢、低温、事故责任、体验门槛。</li><li><strong>再给系统解法</strong>：电池+平台+网络；芯片+算法+兜底。</li><li><strong>最后规模化普惠</strong>：人人可享、全球本地化。</li></ol>
+<p>因此一个能 impress 的合作，不应是“把 logo 放进更大的流量”，而应是：<strong>把一个昂贵、偶发、不可归因的体育赞助，改造成可被国家市场调用、可由用户完成、可由经销商验收的品牌基础设施。</strong></p>
+<h3>来源</h3>
+<ul><li>[A1] https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</li><li>[A3] https://www.bydglobal.com/cn/news/2026-03-06/1617162762962</li><li>[A4] https://www.bydglobal.com/cn/news/2025-02-11/1617162592632</li><li>[A5] https://www.bydglobal.com/cn/news/2025-03-03/1617162596334</li><li>[A6] https://www.bydglobal.com/cn/news/2025-03-18/1617162611594</li><li>[A7] https://www.bydglobal.com/cn/news/2024-05-15/1617162437683</li><li>[A8] https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A9] https://www.bydglobal.com/cn/news/2025-08-15/1617162688924</li><li>[A10] https://www.bydglobal.com/cn/news/2023-11-23/1617162178877</li><li>[A11] https://www.bydglobal.com/cn/news/2025-07-09/1617162671159</li><li>[A12] https://www.bydglobal.com/cn/news/2024-01-12/1617162267087</li></ul></section><section class="sec" id="r03"><div class="label">研3 - 比亚迪合作史：从“借势”到“系统共创”</div><h2 class="sec-title">比亚迪合作史：从“借势”到“系统共创”</h2><h2 class='md-h1'>比亚迪合作史：从“借势”到“系统共创”</h2>
+<h3>核心判断</h3>
+<p>比亚迪并不缺合作，也不缺顶级体育资产。它已经完成三次跃迁：</p>
+<ol><li><strong>借事件获得全球可见度</strong>：欧洲杯、美洲杯；</li><li><strong>用长期俱乐部关系承接内容与产品</strong>：国际米兰三年合作、约 70 辆车、海狮 07 特别版；</li><li><strong>从贴牌合作转向底层系统共创</strong>：与大疆从 0 到 1 开发“灵鸢”车载无人机系统。</li></ol>
+<p>真正的断裂在第四步：<strong>体育权益尚未像技术平台一样，形成跨国家、跨品牌、可复用、可归因的运营层。</strong> 这是合作空间，不是“他们不会做体育”的傲慢判断。</p>
+<h3>时间线</h3>
+<h4>2023：青年精神与单车型绑定</h4>
+<p>2023-11-22，比亚迪成为中国滑板队和中国轮滑协会官方合作伙伴，元 PLUS 冠军版作为具体车型承接。官方目标同时包含青年沟通、品牌年轻化、企业社会责任和“一路向前”品牌精神。[A1]</p>
+<p><strong>获得：</strong> 国家队合法性、青年文化入口、车型精神映射。<br/><strong>未见公开验收：</strong> 参与人数、试驾、内容完成率、购车线索、海外复用率【待核实】。</p>
+<h4>2024：全球大赛出行合作</h4>
+<p>2024-01-12，比亚迪成为 2024 欧洲杯官方出行合作伙伴。官方披露权益/动作包括赛事官方用车、比赛场馆和官方球迷广场车型展示；这是欧洲杯首次与新能源汽车品牌、也是首次与中国汽车品牌合作。[A2]</p>
+<p>2024-05，比亚迪成为 2024 美洲杯拉美区域官方合作伙伴。该项由比亚迪后续国米官宣回溯确认；单独官宣页面及完整权益清单本轮未取得，细节【待核实】。[A3]</p>
+<p><strong>获得：</strong> 大赛级全球背书、绿色出行角色、场馆体验触点。<br/><strong>结构限制：</strong> 大赛短周期；若国家市场没有统一用户身份与后续任务，赛事结束即资产折旧。</p>
+<h4>2025：足球组合与长期关系</h4>
+<p>2025 年，比亚迪与欧洲 U-21 青年锦标赛及欧足联合作，并成为泰国足球联赛和国家队主赞助商；信息来自比亚迪官方国米新闻中的合作盘点，单项合同边界和期限【待核实】。[A3]</p>
+<p>2025-07-21，比亚迪与国际米兰建立三年战略伙伴关系，成为全球汽车合作伙伴：</p>
+<ul><li>向俱乐部提供约 70 辆新能源车；</li><li>纯电与 Super DM 插混共同进入车队；</li><li>海狮 07 特别定制版融入蓝黑元素，官方称后续面向全球球迷与车迷开放；</li><li>双方提出联合开发创新项目、国际活动与内容。[A3]</li></ul>
+<p>这是明显进步：从赛事窗口变成持续关系，从 logo 变成车队体验与可售产品。但公开页面仍没有说明：</p>
+<ul><li>球迷身份是否可被 BYD 国家市场识别；</li><li>俱乐部内容如何映射王朝/海洋/腾势等品牌；</li><li>经销商是否能调用权益；</li><li>试驾、成交、复购如何归因；</li><li>“全球汽车合作伙伴”是否包含具体品类排他及地域例外。</li></ul>
+<p>以上全部【待核实】，不能把愿景写成结果。</p>
+<h4>2025：大疆合作展示“新品类标准”</h4>
+<p>2025-03-02，比亚迪与大疆发布“灵鸢”智能车载无人机系统。王传福明确说，这“绝不只是把无人机放在车上”，而是从底层技术出发设计整车集成系统。年报进一步披露：灵鸢已从仰望 U8 越野玩家版扩展至集团五大品牌首搭车型，并形成动态起降、随动跟拍、收纳快充、地空双摄、一键大片等能力。[A4][A5]</p>
+<p>这项合作值得用作内部判据：</p>
+<div class='tbl'><table><thead><tr><th>普通联名</th><th>灵鸢式新品类</th></tr></thead><tbody><tr><td>两个品牌互相露出</td><td>两套技术形成新系统</td></tr><tr><td>Campaign 结束即结束</td><td>进入车型、OTA、用户运营</td></tr><tr><td>以媒体量验收</td><td>以功能使用与产品销售验收</td></tr><tr><td>单点车型</td><td>可跨品牌复用</td></tr></tbody></table></div>
+<p>disruptive - 跳出盒子 必须达到右栏标准，否则只是创意包装。</p>
+<h4>2025：自有体验基础设施</h4>
+<p>2025-08-14，郑州全地形赛车场开业，官方定位“全民赛道、全场好玩”，覆盖极致驾控、专业培训、品牌活动和新能源汽车文化科普。[A6]</p>
+<p>这说明比亚迪已经意识到技术传播必须“可体验”。合作方不能建议它再做一场普通试驾；要解决的是：</p>
+<ul><li>如何把一次体验变成全球统一任务；</li><li>如何在不同国家复刻低门槛版本；</li><li>如何把体验证据带回用户身份与经销商；</li><li>如何避免多品牌都讲同一个“技术强”。</li></ul>
+<h4>2026：高端品牌×国际组织</h4>
+<p>2026-05-27，比亚迪成为第 28 届 ANOC 全体代表大会—2026 年中国香港战略合作伙伴。腾势是大会唯一官方指定用车品牌；官方称将服务来自全球 1,200 余名奥委会代表、国际奥委会成员及体育界嘉宾，并联合设立专属奖项。[A7]</p>
+<p>这里出现了更清晰的<strong>品牌路由</strong>：集团合作不再只用 BYD 总品牌承接，而由腾势承担“高品质官方出行”。但其人群是体育治理精英，不等于大众球迷；奖项能否形成长期内容资产【待核实】。</p>
+<h4>技术与产业合作</h4>
+<ul><li>2025-04-21，比亚迪与沙特阿美技术公司签署联合开发协议，探索提高效率与环境性能的新能源汽车技术。[A8]</li><li>与丰田合资成立比亚迪丰田电动车科技公司，治理关系在 2025 年报中披露；具体技术商业化成果不在本案体育主链展开。</li><li>大量经销商、本地制造、供应链伙伴构成出海底座；年报披露海外“研发+制造+运输+销售”全链条与 8 艘滚装船。[A5]</li></ul>
+<h3>断裂地图</h3>
+<h4>断裂一：权益组合很大，但没有公开的“全球球迷身份层”</h4>
+<p>欧洲杯、国米、泰国足球、U-21、青训分别触达不同人群。如果每个项目各有活动页、抽奖和线索表，资产无法复利。此项是<strong>假说</strong>，需向品牌/数字化团队核实当前 CRM 与 consent 架构。</p>
+<h4>断裂二：集团规模与多品牌精度冲突</h4>
+<p>BYD 集团需要全球声量；王朝/海洋/腾势/方程豹/仰望需要不同 Job。一个足球创意若让所有品牌同时露出，会稀释品牌；若只给一个品牌，又难以证明集团采购效率。</p>
+<h4>断裂三：技术证据很硬，文化翻译仍偏“梦想/激情/绿色”</h4>
+<p>比亚迪拥有可验证的电池、闪充、底盘、智驾与安全兜底，但体育官宣常用“激情、梦想、绿色”这类行业共享语言。问题不是词不好，而是竞争对手也能说。合作应让用户<strong>完成一个只有 BYD 技术才能完成的任务</strong>。</p>
+<h4>断裂四：本地化制造可见，品牌本地化难验收</h4>
+<p>泰国工厂就业、巴西工厂投产、匈牙利欧洲总部都可被 A 源验证；“具有本地品牌属性”如何验收尚不透明。体育合作若没有本地创作者、本地经销商、本地用户共同生产的资产，就仍是总部广播。</p>
+<h3>合作方应该补什么</h3>
+<p>不再补“IP 资源”，而补三层能力：</p>
+<ol><li><strong>路由层</strong>：一个全球关系，按品牌 Job、国家优先级、车型阶段路由。</li><li><strong>任务层</strong>：把技术从发布会名词变成用户可完成、可分享、可验证的任务。</li><li><strong>归因层</strong>：权益调用→内容参与→试驾→成交，且保留 consent 与国家口径。</li></ol>
+<h3>来源</h3>
+<ul><li>[A1] https://www.bydglobal.com/cn/news/2023-11-23/1617162178877</li><li>[A2] https://www.bydglobal.com/cn/news/2024-01-12/1617162267087</li><li>[A3] https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A4] https://www.bydglobal.com/cn/news/2025-03-03/1617162596334</li><li>[A5] https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A6] https://www.bydglobal.com/cn/news/2025-08-15/1617162688924</li><li>[A7] https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li><li>[A8] https://www.bydglobal.com/cn/news/2025-04-21/1617162636530</li></ul></section><section class="sec" id="r04"><div class="label">研4 - 竞品格局：不是“谁销量第二”，而是谁在争夺下一种信任</div><h2 class="sec-title">竞品格局：不是“谁销量第二”，而是谁在争夺下一种信任</h2><h2 class='md-h1'>竞品格局：不是“谁销量第二”，而是谁在争夺下一种信任</h2>
+<blockquote><p>Steelman 原则：先写每家最强逻辑，再写 BYD 必须回答的差异。财务数字只用公司 IR、交易所或 SEC。</p></blockquote>
+<h3>1. 特斯拉：极简品牌×软件叙事×直销数据闭环</h3>
+<p>2025 年特斯拉交付 1,636,129 辆，汽车业务收入 695.16 亿美元。[A1] 它的威胁不在车型数量，而在于消费者把“电动车、软件、充电网络、创始人叙事”压缩成一个品牌。10-K 明确其无独立经销网络，直接销售与服务使用户数据、定价、软件更新和体验闭环更短。</p>
+<p><strong>Steelman：</strong></p>
+<ul><li>单品牌避免多品牌翻译成本；</li><li>车辆、储能、充电、软件共享未来叙事；</li><li>全球产品少而认知集中；</li><li>用户可通过 OTA 持续感知产品变化。</li></ul>
+<p><strong>弱点/风险：</strong> 车型集中、品牌极化、监管与关键人物风险；但这些不能成为 BYD 多品牌复杂性的借口。</p>
+<p><strong>BYD 必须回答：</strong> 当 BYD 的技术更多、品牌更多、车型更多时，全球用户如何在 10 秒内说清“为什么是 BYD”？体育合作应压缩复杂性，而不是继续加 logo。</p>
+<h3>2. 吉利：组织整合×主流新能源爆发</h3>
+<p>吉利汽车 2025 年销量 3,024,567 辆，同比增长 39%；收入 3,452.32 亿元，同比增长 25%；归母核心利润 144.1 亿元，同比增长 36%。新能源销量 168 万辆，银河成为主流新能源增长引擎。[A2]</p>
+<p><strong>Steelman：</strong></p>
+<ul><li>“One Geely”降低品牌、平台和组织冗余；</li><li>银河在主流市场形成高增速；</li><li>极氪、领克、吉利之间仍保留价格与风格梯度；</li><li>2025 年出口 42.01 万辆，覆盖 88 个国家，已有全球运营底座。</li></ul>
+<p><strong>对 BYD 的启示：</strong> 比亚迪不应只比较绝对销量。吉利用组织整合换取认知和资源效率；BYD 的五网四品牌若缺少权益路由，会让每个合作重新协调一次。</p>
+<h3>3. 上汽：百万海外盘×本地品牌遗产</h3>
+<p>上汽 2025 年整车销量 450.7 万辆，同比增长 12.3%；自主品牌 292.8 万辆，占 65%；新能源车 164.3 万辆；出口及海外销量 107.1 万辆。总收入 6,562.44 亿元，归母净利润 101.06 亿元。[A3]</p>
+<p><strong>Steelman：</strong></p>
+<ul><li>MG 提供真正被海外消费者识别的历史品牌壳；</li><li>海外销量超过百万，不只靠单一市场；</li><li>合资、自主、零部件和金融形成复杂但成熟的经营体系。</li></ul>
+<p><strong>对 BYD 的威胁：</strong> BYD 海外销量增长更快、技术叙事更强，但 MG 在部分市场拥有更低的“外国新品牌解释成本”。BYD 要把“中国科技”翻译为本地信任，而不是只证明规模。</p>
+<h3>4. 小米汽车：注意力—生态—产品一体化</h3>
+<p>小米 2025 年智能电动车交付 411,082 辆，同比增长 200.4%；智能电动车收入 1,033 亿元，汽车 ASP 251,171 元。集团全球月活用户 2025 年 12 月达到 7.541 亿。[A4]</p>
+<p><strong>Steelman：</strong></p>
+<ul><li>车不是孤立产品，而是“人车家全生态”的高价终端；</li><li>创始人发布会、数字社区、手机账号与零售触点天然连通；</li><li>两个主力车系即可形成高内容密度；</li><li>用户内容与产品热度之间的反馈速度快。</li></ul>
+<p><strong>对 BYD 的威胁：</strong> 小米不需要买一个体育 IP 才获得用户身份。BYD 的合作如果仍只买触达，无法与拥有自有账号、内容和设备生态的对手竞争。</p>
+<h3>5. 丰田：全球本地化×多路径×长期体育制度</h3>
+<p>丰田 FY2026 合并销量 959.5 万辆，海外 751.3 万辆；电动化车型零售 504 万辆，其中 HEV 462 万辆、PHEV 17.5 万辆、BEV 24.3 万辆。[A5] 丰田强调 product-centered、region-centered management，并以“mobility company”延展金融、连接服务、机器人及陆海空移动。</p>
+<p><strong>Steelman：</strong></p>
+<ul><li>规模、经销与本地制造是多年制度资产；</li><li>多技术路径减少不同国家基础设施差异带来的风险；</li><li>Toyota/Lexus/Century 等品牌角色较清晰；</li><li>奥林匹克、残奥等长期体育关系（具体当前权益需另行核实）体现“mobility for all”长期叙事。</li></ul>
+<p><strong>对 BYD 的挑战：</strong> BYD 技术迭代更快，但“世界级品牌”不是一次冠军，而是几十年稳定承诺。新品类必须证明能沉淀制度资产。</p>
+<h3>战场不是一张销量榜</h3>
+<div class='tbl'><table><thead><tr><th>战场</th><th>最强对手</th><th>其最强机制</th><th>BYD 当前优势</th><th>BYD 缺口假说</th></tr></thead><tbody><tr><td>电动技术心智</td><td>特斯拉</td><td>单品牌压缩复杂度</td><td>电池、插混、闪充、垂直整合</td><td>多品牌技术翻译</td></tr><tr><td>中国主流新能源</td><td>吉利</td><td>One Geely+银河</td><td>规模、成本、车型覆盖</td><td>权益与品牌资源路由</td></tr><tr><td>海外本地信任</td><td>上汽/MG、丰田</td><td>历史品牌/本地制度</td><td>增速、技术、制造扩张</td><td>本地文化共创证据</td></tr><tr><td>数字用户关系</td><td>小米</td><td>账号与生态</td><td>车辆保有量与技术数据</td><td>跨市场用户身份层</td></tr><tr><td>全球体育资产</td><td>丰田等</td><td>长期制度化平台</td><td>已有欧洲杯/国米等组合</td><td>可复用、可归因运营层</td></tr></tbody></table></div>
+<h3>竞争结论</h3>
+<p>不要 pitch“比亚迪需要更多全球曝光”。它 2025 年已经覆盖 119 个国家和地区，境外收入占 38.65%。更锋利的命题是：</p>
+<blockquote><p><strong>对手把自己的结构优势变成了品牌：特斯拉是一体化、小米是生态、丰田是长期本地信任。比亚迪需要把“技术×多品牌×全球本地化”也变成一个用户能完成、市场能调用、CFO 能验收的结构。</strong></p></blockquote>
+<h3>来源</h3>
+<ul><li>[A1] Tesla 2025 10-K：https://www.sec.gov/Archives/edgar/data/1318605/000162828026003952/tsla-20251231.htm</li><li>[A1b] Tesla 2025 production/deliveries：https://ir.tesla.com/_flysystem/s3/sec/000162828026000016/tsla-20260102-gen.pdf</li><li>[A2] 吉利 2025 业绩公告：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0318/2026031800309.pdf</li><li>[A3] 上汽 2025 年报：https://www.saicmotor.com/english/images/investor_relations/annual_report/2026/4/21/0DFE68E4BCB74B01ACFAE92C344763FF.pdf</li><li>[A4] 小米 2025 年报：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042800526.pdf</li><li>[A5] 丰田 FY2026 财务摘要：https://global.toyota/pages/global_toyota/ir/financial-results/2026_4q_summary_en.pdf</li><li>[A5b] 丰田电动化销量与战略：https://global.toyota/pages/global_toyota/ir/financial-results/2026_4q_presentation_en.pdf</li></ul></section><section class="sec" id="r05"><div class="label">研5 - 行业背景：规模越大，品牌与经营质量越难同时成立</div><h2 class="sec-title">行业背景：规模越大，品牌与经营质量越难同时成立</h2><h2 class='md-h1'>行业背景：规模越大，品牌与经营质量越难同时成立</h2>
+<h3>1. 中国新能源进入“过半之后”</h3>
+<p>比亚迪 2025 年报引用中国汽车工业协会数据：2025 年中国汽车产销分别 3,453.1 万辆、3,440 万辆，同比增长 10.4%和 9.4%；新能源汽车产销 1,662.6 万辆、1,649 万辆，同比增长 29%和 28.2%，国内渗透率突破 50%。自主品牌乘用车份额达到 69.5%，同比提高 4.3 个百分点。[A1]</p>
+<p>渗透率过半意味着竞争逻辑变化：</p>
+<ul><li>“新能源教育”边际价值下降，安全、智能、补能、残值、服务成为实际选择；</li><li>同质技术名词增多，品牌必须提供可感知证据；</li><li>领先者不再只承担增长任务，也承担行业秩序、供应链与消费者信任；</li><li>价格战会把任何不能归因的营销费用推上审判席。</li></ul>
+<h3>2. 出海从贸易进入运营</h3>
+<p>2025 年中国汽车出口 709.8 万辆，同比增长 21.1%；新能源汽车出口 261.5 万辆，同比翻倍。[A1] 比亚迪年报明确说，行业出口已不局限于整车贸易，而是通过品牌全球化和运营本土化深化。</p>
+<p>真正的海外壁垒包含：</p>
+<ol><li>法规认证与安全责任；</li><li>本地制造、供应链和物流；</li><li>经销、售后、金融、保险与残值；</li><li>语言、文化与品牌信任；</li><li>数据 consent 与跨境治理；</li><li>贸易壁垒和地缘政治。</li></ol>
+<p>体育能够加快第 4 项，却不能替代前五项。把体育当“解决出海”的万能钥匙是过度承诺。</p>
+<h3>3. 智能化从功能进入责任</h3>
+<p>比亚迪的 2026 动作把行业叙事向前推了一步：不只发布芯片和城市领航，还承诺在限定条件下为城市领航安全兜底一年。[A2] 这把竞争从“谁有功能”变成“谁敢承担使用后果”。</p>
+<p>品牌合作的启发：</p>
+<ul><li>体验不能鼓励危险驾驶；</li><li>赛道内容与公共道路功能必须严格分离；</li><li>数据指标不能诱导用户超越产品边界；</li><li>“敢为”应解释为敬畏规则，不是冒险。</li></ul>
+<p>因此 disruptive - 跳出盒子 中所有驾驶任务必须在封闭场地、专业教练或静态/模拟环境完成；道路安全不得用娱乐化挑战。</p>
+<h3>4. 补能成为公共体验</h3>
+<p>2026-03-05，比亚迪发布第二代刀片电池和闪充技术，并宣布“闪充中国”目标：到 2026 年底在全国建设 20,000 座闪充站，海外在 2026 年底规模化落地。[A3] 20,000 是公司官方目标，不是已建成数量。</p>
+<p>这带来一个内容机会：充电从等待变成短暂停留。旧充电站的 Job 是补能；新闪充触点可能承担：</p>
+<ul><li>5–10 分钟可完成的安全/技术微体验；</li><li>本地赛事/俱乐部任务签到；</li><li>试驾交接与用户教育；</li><li>真实充电证据的透明展示。</li></ul>
+<p>但商业可行性取决于站点运营权、屏幕/场地权限、数据接口和国家法规，全部【待核实】。</p>
+<h3>5. 体育营销的价值与陷阱</h3>
+<p>体育在汽车出海中有四类合法 Job：</p>
+<ol><li><strong>语言压缩</strong>：足球帮助陌生品牌迅速获得熟悉感；</li><li><strong>使用证明</strong>：官方车队、运动员、赛事运营展示可靠性；</li><li><strong>经销触点</strong>：比赛日前后把球迷导入本地体验；</li><li><strong>价值观共创</strong>：通过青训、社区、可持续运营留下资产。</li></ol>
+<p>四个陷阱：</p>
+<ul><li>把潜在触达写成实际触达；</li><li>把球迷写成购车人群；</li><li>把赞助金额、排他边界或 ROI 靠媒体传闻补齐；</li><li>用全球总粉丝数替代国家可触达、已同意、可跟进用户。</li></ul>
+<h3>6. 政策边界</h3>
+<p>比亚迪年报列示 2025–2026 关键政策：</p>
+<ul><li>汽车以旧换新；</li><li>GB 38031—2025《电动汽车用动力蓄电池安全要求》，2026 年 7 月实施；</li><li>新能源汽车下乡；</li><li>汽车行业稳增长方案；</li><li>2026–2027 新能源车购置税减免技术要求；</li><li>充电设施服务能力三年倍增；</li><li>汽车价格行为合规指南征求意见稿。[A1]</li></ul>
+<p>合作设计应避免：</p>
+<ul><li>将政策补贴视为永久需求；</li><li>未经法务核验的抽奖、金融激励和跨境数据收集；</li><li>将辅助驾驶宣传为自动驾驶；</li><li>用竞技场景暗示道路性能；</li><li>宣称赛事“碳中和”但没有边界、基线与核证。</li></ul>
+<h3>7. 2026 的窗口与压力</h3>
+<p>窗口：</p>
+<ul><li>海外收入与出口规模已足以支撑全球品牌基础设施；</li><li>国米三年关系仍在运营期；</li><li>闪充、智能兜底和高端品牌出海提供新鲜技术叙事；</li><li>腾势已被路由到 ANOC 官方用车，证明多品牌分工可执行。</li></ul>
+<p>压力：</p>
+<ul><li>2026Q1 营收和利润下滑；</li><li>1–7 月销量同比下降；</li><li>国内竞争、价格规范、贸易壁垒和本地化成本叠加；</li><li>若合作只输出曝光，将很难过 CFO 与国家公司复盘。</li></ul>
+<h3>行业结论</h3>
+<blockquote><p>电动化上半场解决“车能不能替代油车”；全球化下半场解决“一个中国科技品牌能不能在每个本地市场被信任、被体验、被选择”。体育不是答案，但可以成为把技术证据翻译为本地信任的操作系统。</p></blockquote>
+<h3>来源</h3>
+<ul><li>[A1] BYD 2025 年报：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] BYD 2026 智能化战略：https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</li><li>[A3] BYD 第二代刀片电池/闪充：https://www.bydglobal.com/cn/news/2026-03-06/1617162762962</li></ul></section><section class="sec" id="r06"><div class="label">研6 - 权力地图与 MEDDIC：谁能让合作从“好看”变成“可运行”</div><h2 class="sec-title">权力地图与 MEDDIC：谁能让合作从“好看”变成“可运行”</h2><h2 class='md-h1'>权力地图与 MEDDIC：谁能让合作从“好看”变成“可运行”</h2>
+<blockquote><p>会面人、预算、采购流程均未锁定。本页明确区分 A 源职务与销售假说，不假装知道内部组织。</p></blockquote>
+<h3>权力事实</h3>
+<p>2025 年报披露：</p>
+<ul><li>王传福：董事长、执行董事兼总裁，负责一般营运及制定各项业务策略；同时任腾势董事长。</li><li>李柯：执行副总裁兼美洲地区总裁、欧洲汽车销售事业部总经理、中东非洲汽车销售事业部总经理。</li><li>何志奇：执行副总裁、乘用车事业群 COO、腾势董事。</li><li>李巍：副总裁、总裁办公室主任；曾任海外事业部市场总监、集团品牌及公关处总经理。</li><li>李黔：董事会秘书、公司秘书、投资处总经理。</li><li>李云飞：集团品牌及公关处总经理（官网活动署名）。</li></ul>
+<p>这些职务不等于项目审批权。预算 owner、法务、采购、数字化、国家公司与品牌负责人均【待核实】。</p>
+<h3>Power Map</h3>
+<div class='tbl'><table><thead><tr><th>角色</th><th>可能关心</th><th>能否拍板</th><th>我们要的证据</th></tr></thead><tbody><tr><td>王传福/集团最高层</td><td>世界级品牌、技术根、出海引擎、长期价值</td><td>战略方向：高</td><td>是否认可“全球本地信任基础设施”</td></tr><tr><td>李柯/海外经营</td><td>国家增长、本地化、经销与产品</td><td>海外经营：高</td><td>哪些市场最缺信任/试驾，不是曝光</td></tr><tr><td>集团品牌公关</td><td>全球叙事、IP 组合、声誉</td><td>传播与权益：高/待核</td><td>现有合作 KPI、复用痛点、品牌路由</td></tr><tr><td>何志奇/乘用车经营</td><td>销量、渠道、车型节奏</td><td>转化链：高/待核</td><td>是否允许试驾/订单归因接入</td></tr><tr><td>各品牌 GM</td><td>品牌差异、目标人群、产品窗口</td><td>品牌调用：高</td><td>王朝/海洋/腾势/方程豹/仰望分别 Job</td></tr><tr><td>国家公司/区域总经理</td><td>终端注册、库存、经销商执行</td><td>本地执行：高</td><td>本地预算、语言、合规、门店容量</td></tr><tr><td>财务/CFO 线</td><td>预算效率、利润与现金流</td><td>否决：高</td><td>基线、增量、停止条件、成本归属</td></tr><tr><td>法务/合规/数据</td><td>权益、排他、数据、驾驶安全</td><td>否决：高</td><td>合同、consent、道路/赛事边界</td></tr><tr><td>经销商</td><td>客流、试驾、成交、执行成本</td><td>落地 veto：中高</td><td>是否愿意调用、每线索成本、容量</td></tr><tr><td>IP/联赛/俱乐部</td><td>权益价值、球迷体验、商业收入</td><td>外部共创：高</td><td>数据权限、内容/球员/场地边界</td></tr></tbody></table></div>
+<h3>MEDDIC</h3>
+<h4>M — Metrics</h4>
+<p>禁止先报“粉丝数”和预测 ROI。首轮只提出可验收框架：</p>
+<ol><li><strong>权益激活率</strong>：有资格国家中实际启用的国家/经销商比例；</li><li><strong>任务完成率</strong>：注册→完成技术体验→同意跟进；</li><li><strong>高意向率</strong>：完成任务后预约试驾比例；</li><li><strong>试驾到店率</strong>：预约后实际到店；</li><li><strong>增量试验</strong>：试点城市 vs 对照城市的 uplift；</li><li><strong>品牌分辨度</strong>：活动前后能否正确说出品牌 Job；</li><li><strong>内容复用效率</strong>：每个母内容被多少国家本地化；</li><li><strong>安全/合规</strong>：事故、投诉、撤稿、数据违规为 0；</li><li><strong>成本</strong>：每完成体验、每有效试驾、每增量订单成本；</li><li><strong>资产留存</strong>：赛季结束后仍可使用的 consent 用户、认证教练、内容模板、经销商能力。</li></ol>
+<p>所有基线、目标值与归因窗【待核实】，不自行编百分比。</p>
+<h4>E — Economic Buyer</h4>
+<p><strong>假说 A：集团品牌/海外经营联合买单。</strong> 适用于全球路由层。<br/><strong>假说 B：单品牌+重点国家联合买单。</strong> 适用于腾势或海洋的窄试点。<br/><strong>假说 C：现有 IP 权益预算内重构。</strong> 最低新增成本，但需合同允许。</p>
+<p>必须问：谁承担权益费、产品化开发、国家激活、经销补贴和数据系统费用？谁享受成交归因？</p>
+<h4>D — Decision Criteria</h4>
+<p>预计标准：</p>
+<ul><li>不损害“技术为王”；</li><li>能跨市场但不抹平本地差异；</li><li>能区分多品牌；</li><li>能被经销商执行；</li><li>有 A/B 或分阶段验收；</li><li>不触碰辅助驾驶、未成年人、跨境数据和体育博彩风险；</li><li>与现有国米/足球权益不冲突；</li><li>可停止，不形成无底洞。</li></ul>
+<p>上述为外部假说，需 L0 访谈确认。</p>
+<h4>D — Decision Process</h4>
+<p>可能流程：业务 sponsor→品牌/国家方案→权益方可行性→法务/数据/安全→财务 business case→采购→试点→复盘→扩张。实际流程【待核实】。</p>
+<p>关键不是“谁喜欢创意”，而是：</p>
+<ul><li>谁写 brief；</li><li>谁拥有数据；</li><li>谁批准国家使用；</li><li>谁给经销商 KPI；</li><li>谁在未达门槛时停掉。</li></ul>
+<h4>I — Identify Pain</h4>
+<p>已由 A 源支持的经营矛盾：</p>
+<ul><li>海外收入高增，但 2025 利润下降、2026Q1 压力加深；</li><li>体育资产增多，但公开材料没有可归因经营指标；</li><li>多品牌覆盖扩大，集团合作需要精确路由；</li><li>本地制造与渠道推进，品牌必须从“被看见”转为“被本地选择”。</li></ul>
+<p>未经一手确认的 pain：</p>
+<ul><li>CRM 割裂；</li><li>国家公司无法调用权益；</li><li>经销商认为体育线索质量低；</li><li>品牌间争夺权益。</li></ul>
+<p>以上不得写成事实，首面核实。</p>
+<h4>C — Champion</h4>
+<p>理想 champion 不是最爱体育的人，而是同时满足：</p>
+<ol><li>对全球品牌与国家经营都有责任；</li><li>能调动品牌、数字化和经销；</li><li>愿意用试点数据证明/杀死方案；</li><li>能把失败标准写进合同。</li></ol>
+<p>候选岗位：海外区域经营负责人、集团品牌战略负责人、单品牌 GM。具体人【待核实】。</p>
+<h4>C — Competition</h4>
+<p>最大竞争不只是其他 IP：</p>
+<ul><li>继续沿用现有赞助激活 agency；</li><li>把预算转投效果广告；</li><li>自建赛车场/技术发布；</li><li>由国家公司各做各的；</li><li>什么都不做。</li></ul>
+<p>必须证明新品类相比“不变”减少了重复生产、提高了权益调用和试驾质量。</p>
+<h3>首面三问</h3>
+<ol><li><strong>过去两年全球足球权益里，哪一个指标让经营团队真正愿意续约——不是传播团队愿意汇报？</strong></li><li><strong>王朝/海洋/腾势等品牌调用同一全球权益时，谁决定它们各自讲什么、在哪些国家不讲？</strong></li><li><strong>如果我们用一个赛季只在两个国家做试点，您愿意用哪条“未达到就停”的指标来杀死它？</strong></li></ol>
+<h3>72 小时必取</h3>
+<ul><li>[ ] 见面人的正式职权与 sponsor 线</li><li>[ ] 现有足球合同权益与排他边界</li><li>[ ] 重点国家/品牌/车型</li><li>[ ] 现有 KPI 与基线</li><li>[ ] CRM/consent/经销商数据可用性</li><li>[ ] 预算 owner 与采购窗口</li><li>[ ] 法务、道路安全、未成年人政策</li><li>[ ] 试点城市与对照设计</li></ul>
+<h3>来源</h3>
+<ul><li>[A1] BYD 2025 年报董事及高管履历：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] BYD 官网国米、ANOC、赛车场等官宣，见 <code>03_partnership_history.md</code>。</li></ul></section><section class="sec" id="r07"><div class="label">研7 - 组织、品牌矩阵与生命周期</div><h2 class="sec-title">组织、品牌矩阵与生命周期</h2><h2 class='md-h1'>组织、品牌矩阵与生命周期</h2>
+<h3>不是五个 logo，而是五种进度</h3>
+<p>年报把新能源乘用车矩阵定义为“比亚迪、方程豹、腾势、仰望”，其中比亚迪品牌再由王朝与海洋两大产品系列构成。销售语言可简写为“五网四品牌”，但需注意公司正式披露语境有所不同。</p>
+<div class='tbl'><table><thead><tr><th>品牌/系列</th><th>官方定位</th><th>用户要完成的进度</th><th>不能共用的空话</th></tr></thead><tbody><tr><td>王朝</td><td>主流、品质、新国潮；龙颜美学</td><td>以成熟可靠方式选择中国技术</td><td>只讲年轻、潮流</td></tr><tr><td>海洋</td><td>年轻、科技、个性化；海洋美学</td><td>低门槛进入智能电动生活</td><td>和王朝说同一套“冠军”</td></tr><tr><td>腾势</td><td>科技安全新豪华；优雅之势</td><td>家庭/商务获得可证明的安全豪华</td><td>只讲性能和曝光</td></tr><tr><td>方程豹</td><td>新能源个性化；个性平权</td><td>把越野、潮流与户外变成可进入生活</td><td>把专业冒险娱乐化</td></tr><tr><td>仰望</td><td>百万级高端；极致技术</td><td>用中国极致工程重写超豪华资格</td><td>用大众促销和泛球迷获客</td></tr></tbody></table></div>
+<h3>生命周期</h3>
+<h4>集团：规模领导者进入质量与世界品牌期</h4>
+<ul><li>1995 年成立；</li><li>2022 年停止燃油汽车整车生产；</li><li>2025 年销量 460.24 万辆，境外收入占 38.65%；</li><li>2026Q1 与 1–7 月出现同比压力。</li></ul>
+<p>集团已过“证明新能源能卖”的阶段，进入：</p>
+<ol><li>利润与现金流质量；</li><li>高端品牌占比；</li><li>海外本地化；</li><li>智能化责任；</li><li>世界级品牌制度。</li></ol>
+<h4>王朝/海洋：主流规模需要重新分辨</h4>
+<p>王朝以中华文化与主流品质为核心；海洋聚焦年轻、科技和个性。技术普惠会让同一套“天神之眼、云辇、DM、闪充”下沉到更多车型，这对规模有利，却提高品牌区分难度。</p>
+<p>合作路由建议：</p>
+<ul><li>王朝：国家文化、自信、家庭责任、长期可靠；</li><li>海洋：城市、足球青年、音乐/内容、轻任务；</li><li>同一赛事中二者不能只是换车标，必须有不同 Job 和 CTA。</li></ul>
+<h4>腾势：从单一 MPV 心智到全品类新豪华</h4>
+<p>年报披露腾势 D9 蝉联三年 MPV 销量冠军；N9、N8L 扩展 SUV，Z 概念跑车亮相，并称其涵盖 MPV、SUV、轿车与跑车。ANOC 由腾势承担官方指定用车，说明其已进入全球高品质出行和体育治理场景。</p>
+<p>生命周期任务：从“D9 是成功产品”升级为“腾势是可被全球识别的新豪华品牌”。体育合作应服务高质量 hospitality、安全证明和全球精英体验，而非泛粉丝量。</p>
+<h4>方程豹：从硬派越野小众到个性大众化</h4>
+<p>年报称 2025 年方程豹销量同比增长 316%，2026 年 1 月累计销量达 30 万辆；豹与钛形成硬派/都市潮流组合。这是增长期品牌，最怕过早变成泛 SUV。</p>
+<p>合作 Job：让用户完成“我原来不会/不敢的户外任务”，但必须用专业训练、安全边界和生态装备降低门槛。</p>
+<h4>仰望：技术图腾进入超豪华耐久战</h4>
+<p>年报称仰望成为中国首个销量破万的国产百万级汽车品牌，U9 Xtreme 创造官方披露的极速与纽北量产电车圈速纪录。即使技术事件极强，超豪华仍需要稀缺服务、审美、圈层与长期残值信任。</p>
+<p>合作 Job：不是卖更多票，而是建立“极致工程见证制度”——少量、高可信、可记录、可传承。</p>
+<h3>组织张力</h3>
+<h4>创始人战略集中 vs 全球本地执行</h4>
+<p>王传福同时是董事长、总裁和腾势董事长，战略语言高度一致；海外经营横跨美洲、欧洲、中东非洲，国家执行需要更多本地裁量。全球合作要有统一内核，也要给国家市场可配置接口。</p>
+<h4>工程师文化 vs 品牌文化</h4>
+<p>超 12 万研发工程师、634 亿元研发投入构成强技术组织。优势是证据多；风险是内容把用户当成技术评审。优秀合作不是弱化技术，而是把参数转换成“我完成了什么”。</p>
+<h4>垂直整合 vs 外部共创</h4>
+<p>比亚迪擅长全栈自研，但大疆合作证明它愿意与世界级伙伴做底层融合。外部合作要证明提供的是 BYD 内部难以独立获得的 IP、社区、场景或信任网络，而不是外包创意。</p>
+<h3>品牌架构的合作门禁</h3>
+<p>每个提案必须回答：</p>
+<ol><li>集团母命题是什么？</li><li>哪个品牌主受益？</li><li>其他品牌为什么不出现？</li><li>国家市场可配置什么？</li><li>用户完成的 Job 是什么？</li><li>技术证据来自哪项已发布能力？</li><li>CTA 是体验、试驾、会员还是 hospitality？</li><li>指标是否按品牌/国家拆分？</li></ol>
+<p>任一答不出，不进入创意评审。</p>
+<h3>来源</h3>
+<ul><li>[A1] BYD 2025 年报品牌矩阵、董事长致辞、高管履历：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] BYD 官方品牌历程：https://www.byd.com/cn/brand-center/industries-and-businesses</li><li>[A3] ANOC 合作：https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li></ul></section><section class="sec" id="r08"><div class="label">研8 - 横向×纵向完整版</div><h2 class="sec-title">横向×纵向完整版</h2><h2 class='md-h1'>横向×纵向完整版</h2>
+<h3>横向：同一时点的六个战场</h3>
+<div class='tbl'><table><thead><tr><th>战场</th><th>A 源事实</th><th>决策问题</th><th>合作含义</th></tr></thead><tbody><tr><td>财务</td><td>2025 收入+3.46%，归母净利-18.97%；2026Q1继续下滑</td><td>新投入是否改善质量</td><td>曝光不是充分指标</td></tr><tr><td>国内销量</td><td>2026 1–7月销量同比-8.98%</td><td>如何守住主流份额</td><td>不宜做昂贵空中叙事</td></tr><tr><td>海外</td><td>2025 境外收入+40.05%；7月出口18.05万辆</td><td>如何从出口变本地品牌</td><td>国家市场可调用</td></tr><tr><td>高端化</td><td>腾势/方程豹/仰望 2025 合计销量同比翻倍</td><td>技术能否变溢价</td><td>分品牌 Job</td></tr><tr><td>智能化</td><td>芯片、天神之眼、城市领航兜底</td><td>如何建立使用信心</td><td>责任比炫技更强</td></tr><tr><td>体育</td><td>欧洲杯、国米、泰足、ANOC等</td><td>资产是否复利</td><td>从赞助包到运营层</td></tr></tbody></table></div>
+<h3>纵向：比亚迪如何走到今天</h3>
+<h4>1. 电池公司时期</h4>
+<p>能力原点是材料、制造、成本与工程。品牌信用来自“把难技术做出来”，不是生活方式。这个基因仍决定合作是否能过最高层：必须解决真实问题。</p>
+<h4>2. 汽车进入与垂直整合</h4>
+<p>从电池到整车、电子、半导体、动力总成，形成垂直整合。优势是技术产业化速度；代价是外界难以理解庞大技术栈。</p>
+<h4>3. 新能源单向门</h4>
+<p>2022 年停止燃油整车生产，把公司命运绑定电动化。此后刀片电池、DM、e 平台与规模增长共同建立领导者地位。</p>
+<h4>4. 多品牌向上</h4>
+<p>腾势重塑、仰望与方程豹发布，使技术从成本优势变成不同价格带价值。品牌架构进入高复杂度期：共享技术提高效率，也可能让消费者只记得“都是比亚迪技术”。</p>
+<h4>5. 全球运营</h4>
+<p>从出口扩展到泰国、巴西等制造基地、匈牙利欧洲总部、自有滚装船、国际经销商。2025 年境外收入已近四成，全球化变成经营主轴。</p>
+<h4>6. 智能责任与体验普惠</h4>
+<p>全民智驾、智能泊车/城市领航兜底、全民赛道、闪充站，把技术从“参数”推进到“使用与责任”。这正是合作创新的接口。</p>
+<h3>横纵交汇的三个真正问题</h3>
+<h4>问题一：技术越来越共享，品牌如何越来越不同？</h4>
+<p>云辇、天神之眼、闪充等能力跨品牌下沉。解决方式不是每个品牌发明一套假技术，而是用不同用户 Job 路由同一技术：</p>
+<ul><li>王朝：可靠承担；</li><li>海洋：城市活力；</li><li>腾势：安全豪华；</li><li>方程豹：降低探索门槛；</li><li>仰望：极致工程。</li></ul>
+<h4>问题二：全球权益越来越多，国家市场如何越来越能用？</h4>
+<p>全球合作提供母体，但本地增长发生在经销商、试驾、售后与社区。需要“全球规则+本地模块+统一数据”，而不是总部做完 KV。</p>
+<h4>问题三：规模越大，如何证明品牌投入不是浪费？</h4>
+<p>要把营销指标分成：</p>
+<ul><li>输出：内容、活动、触达；</li><li>行为：任务完成、试驾、经销调用；</li><li>经营：增量订单、品牌分辨度、价格/配置接受；</li><li>资产：consent 用户、教练/场地、模板与长期内容。</li></ul>
+<p>只有后两层能支撑新品类。</p>
+<h3>机会空间</h3>
+<h4>机会 A：全球品牌路由</h4>
+<p>把现有足球/体育关系抽象为一个“任务协议”：每个品牌选择一种用户进度，每个国家选择一个本地议题，每次激活必须留下可验证证据。</p>
+<h4>机会 B：技术见证网络</h4>
+<p>把赛车场、闪充站、经销商与赛事触点连接为标准化体验节点。用户不是看广告，而是完成一次安全、短时、可分享的技术证明。</p>
+<h4>机会 C：本地共同作者</h4>
+<p>让俱乐部青训、当地工程师、经销商和车主共同生产内容；总部提供技术真相与安全协议。验收“本地作者占比/本地调用”，不只验收播放量。具体目标值待基线后设定。</p>
+<h3>一句话</h3>
+<blockquote><p>比亚迪过去三十年把技术做成了规模；下一阶段要把规模做成世界各地可被亲身验证的信任。</p></blockquote>
+<h3>证据索引</h3>
+<p>财务见 <code>01_IR_financial.md</code>；合作见 <code>03_partnership_history.md</code>；品牌见 <code>07_org_brand_lifecycle.md</code>；所有关键数字回 <code>../data_traceability.md</code>。</p></section><section class="sec" id="r09"><div class="label">研9 - 查了但首面不说</div><h2 class="sec-title">查了但首面不说</h2><h2 class='md-h1'>查了但首面不说</h2>
+<blockquote><p>冰山越厚，刀子越要克制。以下信息可用于备答、证伪或后续方案，不进入 10 分钟主刀。</p></blockquote>
+<h3>财务细项</h3>
+<ol><li>2025 年 H 股 56 亿美元闪电配售及资金用途细节；除非对方问全球扩张资本。</li><li>员工持股计划涉及不超过 2.5 万名员工、资金不超过 41 亿元；考核门槛不是公司业绩指引。</li><li>股利、送股、转增股本细节。</li><li>手机部件与组装业务波动；与体育主张关联弱。</li><li>审计关键事项、税务和担保明细。</li><li>单一客户收入及电子业务大客户推断；不得猜客户身份。</li></ol>
+<h3>技术参数堆</h3>
+<ol><li>U9 Xtreme 极速、纽北圈速可做备答，不以“世界第一”开场。</li><li>4nm 芯片 TOPS、功耗等完整参数；避免把发布会变技术课。</li><li>第二代刀片电池全部充电曲线；只保留“从等待到短任务”的产品含义。</li><li>各平台电机转速、功率、零百等，不做车型目录。</li><li>云辇、易三方、易四方全功能清单。</li><li>灵鸢五项能力；只用作“底层系统共创”的先例。</li></ol>
+<h3>市场与竞品</h3>
+<ol><li>Tesla、Geely、SAIC、Xiaomi、Toyota 的完整财务表。</li><li>竞品负面新闻、事故或创始人争议；主刀不靠贬低对手。</li><li>媒体给出的市占、ASP、品牌价值榜，如无 A 源不说。</li><li>“中国品牌已全面超越外资”等绝对判断。</li><li>国家市场销量冠军列表；不同统计口径易混。</li></ol>
+<h3>体育合作</h3>
+<ol><li>未公开赞助费。</li><li>未核实的品类排他、地域排他和续约选项。</li><li>“数亿球迷”等潜在触达。</li><li>球迷购买力、人群画像比例，未取得一方数据不说。</li><li>国米特别版销量、预订或转化，官方未披露。</li><li>欧洲杯对销量的因果贡献，未见公开增量实验。</li><li>将官方用车等同于碳中和。</li><li>把 U-21、泰足合作细节靠一篇汇总官宣补全。</li></ol>
+<h3>组织</h3>
+<ol><li>依据公开职务猜预算归属。</li><li>猜谁是内部 champion、谁反对体育。</li><li>猜集团品牌与各国家公司关系。</li><li>把创始人兼任总裁解释成“集权问题”。</li><li>用高管薪酬或持股做会面材料。</li></ol>
+<h3>宏大但不锋利</h3>
+<ol><li>“新能源汽车是未来”。</li><li>“年轻人喜欢体育”。</li><li>“足球是世界第一运动”。</li><li>“品牌需要年轻化”——公司早已公开承认并行动，不是洞察。</li><li>“出海要本地化”——公司年报已写，必须给操作机制。</li><li>“内容为王、用户为中心、品效合一”等空话。</li><li>“打造生态闭环”但不写谁完成什么任务。</li><li>三年销量/营收预测。</li></ol>
+<h3>未核实但应调查</h3>
+<ol><li>国米合作合同的数据、内容、球员、场地、车型和排他条款。</li><li>BYD 全球 CRM 是否统一、国家 consent 是否可互通。</li><li>现有体育合作的 KPI、基线与复盘。</li><li>国家经销商能否直接调用全球权益。</li><li>王朝、海洋、腾势等品牌营销预算与审批。</li><li>闪充站商业媒体/活动权限。</li><li>赛车场海外复制计划。</li><li>赛事日试驾的保险、道路与未成年人规则。</li><li>现有 agency roster 与职责边界。</li><li>会面人、时长、成功定义和预算窗口。</li></ol>
+<h3>为什么不说</h3>
+<p>主刀只保留一个矛盾：</p>
+<blockquote><p><strong>比亚迪已把车、工厂和技术带到全球，但体育权益仍需从“全球被看见”升级为“每个本地市场都能调用并验收的信任系统”。</strong></p></blockquote>
+<p>其余研究只用于证明我们不是凭空发明问题，并在对方反驳时迅速收窄或杀死命题。</p></section><section class="sec" id="r10"><div class="label">研10 - 出海×品牌×体育×内容边界</div><h2 class="sec-title">出海×品牌×体育×内容边界</h2><h2 class='md-h1'>出海×品牌×体育×内容边界</h2>
+<h3>出海底座：不是从零开始</h3>
+<p>2025 年报披露：</p>
+<ul><li>新能源汽车覆盖六大洲、119 个国家和地区；</li><li>整车出口突破 100 万辆；</li><li>境外收入 3,107.41 亿元，占 38.65%；</li><li>巴西乘用车工厂首车下线、泰国工厂本地化生产；</li><li>欧洲总部落户匈牙利；</li><li>8 艘滚装船投入运营；</li><li>海外建立“研发+制造+运输+销售”链条。[A1]</li></ul>
+<p>所以合作方若还讲“体育帮助比亚迪走向世界”，会显得晚了两年。真正议题是：<strong>汽车已经到达，品牌是否在当地获得可重复的信任。</strong></p>
+<h3>体育资产图</h3>
+<div class='tbl'><table><thead><tr><th>资产</th><th>时间/地域</th><th>官方角色</th><th>可确认动作</th><th>未知边界</th></tr></thead><tbody><tr><td>中国滑板队</td><td>2023，中国</td><td>官方合作伙伴</td><td>元PLUS承接、青年/CSR</td><td>KPI、期限</td></tr><tr><td>UEFA EURO 2024</td><td>2024，欧洲</td><td>官方出行合作伙伴</td><td>官方用车、球迷广场展示</td><td>数据、ROI</td></tr><tr><td>Copa América</td><td>2024，拉美</td><td>拉美区域官方合作伙伴</td><td>后续官宣回溯确认</td><td>完整权益</td></tr><tr><td>UEFA U-21</td><td>2025，欧洲</td><td>合作</td><td>汇总官宣确认</td><td>期限/层级</td></tr><tr><td>泰国联赛与国家队</td><td>2025，泰国</td><td>主赞助商（汇总官宣）</td><td>本地足球</td><td>排他/KPI</td></tr><tr><td>国际米兰</td><td>2025–2028</td><td>全球汽车合作伙伴</td><td>约70辆车、特别版、内容</td><td>用户数据/转化</td></tr><tr><td>ANOC 香港大会</td><td>2026，香港</td><td>战略伙伴；腾势指定用车</td><td>绿色车队、联合奖项</td><td>长期资产</td></tr></tbody></table></div>
+<h3>内容边界</h3>
+<h4>可以说</h4>
+<ul><li>合作身份、期限和官方公布动作；</li><li>官方用车、车队、展示、特别版；</li><li>公司/合作方署名原话；</li><li>由 A 源核实的销量、收入、出口与品牌定位；</li><li>“我们的判断/假说”，并明确需要一手验证。</li></ul>
+<h4>不可以说</h4>
+<ul><li>未披露赞助金额；</li><li>“独家”除非合同/官宣明确；</li><li>粉丝总数等于有效触达；</li><li>体育合作直接带来销量增长；</li><li>官方用车等于赛事碳中和；</li><li>球员使用等于代言；</li><li>俱乐部会员数据可给 BYD；</li><li>特别版一定全球销售或形成溢价。</li></ul>
+<h4>驾驶与安全</h4>
+<ul><li>竞技内容须在封闭场地；</li><li>辅助驾驶不得称自动驾驶；</li><li>不设计公共道路竞速、分心驾驶、无人机违规起降；</li><li>未成年人活动需要监护、数据和影像授权；</li><li>城市领航“兜底”须原样遵守官方条件，不能改成无限责任。</li></ul>
+<h3>世界级品牌的三层本地化</h3>
+<h4>第一层：语言本地化</h4>
+<p>翻译 KV、使用本地球员/创作者。必要但最低级，容易复制。</p>
+<h4>第二层：运营本地化</h4>
+<p>国家公司、经销商、当地俱乐部、试驾和售后共同执行；指标按国家拆分。</p>
+<h4>第三层：共同作者</h4>
+<p>当地用户/青训/工程师决定议题并留下长期资产。例如：</p>
+<ul><li>泰国：本地员工、球队与家庭共同定义“比赛日绿色出行”；</li><li>巴西：工厂社区与足球文化共同生产任务；</li><li>意大利：国米合作不只拍片，而让本地经销商持续调用；</li><li>香港：腾势 hospitality 转为高端服务标准。</li></ul>
+<p>第三层才接近王传福“具有本地品牌属性”的要求。</p>
+<h3>多品牌体育路由</h3>
+<div class='tbl'><table><thead><tr><th>体育/内容场景</th><th>优先品牌</th><th>原因</th><th>CTA</th></tr></thead><tbody><tr><td>大众足球比赛日</td><td>海洋/王朝</td><td>城市与家庭规模</td><td>任务→试驾</td></tr><tr><td>高端治理/hospitality</td><td>腾势</td><td>安全新豪华</td><td>礼宾体验</td></tr><tr><td>青年滑板/街头</td><td>海洋/方程豹钛</td><td>个性、科技、潮流</td><td>共创内容</td></tr><tr><td>越野/户外技能</td><td>方程豹</td><td>降低探索门槛</td><td>认证训练</td></tr><tr><td>极致赛道/工程见证</td><td>仰望</td><td>极致技术、稀缺</td><td>小规模见证</td></tr></tbody></table></div>
+<p>该表是外部设计假说，不代表 BYD 已采用。</p>
+<h3>内容操作系统</h3>
+<p>每次激活都使用同一“六格协议”：</p>
+<ol><li><strong>本地张力</strong>：当地用户实际害怕/想完成什么；</li><li><strong>品牌 Job</strong>：只选一个品牌；</li><li><strong>技术证据</strong>：只选一项已发布能力；</li><li><strong>用户任务</strong>：在安全边界内亲自完成；</li><li><strong>经营 CTA</strong>：试驾/会员/服务，不停在分享；</li><li><strong>留下资产</strong>：consent、内容模板、认证人员、场地或数据。</li></ol>
+<h3>衡量</h3>
+<p>全球层：</p>
+<ul><li>多少国家调用同一权益；</li><li>母内容复用率；</li><li>每品牌认知分辨度；</li><li>统一安全与合规通过率。</li></ul>
+<p>本地层：</p>
+<ul><li>任务完成、有效 consent、试驾到店；</li><li>经销商参与/重复调用；</li><li>本地作者与本地语言内容；</li><li>试点 vs 对照 uplift；</li><li>事故与投诉。</li></ul>
+<p>目标值必须基于现有基线共同设定。</p>
+<h3>最大风险</h3>
+<ol><li>试图让所有品牌同时受益，最后谁都不鲜明；</li><li>国家市场只被要求发总部物料；</li><li>球迷数据因合同/隐私无法接入；</li><li>经销商没有容量或激励；</li><li>赛事内容压过技术真相；</li><li>只在赛季报告触达，不建立持续身份；</li><li>经营压力下项目被视为奢侈品。</li></ol>
+<h3>来源</h3>
+<ul><li>[A1] BYD 2025 年报：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] 欧洲杯：https://www.bydglobal.com/cn/news/2024-01-12/1617162267087</li><li>[A3] 国米及足球盘点：https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A4] ANOC：https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li><li>[A5] 中国滑板队：https://www.bydglobal.com/cn/news/2023-11-23/1617162178877</li></ul></section><section class="sec" id="r11"><div class="label">研11 - 技术×体验地图：参数如何变成用户进度</div><h2 class="sec-title">技术×体验地图：参数如何变成用户进度</h2><h2 class='md-h1'>技术×体验地图：参数如何变成用户进度</h2>
+<blockquote><p>本文件不是产品手册。目的是防止创意脱离真实技术，也防止把道路安全做成娱乐。技术参数均以 2025 年报或官方发布会为锚。</p></blockquote>
+<h3>技术母体一：电池与闪充</h3>
+<h4>已证事实</h4>
+<p>2026-03-05 发布第二代刀片电池与闪充技术。官方披露：常温 10%到70%为 5 分钟，10%到97%为 9 分钟；零下30℃从20%到97%为12分钟。公司同时宣布 2026 年底全国建设 20,000 座闪充站，并计划年底在海外规模化落地。[A1]</p>
+<h4>用户 Job</h4>
+<p>不是“知道充电功率”，而是：</p>
+<ul><li>我不再为长途补能做复杂计划；</li><li>一家人停车休息的节奏不再被车支配；</li><li>寒冷地区不再把低温当电动车的原罪。</li></ul>
+<h4>可体验</h4>
+<ul><li>静态可视化真实充电曲线；</li><li>在车辆安全静止状态下完成 5 分钟内容任务；</li><li>对比“人等车/车等人”的行为变化；</li><li>让用户复述“快在哪里、条件是什么”。</li></ul>
+<h4>禁区</h4>
+<ul><li>不做充电竞速；</li><li>不把目标站点数写成已建成；</li><li>不保证所有车型/温度/电量都达到发布会数值；</li><li>不在没有计量与边界时宣称节省碳排。</li></ul>
+<h3>技术母体二：天神之眼与责任</h3>
+<h4>已证事实</h4>
+<p>2025 年“全民智驾”让天神之眼 C 首批覆盖 21 款车型；2025 年报披露截至年底辅助驾驶车型保有量超 256 万辆，每日生成辅助驾驶数据超 1.6 亿公里。2026 年发布璇玑 A3 芯片，并在官方条件下为城市领航提供一年兜底。[A2][A3]</p>
+<h4>用户 Job</h4>
+<ul><li>我理解辅助驾驶能做什么、不能做什么；</li><li>我敢使用，但不会放弃责任；</li><li>我知道品牌在事故与规则问题上如何承担。</li></ul>
+<h4>可体验</h4>
+<ul><li>模拟器中识别接管时机；</li><li>静态“责任边界卡”；</li><li>专业教练解释功能与兜底条件；</li><li>完成后测试用户是否仍误以为是自动驾驶。</li></ul>
+<h4>禁区</h4>
+<ul><li>不在公共道路设计挑战；</li><li>不把“兜底”称无限赔付；</li><li>不用球员演示脱手、分心或危险行为；</li><li>不以 TOPS 替代安全结果。</li></ul>
+<h3>技术母体三：云辇、易三方、易四方</h3>
+<h4>已证事实</h4>
+<p>年报将云辇定义为新能源专属智能车身控制系统，并披露云辇 C/A/P/Z 在不同车型的应用。易三方是腾势专属整车智能控制技术平台；易四方用于仰望，强调四电机独立驱动与极致安全性能。[A4]</p>
+<h4>用户 Job 路由</h4>
+<ul><li>王朝/海洋：复杂路面仍舒适、稳定；</li><li>腾势：家庭成员不因大车而牺牲安全与灵活；</li><li>方程豹：新手也能在专业边界内探索；</li><li>仰望：极致工况下的工程冗余与掌控。</li></ul>
+<h4>可体验</h4>
+<ul><li>封闭低速场地的舒适/转向任务；</li><li>静态底盘结构与数字孪生；</li><li>专业教练完成后由用户解释“技术替我承担了什么”。</li></ul>
+<h4>禁区</h4>
+<ul><li>不在开放道路复刻鱼钩或爆胎；</li><li>不以一次演示保证所有事故结果；</li><li>不让大众活动稀释仰望稀缺性。</li></ul>
+<h3>技术母体四：DM 与纯电双路径</h3>
+<p>比亚迪长期坚持纯电与插混“两条腿、齐步走”。这对全球市场尤其重要：充电基础设施、居住形态、行驶距离和政策不同。体育合作不能默认所有国家都以纯电为唯一主角。</p>
+<p>用户 Job：</p>
+<ul><li>城市纯电：低使用成本与安静体验；</li><li>插混：长途、欠发达补能网络下仍能电动化；</li><li>海外本地：不是把中国畅销配置原样输出，而是匹配当地生活。</li></ul>
+<p>内容边界：不做不同工况续航横比；不把 NEDC、CLTC、WLTP 混用；任何油耗/续航必须带测试口径。</p>
+<h3>技术母体五：灵鸢</h3>
+<p>灵鸢是合作创新的正样本。年报披露它已扩展到五大品牌首搭车型，核心能力包括动态起降、随动跟拍、收纳快充、地空双摄与一键大片。[A4]</p>
+<p>它证明：</p>
+<ol><li>外部伙伴可以进入整车系统；</li><li>合作能从单车型扩展到多品牌；</li><li>内容能力可以成为产品能力；</li><li>真新品类有功能、有使用、有 OTA/车型节奏。</li></ol>
+<p>但 disruptive - 跳出盒子 不复制“车载无人机”；复制的是<strong>底层融合方法</strong>。</p>
+<h3>技术到体验的五层翻译</h3>
+<div class='tbl'><table><thead><tr><th>层</th><th>问题</th><th>例</th></tr></thead><tbody><tr><td>参数</td><td>它是什么</td><td>5分钟充至70%</td></tr><tr><td>痛点</td><td>治什么根</td><td>等待/低温</td></tr><tr><td>行为</td><td>用户做什么</td><td>完成短停任务</td></tr><tr><td>情绪</td><td>感到什么</td><td>行程不被车支配</td></tr><tr><td>资产</td><td>留下什么</td><td>Proof Card+试驾进度</td></tr></tbody></table></div>
+<p>任何创意若从参数直接跳到品牌口号，中间三层缺失，否决。</p>
+<h3>体验任务设计模板</h3>
+<ol><li>只选一个品牌与一个技术；</li><li>写清用户原先的妥协；</li><li>任务小于 10 分钟；</li><li>产品/法务/保险批准；</li><li>有开始、完成和理解测量；</li><li>有明确 CTA；</li><li>有停止门槛；</li><li>不以礼品掩盖低意向。</li></ol>
+<h3>来源</h3>
+<ul><li>[A1] https://www.bydglobal.com/cn/news/2026-03-06/1617162762962</li><li>[A2] https://www.bydglobal.com/cn/news/2025-02-11/1617162592632</li><li>[A3] https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</li><li>[A4] https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li></ul></section><section class="sec" id="r12"><div class="label">研12 - 海外市场原型：不要把“全球”当成一个国家</div><h2 class="sec-title">海外市场原型：不要把“全球”当成一个国家</h2><h2 class='md-h1'>海外市场原型：不要把“全球”当成一个国家</h2>
+<blockquote><p>本页只使用公司年报确认的布局事实，国家用户洞察需当地一手研究。以下为市场原型与待验证假说，不是各国销量结论。</p></blockquote>
+<h3>原型 A：欧洲成熟汽车市场</h3>
+<h4>已有底座</h4>
+<ul><li>2025 年欧洲新车注册量同比增长 268.6%（年报引用 ACEA）；</li><li>欧洲总部落户匈牙利，承担销售售后、认证测试、本地化设计与功能开发；</li><li>匈牙利工厂筹建；</li><li>欧洲杯、U-21、国际米兰形成足球资产组合；</li><li>腾势在米兰设计周、慕尼黑车展亮相。[A1]</li></ul>
+<h4>战略任务</h4>
+<p>从“快速增长的中国新能源品牌”变成“在欧洲长期服务、合规并有本地文化位置的技术品牌”。</p>
+<h4>应验证</h4>
+<ul><li>哪些国家知名度高但考虑度/试驾低；</li><li>经销与直营差异；</li><li>国米权益在哪些国家最可调用；</li><li>关税、本地制造、残值与售后如何影响品牌；</li><li>BYD 与 DENZA 名称架构；</li><li>球迷是否愿意把俱乐部关系延伸到出行。</li></ul>
+<h4>适合试点</h4>
+<p>全球信任协议 A：因为现有权益密集、国家差异大。<br/>五分钟技术联赛 B：只在有经销承接和合规场地的城市。</p>
+<h3>原型 B：拉美高增长与足球文化市场</h3>
+<h4>已有底座</h4>
+<ul><li>年报称拉美核心国家销量稳居前列，是海外增长支柱；</li><li>巴西工厂 2025 年首车下线；</li><li>2024 美洲杯拉美区域合作；</li><li>BYD SHARK 在墨西哥全球首发，说明产品也在海外定义。[A1][A2]</li></ul>
+<h4>战略任务</h4>
+<p>把“进口中国车”转成“本地制造/本地生活共同作者”，并处理不同国家收入、道路、补能与皮卡文化差异。</p>
+<h4>应验证</h4>
+<ul><li>巴西工厂社区、经销网络与足球触点；</li><li>葡语/西语内容不能互相替代；</li><li>纯电/插混/皮卡在不同国家的 Job；</li><li>美洲杯权益是否仍有可复用资产；</li><li>金融可得性、保险与二手残值；</li><li>球迷活动是否能到达家庭决策者。</li></ul>
+<h4>适合试点</h4>
+<p>“本地共同作者”版本：工厂员工、社区、俱乐部、经销商共同定义任务，而不是中国总部派发素材。</p>
+<h3>原型 C：东南亚本地制造与国家体育</h3>
+<h4>已有底座</h4>
+<ul><li>泰国工厂投产一周年时已交付当地第 9 万辆新能源车；</li><li>工厂吸纳 6,100+ 泰籍雇员、泰籍员工占比 90%（官网官宣）；</li><li>泰国足球联赛和国家队主赞助；</li><li>年报称泰国工厂实现全流程本地化生产。[A3][A1]</li></ul>
+<h4>战略任务</h4>
+<p>把本地制造、就业与足球从三条新闻连成一个“本地社会共同进步”系统。</p>
+<h4>应验证</h4>
+<ul><li>泰足权益具体层级、期限与数据；</li><li>工厂员工/家属是否可成为第一批共同作者；</li><li>经销商与国家队内容如何连接；</li><li>泰国纯电与插混需求差异；</li><li>活动中的未成年人、青训与数据规则。</li></ul>
+<h4>适合试点</h4>
+<p>五分钟技术联赛 B 的“主场”：任务由泰国团队定义，总部提供安全协议；验收本地作者、经销调用与试驾质量。</p>
+<h3>原型 D：中东高端与能源转型</h3>
+<h4>已有底座</h4>
+<ul><li>年报称中东市场精准对接高端出行；</li><li>李柯兼中东非洲汽车销售事业部总经理；</li><li>与沙特阿美技术公司签署新能源汽车联合开发协议；</li><li>2025 配售获得中东战略投资人参与（年报）。[A1][A4]</li></ul>
+<h4>战略任务</h4>
+<p>不是简单“豪车+足球”，而是把高端出行、能源效率、极端气候与本地战略伙伴放在同一叙事。</p>
+<h4>应验证</h4>
+<ul><li>腾势/仰望/主品牌的国家上市节奏；</li><li>高温、长距离与补能 Job；</li><li>hospitality 与零售转化如何分开；</li><li>体育权利的文化/性别/内容边界；</li><li>技术合作与品牌传播能否相互引用。</li></ul>
+<h4>适合试点</h4>
+<p>腾势高端礼宾或闭门技术见证，不优先做大众集章。</p>
+<h3>原型 E：香港国际窗口</h3>
+<h4>已有底座</h4>
+<p>2026 ANOC 大会首次在香港举办，腾势为唯一官方指定用车品牌，服务 1,200 余名代表并联合设奖。[A5]</p>
+<h4>战略任务</h4>
+<p>把一次大会服务变成腾势全球 hospitality 标准的原型，而非会后归零的车队。</p>
+<h4>应验证</h4>
+<ul><li>代表体验与反馈是否可合规采集；</li><li>奖项是否能持续；</li><li>服务 SOP 能否复制到其他国际事件；</li><li>与香港本地零售/车主的关系；</li><li>“唯一官方指定用车”具体品类与期限。</li></ul>
+<h3>全球优先级矩阵</h3>
+<p>不按“粉丝最多”排序，按五项打分，分值待内部数据：</p>
+<ol><li>经营压力/机会；</li><li>现有权益可调用；</li><li>品牌/车型窗口；</li><li>经销与数据承接；</li><li>合规和执行可行。</li></ol>
+<p>缺任一项，宁可不试。</p>
+<h3>来源</h3>
+<ul><li>[A1] BYD 2025 年报：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] SHARK 墨西哥：https://www.bydglobal.com/cn/news/2024-05-15/1617162437683</li><li>[A3] 泰国工厂：https://www.bydglobal.com/cn/news/2025-07-09/1617162671159</li><li>[A4] 沙特阿美：https://www.bydglobal.com/cn/news/2025-04-21/1617162636530</li><li>[A5] ANOC：https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li></ul></section><section class="sec" id="r13"><div class="label">研13 - 反证与风险：为什么这两个创意可能根本不该做</div><h2 class="sec-title">反证与风险：为什么这两个创意可能根本不该做</h2><h2 class='md-h1'>反证与风险：为什么这两个创意可能根本不该做</h2>
+<blockquote><p>目的不是替方案辩护，而是在花钱前主动杀死错误命题。</p></blockquote>
+<h3>核心假说</h3>
+<p>H：比亚迪现有全球体育权益在国家调用、品牌路由和经营归因之间存在缺口；建立协议与短任务体验能提高现有权益的复用和高质量试驾。</p>
+<p>当前裁决：<strong>CONDITIONAL</strong>。公开资料能证明资产、品牌和经营张力，不能证明内部流程真的断裂。</p>
+<h3>F1：他们可能已有成熟全球运营层</h3>
+<p><strong>攻击：</strong> 官网不披露内部系统不等于系统不存在。BYD 或 agency 可能已有统一 CRM、权益矩阵、国家 toolkit 与 ROI 方法。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> 索取一个已结束赛季的运营地图与复盘；若国家调用、品牌分流、经销承接已成熟，A 概念应 KILL 或仅补窄缺口。</p>
+<h3>F2：体育不是当前经营瓶颈</h3>
+<p><strong>攻击：</strong> 2026 压力可能来自产品周期、价格、渠道库存、宏观或竞争，体育运营优化无法产生可观影响。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> 让海外经营负责人排序前三问题；若品牌信任/试驾质量不在前列，不应争主预算。</p>
+<h3>F3：球迷数据不可获得</h3>
+<p><strong>攻击：</strong> IP 方、GDPR/本地隐私、国家系统或合同限制使 consent 和归因链无法建立。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> 法务先审国米合同、数据角色与跨境流；若只能匿名触达，指标改为门店级增量，不得承诺用户身份层。</p>
+<h3>F4：经销商不愿执行</h3>
+<p><strong>攻击：</strong> 门店人员、场地和试驾容量有限，复杂任务只增加负担。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> 访谈 5–10 家试点经销商；要求其自己写出能承受的任务时长、客流和激励。没有经销 champion 就停。</p>
+<h3>F5：五分钟体验把技术做浅了</h3>
+<p><strong>攻击：</strong> 闪充、智驾和底盘复杂，短任务可能变游乐设施，反而伤害技术品牌。<br/><strong>强度：中高。</strong><br/><strong>实验：</strong> 盲测参与者能否准确复述价值与边界；若只记得“好玩”，任务 KILL。</p>
+<h3>F6：体育人群与购车人群重叠不足</h3>
+<p><strong>攻击：</strong> 球迷不等于目标购车人群，特别是高端品牌。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> 不使用全球粉丝画像，取国家一方数据与历史试驾；腾势/仰望若重叠低，改用 hospitality/见证，不做大众获客。</p>
+<h3>F7：多品牌路由在内部政治上不可行</h3>
+<p><strong>攻击：</strong> 品牌预算、国家团队和集团权益 ownership 不一致，协议无法强制执行。<br/><strong>强度：中高。</strong><br/><strong>实验：</strong> 只选一个 sponsor、一个品牌、一个国家；若连最小单元都无法授权，不做平台梦。</p>
+<h3>F8：现有赛事权益不允许任务化</h3>
+<p><strong>攻击：</strong> 场地、球员、商标、赞助品类、抽奖、拍摄和特别版使用受到严格限制。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> Rights API 先由合同生成，不由创意生成。无法调用的功能从卡片删除。</p>
+<h3>F9：安全风险吞噬品牌收益</h3>
+<p><strong>攻击：</strong> 任何驾驶、充电、无人机或青少年事故都会放大。<br/><strong>强度：极高。</strong><br/><strong>实验：</strong> 产品安全、保险和法务拥有一票否决；首试用静态/模拟任务，不用道路挑战。</p>
+<h3>F10：目标市场真正需要的是售后/金融，不是品牌</h3>
+<p><strong>攻击：</strong> 知名度已有，转化障碍来自维修网络、贷款、保险或残值。<br/><strong>强度：高。</strong><br/><strong>实验：</strong> 首面获取漏斗流失原因。若售后/金融是第一障碍，合作最多做解释层，不抢增长功劳。</p>
+<h3>F11：效果广告更便宜</h3>
+<p><strong>攻击：</strong> 同预算投放可带来更多可追踪试驾。<br/><strong>强度：中高。</strong><br/><strong>实验：</strong> 以同城/同周期增量试驾质量比较，不用总线索数。若 Proof League 没有质量/品牌资产优势，停止。</p>
+<h3>F12：全球协议变成新官僚层</h3>
+<p><strong>攻击：</strong> 模板、审批与 dashboard 增加时间，降低本地速度。<br/><strong>强度：中。</strong><br/><strong>实验：</strong> MVP 不开发软件；测 brief 到上线周期。若比旧流程更慢且复用无改善，KILL。</p>
+<h3>风险登记</h3>
+<div class='tbl'><table><thead><tr><th>风险</th><th>预防</th><th>触发即停</th></tr></thead><tbody><tr><td>道路安全误导</td><td>封闭/静态/模拟；专业审批</td><td>任何绕过产品安全</td></tr><tr><td>数据违规</td><td>最小化、当地 consent、数据角色清楚</td><td>无合法基础</td></tr><tr><td>品牌稀释</td><td>一任务一品牌</td><td>五品牌同时露出</td></tr><tr><td>过度归因</td><td>对照组、归因窗、标注相关/因果</td><td>只给总触达</td></tr><tr><td>高端降格</td><td>仰望邀请制、腾势 hospitality</td><td>大众抽奖套高端</td></tr><tr><td>经销过载</td><td>容量测试、激励、重复调用</td><td>到店无法承接</td></tr><tr><td>权益冲突</td><td>合同先行</td><td>创意先承诺</td></tr><tr><td>本地文化冒犯</td><td>本地共同作者</td><td>总部直译上线</td></tr></tbody></table></div>
+<h3>推进门槛</h3>
+<p>只有以下条件同时满足，才进入付费试点：</p>
+<ul><li>[ ] 内部承认具体流程缺口；</li><li>[ ] 选定一个经济买家；</li><li>[ ] 合同允许；</li><li>[ ] 国家公司与经销商愿意执行；</li><li>[ ] 有历史基线和对照；</li><li>[ ] 数据、产品安全、保险通过；</li><li>[ ] 写明未达即停；</li><li>[ ] 不承诺三年预测或虚假 ROI。</li></ul>
+<h3>总体裁决</h3>
+<p><strong>CONDITIONAL / PIVOT-ready</strong></p>
+<ul><li>允许说：现有全球资产值得从一次性激活升级为可调用、可验收结构。</li><li>禁止说：BYD 不会做体育、缺年轻化、合作一定拉动销量、我们能统一全球 CRM。</li><li>Pivot：若权益/数据不可用，将 B 改成经销商自有“技术证明任务”，不依赖球迷身份；若经营痛点不在品牌，整案停止。</li></ul></section><section class="sec" id="r14"><div class="label">研14 - 体育权益运营深拆：从合同附件到国家可调用资产</div><h2 class="sec-title">体育权益运营深拆：从合同附件到国家可调用资产</h2><h2 class='md-h1'>体育权益运营深拆：从合同附件到国家可调用资产</h2>
+<blockquote><p>本页不是对比亚迪现有流程的事实描述，而是基于已公开合作边界提出的尽调框架与运营设计。凡涉及合同、预算、数据权限、内部审批和实际 KPI，均为【待核实】。已证合作事实回链 <code>03_partnership_history.md</code> 与 A 源。</p></blockquote>
+<h3>一、先把“买到权益”拆成七种不同能力</h3>
+<p>体育合作官宣常把“全球伙伴、内容、活动、触达”写在同一段里，实际运营却至少是七张权利表。任何一张缺失，都可能使国家市场看到资产却用不了。</p>
+<div class='tbl'><table><thead><tr><th>权利层</th><th>必须从合同确认什么</th><th>国家市场真正要做什么</th><th>常见误判</th><th>本案状态</th></tr></thead><tbody><tr><td>身份</td><td>partner title、地域、期限、品类、排他</td><td>在当地物料合法使用合作身份</td><td>“全球”自动等于所有国家、所有品牌</td><td>国米三年与全球汽车伙伴已证；细边界待核</td></tr><tr><td>标识</td><td>队徽、赛事标、奖杯、球衣、场馆视觉</td><td>形成当地语言和车型版本</td><td>有 logo 就能任意联名</td><td>【待核实】</td></tr><tr><td>人物</td><td>球员、教练、名宿、青训、代表出镜范围</td><td>选择与品牌 Job 匹配的人物</td><td>俱乐部合作等于球员代言</td><td>【待核实】</td></tr><tr><td>内容</td><td>拍摄日、素材库、直播、幕后、剪辑与存续期</td><td>按国家重剪并长期复用</td><td>一次全球大片等于内容系统</td><td>【待核实】</td></tr><tr><td>场地</td><td>比赛日、训练场、球迷区、hospitality、门票</td><td>把体验和试驾嵌入真实触点</td><td>官方用车等于可在场馆卖车</td><td>【待核实】</td></tr><tr><td>产品</td><td>官方车队、特别版、展示、试驾、联合商品</td><td>把权益接到具体品牌/车型</td><td>一辆联名车能自然全球销售</td><td>国米约70辆车与海狮07特别版已证；销售边界待核</td></tr><tr><td>数据</td><td>报名、抽奖、会员、票务、内容互动、consent</td><td>形成可跟进且合规的用户进度</td><td>“触达球迷”自动获得球迷名单</td><td>【待核实】</td></tr></tbody></table></div>
+<p><strong>决策含义：</strong> Rights API 不是技术名词，而是一份“什么可以做、谁能做、做到何时、留下什么”的可搜索合同翻译。若它只列素材而不列数据、品牌与国家，就仍是资产目录，不是运营协议。</p>
+<h3>二、国米三年合作：公开事实与必须补齐的合同问题</h3>
+<h4>已证公开事实</h4>
+<p>2025-07-21，比亚迪与国际米兰建立三年战略伙伴关系，官方身份为全球汽车合作伙伴；比亚迪将向俱乐部提供约 70 辆新能源车，覆盖纯电与 Super DM 插混，并披露海狮 07 特别定制版及后续国际活动、内容与创新项目方向。[A1]</p>
+<p>这足以证明：</p>
+<ol><li>关系不是单场 campaign，而有赛季连续性；</li><li>合作不只 logo，已进入车队使用与产品表达；</li><li>官方文本明确留出内容、活动和创新项目空间；</li><li>公开文本没有证明球迷数据、试驾归因、国家调用或完整排他边界。</li></ol>
+<h4>合同尽调 36 问</h4>
+<h5>A. 身份与排他</h5>
+<ol><li>“全球汽车合作伙伴”覆盖哪些国家和地区？</li><li>是否存在俱乐部已有区域汽车伙伴、经销商或租赁合作的 carve-out？</li><li>排他是整车、乘用车、新能源车、充电、商用车还是更窄品类？</li><li>BYD 集团身份是否自动覆盖腾势、方程豹、仰望及王朝/海洋？</li><li>子品牌出现时应使用何种 lock-up？</li><li>合作期限按自然年、赛季还是签约周年计算？</li><li>合同终止后素材、特别版和用户数据各自保留多久？</li></ol>
+<h5>B. 人物与内容</h5>
+<ol><li>每赛季可用球员/教练/名宿的数量、时长与提前期？</li><li>是否有伤病、转会、国家队征召导致的替换机制？</li><li>球员肖像能否用于车型广告、经销商物料和效果投放？</li><li>是否允许国家市场二次剪辑、配音、字幕和本地 CTA？</li><li>原始素材由谁保管，是否可跨赛季复用？</li><li>内容审核由俱乐部、球员代理、联赛与 BYD 哪些角色共同完成？</li><li>是否允许工程师、车主、青训家庭成为共同作者？</li><li>是否允许产品参数、辅助驾驶、充电等技术主张进入俱乐部内容？</li></ol>
+<h5>C. 场地与比赛日</h5>
+<ol><li>主场比赛日可用哪些区域：外广场、hospitality、停车区、媒体区、训练基地？</li><li>展车、静态体验、模拟器、试乘、试驾分别需要谁批准？</li><li>是否能在非比赛日使用场地？</li><li>每赛季门票与 hospitality 配额如何分配到国家和品牌？</li><li>场地是否允许收集 consent、预约试驾或发放经销商 CTA？</li><li>未成年人参与需哪些监护与影像授权？</li><li>车辆充电、消防、保险和人流容量边界是什么？</li></ol>
+<h5>D. 产品与商业化</h5>
+<ol><li>海狮 07 特别版是车队定制、展示车、限量销售还是全球可售版本？</li><li>联名元素的设计、生产、认证、库存与售后由谁负责？</li><li>经销商可否使用特别版引流，使用到何时？</li><li>约 70 辆车的实际使用人是谁，能否形成真实使用内容？</li><li>球员/工作人员使用车辆是否允许被称为“体验”，不得自动称“代言”？</li><li>是否允许把车辆使用反馈汇总给产品团队？</li></ol>
+<h5>E. 数据与测量</h5>
+<ol><li>俱乐部能提供的是匿名洞察、媒体受众、活动报名还是可联系会员？</li><li>双方在 GDPR 下分别是 controller、joint controller 还是 processor？</li><li>用户同意的用途是否包含 BYD 经销商联系、跨国转移和再营销？</li><li>国家经销商如何取得线索且保留来源事件 ID？</li><li>票务、内容、活动、试驾和订单能否在匿名/聚合层连接？</li><li>是否允许城市或门店级对照实验？</li><li>赛季复盘提供实际交付还是潜在媒体价值？</li><li>哪些指标触发整改、缩减或终止？</li></ol>
+<p>上述问题未取得合同前，任何“全球球迷身份层”只能写为愿景，不能写成已可实施。</p>
+<h3>三、权益调用不是下素材：完整工单应有 16 个字段</h3>
+<p>一个国家市场申请调用权益时，至少提交：</p>
+<div class='tbl'><table><thead><tr><th>字段</th><th>为什么必要</th><th>拒绝条件</th></tr></thead><tbody><tr><td>国家/城市</td><td>确认地域与法规</td><td>合同不覆盖</td></tr><tr><td>主品牌/系列</td><td>避免五品牌同台</td><td>未指定唯一主品牌</td></tr><tr><td>车型与上市阶段</td><td>接到真实经营窗口</td><td>无供车、无价格、无试驾</td></tr><tr><td>本地 business problem</td><td>防止为用权益而用</td><td>只写“提升声量”</td></tr><tr><td>本地人群</td><td>明确谁有真实 Job</td><td>只写“广大球迷”</td></tr><tr><td>可用权益 ID</td><td>合同先于创意</td><td>无权利依据</td></tr><tr><td>技术证据</td><td>只用已发布能力</td><td>参数无 A 源或越界</td></tr><tr><td>用户任务</td><td>从观看变为完成</td><td>危险、过长或不可复制</td></tr><tr><td>CTA</td><td>试驾/服务/hospitality</td><td>只剩扫码抽奖</td></tr><tr><td>经销承接人</td><td>防止线索落空</td><td>无容量与责任人</td></tr><tr><td>数据角色与 consent</td><td>合规前置</td><td>用途、保留期不清</td></tr><tr><td>事件 ID</td><td>串联触点</td><td>系统不能记录</td></tr><tr><td>基线</td><td>允许比较</td><td>只有目标没有历史</td></tr><tr><td>对照</td><td>识别增量</td><td>无法设置且仍宣称因果</td></tr><tr><td>安全/法务签字</td><td>一票否决</td><td>未批准先上线</td></tr><tr><td>Kill 指标</td><td>防止惯性续做</td><td>不接受停止条件</td></tr></tbody></table></div>
+<p>这张工单的价值不是加审批，而是把“好创意”提前变成“可执行、可验收、可停止”的小合同。</p>
+<h3>四、从总部到国家的 RACI，不清楚就不要建平台</h3>
+<p>以下是建议责任模型，非 BYD 现状：</p>
+<div class='tbl'><table><thead><tr><th>任务</th><th>集团品牌</th><th>海外区域</th><th>品牌 GM</th><th>国家公司</th><th>经销商</th><th>法务/数据/安全</th><th>IP 方</th></tr></thead><tbody><tr><td>定义全球母命题</td><td>A/R</td><td>C</td><td>C</td><td>I</td><td>I</td><td>C</td><td>C</td></tr><tr><td>解释合同权益</td><td>A</td><td>I</td><td>I</td><td>C</td><td>I</td><td>R</td><td>R</td></tr><tr><td>指定主品牌 Job</td><td>C</td><td>C</td><td>A/R</td><td>C</td><td>I</td><td>C</td><td>I</td></tr><tr><td>选国家/车型窗口</td><td>C</td><td>A</td><td>C</td><td>R</td><td>C</td><td>I</td><td>I</td></tr><tr><td>设计本地任务</td><td>C</td><td>C</td><td>C</td><td>A/R</td><td>R</td><td>C</td><td>C</td></tr><tr><td>审安全与主张</td><td>I</td><td>I</td><td>C</td><td>C</td><td>C</td><td>A/R</td><td>I</td></tr><tr><td>采集 consent</td><td>I</td><td>C</td><td>I</td><td>A</td><td>R</td><td>R</td><td>C</td></tr><tr><td>承接试驾</td><td>I</td><td>I</td><td>C</td><td>A</td><td>R</td><td>C</td><td>I</td></tr><tr><td>增量复盘</td><td>A</td><td>R</td><td>C</td><td>R</td><td>C</td><td>C</td><td>C</td></tr><tr><td>扩张/停止</td><td>A</td><td>R</td><td>R</td><td>C</td><td>C</td><td>C</td><td>I</td></tr></tbody></table></div>
+<p>R=执行，A=最终负责，C=会签，I=知会。若一项任务同时有多个 A，通常意味着停止权不清；若经销商只被 I，线索闭环大概率是纸面闭环。</p>
+<h3>五、不同体育资产不能用同一运营模板</h3>
+<h4>1. 大赛型：欧洲杯、美洲杯</h4>
+<p><strong>强项：</strong> 短期高峰、国家情绪、场馆与球迷区、大规模出行角色。<br/><strong>弱项：</strong> 周期短、权利集中、赛后折旧快、不同国家情绪变化大。<br/><strong>合理 Job：</strong> 让陌生品牌快速获得合法性，并把第一次体验导入本地经销。<br/><strong>必须留下：</strong> 经批准可复用素材、国家任务模板、同意用户、门店能力与赛后复盘。<br/><strong>不该承诺：</strong> 大赛曝光直接带来销量；官方用车等于赛事减碳。</p>
+<h4>2. 俱乐部型：国际米兰</h4>
+<p><strong>强项：</strong> 三年节奏、主场触点、球员/名宿/青训叙事、持续内容。<br/><strong>弱项：</strong> 核心影响力仍有地域浓度；球迷身份由俱乐部掌握；赛季成绩波动。<br/><strong>合理 Job：</strong> 把单次内容改成连续用户进度，把车队真实使用改成技术见证。<br/><strong>必须留下：</strong> 赛季路线、国家调用日志、品牌路由、重复参与与试驾质量。<br/><strong>不该承诺：</strong> 俱乐部全球粉丝总量就是 BYD 可联系线索。</p>
+<h4>3. 国家联赛/国家队型：泰国足球</h4>
+<p><strong>强项：</strong> 与本地制造、就业、经销和国家认同有更直接关系。<br/><strong>弱项：</strong> 权益汇总官宣不足以证明合同细节；国家队与联赛权利可能分属不同主体。<br/><strong>合理 Job：</strong> 把工厂、员工、家庭、球队和经销商连成当地共同作者网络。<br/><strong>必须留下：</strong> 泰国团队定义的问题、本地语言资产、员工/社区参与、门店结果。<br/><strong>不该承诺：</strong> 总部模板平移即可获得本地品牌属性。</p>
+<h4>4. 治理/hospitality 型：ANOC 香港</h4>
+<p><strong>强项：</strong> 代表层级高，腾势作为指定用车有清晰品牌路由，服务可被标准化。<br/><strong>弱项：</strong> 参与人群规模有限，不适合拿大众触达证明价值。<br/><strong>合理 Job：</strong> 建立腾势国际事件礼宾与安全服务标准。<br/><strong>必须留下：</strong> 车队调度、礼宾、反馈、服务培训和可复制 SOP。<br/><strong>不该承诺：</strong> 一次大会自动成为大众品牌增长引擎。</p>
+<h4>5. 青年/技能型：滑板与轮滑</h4>
+<p><strong>强项：</strong> 青年文化、技能进步、国家队精神与车型承接。<br/><strong>弱项：</strong> 未成年人、伤害、影像授权、亚文化真实性要求高。<br/><strong>合理 Job：</strong> 让品牌支持真实技能进度和安全参与，而非借青年符号。<br/><strong>必须留下：</strong> 训练机会、教练网络、社区内容、参与者保护。<br/><strong>不该承诺：</strong> “年轻人喜欢运动，所以会买车”。</p>
+<h3>六、赛季运营节奏：12 个月不是 12 次海报</h3>
+<h4>Phase 0：合同翻译与基线（赛季前 8–12 周）</h4>
+<ul><li>建权益字段表与禁区；</li><li>只选一个业务问题；</li><li>取得上一赛季/普通活动基线；</li><li>确认品牌、国家、车型、库存与试驾容量；</li><li>完成数据影响评估与安全评审；</li><li>选择试点/对照城市。</li></ul>
+<p><strong>Gate 0：</strong> 合同、经营承接、数据、安全任何一项不成立，停止。</p>
+<h4>Phase 1：母任务与本地共同设计（赛季前 4–8 周）</h4>
+<ul><li>总部定义技术真相与不可修改边界；</li><li>国家团队定义当地张力、语言与文化；</li><li>经销商把任务压到可承受时长；</li><li>IP 方确认人物、场地和内容；</li><li>小样盲测用户能否正确复述技术价值。</li></ul>
+<p><strong>Gate 1：</strong> 用户只记得“好玩/球星”，不记得品牌 Job，则重做或杀死。</p>
+<h4>Phase 2：小流量试跑（2–4 周）</h4>
+<ul><li>先用静态或模拟任务；</li><li>记录开始、完成、理解、consent、CTA、到店；</li><li>每天审安全、投诉、放弃原因与门店容量；</li><li>不用礼品掩盖低完成率。</li></ul>
+<p><strong>Gate 2：</strong> 任务参与者的高质量到店不优于普通活动，停止扩量。</p>
+<h4>Phase 3：赛季运营</h4>
+<ul><li>国家按同一事件字典上报，不强求同一创意；</li><li>每月只新增一项变量，避免无法归因；</li><li>对高端品牌控制人数与邀请机制；</li><li>把母内容复用和当地原创分开计量；</li><li>记录每次权益调用成本与审批周期。</li></ul>
+<h4>Phase 4：复盘与资产结转</h4>
+<p>复盘不只问“多少曝光”，而问：</p>
+<ol><li>哪些国家第二次主动调用？</li><li>哪些品牌 Job 被用户正确复述？</li><li>哪些经销商愿意自费/共投再开？</li><li>哪些 consent 可继续服务，哪些必须删除？</li><li>哪些内容、教练、场地、SOP 可跨赛季保留？</li><li>与对照相比是否有增量？</li><li>哪些模块应该永久停止？</li></ol>
+<h3>七、权益经济账：先分成本，再谈 ROI</h3>
+<p>公开资料没有赞助费和激活预算，因此不填任何金额。经济账至少分六层：</p>
+<div class='tbl'><table><thead><tr><th>成本层</th><th>典型项目</th><th>谁可能承担</th><th>必问</th></tr></thead><tbody><tr><td>权益</td><td>合作费、续约、升级权利</td><td>集团/区域/品牌【待核】</td><td>是沉没成本还是本项目新增</td></tr><tr><td>内容</td><td>拍摄、球员、制作、本地化</td><td>集团+国家</td><td>母内容复用是否真的省成本</td></tr><tr><td>体验</td><td>场地、设备、车辆、教练、保险</td><td>国家/品牌</td><td>单次吞吐与安全成本</td></tr><tr><td>渠道</td><td>门店人员、试驾、礼品、加班</td><td>经销商/国家</td><td>谁补偿容量与机会成本</td></tr><tr><td>数据</td><td>表单、consent、事件 ID、分析</td><td>集团/国家</td><td>是否要新系统，还是先手工跑</td></tr><tr><td>治理</td><td>法务、审批、培训、复盘</td><td>各方</td><td>协议是否降低还是增加周期</td></tr></tbody></table></div>
+<p>允许计算的结果分三档：</p>
+<ul><li><strong>效率结果：</strong> 单个母资产被多少国家调用、每次本地化成本、审批周期；</li><li><strong>行为结果：</strong> 技术理解、有效同意、试驾预约与到店；</li><li><strong>经营结果：</strong> 对照 uplift、增量订单、每增量订单成本。</li></ul>
+<p>若无法建立对照，只能报告相关行为，不得把订单变化归因给体育。</p>
+<h3>八、最小可行版本：先用文件和事件 ID，不先造软件</h3>
+<p>MVP 只需要：</p>
+<ol><li>一份人工校核的权益矩阵；</li><li>五张品牌 Job 卡；</li><li>一张国家激活工单；</li><li>一套任务安全协议；</li><li>一个统一事件 ID 规则；</li><li>一页门店承接清单；</li><li>一张周度增量复盘表；</li><li>明确的停止人和停止条件。</li></ol>
+<p>如果两国试点证明国家愿意重复调用、数据可比较、门店结果更好，再决定是否产品化。否则“全球协议”会变成 another dashboard。</p>
+<h3>九、首面可直接拿来核实的八句话</h3>
+<ol><li>“我们不假设你们没有权益管理系统，能否看一份已结束赛季从合同到国家落地的真实工单？”</li><li>“全球汽车伙伴这几个字，对腾势、方程豹、仰望是否同样可用？”</li><li>“哪类国家团队最常说‘这个全球权益跟我的销量没关系’？”</li><li>“国米的球迷数据，哪些只能匿名看，哪些可以在本地重新取得同意？”</li><li>“约 70 辆车留下的是车队服务证据，还是已经进入用户转化？”</li><li>“经销商调用一次俱乐部权益，要等几层批准？”</li><li>“如果协议让上线变慢，谁有权把它杀掉？”</li><li>“续约时，财务最信哪一个指标，最不信哪一个？”</li></ol>
+<h3>十、结论</h3>
+<blockquote><p>资产多不是问题，不能被准确调用才是问题；但公开资料不能证明比亚迪存在这个问题。真正可卖的不是一套宏大平台，而是一次合同可行、品牌清楚、国家愿意、门店接得住、数据说得明、未达就停的权益运营试验。</p></blockquote>
+<h3>A 源</h3>
+<ul><li>[A1] 比亚迪×国际米兰，2025-07-22：https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A2] 比亚迪×UEFA EURO 2024，2024-01-12：https://www.bydglobal.com/cn/news/2024-01-12/1617162267087</li><li>[A3] 比亚迪×中国滑板队，2023-11-23：https://www.bydglobal.com/cn/news/2023-11-23/1617162178877</li><li>[A4] 比亚迪×ANOC 香港大会，2026-05-27：https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li><li>[A5] 比亚迪泰国工厂，2025-07-09：https://www.bydglobal.com/cn/news/2025-07-09/1617162671159</li></ul></section><section class="sec" id="r15"><div class="label">研15 - 五品牌路由与市场作战：同一技术，不同进度</div><h2 class="sec-title">五品牌路由与市场作战：同一技术，不同进度</h2><h2 class='md-h1'>五品牌路由与市场作战：同一技术，不同进度</h2>
+<blockquote><p>官方品牌定位来自 2025 年报与品牌官网；“用户 Job、场景、CTA、路由规则”均为外部设计假说，不代表比亚迪当前策略。车型供给、价格、国家上市、库存和预算必须在 L0 核实。</p></blockquote>
+<h3>一、为什么“集团合作”必须做减法</h3>
+<p>比亚迪的优势是技术栈深、品牌覆盖广、国家增长快；这三项叠加也制造传播复杂度。一个全球体育权益若同时承担集团声量、主流销量、高端化、年轻化和经销获客，最终往往只剩母品牌 logo。</p>
+<p>路由不是“给五个品牌分五张海报”，而是做四次选择：</p>
+<ol><li>这次只解决哪个市场问题；</li><li>哪个品牌最有资格回答；</li><li>只拿哪一项技术作证；</li><li>用户完成什么以后才进入经营 CTA。</li></ol>
+<h4>路由硬规则</h4>
+<ul><li>一次激活只有一个主品牌；</li><li>一次任务只证明一项能力；</li><li>一个 CTA 只指向一段进度；</li><li>集团母命题可以共用，用户语言不能共用；</li><li>高端品牌不以人流最大化；</li><li>未上市、无库存、无试驾承接的车型不激活；</li><li>体育身份不能替代产品资格；</li><li>任何“年轻、激情、绿色、冠军”若不能指向用户行为，删除。</li></ul>
+<h3>二、集团母命题：不是五套价值观，而是一套技术责任</h3>
+<p>从官方语言看，五个品牌可以共享的母命题不是“都很强”，而是：</p>
+<blockquote><p><strong>以技术解决真实根因，并把好技术变成可被更多人安全使用的进步。</strong></p></blockquote>
+<p>这一母命题可由四条 A 源支撑：</p>
+<ul><li>王传福：“技术创新带来的增长才是最安全长久的。”[A1]</li><li>王传福：“好技术，就应该人人可享！”[A2]</li><li>王传福把“敢为”解释为敬畏生命、规则和技术，而非无所畏惧。[A3]</li><li>灵鸢合作强调从底层技术出发，不是硬件相加。[A4]</li></ul>
+<p>母命题统一“为什么”，品牌路由决定“替谁完成什么”。</p>
+<h3>三、王朝：把中国技术变成成熟可靠的承担</h3>
+<h4>官方底座</h4>
+<p>年报将王朝定位为主流、品质、新国潮，并以中华文化和龙颜美学形成识别。[A1]</p>
+<h4>不该再做</h4>
+<ul><li>泛化“国潮+足球”贴图；</li><li>只用冠军证明性能；</li><li>与海洋共用年轻街头话术；</li><li>在海外把中华文化简化成装饰符号；</li><li>用一次挑战替代家庭长期可靠。</li></ul>
+<h4>用户 Job 假说</h4>
+<p><strong>当家庭在成熟燃油车与陌生新能源品牌之间选择时，希望确认：新技术不是冒险，而是能承担日常、长途、家人和长期服务的成熟选择。</strong></p>
+<h4>可路由技术</h4>
+<ul><li>DM 双路径：基础设施不均时的使用弹性；</li><li>刀片电池：安全与耐久的证据，具体主张须用官方口径；</li><li>车身控制：复杂道路下的稳定与舒适；</li><li>闪充：降低家庭行程被补能支配的焦虑。</li></ul>
+<h4>体育场景</h4>
+<div class='tbl'><table><thead><tr><th>场景</th><th>任务</th><th>为什么适配</th><th>CTA</th></tr></thead><tbody><tr><td>国家队/家庭比赛日</td><td>家庭行程规划与短停体验</td><td>国家情绪+家庭责任</td><td>家庭试驾</td></tr><tr><td>长途客场</td><td>真实路线与补能说明</td><td>证明可承担，不炫技</td><td>路线咨询/试驾</td></tr><tr><td>社区青训</td><td>家长、教练、孩子的安全出行</td><td>长期责任</td><td>服务/家庭车型体验</td></tr><tr><td>本地工厂城市</td><td>员工家庭共同作者</td><td>把“中国技术”变当地生活</td><td>工厂/门店开放日</td></tr></tbody></table></div>
+<h4>验收</h4>
+<ul><li>用户能否复述“它替我的家庭承担什么”；</li><li>家庭决策者是否进入试驾；</li><li>当地经销是否愿意重复开；</li><li>不以“国潮好感”替代车型考虑。</li></ul>
+<h3>四、海洋：把技术门槛变成城市第一步</h3>
+<h4>官方底座</h4>
+<p>海洋强调年轻、科技、个性化和海洋美学。[A1]</p>
+<h4>不该再做</h4>
+<ul><li>把年轻化等同于明星、音乐与霓虹；</li><li>只做扫码抽奖；</li><li>与王朝讲同一套家庭可靠；</li><li>把球迷自动当首购人群；</li><li>让互动比产品更抢戏。</li></ul>
+<h4>用户 Job 假说</h4>
+<p><strong>当城市年轻用户对新能源有兴趣、却不想先学一堂技术课时，希望用一个轻、短、可分享的动作确认：这辆车适合我的城市节奏，我能轻松开始。</strong></p>
+<h4>可路由技术</h4>
+<ul><li>城市泊车与辅助功能的正确边界教育；</li><li>五分钟闪充的短停节奏；</li><li>智能座舱/空间的城市生活任务；</li><li>灵鸢只在合法、安全、车型已配备时展示内容能力，不能作为普遍配置。</li></ul>
+<h4>体育场景</h4>
+<div class='tbl'><table><thead><tr><th>场景</th><th>任务</th><th>内容角色</th><th>CTA</th></tr></thead><tbody><tr><td>球迷广场</td><td>五分钟技术证明</td><td>用户做、主持人少说</td><td>第二任务/试驾</td></tr><tr><td>城市德比</td><td>两城本地任务对照</td><td>本地创作者</td><td>门店报名</td></tr><tr><td>滑板/街头运动</td><td>技能成长而非摆拍</td><td>教练和社区主导</td><td>社区体验</td></tr><tr><td>闪充站</td><td>一次短停完成一张 Proof Card</td><td>真实使用时刻</td><td>保存进度</td></tr></tbody></table></div>
+<h4>验收</h4>
+<ul><li>五分钟后技术理解是否提升；</li><li>有效 consent 而非礼品线索；</li><li>完成第二项后到店质量；</li><li>用户记住海洋的城市科技 Job，而非只记俱乐部。</li></ul>
+<h3>五、腾势：把“新豪华”变成可被服务证明的安全与从容</h3>
+<h4>官方底座</h4>
+<p>年报将腾势描述为科技安全新豪华；ANOC 香港大会由腾势承担唯一官方指定用车，证明其已有高端官方出行路由。[A1][A5]</p>
+<h4>不该再做</h4>
+<ul><li>用大众抽奖堆线索；</li><li>把大空间当唯一卖点；</li><li>用“冠军座驾”替代服务；</li><li>与仰望抢极致性能；</li><li>hospitality 结束后只留嘉宾照片。</li></ul>
+<h4>用户 Job 假说</h4>
+<p><strong>当家庭或商务用户选择新豪华时，希望被证明的不只是配置，而是复杂行程中家人、客人和自己都被稳定照顾。</strong></p>
+<h4>可路由能力</h4>
+<ul><li>易三方与车身控制：大车的灵活、稳定与安全解释；</li><li>座舱与空间：多人、多装备、多角色的从容；</li><li>官方车队：调度、礼宾、充电和服务的一致性；</li><li>技术安全：只说已发布和已批准主张。</li></ul>
+<h4>场景</h4>
+<div class='tbl'><table><thead><tr><th>场景</th><th>证明方式</th><th>留下的资产</th><th>CTA</th></tr></thead><tbody><tr><td>国际大会/俱乐部 hospitality</td><td>嘉宾完整行程服务</td><td>礼宾 SOP、调度数据、培训</td><td>私享体验</td></tr><tr><td>家庭比赛日</td><td>静态“家庭空间排兵”</td><td>家庭需求卡</td><td>家庭深度试驾</td></tr><tr><td>商务接待</td><td>多站点、多人、行李与补能</td><td>服务标准</td><td>企业车队/个人体验</td></tr><tr><td>高端赛事</td><td>安静、从容、可靠，不做竞速</td><td>品牌服务证据</td><td>邀请制活动</td></tr></tbody></table></div>
+<h4>验收</h4>
+<ul><li>准点、服务一致、嘉宾反馈；</li><li>用户是否把“新豪华”复述为被照顾，而非屏幕多；</li><li>hospitality 参与者进入高质量体验的比例；</li><li>SOP 能否复制到下一场国际事件。</li></ul>
+<h3>六、方程豹：把专业探索变成普通人可进入的技能</h3>
+<h4>官方底座</h4>
+<p>方程豹面向新能源个性化，年报披露豹与钛形成硬派与都市潮流组合；2025 年销量同比增长 316%。[A1]</p>
+<h4>不该再做</h4>
+<ul><li>公共道路越野、竞速或危险模仿；</li><li>用“野”掩盖专业训练；</li><li>只拍极端地形让普通人更不敢；</li><li>把所有户外人群当同一种人；</li><li>让品牌活动成为装备展。</li></ul>
+<h4>用户 Job 假说</h4>
+<p><strong>当用户向往户外但缺技能、经验和同伴时，希望专业系统替自己降低第一步风险，使探索从身份想象变成可学习的能力。</strong></p>
+<h4>可路由能力</h4>
+<ul><li>低速地形、车身控制与通过能力；</li><li>专业教练、安全协议和封闭场地；</li><li>城市钛系列偏生活装备与轻探索；</li><li>豹系列偏技能成长，不虚构极限。</li></ul>
+<h4>场景</h4>
+<div class='tbl'><table><thead><tr><th>场景</th><th>任务</th><th>安全边界</th><th>CTA</th></tr></thead><tbody><tr><td>全地形赛车场</td><td>教练带领完成一个低速技能</td><td>封闭、分级、保险</td><td>第二级训练</td></tr><tr><td>户外赛事营地</td><td>装备、路线、救援静态课</td><td>不做未经批准驾驶</td><td>认证体验</td></tr><tr><td>城市足球周末</td><td>“第一次户外”准备任务</td><td>静态/模拟</td><td>门店技能日</td></tr><tr><td>社区共创</td><td>本地玩家教新手</td><td>专业审核</td><td>车主社群</td></tr></tbody></table></div>
+<h4>验收</h4>
+<ul><li>新手完成率与安全；</li><li>用户是否理解能力边界；</li><li>第二次训练/试驾意愿；</li><li>本地教练、路线与社群是否成为留存资产。</li></ul>
+<h3>七、仰望：把极致工程从一次纪录变成见证制度</h3>
+<h4>官方底座</h4>
+<p>仰望是百万级高端技术品牌；年报披露其销量破万，并以 U9 Xtreme 等极致技术事件强化工程资格。[A1]</p>
+<h4>不该再做</h4>
+<ul><li>大众集章、优惠券与人流 KPI；</li><li>用俱乐部粉丝量证明超豪华；</li><li>把赛道纪录娱乐化复制到公共道路；</li><li>与腾势共用“高端”模糊词；</li><li>每次都追下一项噱头纪录。</li></ul>
+<h4>用户 Job 假说</h4>
+<p><strong>当高净值与专业意见领袖评估中国超豪华时，希望通过少量、高可信、可追问的工程见证，确认它不是短期炫技，而是一套长期掌控极端问题的能力。</strong></p>
+<h4>可路由方式</h4>
+<ul><li>邀请制工程见证；</li><li>工程师、第三方专业人士、车主而非泛明星主讲；</li><li>静态拆解、封闭场地演示、数据边界完整；</li><li>每次见证形成编号档案与后续服务。</li></ul>
+<h4>验收</h4>
+<ul><li>参与者质量与专业反馈，而非总人数；</li><li>技术主张正确理解；</li><li>私域深度体验与长期关系；</li><li>零安全、零夸大、零大众促销。</li></ul>
+<h3>八、一个技术如何被五品牌翻译</h3>
+<p>以“车身控制”为例，不能五次重复“更稳”：</p>
+<div class='tbl'><table><thead><tr><th>品牌</th><th>原妥协</th><th>技术替用户承担什么</th><th>用户任务</th><th>证明语言</th></tr></thead><tbody><tr><td>王朝</td><td>家庭怕复杂路况不舒服</td><td>稳定日常与家人感受</td><td>封闭低速舒适任务</td><td>“全家不必适应车”</td></tr><tr><td>海洋</td><td>新手怕大车/停车难</td><td>降低城市使用门槛</td><td>模拟/静态空间任务</td><td>“我能轻松开始”</td></tr><tr><td>腾势</td><td>大空间常牺牲灵活从容</td><td>兼顾多人、空间与掌控</td><td>家庭/礼宾路线</td><td>“每个人都被照顾”</td></tr><tr><td>方程豹</td><td>想探索但缺经验</td><td>降低技能第一步风险</td><td>教练低速地形</td><td>“专业系统带我入门”</td></tr><tr><td>仰望</td><td>极端能力难以信任</td><td>工程冗余与极限掌控</td><td>邀请制见证</td><td>“可以被专业追问”</td></tr></tbody></table></div>
+<p>共享技术不是品牌区分的敌人；没有用户 Job 的共享语言才是。</p>
+<h3>九、五类国家原型的路由</h3>
+<h4>欧洲成熟市场</h4>
+<p><strong>信任障碍假说：</strong> 售后、残值、法规、本地长期承诺比“知道 BYD”更关键。<br/><strong>优先品牌：</strong> BYD 主品牌/王朝海洋按车型；腾势在上市与服务就绪后。<br/><strong>现有入口：</strong> 欧洲杯、U-21、国米、匈牙利总部与工厂布局。[A1]<br/><strong>适合：</strong> 国米赛季型任务、经销商长期调用、技术边界教育。<br/><strong>不适合：</strong> 只拿欧洲注册高增做胜利宣言；国家差异被“欧洲”吞掉。<br/><strong>L0：</strong> 逐国考虑度、试驾流失、经销容量、售后和残值顾虑。</p>
+<h4>巴西/拉美</h4>
+<p><strong>信任障碍假说：</strong> 从进口品牌到本地制造伙伴；纯电、插混、皮卡与家庭用途差异大。<br/><strong>优先品牌/产品：</strong> 由当地供给决定，不预设。<br/><strong>现有入口：</strong> 巴西工厂、美洲杯历史资产、SHARK 墨西哥全球首发。[A1][A6]<br/><strong>适合：</strong> 工厂员工+社区+足球共同作者；葡语与西语分开。<br/><strong>不适合：</strong> 把整个拉美当一个文化市场；用足球热情代替金融与售后。<br/><strong>L0：</strong> 国家产品结构、金融、保险、服务与合同存续权利。</p>
+<h4>泰国/东南亚</h4>
+<p><strong>信任障碍假说：</strong> 本地制造事实如何变成本地社会关系，而非“中国总部在泰国生产”。<br/><strong>优先：</strong> 主流品牌+当地球队任务。<br/><strong>现有入口：</strong> 泰国工厂、本地雇员、泰国足球联赛与国家队合作。[A1][A7]<br/><strong>适合：</strong> 工厂家庭主场、经销商技术联赛、本地团队定题。<br/><strong>不适合：</strong> 总部 KV 翻泰语；未经核实使用国家队人物和青训数据。<br/><strong>L0：</strong> 权益拆分、员工参与、国家数据法规、门店容量。</p>
+<h4>中东</h4>
+<p><strong>信任障碍假说：</strong> 高温、长距离、补能、豪华服务和能源转型叠加。<br/><strong>优先：</strong> 腾势/仰望或主品牌按真实上市节奏。<br/><strong>现有入口：</strong> 沙特阿美技术合作、区域管理与高端市场布局。[A1][A8]<br/><strong>适合：</strong> 闭门技术见证、高端 hospitality、极端环境解释。<br/><strong>不适合：</strong> 默认足球大众获客；忽略文化、性别与内容边界。<br/><strong>L0：</strong> 产品、法规、伙伴角色和目标人群。</p>
+<h4>香港国际窗口</h4>
+<p><strong>信任障碍假说：</strong> 一次国际大会服务如何结转为腾势全球服务标准。<br/><strong>优先：</strong> 腾势。<br/><strong>现有入口：</strong> ANOC 唯一官方指定用车。[A5]<br/><strong>适合：</strong> 车队服务 SOP、嘉宾反馈、国际事件复制。<br/><strong>不适合：</strong> 用 1,200 余名代表当大众触达；越过 consent。<br/><strong>L0：</strong> 反馈权利、奖项持续性、零售承接。</p>
+<h3>十、品牌路由评分卡</h3>
+<p>每项 0/1，未满 10 分不得上线：</p>
+<ol><li>官方品牌定位有 A 源；</li><li>当地有真实产品/库存/服务；</li><li>只有一个主品牌；</li><li>本地问题来自一手或历史漏斗；</li><li>技术主张已发布；</li><li>用户任务可安全完成；</li><li>IP 合同允许；</li><li>CTA 有责任人和容量；</li><li>数据用途与 consent 明确；</li><li>有历史基线；</li><li>有对照或诚实限制；</li><li>有停止条件；</li><li>能留下赛后资产；</li><li>当地团队是共同作者；</li><li>用户能用自己的话说出品牌 Job。</li></ol>
+<h3>十一、创意 Grill：十个一票否决问题</h3>
+<ol><li>去掉俱乐部 logo，这个任务还证明 BYD 技术吗？</li><li>换成任何汽车品牌，这个创意仍成立吗？若成立，太泛。</li><li>五个品牌只是换皮吗？若是，没路由。</li><li>用户做了什么，还是只看了什么？</li><li>任务结束后，经营 CTA 谁接？</li><li>未成年人、驾驶、充电、数据，谁有 veto？</li><li>对照是什么？没有对照，因果怎么说？</li><li>高端品牌是否被人流 KPI 降格？</li><li>当地团队可以改什么，不能改什么？</li><li>未达哪条就停？答不出，不批准。</li></ol>
+<h3>十二、结论</h3>
+<blockquote><p>比亚迪不需要五套彼此孤立的体育创意，也不需要一套抹平五品牌的全球大创意。它需要的是：同一技术责任母命题，按品牌 Job、国家障碍和车型窗口做有纪律的减法。</p></blockquote>
+<h3>A 源</h3>
+<ul><li>[A1] 比亚迪 2025 年报，2026-03-27：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] 比亚迪智能化战略，2025-02-11：https://www.bydglobal.com/cn/news/2025-02-11/1617162592632</li><li>[A3] “敢为”智能化战略，2026-05-29：https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</li><li>[A4] 比亚迪×大疆，2025-03-03：https://www.bydglobal.com/cn/news/2025-03-03/1617162596334</li><li>[A5] 比亚迪×ANOC，2026-05-27：https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li><li>[A6] BYD SHARK 墨西哥首发，2024-05-15：https://www.bydglobal.com/cn/news/2024-05-15/1617162437683</li><li>[A7] 比亚迪泰国工厂，2025-07-09：https://www.bydglobal.com/cn/news/2025-07-09/1617162671159</li><li>[A8] 比亚迪×沙特阿美技术公司，2025-04-21：https://www.bydglobal.com/cn/news/2025-04-21/1617162636530</li></ul></section><section class="sec" id="r16"><div class="label">研16 - 经营归因、实验与数据治理：怎样证明“信任”不是漂亮词</div><h2 class="sec-title">经营归因、实验与数据治理：怎样证明“信任”不是漂亮词</h2><h2 class='md-h1'>经营归因、实验与数据治理：怎样证明“信任”不是漂亮词</h2>
+<blockquote><p>公开资料未披露 BYD 体育 KPI、CRM 架构、基线、目标值或数据角色。本页只提供可执行的测量设计；所有数值目标必须由内部历史数据共同设定，不预填增长率。</p></blockquote>
+<h3>一、先定义“信任”的可观察行为</h3>
+<p>“全球信任”如果只靠品牌好感问卷，无法进入经营讨论。也不能把订单全部归功于一次活动。可观察链应分成六层：</p>
+<div class='tbl'><table><thead><tr><th>层</th><th>要回答的问题</th><th>可观察事件</th><th>不能偷换成</th></tr></thead><tbody><tr><td>权益调用</td><td>国家/品牌是否真的用了资产</td><td>申请、批准、上线、二次调用</td><td>合同理论覆盖</td></tr><tr><td>注意</td><td>人是否来到任务前</td><td>合格到场、开始</td><td>潜在媒体触达</td></tr><tr><td>理解</td><td>是否明白一项技术及边界</td><td>前后问答、复述</td><td>看完视频</td></tr><tr><td>同意</td><td>是否愿意留下可用关系</td><td>明确用途 consent</td><td>扫码、领礼</td></tr><tr><td>行动</td><td>是否迈向产品</td><td>预约、到店、试驾完成</td><td>总线索</td></tr><tr><td>经营/资产</td><td>是否有增量并可复用</td><td>对照 uplift、订单、重复调用、SOP</td><td>同期销量上涨</td></tr></tbody></table></div>
+<p>因此“信任”在本案中的工作定义是：</p>
+<blockquote><p>用户能正确说出某品牌的一项技术替自己解决什么、边界是什么，并自愿迈出下一步；国家和经销商愿意再次调用同一机制。</p></blockquote>
+<p>这一定义可以被证明，也可以被杀死。</p>
+<h3>二、事件字典：没有统一事件，就没有跨国比较</h3>
+<p>建议最小事件链：</p>
+<ol><li><code>rights_requested</code>：国家提交权益调用；</li><li><code>rights_approved</code>：合同/品牌/安全批准；</li><li><code>mission_viewed</code>：用户看到任务说明；</li><li><code>mission_started</code>：开始真实任务；</li><li><code>mission_completed</code>：按规则完成；</li><li><code>comprehension_passed</code>：正确复述价值与边界；</li><li><code>consent_granted</code>：明确同意指定用途；</li><li><code>proof_saved</code>：保存 Proof Card；</li><li><code>test_drive_booked</code>：预约；</li><li><code>test_drive_arrived</code>：实际到店；</li><li><code>test_drive_completed</code>：完成；</li><li><code>order_created</code>：进入订单，口径由 BYD 定义；</li><li><code>mission_repeated</code>：用户完成第二项；</li><li><code>dealer_repeated</code>：门店再次开赛；</li><li><code>rights_reused</code>：同一母权益在另一市场复用；</li><li><code>complaint_or_incident</code>：投诉、安全或数据事件。</li></ol>
+<h4>每个事件的最低字段</h4>
+<ul><li>本地时间与时区；</li><li>国家、城市、场所/门店；</li><li>主品牌、车型、任务、技术；</li><li>IP/权益 ID；</li><li>campaign/season ID；</li><li>匿名用户/会话 ID；</li><li>consent 版本、用途、取得地；</li><li>来源渠道；</li><li>执行伙伴；</li><li>是否试点/对照；</li><li>数据质量状态。</li></ul>
+<p>禁止把各国自由填写的“参加人数”拼成全球 dashboard；同名事件必须同口径。</p>
+<h3>三、漏斗口径：分母必须写出来</h3>
+<div class='tbl'><table><thead><tr><th>指标</th><th>推荐公式</th><th>解释</th><th>误用</th></tr></thead><tbody><tr><td>任务开始率</td><td>started / 合格到场</td><td>吸引与排队摩擦</td><td>started / 潜在触达</td></tr><tr><td>任务完成率</td><td>completed / started</td><td>任务是否可完成</td><td>completed / 全场人流</td></tr><tr><td>理解通过率</td><td>comprehension / completed</td><td>是否真懂</td><td>分享率代替理解</td></tr><tr><td>有效同意率</td><td>valid consent / completed</td><td>是否愿意继续</td><td>扫码率</td></tr><tr><td>预约率</td><td>booked / valid consent</td><td>进入产品兴趣</td><td>booked / 曝光</td></tr><tr><td>到店率</td><td>arrived / booked</td><td>承接质量</td><td>到店 / 总线索</td></tr><tr><td>完成试驾率</td><td>drive completed / arrived</td><td>门店执行</td><td>预约即试驾</td></tr><tr><td>经销重复率</td><td>重复开赛门店 / 首次门店</td><td>机制可持续</td><td>总活动场次</td></tr><tr><td>国家调用率</td><td>实际上线国家 / 有资格国家</td><td>权益可用性</td><td>所有国家 / 覆盖国家</td></tr><tr><td>母资产复用率</td><td>本地有效版本 / 母资产</td><td>运营效率</td><td>转发次数</td></tr></tbody></table></div>
+<p>“有效 consent”须满足当地法律与公司政策；并非勾选框存在就有效。</p>
+<h3>四、实验一：普通展车 vs 五分钟技术任务</h3>
+<h4>可证伪假说</h4>
+<p>在同一市场、相近门店容量与媒体条件下，五分钟任务参与者的<strong>技术理解、有效同意和试驾到店质量</strong>高于普通展车/扫码活动；若不高，Proof League 不成立。</p>
+<h4>设计</h4>
+<ul><li>单位：门店或活动时段；</li><li>处理组：一个明确技术任务；</li><li>对照组：现有普通展示活动；</li><li>尽量同城、同周、相似车型与人员；</li><li>预先写主指标，只选一个：建议“理解通过且实际到店”；</li><li>次指标：完成、consent、预约、试驾、投诉；</li><li>活动前固定任务、问卷、礼品、跟进窗；</li><li>不因中途结果不好更换主指标。</li></ul>
+<h4>必须控制</h4>
+<ul><li>活动人流差异；</li><li>球星/门票等激励差异；</li><li>门店试驾容量；</li><li>车型供给与价格促销；</li><li>天气、比赛日、节假日；</li><li>销售人员跟进速度；</li><li>处理组是否拿到更好位置。</li></ul>
+<h4>何时不能称因果</h4>
+<ul><li>两组不是同期；</li><li>处理组同时增加明星、礼品、折扣与媒体；</li><li>门店由自愿报名造成能力差异；</li><li>订单样本太小；</li><li>对照数据口径不同。</li></ul>
+<p>此时只报告相关变化，并写限制。</p>
+<h3>五、实验二：总部统一素材 vs 本地共同作者</h3>
+<h4>假说</h4>
+<p>在保持同一品牌与技术真相的前提下，本地团队共同设计的任务比总部直译版本提高理解、完成和经销重复调用，同时不增加合规事故。</p>
+<h4>设计</h4>
+<ul><li>选择两个相似城市或门店簇；</li><li>两组使用同一 IP 权益、品牌、车型和 CTA；</li><li>A 组使用总部模板；</li><li>B 组由本地团队可配置场景、语言与共同作者；</li><li>记录制作周期、审批轮次、成本、理解与到店；</li><li>重点看“更本地”是否以更慢、更贵换来。</li></ul>
+<h4>杀死条件</h4>
+<ul><li>本地版本更慢且结果无改善；</li><li>本地创意越过技术/品牌边界；</li><li>总部模板已经表现同等；</li><li>国家市场不愿二次使用。</li></ul>
+<h3>六、实验三：全球信任协议是否降低重复工作</h3>
+<h4>假说</h4>
+<p>权益矩阵、品牌卡、激活工单和统一事件 ID 能缩短从 brief 到合规上线时间、提高可比较性，而不会制造新官僚。</p>
+<h4>设计</h4>
+<p>不开发软件，先对比：</p>
+<div class='tbl'><table><thead><tr><th>指标</th><th>旧流程基线</th><th>MVP 后</th><th>解释</th></tr></thead><tbody><tr><td>从 brief 到可行性判断天数</td><td>【待核】</td><td>【待核】</td><td>Rights API 是否有用</td></tr><tr><td>合同追问轮次</td><td>【待核】</td><td>【待核】</td><td>信息是否一次齐</td></tr><tr><td>创意返工轮次</td><td>【待核】</td><td>【待核】</td><td>品牌/安全是否前置</td></tr><tr><td>国家首次上线周期</td><td>【待核】</td><td>【待核】</td><td>是否变快</td></tr><tr><td>第二国复用成本</td><td>【待核】</td><td>【待核】</td><td>是否有规模效应</td></tr><tr><td>可比较事件覆盖</td><td>【待核】</td><td>【待核】</td><td>数据是否同口径</td></tr><tr><td>本地团队满意度</td><td>【待核】</td><td>【待核】</td><td>是否只是总部控制</td></tr></tbody></table></div>
+<p>若周期变长且复用/结果没有改善，A 概念 KILL。</p>
+<h3>七、实验四：球迷身份不可用时的门店级增量</h3>
+<p>若合同或 GDPR 不允许获得用户级数据，不代表无法测量，但必须降级主张：</p>
+<ol><li>以门店/城市为实验单位；</li><li>对试点门店匹配相似对照；</li><li>使用匿名活动人数与门店试驾/订单汇总；</li><li>设定明确观察窗；</li><li>控制价格、库存、媒体与活动差异；</li><li>报告区间与限制，不建立“全球球迷 CRM”。</li></ol>
+<p>允许说：“试点门店同期表现优于匹配对照。”<br/>不允许说：“某个球迷看了内容，因此买车。”</p>
+<h3>八、理解测量：不要用满意度替代技术理解</h3>
+<p>每个任务只测三件事：</p>
+<ol><li><strong>价值：</strong> 这项技术替你解决什么？</li><li><strong>边界：</strong> 它不能替你做什么/在哪些条件成立？</li><li><strong>品牌：</strong> 哪个品牌的哪项能力？</li></ol>
+<p>例如闪充任务：</p>
+<ul><li>正确方向：缩短特定条件下补能等待；实际表现与车型、温度、电量等条件有关；</li><li>错误理解：“所有 BYD 任何时候五分钟充满”；</li><li>错误理解必须计入误导率，不可藏在完成率后。</li></ul>
+<p>例如辅助驾驶：</p>
+<ul><li>正确方向：辅助驾驶需要驾驶员持续履责；官方兜底有明确条件；</li><li>错误理解：“自动驾驶，可以不用管”；</li><li>任何误导增长即停。</li></ul>
+<h3>九、品牌分辨度：共享技术下测“用户进度”</h3>
+<p>不问“喜欢哪个品牌”，而问匹配：</p>
+<ul><li>需要成熟家庭可靠时，用户把谁列入考虑？</li><li>需要城市轻松进入时，用户把谁列入考虑？</li><li>需要家庭/商务新豪华时，用户把谁列入考虑？</li><li>需要专业探索入门时，用户把谁列入考虑？</li><li>需要极致工程见证时，用户把谁列入考虑？</li></ul>
+<p>同一用户把所有答案都选 BYD 母品牌，并不一定成功；若目标是子品牌分辨，必须看正确归类变化。目标值【待基线后设定】。</p>
+<h3>十、经销商质量：总线索不是好消息</h3>
+<p>经销商侧至少记录：</p>
+<ul><li>线索来源是否清楚；</li><li>用户完成了哪项任务；</li><li>用户能否复述技术；</li><li>联系是否合规；</li><li>预约意向车型是否有库存；</li><li>到店所需销售时长；</li><li>试驾完成与取消原因；</li><li>销售主观质量评分及规则；</li><li>是否愿意再次承接；</li><li>活动是否挤占普通客户服务。</li></ul>
+<h4>经销商一票否决</h4>
+<ul><li>活动引流超过门店容量；</li><li>consent 不允许销售联系；</li><li>车型无供给；</li><li>线索被多方重复联系；</li><li>活动奖励吸引大量无意向人群；</li><li>门店承担成本但拿不到归因；</li><li>总部只要求上报、不反馈结果。</li></ul>
+<h3>十一、CFO 账本：四本账，不用媒体价值混账</h3>
+<h4>账本 1：权益效率</h4>
+<ul><li>现有权益中实际可调用比例；</li><li>每国调用成本；</li><li>母内容/任务复用；</li><li>审批周期；</li><li>赛季后存续资产。</li></ul>
+<h4>账本 2：行为质量</h4>
+<ul><li>理解通过；</li><li>有效同意；</li><li>预约、到店、试驾；</li><li>重复参与；</li><li>品牌正确归类。</li></ul>
+<h4>账本 3：增量经营</h4>
+<ul><li>与对照相比的试驾/订单差异；</li><li>每增量试驾/订单成本；</li><li>不同品牌、国家、任务的差异；</li><li>归因不确定性。</li></ul>
+<h4>账本 4：风险</h4>
+<ul><li>安全事件；</li><li>数据/隐私事件；</li><li>投诉与撤稿；</li><li>误导理解；</li><li>品牌稀释；</li><li>经销过载。</li></ul>
+<p>任何前三本账的收益都不能抵消重大安全或数据违规。</p>
+<h3>十二、数据治理：Proof Card 不是万能护照</h3>
+<h4>最小化原则</h4>
+<p>完成任务不必先收手机号。可以先匿名完成，再在用户选择保存进度或预约时取得必要数据。</p>
+<h4>目的限制</h4>
+<p>“保存 Proof Card”“接收俱乐部内容”“预约试驾”“经销商联系”是不同用途，不应默认捆绑。</p>
+<h4>本地优先</h4>
+<p>国家法规、数据存储、跨境传输、删除与未成年人要求不同。全球统一的是字段和原则，不是把所有个人数据集中到总部。</p>
+<h4>权利透明</h4>
+<p>用户应知道：</p>
+<ul><li>谁收集；</li><li>为什么；</li><li>给谁；</li><li>保存多久；</li><li>如何撤回/删除；</li><li>不同意是否仍可参加基础体验。</li></ul>
+<h4>高风险数据</h4>
+<p>未成年人、驾驶行为、位置、面部/影像、票务/会员身份、车辆数据均需专门审查。体育激情不能降低数据门槛。</p>
+<h3>十三、Proof Card 的安全定义</h3>
+<p>Proof Card 只能证明：</p>
+<ul><li>用户在何时何地完成了哪个批准任务；</li><li>任务使用哪个品牌、技术和规则版本；</li><li>用户通过了哪项理解检查；</li><li>后续进度是什么。</li></ul>
+<p>它不能证明：</p>
+<ul><li>用户具备驾驶资格或专业技能；</li><li>产品在所有条件下达到同样表现；</li><li>用户获得俱乐部会员身份；</li><li>完成任务等于购买意向；</li><li>BYD 对所有使用后果负责。</li></ul>
+<p>高端品牌可将它改为私密“工程见证档案”，不做公开集章。</p>
+<h3>十四、停止规则要在上线前写</h3>
+<h4>即时停</h4>
+<ul><li>人身安全事故或绕过产品安全；</li><li>数据无合法基础；</li><li>宣传把辅助驾驶写成自动驾驶；</li><li>未成年人授权失效；</li><li>合同权利越界；</li><li>高端品牌被未经批准大众促销。</li></ul>
+<h4>一轮后停</h4>
+<ul><li>理解误导高于普通展示；</li><li>任务完成者到店质量无改善；</li><li>经销商明确不愿再开；</li><li>本地化成本与周期上升而无结果；</li><li>用户只记得 IP，不记得品牌；</li><li>对照无增量且没有长期资产价值。</li></ul>
+<h4>可调整</h4>
+<ul><li>任务过长；</li><li>排队导致开始率低；</li><li>某问题翻译错误；</li><li>CTA 时机不合理；</li><li>门店跟进慢。</li></ul>
+<p>“可调整”不得被用来无限延长失败项目。</p>
+<h3>十五、预注册一页模板</h3>
+<pre>Business problem:
+主假说:
+主指标（只能一个）:
+次指标:
+实验单位:
+处理组:
+对照组:
+观察窗:
+已知干扰:
+样本与统计方法: 【由分析团队确定】
+数据角色/consent:
+安全审批:
+成功条件: 【待基线】
+失败/停止条件:
+谁可停止:
+结果公开范围:</pre>
+<p>不预注册就容易在结果出来后挑最好看的数字。</p>
+<h3>十六、董事会/最高层只看的一页</h3>
+<ol><li>我们试图解决什么经营问题？</li><li>哪个国家、品牌、车型？</li><li>用了哪项现有权益，而非新增多少曝光？</li><li>用户完成了什么？</li><li>与什么对照？</li><li>结果在哪一层：理解、行动、经营还是资产？</li><li>花费按哪六层拆？</li><li>发生了什么风险？</li><li>下一步是扩、改还是停？</li><li>哪个假说已经被证伪？</li></ol>
+<h3>十七、结论</h3>
+<blockquote><p>归因不是把每辆车都追到一张球票，而是把主张缩到证据够得到的地方：能测理解就不冒充销量，能做门店对照就不冒充个人因果，无法取得用户数据就不卖“全球身份层”。这种克制本身，才是利润承压期合作能过会的信任。</p></blockquote>
+<h3>证据锚</h3>
+<ul><li>BYD 财务、海外、经销结构：2025 年报，2026-03-27：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>2026Q1 财务压力：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803001.pdf</li><li>国米合作公开边界：https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>智能化与责任边界：https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</li><li>闪充发布与目标口径：https://www.bydglobal.com/cn/news/2026-03-06/1617162762962</li></ul></section><section class="sec" id="r17"><div class="label">研17 - 本地信任链：不同市场到底要证明什么</div><h2 class="sec-title">本地信任链：不同市场到底要证明什么</h2><h2 class='md-h1'>本地信任链：不同市场到底要证明什么</h2>
+<blockquote><p>本页把“出海本地化”拆成可调查的信任链。除已标 A 源事实外，障碍、优先级和用户语言均为待验证假说；不把区域原型冒充国家洞察。</p></blockquote>
+<h3>一、汽车品牌的本地信任不是一个分数</h3>
+<p>消费者知道一个品牌，不等于愿意购买。对海外汽车经营，更有用的是八段链：</p>
+<ol><li><strong>合法存在</strong>：车型认证、价格、门店、交付；</li><li><strong>产品理解</strong>：纯电/插混/技术适合当地生活；</li><li><strong>使用可行</strong>：补能、道路、气候、停车、保险；</li><li><strong>服务可信</strong>：维修、零件、质保、救援；</li><li><strong>财务可承受</strong>：金融、保险、残值、总拥有成本；</li><li><strong>社会许可</strong>：本地制造、就业、伙伴、文化关系；</li><li><strong>身份匹配</strong>：品牌和车型适合“我是谁”；</li><li><strong>长期承诺</strong>：不是短期进口与一次赛事，而会留下。</li></ol>
+<p>体育通常直接改善第 6、7 段，也可提供第 2、3 段的体验入口；它不能替代认证、服务、金融和残值。若某市场最大断点在第 4、5 段，合作必须退居解释/导流角色，不能抢增长功劳。</p>
+<h3>二、信任链诊断表</h3>
+<p>进入一个国家前，销售必须拿到：</p>
+<div class='tbl'><table><thead><tr><th>链段</th><th>最低问题</th><th>可用内部证据</th><th>体育可做</th><th>体育不能做</th></tr></thead><tbody><tr><td>合法存在</td><td>有哪些车型、何时交付</td><td>上市/库存/门店</td><td>借事件告知</td><td>代替认证和供给</td></tr><tr><td>产品理解</td><td>最大误解是什么</td><td>调研/销售录音</td><td>用户任务</td><td>靠口号纠错</td></tr><tr><td>使用可行</td><td>气候/补能/路况障碍</td><td>试驾与售后</td><td>安全体验</td><td>虚构全场景表现</td></tr><tr><td>服务可信</td><td>用户为何怕维修</td><td>工单/零件时效</td><td>公开服务承诺</td><td>用球星替服务</td></tr><tr><td>财务可承受</td><td>金融/保险/残值障碍</td><td>报价/转化漏斗</td><td>解释权益</td><td>改变金融本身</td></tr><tr><td>社会许可</td><td>被视作外来还是本地</td><td>员工/伙伴/社区</td><td>共同作者</td><td>总部直译</td></tr><tr><td>身份匹配</td><td>哪个品牌适合谁</td><td>品牌追踪</td><td>品牌路由</td><td>五品牌同台</td></tr><tr><td>长期承诺</td><td>用户信不信会留下</td><td>投资/制造/网络</td><td>连续赛季资产</td><td>一次大赛证明长期</td></tr></tbody></table></div>
+<p>缺内部证据时写【待核实】，不拿公开新闻代替客户漏斗。</p>
+<h3>三、欧洲：从“增长很快”到“会长期负责”</h3>
+<h4>A 源底座</h4>
+<p>2025 年报披露欧洲新车注册同比增长 268.6%（引用 ACEA），欧洲总部落户匈牙利并承担销售售后、认证测试、本地化设计及功能开发；公司推进匈牙利工厂。欧洲杯、U-21 和国米构成体育关系入口。[A1][A2][A3]</p>
+<h4>不能由这些事实推出</h4>
+<ul><li>不能推出每个欧洲国家知名度或考虑度相同；</li><li>不能推出注册增长由体育合作造成；</li><li>不能推出售后、残值、保险顾虑已解决；</li><li>不能推出国米在所有欧洲市场影响相同；</li><li>不能推出 DENZA 与 BYD 品牌架构已被用户理解。</li></ul>
+<h4>五类欧洲市场假说</h4>
+<h5>1. 生产/总部锚点市场</h5>
+<p>匈牙利的机会是把总部、认证、设计和制造变成“长期在场”的证据。体育可让当地员工、工程师和家庭成为共同作者。<br/><strong>首问：</strong> 当地用户最在意工作与产业贡献，还是产品/服务？<br/><strong>不做：</strong> 把投资本身当购买理由。</p>
+<h5>2. 国米高相关市场</h5>
+<p>意大利可用俱乐部三年关系做持续运营，而非一次签约。<br/><strong>首问：</strong> 国米关系在哪段漏斗有真实基线？<br/><strong>任务：</strong> 车队真实使用、门店赛季任务、技术见证。<br/><strong>不做：</strong> 把球迷忠诚转借成汽车忠诚。</p>
+<h5>3. 高电动化成熟市场</h5>
+<p>用户可能不需新能源教育，更关心软件、冬季、补能、服务与残值。<br/><strong>首问：</strong> BYD 进入 shortlist 后在哪里流失？<br/><strong>任务：</strong> 精确回答一个使用障碍。<br/><strong>不做：</strong> 再讲“电动车是未来”。</p>
+<h5>4. 价格/基础设施敏感市场</h5>
+<p>纯电与插混的 Job 不同；体育不能默认纯电唯一。<br/><strong>首问：</strong> 基础设施、居住形态和长途需求如何影响选择？<br/><strong>任务：</strong> 真实路线/补能/双路径解释。<br/><strong>不做：</strong> 混用 CLTC/WLTP 或不同工况数据。</p>
+<h5>5. 品牌高端化窗口</h5>
+<p>腾势进入必须先有产品、服务、价格与渠道。<br/><strong>首问：</strong> 用户拒绝的是陌生品牌、服务风险，还是豪华资格？<br/><strong>任务：</strong> 安全、礼宾、服务标准。<br/><strong>不做：</strong> 用大众足球流量替代豪华证明。</p>
+<h4>欧洲首试建议</h4>
+<p>只选一个成熟国米市场与一个增长市场；一个做俱乐部赛季调用，一个做本地共同作者。比较协议是否真的适配不同信任断点。国家名单【待内部优先级】。</p>
+<h3>四、巴西与拉美：从进口科技到当地共同作者</h3>
+<h4>A 源底座</h4>
+<p>年报披露巴西乘用车工厂首车下线，拉美为海外增长支柱；2024 年有美洲杯拉美区域合作，BYD SHARK 在墨西哥全球首发。[A1][A3]</p>
+<h4>必须拆开的差异</h4>
+<ul><li>巴西葡语与其他市场西语不可混；</li><li>巴西本地制造与墨西哥产品首发是不同信任资产；</li><li>皮卡、主流乘用车、纯电和插混的 Job 不同；</li><li>国家金融、税、保险、道路和补能差异大；</li><li>足球共同文化不等于同一俱乐部/国家队权利。</li></ul>
+<h4>巴西信任链假说</h4>
+<p><strong>社会许可：</strong> 工厂能把“进口品牌”改写为当地就业与制造伙伴。<br/><strong>产品理解：</strong> 用户需理解哪些技术适合城市、长途和家庭。<br/><strong>服务/财务：</strong> 若售后、金融、保险与残值是主障碍，体育只能导入解释。<br/><strong>身份：</strong> 足球可提供共同语言，但本地员工与用户必须是作者。</p>
+<h4>巴西操作原型</h4>
+<ol><li>工厂员工、家庭、当地经销商先定义一个真实出行问题；</li><li>选择一项已上市车型能力；</li><li>足球只承担邀请与叙事，不控制技术答案；</li><li>用户完成短任务；</li><li>经销商承接；</li><li>内容重点是“当地人如何用”，而非总部如何输出；</li><li>复盘单列工厂城市与非工厂城市。</li></ol>
+<h4>墨西哥/SHARK 操作原型</h4>
+<p>全球首发证明当地可成为产品定义舞台，不只是销售末端。[A4]<br/><strong>首问：</strong> SHARK 对当地用户解决的真实 Job 是什么，官方产品资料如何界定？<br/><strong>不做：</strong> 因为是皮卡就自动绑定极限运动；不在未核实条件下写拖拽、越野、续航数据。</p>
+<h4>拉美 Kill</h4>
+<ul><li>把粉丝热情当购买力；</li><li>无金融/服务承接仍谈大规模获客；</li><li>葡语素材翻西语全域使用；</li><li>美洲杯旧权益已到期却继续调用；</li><li>工厂员工只作背景板；</li><li>总部拿走数据但当地团队得不到结果。</li></ul>
+<h3>五、泰国与东南亚：本地制造、就业和足球能否连成一件事</h3>
+<h4>A 源底座</h4>
+<p>2025-07 官方新闻披露比亚迪进入泰国三年、当地第 9 万辆新能源车交付、工厂吸纳 6,100 余名泰籍雇员且泰籍员工占比 90%；年报称泰国工厂实现全流程本地化生产。比亚迪官方国米新闻回溯其为泰国足球联赛和国家队主赞助商，但单项合同边界未取得。[A1][A5][A3]</p>
+<h4>这里比欧洲多一个强资产</h4>
+<p>足球、工厂、员工、经销和车主都在同一国家。若仍各做一条新闻，是资产浪费；若把它们粗暴合并，又可能把员工与球队当宣传工具。</p>
+<h4>泰国共同作者模型</h4>
+<div class='tbl'><table><thead><tr><th>作者</th><th>决定什么</th><th>不应被要求什么</th></tr></thead><tbody><tr><td>工厂员工/家庭</td><td>当地生活与制造真实故事</td><td>背诵总部口号</td></tr><tr><td>国家市场</td><td>品牌、车型、商业目标</td><td>接受不适配 KPI</td></tr><tr><td>球队/联赛</td><td>体育文化、赛季与社区</td><td>交出不合法数据</td></tr><tr><td>经销商</td><td>可承接任务与跟进</td><td>无限吞吐</td></tr><tr><td>用户/车主</td><td>技术如何进入真实生活</td><td>危险挑战</td></tr><tr><td>总部工程/品牌</td><td>技术真相、安全与母规则</td><td>决定全部本地表达</td></tr></tbody></table></div>
+<h4>可试任务</h4>
+<ul><li>比赛日前五分钟安全/技术任务；</li><li>工厂家庭与球队共同定义“主场出行”；</li><li>门店完成第二任务后进入试驾；</li><li>赛季末由员工、用户、经销商复盘，而非只播明星片。</li></ul>
+<h4>必问</h4>
+<ol><li>泰足合同究竟覆盖联赛、国家队、球员、青训中的哪些？</li><li>期限、排他、数据和门店调用边界？</li><li>工厂员工参与是否自愿且有影像/数据授权？</li><li>泰国用户最大漏斗障碍是品牌、产品、服务还是金融？</li><li>经销商愿意承接多长任务？</li><li>本地团队能改什么？</li></ol>
+<h4>东南亚扩张纪律</h4>
+<p>泰国成功不代表可以复制到其他东南亚国家。复制的是任务协议、安全、事件口径；不复制球队、用户洞察和产品组合。</p>
+<h3>六、中东：高端、极端环境与产业伙伴不能只剩豪华图</h3>
+<h4>A 源底座</h4>
+<p>2025 年报披露中东市场布局及区域管理；2025-04 比亚迪与沙特阿美技术公司签署联合开发协议，探索提升新能源汽车效率与环境性能。[A1][A6]</p>
+<h4>信任链假说</h4>
+<ul><li><strong>产品可行：</strong> 高温、长距离与补能条件；</li><li><strong>身份匹配：</strong> 新豪华是否有资格进入高端选择；</li><li><strong>产业许可：</strong> 本地战略伙伴和能源转型；</li><li><strong>服务可信：</strong> 高端客户对服务、备件与响应的要求；</li><li><strong>文化边界：</strong> 体育、内容、人物与性别表达需本地确认。</li></ul>
+<h4>路由</h4>
+<ul><li>主品牌：先回答真实使用；</li><li>腾势：高端礼宾、安全与从容；</li><li>仰望：少量专业工程见证；</li><li>方程豹：若产品已上市并有专业场地，可做分级技能；否则不预设。</li></ul>
+<h4>不做</h4>
+<ul><li>“沙漠+速度+豪车”模板；</li><li>未批准极端环境演示；</li><li>把技术合作伙伴自动变传播背书；</li><li>用欧洲足球内容直译；</li><li>未确认上市与服务先获客。</li></ul>
+<h3>七、香港：把一次指定用车变成服务标准</h3>
+<h4>A 源底座</h4>
+<p>2026 年 ANOC 大会首次在香港举行，腾势为唯一官方指定用车品牌，服务 1,200 余名奥委会代表等嘉宾，并联合设立奖项。[A7]</p>
+<h4>可留下的五类资产</h4>
+<ol><li>车队调度与充电 SOP；</li><li>多语言礼宾培训；</li><li>嘉宾对空间、安全、服务的合规反馈；</li><li>国际体育事件合作模板；</li><li>奖项是否可持续的内容机制。</li></ol>
+<h4>不能从官宣推出</h4>
+<ul><li>不能推出所有嘉宾实际乘坐；</li><li>不能推出对车型的正面评价；</li><li>不能推出嘉宾信息可用于营销；</li><li>不能推出“唯一”覆盖所有汽车品类与未来活动；</li><li>不能推出一次服务拉动香港零售。</li></ul>
+<h4>成功标准</h4>
+<p>不是大会曝光，而是大会后另一场国际事件愿意采用同一腾势服务标准；是否发生【待核实】。</p>
+<h3>八、市场优先级不是粉丝榜</h3>
+<p>建议五项硬门槛：</p>
+<ol><li><strong>真实经营问题：</strong> 漏斗断点有内部证据；</li><li><strong>产品就绪：</strong> 上市、库存、试驾、服务；</li><li><strong>权益就绪：</strong> 合同允许；</li><li><strong>承接就绪：</strong> 国家、经销、数据、安全；</li><li><strong>学习价值：</strong> 能验证可扩张假说。</li></ol>
+<p>再做五项排序：</p>
+<ul><li>海外经营重要性；</li><li>当前品牌/车型窗口；</li><li>现有权益边际成本；</li><li>对照可行性；</li><li>赛后资产留存。</li></ul>
+<p>没有内部数据时不打分，不用模型伪造精确排序。</p>
+<h3>九、当地一手研究 20 问</h3>
+<h4>用户</h4>
+<ol><li>你知道 BYD 的第一件事是什么？</li><li>你不考虑它的第一原因是什么？</li><li>纯电/插混哪种更适合你的生活，为什么？</li><li>你最担心充电、维修、保险、残值还是品牌？</li><li>哪项技术你听过但没理解？</li><li>哪种体验能让你愿意去门店？</li><li>哪种体育合作会觉得真实，哪种像借势？</li><li>你如何理解 BYD 与其子品牌关系？</li></ol>
+<h4>经销商</h4>
+<ol><li>线索在哪一步最常流失？</li><li>体育活动线索与普通线索质量有何差异？</li><li>门店能承受几分钟任务？</li><li>哪种用户解释最费时间？</li><li>哪个车型最需要体验而不是广告？</li><li>什么数据能让你愿意再开一次？</li></ol>
+<h4>国家团队</h4>
+<ol><li>全球权益最难调用的原因是什么？</li><li>总部素材哪里不适配？</li><li>哪项本地洞察总部最常忽略？</li><li>谁能批准数据、经销与安全？</li><li>若只选一个品牌、一个城市，选谁，为什么？</li><li>未达到什么就停？</li></ol>
+<h3>十、每个市场的一页输出</h3>
+<pre>国家/城市：
+时间锚：
+经营断点（有内部证据）：
+产品/服务就绪：
+主品牌：
+一项技术：
+现有权益：
+本地共同作者：
+五分钟任务/服务证明：
+CTA 与承接人：
+数据与安全：
+对照：
+留下资产：
+Kill：
+仍待核实：</pre>
+<h3>十一、结论</h3>
+<blockquote><p>世界级品牌不是在 119 个国家说同一句话，而是在每个国家都能回答当地最具体的“不敢买”，同时仍让人认得同一家公司对技术、规则与长期责任的坚持。</p></blockquote>
+<h3>A 源</h3>
+<ul><li>[A1] BYD 2025 年报：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] UEFA EURO 2024：https://www.bydglobal.com/cn/news/2024-01-12/1617162267087</li><li>[A3] 国际米兰及体育合作盘点：https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A4] BYD SHARK 墨西哥首发：https://www.bydglobal.com/cn/news/2024-05-15/1617162437683</li><li>[A5] 泰国工厂：https://www.bydglobal.com/cn/news/2025-07-09/1617162671159</li><li>[A6] 沙特阿美技术合作：https://www.bydglobal.com/cn/news/2025-04-21/1617162636530</li><li>[A7] ANOC 香港大会：https://www.bydglobal.com/cn/news/2026-05-27/1617162804277</li></ul></section><section class="sec" id="r18"><div class="label">研18 - 决策层 Grill 与反方案例：这个命题为什么值得谈、又为什么可能不该买</div><h2 class="sec-title">决策层 Grill 与反方案例：这个命题为什么值得谈、又为什么可能不该买</h2><h2 class='md-h1'>决策层 Grill 与反方案例：这个命题为什么值得谈、又为什么可能不该买</h2>
+<blockquote><p>用途：给 impress / lobbying 会面做反方准备，不是把所有内容塞进主刀。事实回 A 源；对内部现状的判断一律标假说。目标是让方案经得起品牌、海外经营、财务、法务、产品与国家公司的连续追问。</p></blockquote>
+<h3>一、最强反方：比亚迪不需要外部人教它全球化</h3>
+<h4>反方陈述</h4>
+<p>比亚迪已经覆盖 119 个国家和地区，2025 年整车出口突破 100 万辆，境外收入 3,107.41 亿元；有工厂、滚装船、欧洲总部、当地经销、欧洲杯、国米、泰国足球和 ANOC。外部团队若再说“你们要本地化、要品效合一”，没有信息增量。[A1]</p>
+<h4>我方承认</h4>
+<p>完全成立。不能以“帮助 BYD 走向全球”为 pitch，也不能假装官网没披露 KPI 就等于内部没有系统。</p>
+<h4>仍值得问的一刀</h4>
+<p>不是“有没有全球资产”，而是：<strong>一个已买到的全球关系，能否由不同国家、品牌和经销商低摩擦调用，并用同一证据语言决定续约或停止？</strong></p>
+<h4>证伪</h4>
+<p>请客户展示一个已结束赛季的真实运营链：合同字段→品牌选择→国家申请→用户任务→经销承接→增量复盘。若成熟且无明显断点，全球信任协议 KILL，只讨论局部工具或退出。</p>
+<h3>二、财务反方：利润压力时，最正确的动作是少花，不是造新品类</h3>
+<h4>反方陈述</h4>
+<p>2025 年收入增长 3.46%，归母净利润下降 18.97%，经营现金流下降；2026Q1 收入、利润继续同比下滑。此时任何全球平台、新内容和体验网络都可能加重费用。[A1][A2]</p>
+<h4>我方承认</h4>
+<p>财务压力不是“必须营销”的证据，反而是新增合作默认有罪。不能拿利润下降催预算。</p>
+<h4>窄回应</h4>
+<p>只允许两类讨论：</p>
+<ol><li>不增加第二套 IP，先提高现有权益调用效率；</li><li>用一个国家/品牌/任务/对照的小试验，明确未达即停。</li></ol>
+<h4>财务要的不是愿景</h4>
+<ul><li>沉没权益费与新增激活费分开；</li><li>总部、国家、品牌、经销成本分开；</li><li>触达、行为、增量、资产四本账分开；</li><li>无对照不称因果；</li><li>协议若让上线更慢，停止。</li></ul>
+<h4>Kill</h4>
+<p>客户没有历史基线、不接受对照、不写停止权，却要求预测全球销量，整案不报价。</p>
+<h3>三、品牌反方：多品牌路由是常识，没必要发明“协议”</h3>
+<h4>反方陈述</h4>
+<p>成熟品牌团队本来就有 brand book、campaign brief 和全球 toolkit。把它叫 Brand Router 只是新包装。</p>
+<h4>我方承认</h4>
+<p>若输出只是五张定位卡，确实无新品类价值。</p>
+<h4>差异必须落到三件事</h4>
+<ol><li><strong>权利可调用：</strong> 品牌 Job 与合同字段相连，而非只讲调性；</li><li><strong>经营可承接：</strong> 每次路由必须接国家、车型、经销容量和 CTA；</li><li><strong>结果可杀死：</strong> 品牌分辨与增量不改善就停。</li></ol>
+<h4>证伪</h4>
+<p>随机抽一个国家激活，问：</p>
+<ul><li>为什么是这个品牌而不是另一个？</li><li>合同允许哪些动作？</li><li>用户完成什么？</li><li>经销商接什么？</li><li>复盘后哪项被停止？</li></ul>
+<p>现有 brief 若已完整回答，协议不该单卖。</p>
+<h3>四、海外经营反方：总部协议会让国家更慢</h3>
+<h4>反方陈述</h4>
+<p>国家市场面对当地竞争、上市、库存、价格和合规，最怕总部新增模板、审批和 dashboard。所谓统一协议可能提高控制、降低速度。</p>
+<h4>我方承认</h4>
+<p>这是 A 概念最可能的死因。全球一致不应等于创意一致。</p>
+<h4>设计约束</h4>
+<ul><li>总部只锁技术真相、安全、数据、品牌与事件口径；</li><li>国家决定本地问题、共同作者、语言与场景；</li><li>MVP 用文件，不开发平台；</li><li>用“brief 到上线周期”作为主指标之一；</li><li>本地版本更慢且无改善即停。</li></ul>
+<h4>Kill</h4>
+<p>若协议审批层级增加、国家没有配置权、结果数据仍不返还当地，A 概念直接 KILL。</p>
+<h3>五、经销商反方：你们把品牌部的问题丢给门店</h3>
+<h4>反方陈述</h4>
+<p>活动带来大量低意向扫码，门店要打电话、安排试驾、承担场地和人员；总部拿曝光，经销商拿负担。2025 年经销收入占集团收入 54.33%，经销不是末端执行工具。[A1]</p>
+<h4>我方承认</h4>
+<p>没有经销商经济账的体验设计是假的闭环。</p>
+<h4>门店必须拥有</h4>
+<ul><li>任务时长和吞吐的否决权；</li><li>车型/库存匹配权；</li><li>consent 合法且来源清楚；</li><li>活动成本与激励说明；</li><li>到店和订单归因可见；</li><li>对低质量线索的反馈；</li><li>不愿重复开即视为失败信号。</li></ul>
+<h4>证伪</h4>
+<p>先访谈试点门店，要求其定义“可承受的五分钟”。若门店不愿执行，Proof League 不上线。</p>
+<h3>六、产品工程反方：五分钟只能把复杂技术做浅</h3>
+<h4>反方陈述</h4>
+<p>电池、闪充、智能驾驶、车身控制都依赖条件与工程边界。五分钟任务容易变游乐设施，让用户记住一杯水、集章或球星，却误解技术。</p>
+<h4>我方承认</h4>
+<p>“好玩”不是成功；理解错误比没人参加更糟。</p>
+<h4>任务通过标准</h4>
+<p>完成后用户必须正确回答：</p>
+<ol><li>这项技术解决什么；</li><li>在什么条件下成立；</li><li>不能替驾驶者做什么；</li><li>属于哪个品牌/车型。</li></ol>
+<p>任何误导率上升即停；产品工程和安全拥有一票否决。</p>
+<h4>Kill</h4>
+<p>五分钟无法正确解释，就把任务改成预约深度体验；不为“五分钟”这个名字牺牲技术。</p>
+<h3>七、法务/数据反方：球迷身份层在 GDPR 下不可行</h3>
+<h4>反方陈述</h4>
+<p>俱乐部会员、票务、比赛日、门店和车辆数据由不同主体控制。全球统一用户身份可能没有合法基础，跨境转移风险极高。</p>
+<h4>我方承认</h4>
+<p>“全球球迷 CRM”不是可在公开资料下承诺的产品。Proof Card 也不是绕过 consent 的工具。</p>
+<h4>三档降级</h4>
+<ol><li><strong>用户级：</strong> 仅在合同允许、本地重新取得明确同意时；</li><li><strong>门店级：</strong> 用匿名事件和门店/城市增量；</li><li><strong>纯运营级：</strong> 只测权益调用、内容复用、审批周期。</li></ol>
+<p>哪一档成立，就只卖哪一档。</p>
+<h4>Kill</h4>
+<p>无合法基础、用途捆绑、未成年人授权不清、数据角色不明，立即停。</p>
+<h3>八、IP 方反方：你们把权益产品化，会稀释俱乐部与球迷关系</h3>
+<h4>反方陈述</h4>
+<p>俱乐部不是素材仓库，球迷也不是汽车线索池。过度任务化、表单化会损害体验，并把商业目标压在体育关系上。</p>
+<h4>我方承认</h4>
+<p>IP 方必须是共同设计者，不只是审批者；球迷可以完成基础体验而不提供营销数据。</p>
+<h4>合作原则</h4>
+<ul><li>任务先服务球迷当下体验；</li><li>consent 分层，拒绝不影响基础参与；</li><li>球员/队徽使用按合同；</li><li>俱乐部可看到体验与投诉结果；</li><li>不以礼品诱导过度数据；</li><li>社区/青训内容优先留下能力，而非只导流。</li></ul>
+<h4>证伪</h4>
+<p>IP 方认为任务伤害球迷体验且无法调整，停止，不绕过。</p>
+<h3>九、体育营销反方：效果广告更便宜、更可追踪</h3>
+<h4>反方陈述</h4>
+<p>同样预算，效果广告可精准获客；体育体验成本高、变量多、归因弱。</p>
+<h4>我方承认</h4>
+<p>若目标只是短期线索，效果广告可能更优。</p>
+<h4>体育必须证明的额外价值</h4>
+<ul><li>任务参与者质量更高；</li><li>技术理解更深；</li><li>品牌分辨改善；</li><li>国家/经销愿意重复调用；</li><li>留下内容、SOP、教练、场地或用户进度；</li><li>现有权益被更有效使用。</li></ul>
+<h4>Kill</h4>
+<p>同城对照下，Proof League 在质量和长期资产上均无优势，预算回效果广告。</p>
+<h3>十、战略反方：经营瓶颈根本不是品牌</h3>
+<h4>反方陈述</h4>
+<p>2026 的销量和利润压力可能来自产品周期、价格、竞争、库存、渠道、贸易、金融或售后，体育运营不是前三问题。</p>
+<h4>我方承认</h4>
+<p>这是总体命题的最高级 Kill。公开财报只能证明压力，不能证明原因。</p>
+<h4>首面顺序</h4>
+<p>先请海外经营负责人列前三业务问题，再讨论合作。若品牌信任、技术理解、试驾质量、权益效率均不在前列：</p>
+<ul><li>不争主预算；</li><li>方案最多做辅助解释；</li><li>或整案停止。</li></ul>
+<h3>十一、组织反方：一个协议无法解决品牌、国家和集团政治</h3>
+<h4>反方陈述</h4>
+<p>不同预算、KPI、采购与数据 ownership 不会因一张流程图消失。平台愿景可能遮盖没有 Economic Buyer 的事实。</p>
+<h4>我方承认</h4>
+<p>不先找到一个 sponsor，就没有协议。不能同时卖给“整个 BYD”。</p>
+<h4>Adoption wedge</h4>
+<ul><li>一个 Economic Buyer；</li><li>一个品牌；</li><li>一个国家；</li><li>一个现有 IP；</li><li>一个任务；</li><li>一个 CTA；</li><li>一个停止指标。</li></ul>
+<p>连最小单元都无法授权，就不谈全球平台。</p>
+<h3>十二、创意反方：两条 disruptive - 跳出盒子 名字很好听，本质还是 agency 服务</h3>
+<h4>对 A · 全球信任协议</h4>
+<p>若交付只是权益盘点、brand book、toolkit 和 dashboard，就是咨询/agency 旧品类。<br/><strong>成为新品类的条件：</strong> 国家能实际调用；同一事件口径留下证据；第二国复用更快；未达可停止。</p>
+<h4>对 B · 五分钟技术联赛</h4>
+<p>若交付只是展车互动、集章和试驾导流，就是 event activation 旧品类。<br/><strong>成为新品类的条件：</strong> 用户亲证一项技术；正确理解边界；Proof 可继续；任务跨赛季标准化；质量优于普通活动。</p>
+<h4>disruptive 门禁</h4>
+<p>跳出盒子，不是「把唱片广告做得更酷」，而是把使用方式压缩成新的习惯。两个概念只有在改变「权益怎样被用」和「技术怎样被亲证」时才成立。</p>
+<h3>十三、决策树：会面后该走哪条路</h3>
+<h4>Q1：内部是否承认具体缺口？</h4>
+<ul><li>否，且有成熟证据 → KILL A；</li><li>是，但只在单一国家 → 不卖全球，做窄试点；</li><li>不确定 → 先做流程诊断，不做创意路演。</li></ul>
+<h4>Q2：现有权益合同可否任务化？</h4>
+<ul><li>可做人物/场地/数据 → A+B 小试；</li><li>只可内容/标识 → 做运营效率与匿名任务；</li><li>不可 → B 转经销商自有技术任务，不依赖 IP；</li><li>合同不可见 → 不承诺。</li></ul>
+<h4>Q3：经营断点是品牌/体验吗？</h4>
+<ul><li>是 → 继续；</li><li>是服务/金融 → 合作退居解释；</li><li>是产品/价格 → 不抢预算；</li><li>无法判断 → 取得漏斗。</li></ul>
+<h4>Q4：数据可到哪一档？</h4>
+<ul><li>用户级合法 consent → Proof 进度；</li><li>门店级 → 城市对照；</li><li>运营级 → 只测调用和复用；</li><li>无任何数据 → 不做“可归因”主张。</li></ul>
+<h4>Q5：谁承接？</h4>
+<ul><li>sponsor+国家+经销明确 → 试点；</li><li>只有品牌喜欢 → 暂停；</li><li>经销拒绝 → KILL B；</li><li>法务/安全拒绝 → 即停。</li></ul>
+<h3>十四、给不同决策人的 30 秒版本</h3>
+<h4>给董事长/最高层</h4>
+<p>“车、工厂、技术和体育权益都已全球化。我们不建议再买一次曝光，只想验证：现有全球关系能不能像技术平台一样，被品牌和国家调用，并留下可被停止或扩张的证据。”</p>
+<h4>给海外经营</h4>
+<p>“不是总部再给一套 KV，而是让国家用同一安全和数据规则，回答当地最具体的‘为什么不敢买’，并由当地经销承接。”</p>
+<h4>给品牌</h4>
+<p>“共享技术不必让五个品牌说同一句话；每次只选一个用户进度，用同一技术证明不同 Job。”</p>
+<h4>给财务</h4>
+<p>“先不加第二套 IP；一个国家、一个品牌、一个任务、一个对照，权益费和激活费分账，未达即停。”</p>
+<h4>给经销</h4>
+<p>“你们定义可承受的五分钟；线索必须带任务、同意和车型，质量不高就不开第二次。”</p>
+<h4>给法务/安全</h4>
+<p>“合同先于创意，静态/模拟先于驾驶，用户级不可行就降到门店级；你们有一票否决。”</p>
+<h3>十五、首面三问为什么只保留这三问</h3>
+<h4>问一</h4>
+<blockquote><p>过去两年全球足球权益里，哪一个指标让经营团队真正愿意续约——不是传播团队愿意汇报？</p></blockquote>
+<p>它同时测试：经营连接、真实 KPI、财务语言和续约逻辑。</p>
+<h4>问二</h4>
+<blockquote><p>王朝、海洋、腾势等品牌调用同一全球权益时，谁决定各自讲什么、在哪些国家不讲？</p></blockquote>
+<p>它测试：品牌路由、决策权、国家边界与“协议是否已有”。</p>
+<h4>问三</h4>
+<blockquote><p>如果只用一个赛季、两个国家做试点，您愿意用哪条“未达到就停”的指标杀死它？</p></blockquote>
+<p>它测试：基线、归因、Economic Buyer 与组织是否真的愿意证伪。</p>
+<p>任何额外问题进入 72 小时清单，不稀释主刀。</p>
+<h3>十六、会面红线</h3>
+<ul><li>不说“你们不会做体育”；</li><li>不说“你们缺年轻化”；</li><li>不说“海外增长证明体育有效”；</li><li>不说“我们能统一全球 CRM”；</li><li>不引用未披露赞助费；</li><li>不把球迷总数当线索；</li><li>不把 2026 压力归因于品牌；</li><li>不把辅助驾驶称自动驾驶；</li><li>不把目标站点数称已建成；</li><li>不预报 2026–2028 收入、销量或 ROI；</li><li>不以竞争对手负面新闻证明我方价值；</li><li>不在没有会面人时假装知道谁拍板。</li></ul>
+<h3>十七、何时可以从 CONDITIONAL 升级</h3>
+<p>至少关闭：</p>
+<ul><li>[ ] 客户确认一个具体流程/经营缺口；</li><li>[ ] Economic Buyer 与 veto；</li><li>[ ] 一个现有合同可调用；</li><li>[ ] 一个国家、品牌、车型；</li><li>[ ] 经销承接；</li><li>[ ] 历史基线；</li><li>[ ] 数据档位；</li><li>[ ] 安全/法务；</li><li>[ ] 对照；</li><li>[ ] Kill。</li></ul>
+<p>关闭前只能说“值得验证”，不能说“已经找到增长引擎”。</p>
+<h3>十八、最终 Steelman</h3>
+<p>最强的“不做”方案是：</p>
+<ol><li>不新增任何体育合作；</li><li>把预算给产品、售后、金融或效果广告；</li><li>国家继续用现有 agency；</li><li>只优化国米内容与车队；</li><li>等经营恢复再谈平台。</li></ol>
+<p>我方只有在以下条件同时成立时胜出：</p>
+<ul><li>现有权益重复成本与调用缺口真实；</li><li>用户理解/试驾质量是经营问题；</li><li>协议比旧流程更快或更可比较；</li><li>五分钟任务优于普通活动；</li><li>可在小规模证伪；</li><li>不牺牲安全、数据和品牌。</li></ul>
+<h3>十九、结论</h3>
+<blockquote><p>真正 impress 决策层的不是“我们想到了一个很大的全球创意”，而是我们已经替他们把最强的反对理由写出来，并把每一条反对都变成花大钱之前可以杀死方案的实验。</p></blockquote>
+<h3>A 源锚点</h3>
+<ul><li>[A1] BYD 2025 年报：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</li><li>[A2] BYD 2026Q1：https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0428/2026042803001.pdf</li><li>[A3] 国际米兰合作：https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</li><li>[A4] “敢为”智能化战略：https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</li><li>[A5] 第二代刀片电池/闪充：https://www.bydglobal.com/cn/news/2026-03-06/1617162762962</li></ul></section><section class="sec" id="r19"><div class="label">研19 - A 源原话路由：高层语言怎样约束合作设计</div><h2 class="sec-title">A 源原话路由：高层语言怎样约束合作设计</h2><h2 class='md-h1'>A 源原话路由：高层语言怎样约束合作设计</h2>
+<blockquote><p>本页不增加未经核实的引语，而把已核对的公司/合作方原话路由到决策、创意与 Kill。完整上下文见 <code>02_executive_quotes.md</code>；引用必须保留人物、日期、场合和 URL。</p></blockquote>
+<h3>一、战略层：技术根与本地品牌必须同时成立</h3>
+<h4>王传福 · 2026-03-27 · 2025 年报</h4>
+<blockquote><p>“我们坚持以技术为根、以出海为引擎，奋力向高生长、向远而行、向新出发，打造世界级的中国品牌。”</p></blockquote>
+<p><strong>允许推出：</strong> 技术、出海与世界品牌是同一战略句法。<br/><strong>不能推出：</strong> 体育是出海主引擎；当前缺口一定在品牌。<br/><strong>设计约束：</strong> 合作必须指向一项真实技术和一个本地经营动作。<br/><strong>Kill：</strong> 只有全球曝光、没有技术证据与本地承接。</p>
+<h4>王传福 · 2026-03-27 · 2025 年报</h4>
+<blockquote><p>“我们将充分利用两个市场、两种资源，携手全球产业链伙伴，打造具有本地品牌属性的产品，给全球消费者提供更多绿色技术和环保体验。”</p></blockquote>
+<p><strong>允许推出：</strong> 本地品牌属性和全球伙伴是官方目标。<br/><strong>不能推出：</strong> 当前内容不本地；所有国家都需要体育。<br/><strong>设计约束：</strong> 当地团队、用户、经销商或员工至少一方成为共同作者。<br/><strong>Kill：</strong> 总部素材翻译后称“本地化”。</p>
+<p>来源：https://www.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032702970_c.pdf</p>
+<h3>二、产品层：真正合作要进入底层系统</h3>
+<h4>王传福 · 2025-03-02 · 灵鸢发布会</h4>
+<blockquote><p>“比亚迪和大疆的合作，绝不只是把无人机放在车上那么简单，而是从底层技术出发，从0到1，设计并开发了整车集成系统，成功做到了车和无人机的深度融合，最终达到1+1&gt;2的效果。”</p></blockquote>
+<p><strong>允许推出：</strong> 比亚迪公开认可“外部伙伴+底层融合”的合作标准。<br/><strong>不能推出：</strong> 体育合作也必须进入车辆硬件；BYD 会开放技术接口。<br/><strong>设计约束：</strong> 两条 disruptive - 跳出盒子 必须改变使用机制，而不只是创意包装。<br/><strong>对 A：</strong> 权益从附件变成可调用协议。<br/><strong>对 B：</strong> 展车从被观看变成可完成证明。<br/><strong>Kill：</strong> Rights API 只是 Excel；Proof League 只是互动展台。</p>
+<p>来源：https://www.bydglobal.com/cn/news/2025-03-03/1617162596334</p>
+<h3>三、体验层：普惠不是降格，而是降低第一次门槛</h3>
+<h4>王传福 · 2025-02-10 · 智能化战略发布会</h4>
+<blockquote><p>“好技术，就应该人人可享！”</p></blockquote>
+<h4>李云飞 · 2025-08-14 · 郑州全地形赛车场开业</h4>
+<blockquote><p>“好技术，要人人可享；好体验，更要人人可享。”</p></blockquote>
+<p><strong>允许推出：</strong> 从技术普惠到体验普惠是公司已有公开语言。<br/><strong>不能推出：</strong> 所有高端品牌都应大众化；赛车场应全球复制。<br/><strong>设计约束：</strong> B 概念降低理解门槛，但按品牌分级：主流可规模，仰望邀请制。<br/><strong>Kill：</strong> 为追求完成量把复杂技术娱乐化。</p>
+<p>来源：<br/>https://www.bydglobal.com/cn/news/2025-02-11/1617162592632<br/>https://www.bydglobal.com/cn/news/2025-08-15/1617162688924</p>
+<h3>四、责任层：“敢为”不是危险挑战</h3>
+<h4>王传福 · 2026-05-28 · “敢为”智能化战略发布会</h4>
+<blockquote><p>“真正的‘敢为’，从来不是无所畏惧，而是心怀对生命、对规则、对技术的敬畏，明知难而为之，始终做难而正确的事，敢为人先，一路向前！”</p></blockquote>
+<p><strong>允许推出：</strong> 安全、规则与技术责任可以成为品牌内容。<br/><strong>不能推出：</strong> 任何“兜底”都是无限责任；竞技内容可在道路复刻。<br/><strong>设计约束：</strong> 产品安全、法务、保险有 veto；优先静态、模拟、封闭低速。<br/><strong>Kill：</strong> 球员脱手驾驶、公共道路竞速、把辅助驾驶称自动驾驶。</p>
+<p>来源：https://www.bydglobal.com/cn/news/2026-05-29/1617162805514</p>
+<h3>五、合作层：官方愿景不等于已实现结果</h3>
+<h4>李柯 · 2025-07-21 · 国际米兰签约</h4>
+<blockquote><p>“我们很高兴能与国际米兰足球俱乐部合作。国米在全球拥有庞大的群众基础，这与比亚迪不谋而合。我们的品牌充满激情、创新精神和对未来人才的投资，我们将在未来的赛季中，基于共同愿景探索更多可能。”</p></blockquote>
+<h4>Giorgio Ricci · 2025-07-21 · 国际米兰签约</h4>
+<blockquote><p>“此次合作将为双方带来面向国际的活动与内容新机遇，助力触达全球球迷与消费者。”</p></blockquote>
+<p><strong>允许推出：</strong> 三年关系为未来赛季活动、内容和创新留下空间。<br/><strong>不能推出：</strong> 已获得球迷数据、已带来销量、合同允许任何任务。<br/><strong>设计约束：</strong> 把“探索更多可能”改写成合同可行的小实验，不替双方补结果。<br/><strong>Kill：</strong> 把合作方愿景句放进案例成效栏。</p>
+<p>来源：https://www.bydglobal.com/cn/news/2025-07-22/1617162679146</p>
+<h3>六、本地层：工厂、服务与社会关系必须相连</h3>
+<h4>刘学亮 · 2025-07 · 泰国工厂投产一周年</h4>
+<blockquote><p>“比亚迪进入泰国三年，不仅致力于为泰国消费者提供最好的技术、最好的服务和最好的产品，更始终将企业命运与社会发展紧密相连。”</p></blockquote>
+<p><strong>允许推出：</strong> 泰国本地化公开语言同时包含产品、服务和社会发展。<br/><strong>不能推出：</strong> 当地消费者已形成品牌认同；足球合作已连接工厂。<br/><strong>设计约束：</strong> 泰国原型必须让当地员工、家庭、球队、经销中的真实角色共同定义议题。<br/><strong>Kill：</strong> 只在工厂取景、没有当地决策权。</p>
+<p>来源：https://www.bydglobal.com/cn/news/2025-07-09/1617162671159</p>
+<h3>七、原话使用门禁</h3>
+<ol><li>不截掉限定条件；</li><li>不把愿景改成实绩；</li><li>不把“全球”改成所有国家可调用；</li><li>不把“触达”改成 consent；</li><li>不把“合作”改成排他；</li><li>不把“人人可享”改成所有品牌大众化；</li><li>不把“敢为”改成冒险；</li><li>不用高管原话替代内部流程证据；</li><li>刀子最多保留一至两句，不做语录墙；</li><li>被追问时回到日期、场合与官方 URL。</li></ol>
+<h3>八、结论</h3>
+<blockquote><p>原话的价值不是给创意贴领导语言，而是给创意设边界：技术要真、本地要有作者、体验要能完成、敢为要守规则、合作愿景不能冒充经营结果。</p></blockquote>
+<h3>九、原话到会面动作：不做“领导语录墙”</h3>
+<div class='tbl'><table><thead><tr><th>原话中的动词</th><th>会面动作</th><th>需要客户补的证据</th><th>不通过时</th></tr></thead><tbody><tr><td>以技术为根</td><td>只选一项已发布技术</td><td>哪项技术最需要海外解释</td><td>无真实技术接口则删创意</td></tr><tr><td>以出海为引擎</td><td>只选一个经营优先国家</td><td>国家前三业务问题</td><td>品牌不在前三则退居辅助</td></tr><tr><td>本地品牌属性</td><td>让国家/员工/用户成为作者</td><td>谁有本地修改权</td><td>只能转发总部素材则不称共创</td></tr><tr><td>人人可享</td><td>降低第一次理解门槛</td><td>哪些人被现有体验挡住</td><td>高端被降格则改邀请制</td></tr><tr><td>敬畏规则</td><td>安全、法务、保险先签字</td><td>一票否决人和规则</td><td>无 veto 不上线</td></tr><tr><td>底层融合</td><td>改变权益/体验使用机制</td><td>第二国复用或用户进度</td><td>仍是 toolkit/展台则不称新品类</td></tr><tr><td>探索更多可能</td><td>先把可能写成合同字段</td><td>国米合同真实允许项</td><td>合同不允许则删除</td></tr></tbody></table></div>
+<h4>刀子里最多保留什么</h4>
+<p>只保留一条战略原话和一条合作标准即可：</p>
+<ol><li>“以技术为根、以出海为引擎”用于承认客户战略，不拿来教育；</li><li>“绝不只是把无人机放在车上”用于自我约束：我方创意若只是权益叠加，也应被客户否掉。</li></ol>
+<p>其余原话放在 A 档案与备答。高层会面若连续引用多句领导话，容易显得在做官网摘抄，而不是给出新判断。</p>
+<h4>被客户纠正时</h4>
+<ul><li>客户指出原话已有新版本：以用户纠正为最高优先，记录日期和场合；</li><li>客户说该战略不适用于体育：立即停止类比，不争辩；</li><li>客户提供内部 KPI 与公开愿景冲突：显式标冲突，不能静默选公开说法；</li><li>客户说现有系统已做到：索取可匿名的流程证据，证实后 Kill 假说；</li><li>客户不允许材料引用高管原话：对外版删除，研究账本保留来源。</li></ul></section><section class="sec" id="r20"><div class="label">研20 - 比亚迪冰山研究索引</div><h2 class="sec-title">比亚迪冰山研究索引</h2><h2 class='md-h1'>比亚迪冰山研究索引</h2>
+<blockquote><p>版本：<strong>v1.0 expanded iceberg / L0 open</strong> · 2026-08-26</p><p>时间锚：2025 年报、2026Q1、2026 年 7 月产销、截至 2026-08-26 官方品牌/体育动作</p><p>裁决：<strong>CONDITIONAL</strong>——公开证据足够支持会面假说，不足以证明内部运营缺口；须用三问核实。</p></blockquote>
+<h3>一句话判断</h3>
+<blockquote><p>比亚迪已经把车、工厂和顶级体育权益带到全球；下一道门不是再买一次全球曝光，而是让每个本地市场都能把同一份技术实力转成可调用、可归因、可复利的信任。</p></blockquote>
+<h3>文件与字数</h3>
+<p>以下为 UTF-8 字符数/文件字节数（<code>wc -m</code> / <code>wc -c</code>，含 Markdown 标记、URL 与英文）：</p>
+<div class='tbl'><table><thead><tr><th>文件</th><th>角色</th><th>字符</th><th>bytes</th></tr></thead><tbody><tr><td><code>01_IR_financial.md</code></td><td>三年财务、2026Q1、月销压力、IR十问</td><td>3,457</td><td>6,879</td></tr><tr><td><code>02_executive_quotes.md</code></td><td>14条高管原话+合作方原话</td><td>3,712</td><td>7,713</td></tr><tr><td><code>03_partnership_history.md</code></td><td>体育/技术合作史与断裂</td><td>3,414</td><td>7,783</td></tr><tr><td><code>04_competitor_landscape.md</code></td><td>Tesla/吉利/上汽/小米/丰田 steelman</td><td>3,222</td><td>6,308</td></tr><tr><td><code>05_industry_context.md</code></td><td>渗透率、出海、智能责任、政策</td><td>2,304</td><td>5,306</td></tr><tr><td><code>06_power_meddic.md</code></td><td>权力假说、MEDDIC、三问、72h</td><td>3,005</td><td>6,799</td></tr><tr><td><code>07_org_brand_lifecycle.md</code></td><td>王朝/海洋/腾势/方程豹/仰望</td><td>2,143</td><td>4,955</td></tr><tr><td><code>08_horizontal_vertical_full.md</code></td><td>横向战场×纵向演进</td><td>1,737</td><td>4,170</td></tr><tr><td><code>09_not_for_pitch.md</code></td><td>48条查了但首面不说</td><td>1,480</td><td>3,586</td></tr><tr><td><code>10_overseas_brand_sports.md</code></td><td>出海×体育×内容/安全边界</td><td>2,548</td><td>5,314</td></tr><tr><td><code>11_technology_experience_map.md</code></td><td>技术到体验的翻译门禁</td><td>2,300</td><td>5,111</td></tr><tr><td><code>12_market_archetypes.md</code></td><td>欧洲/拉美/东南亚/中东/香港</td><td>2,297</td><td>5,079</td></tr><tr><td><code>13_disconfirm_risks.md</code></td><td>12条反证与Kill门槛</td><td>2,403</td><td>5,557</td></tr><tr><td><code>14_rights_operations_playbook.md</code></td><td>权益七层、合同36问、RACI、赛季运营</td><td>7,182</td><td>—</td></tr><tr><td><code>15_brand_routing_and_market_plays.md</code></td><td>五品牌Job、市场路由、创意门禁</td><td>6,684</td><td>—</td></tr><tr><td><code>16_measurement_experiment_and_data.md</code></td><td>事件字典、四类实验、数据/归因</td><td>6,338</td><td>—</td></tr><tr><td><code>17_local_trust_archetypes.md</code></td><td>八段信任链、欧洲/拉美/泰国/中东/香港</td><td>5,844</td><td>—</td></tr><tr><td><code>18_impress_grill_and_decision_cases.md</code></td><td>决策层反方、决策树、Kill</td><td>6,398</td><td>—</td></tr><tr><td><code>19_primary_quote_routes.md</code></td><td>A源原话→设计/Kill路由</td><td>3,650</td><td>—</td></tr><tr><td><strong>合计</strong></td><td><strong>19个研究文件（不含本索引）</strong></td><td><strong>70,118</strong></td><td>—</td></tr></tbody></table></div>
+<p>计数口径：Python <code>len(read_text())</code>，含 Markdown、URL 与英文；<strong>不含本 README 为 70,118 字符，含 README 为 73,098</strong>。没有把 UTF-8 bytes 冒充字符数。新增 36,096 字符集中在权益运营、品牌路由、实验归因、本地信任链、决策层反方和 A 源原话路由，不用重复公司简介填厚度。</p>
+<h3>决策层读法</h3>
+<ol><li>先读 <code>01</code>：规模、利润、海外结构；</li><li>再读 <code>03</code>+<code>10</code>：已有资产与真正断裂；</li><li>读 <code>07</code>：为什么不能五品牌同一创意；</li><li>读 <code>13</code>：为什么可能不该做；</li><li>读 <code>14</code>–<code>16</code>：合同、品牌、国家、数据怎么真正跑；</li><li>读 <code>17</code>–<code>19</code>：本地信任、反方与原话边界；</li><li>最后看 <code>../ifalsify_report.md</code>、<code>../ONE_PAGER.md</code>、<code>../B_knife.md</code> 与 <code>../pitchvision/</code>。</li></ol>
+<h3>证据主链</h3>
+<div class='tbl'><table><thead><tr><th>主张</th><th>A 源</th></tr></thead><tbody><tr><td>2025 收入增长但利润下降</td><td>港交所/巨潮 2025 年报</td></tr><tr><td>境外收入占38.65%、同比+40.05%</td><td>2025 年报收入构成</td></tr><tr><td>2026Q1收入/利润下滑</td><td>港交所 2026Q1</td></tr><tr><td>2026 1–7月销量同比下降、7月出口抬升</td><td>港交所产销快报（未经审计）</td></tr><tr><td>多品牌官方定位</td><td>2025 年报</td></tr><tr><td>欧洲杯/国米/ANOC等合作边界</td><td>比亚迪官网官方新闻</td></tr><tr><td>竞品数据</td><td>SEC/HKEX/公司IR年报</td></tr></tbody></table></div>
+<p>统一回链：<code>../data_traceability.md</code>。</p>
+<h3>两条 disruptive - 跳出盒子</h3>
+<ul><li><strong>A · 全球信任协议</strong>：把赞助包变成品牌×国家可调用、可验收的权益路由基础设施。</li><li><strong>B · 五分钟技术联赛</strong>：把展车/发布会变成用户五分钟亲自完成的技术证明网络。</li></ul>
+<h3>最大证据缺口</h3>
+<ol><li>国米及其他体育合同的权益、数据、排他、国家与品牌调用边界；</li><li>现有全球体育 KPI、历史基线、国家/经销商实际复用；</li><li>决策链、预算 owner、重点品牌/国家/车型与 CRM consent 架构。</li></ol>
+<h3>门禁</h3>
+<ul><li>[x] 关键数字回 A 源</li><li>[x] 10+署名原话</li><li>[x] 5家竞品 steelman</li><li>[x] 多品牌/出海/体育/技术体验补洞</li><li>[x] <code>09_not_for_pitch</code></li><li>[x] 反证与 Kill 条件</li><li>[x] 两个新品类含 Job/why now/指标</li><li>[x] 研究正文 70,118 字符（不含索引）</li><li>[x] ifalsify / PRIMARY / ONE_PAGER / MAX_GAP / A / B</li><li>[ ] L0 会面三问 closed</li><li>[ ] 合同/数据/预算核实</li><li>[ ] G1–G6 最终销售 QC</li></ul>
+<p>因此可称“公开资料冰山完成”，不可称“会前最终交付完成”。</p></section>
+  <p class="foot">比亚迪 BYD · 生成自 case MD 真源 · 单文件导出供离机审阅</p>
+</main>
+</div>
+</body>
+</html>
