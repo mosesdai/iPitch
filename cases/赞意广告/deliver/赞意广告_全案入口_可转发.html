@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>赞意广告 Goodidea · 全案入口（可转发单文件）</title>
+<style>:root{
+  --ink:#0f172a;--muted:#475569;--line:#cbd5e1;--paper:#ffffff;--bg:#e8eef3;
+  --accent:#0b4f7a;--accent2:#1d6fa5;--soft:#e7f2fa;--warn:#92400e;--warnbg:#fef3c7;
+  --ok:#065f46;--rail:#0f2740;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font-family:"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--ink);background:linear-gradient(180deg,#d9e5ef 0%,var(--bg) 220px,#f4f7fa 100%);
+  font-size:15px;line-height:1.7}
+a{color:var(--accent2)}
+.shell{display:grid;grid-template-columns:280px minmax(0,1fr);min-height:100vh}
+.rail{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;background:var(--rail);color:#e2e8f0;padding:22px 16px 40px}
+.rail .brand{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7dd3fc;font-weight:700}
+.rail h1{font-size:1.15rem;margin:10px 0 6px;color:#fff;line-height:1.35}
+.rail .sub{font-size:12px;color:#94a3b8;margin-bottom:14px}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 8px;border-radius:999px;
+  background:var(--warnbg);color:var(--warn);margin:0 0 14px}
+.rail nav a{display:block;color:#cbd5e1;text-decoration:none;padding:8px 10px;border-radius:8px;font-size:13px;margin:2px 0}
+.rail nav a:hover,.rail nav a:focus{background:rgba(255,255,255,.08);color:#fff}
+.rail nav .g{margin:14px 0 6px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.main{padding:28px 28px 80px;max-width:980px}
+.hero{background:linear-gradient(135deg,#0b4f7a 0%,#1d6fa5 55%,#0ea5e9 140%);color:#fff;
+  border-radius:18px;padding:28px 26px;margin-bottom:22px;box-shadow:0 18px 40px rgba(15,39,64,.18)}
+.hero h2{margin:0 0 8px;font-size:1.6rem}
+.hero p{margin:0;opacity:.92;max-width:46em}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:18px 0 8px}
+.cards a{display:block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  color:#fff;text-decoration:none;border-radius:12px;padding:12px 14px;font-size:13px}
+.cards a strong{display:block;font-size:14px;margin-bottom:4px}
+.sec{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 22px 26px;margin:0 0 18px;
+  box-shadow:0 8px 24px rgba(15,23,42,.04)}
+.sec > .label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.sec h2.sec-title{margin:0 0 12px;font-size:1.35rem;color:var(--accent);border:0;padding:0}
+.md-h1{font-size:1.2rem;color:var(--accent);margin:0 0 12px}
+h3{font-size:1.05rem;margin:22px 0 8px;color:#1e3a5f;padding-left:10px;border-left:3px solid #7dd3fc}
+h4,h5{font-size:.98rem;margin:16px 0 6px;color:#334155}
+p{margin:0 0 12px}ul,ol{margin:0 0 14px;padding-left:22px}li{margin-bottom:6px}
+blockquote{margin:12px 0;padding:12px 14px;background:var(--soft);border-left:4px solid var(--accent2);color:#1e293b;border-radius:0 8px 8px 0}
+.tbl{overflow-x:auto;margin:12px 0 16px}
+table{width:100%;border-collapse:collapse;font-size:13px;background:#fff}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft);color:var(--accent);font-weight:650}
+code{font-size:12px;background:#eef2f7;padding:1px 5px;border-radius:3px}
+pre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;overflow-x:auto;font-size:12px;white-space:pre-wrap}
+hr{border:none;border-top:1px solid var(--line);margin:18px 0}
+.foot{margin-top:28px;font-size:12px;color:var(--muted)}
+.note{background:#fffbeb;border:1px solid #f59e0b;border-radius:10px;padding:12px 14px;margin:12px 0;font-size:13px;color:#78350f}
+@media (max-width:900px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:relative;height:auto;max-height:none}
+}
+@media print{
+  body{background:#fff}
+  .shell{display:block}
+  .rail{display:none}
+  .sec{break-inside:avoid;box-shadow:none}
+  .hero{box-shadow:none}
+  @page{size:A4;margin:12mm}
+}</style>
+</head>
+<body>
+<div class="shell">
+<aside class="rail">
+  <div class="brand">iPitch Showcase</div>
+  <h1>赞意广告 Goodidea</h1>
+  <div class="sub">单文件全案 · 离机可看 · 左侧锚点跳转</div>
+  <span class="badge">证伪 CONDITIONAL · L0 未关</span>
+  <nav>
+    <div class="g">速览</div>
+    <a href="#top">封面</a>
+    <div class="g">会前主件</div><a href="#one">会前一页纸</a><a href="#knife">刀刃 · 10分钟</a><a href="#a">中间层 A</a><a href="#ifalsify">证伪</a><a href="#primary">PRIMARY 三问</a><a href="#max">BD经验缺口</a><a href="#tensions">张力池</a><a href="#trace">数据溯源</a><a href="#charter">立项</a><div class="g">disruptive - 跳出盒子</div><a href="#xbox-index">跳出盒子 · 索引</a><a href="#xbox-1">跳出盒子 1</a><a href="#xbox-2">跳出盒子 2</a><div class="g">最厚调研 · 冰山</div><a href="#r01">研1 - 赞意广告 · 无 IR / 工商与公开经营口径</a><a href="#r02">研2 - 赞意广告 · 高管 / 合伙人原话库</a><a href="#r03">研3 - 赞意广告 · 合作史与代表项目时间线</a><a href="#r04">研4 - 04｜竞品景观：本土独立与数字增长代理</a><a href="#r05">研5 - 05｜中国广告 / 增长代理行业语境（2023–2026）</a><a href="#r06">研6 - 06｜权力图与 MEDDIC：代理商采购场景</a><a href="#r07">研7 - 赞意广告 · 组织与品牌单元边界</a><a href="#r08">研8 - 08｜横纵完整版（代理商视角）</a><a href="#r09">研9 - 09｜查了但不进 pitch</a><a href="#r10">研10 - 10｜确定性增长系统：公开叙事如何变成评审语言</a><a href="#r11">研11 - 11｜年轻化 · 娱乐 · 体育营销（专项）</a><a href="#r12">研12 - 12｜体育采购路径：代理商怎么买 / 怎么卖</a><a href="#r13">研13 - 13｜客户组合 × 体育试验适配（公开客户池）</a><a href="#r14">研14 - 14｜联合销售与反证：为什么这两个创意可能不该做</a><a href="#r15">研15 - 赞意广告 · research 索引</a>
+  </nav>
+</aside>
+<main class="main" id="top">
+  <div class="hero">
+    <h2>赞意广告 Goodidea · 游说全案包</h2>
+    <p>他们已把增长写成确定性系统；体育厂牌新开。下一道门不是更年轻的口号，而是体育能否进同一张胜率表——先闸门，再路由。</p>
+    
+    <div class="cards">
+      <a href="#one"><strong>① 一页纸</strong>会前对齐</a>
+      <a href="#knife"><strong>② 刀刃</strong>10 分钟开门</a>
+      <a href="#xbox-1"><strong>③ disruptive - 跳出盒子</strong>体育胜率闸门 Sports Certainty Gate</a>
+      <a href="#a"><strong>④ 深谈 A</strong>判断层</a>
+      <a href="#r01"><strong>⑤ 冰山</strong>最厚调研</a>
+      <a href="#ifalsify"><strong>证伪</strong>CONDITIONAL</a>
+    </div>
+  </div>
+  <div class="note">
+    <strong>使用说明：</strong>本文件是<strong>自包含单 HTML</strong>，可单独微信/邮件转发。左侧目录均可点击跳转；外链（财报 URL）需联网。
+    数字与主张仍受 CONDITIONAL 约束——内部流程/合同/预算未核前，勿写成已证实结论。
+  </div>
+  <section class="sec" id="one"><div class="label">会前一页纸</div><h2 class="sec-title">ONE PAGER · 会前关键信息</h2><h2 class='md-h1'>赞意广告 · 会前关键信息 v1.0</h2>
+<blockquote><p><strong>对标比亚迪/吉利国际一页纸密度</strong> · 非会面话术稿</p><p>纪律：无 IR → 财务留空；亲爱男友 GMV ≠ 代理营收；预测宁空不编</p></blockquote>
+<hr/>
+<h3>顶栏裁决</h3>
+<p><strong>赞意 Goodidea（北京赞意互动）</strong> · 时间锚 2024-09 赞意体育官宣 + 2026 确定性叙事 · 证伪：<strong>CONDITIONAL / L0 未关</strong></p>
+<blockquote><p>增长故事已写成系统；体育厂牌新开。下一道门是<strong>体育能否进同一张胜率表</strong>。</p><p><strong>禁用话术：</strong> 缺年轻化 / 不会做体育 / 亲爱男友销售额催预算 / 4A 就该上大赞助 / 粉丝数开场 / 未核实报价</p></blockquote>
+<hr/>
+<h3>左列 · 经营底座</h3>
+<h4>生命周期与战略</h4>
+<div class='tbl'><table><thead><tr><th>项</th><th>判断</th><th>证据</th></tr></thead><tbody><tr><td>阶段</td><td>从敏捷年轻化代理 → 综合 4A → 系统化 / AI；体育为新芽</td><td>入会稿 / 体育官宣 / 2026 方向稿</td></tr><tr><td>战略语言</td><td>确定性增长、生意叙事、产品化</td><td>B</td></tr><tr><td>能力基因</td><td>年轻内容战役、品效、私域、自孵 DTC</td><td>作品与官网</td></tr><tr><td>当前矛盾</td><td>确定性叙事 × 体育高不确定</td><td>推断，须会面</td></tr></tbody></table></div>
+<h4>财务实绩</h4>
+<div class='tbl'><table><thead><tr><th>指标</th><th>值</th></tr></thead><tbody><tr><td>营收 / 利润 / 三年趋势</td><td><strong>无公开 IR · 留空 · 禁止估算</strong></td></tr><tr><td>注册资本</td><td>500 万（工商聚合，非营收）⚠️</td></tr><tr><td>人员</td><td>数英 201–500；体育页 0–10；旧 120+ —— <strong>不可拼曲线</strong></td></tr></tbody></table></div>
+<p>未来三年预测：<strong>【无公司量化指引，留空】</strong></p>
+<h4>业务结构</h4>
+<div class='tbl'><table><thead><tr><th>切片</th><th>内容</th></tr></thead><tbody><tr><td>2022 五大</td><td>赞意 / 将意 / 万与所有 / 条条起量 / 赞意增长</td></tr><tr><td>2026 四单元</td><td>创意 IMC / 品效 / 社群·GEO / AI 增长</td></tr><tr><td>2024+</td><td><strong>赞意体育</strong>（柴文进）</td></tr><tr><td>DTC</td><td>亲爱男友（公司口径累计销售有 5 亿 / 7 亿档，<strong>≠代理营收</strong>）</td></tr></tbody></table></div>
+<h4>代表项目（历史可见 ≠ 现任）</h4>
+<p>宝洁全明星学院 2021 · 泡泡玛特「大有可玩」2021-08 · 伊利×CBA 2020 · 美团《像她的花》2025-02 · 康师傅×罗永浩 2025-08</p>
+<h4>已有体育/年轻底座</h4>
+<ul><li>长期「连接年轻人」定位与娱乐营销作品</li><li>2020 伊利×CBA 内容节点</li><li>2024-09 赞意体育厂牌与「资产+玩法」一站式主张</li></ul>
+<p>→ 结论不是「缺体育概念」，而是<strong>试验定义是否进系统</strong></p>
+<hr/>
+<h3>右列 · 判断层</h3>
+<h4>他们说的 vs 已发生 vs 未知</h4>
+<div class='tbl'><table><thead><tr><th>他们说</th><th>已发生</th><th>仍未知</th></tr></thead><tbody><tr><td>确定性增长伙伴</td><td>方法论与产品化在推</td><td>财务与胜率表是否真跑</td></tr><tr><td>体育一站式</td><td>厂牌已宣</td><td>12 个月交付与签单主体</td></tr><tr><td>获客体系 &gt; 案例</td><td>原话可查</td><td>对外合作如何评分</td></tr></tbody></table></div>
+<h4>竞争力 vs 约束</h4>
+<div class='tbl'><table><thead><tr><th>竞争力</th><th>约束</th></tr></thead><tbody><tr><td>作品密度 / 4A</td><td>无 IR，外部难估预算</td></tr><tr><td>系统化语言</td><td>体育新线公开交付薄</td></tr><tr><td>多单元网络</td><td>法律主体与品牌名易混</td></tr><tr><td>DTC 下场叙事</td><td>GMV 易被误读成代理财力</td></tr></tbody></table></div>
+<h4>主矛盾 + 三问</h4>
+<p><strong>T1：</strong> 系统要胜率 ↔ 体育要可复盘试点</p>
+<ol><li>体育与品效是否同一张胜率表？</li><li>过去一年体育立过几项、合同主体是谁？</li><li>90 天小试验谁批谁停？</li></ol>
+<h4>跳出盒子（会前可点）</h4>
+<div class='tbl'><table><thead><tr><th>概念</th><th>一句话</th></tr></thead><tbody><tr><td>A 体育胜率闸门</td><td>立项先过闸门，再进创意</td></tr><tr><td>B 品牌主体育路由台</td><td>多客户用同一套可停试验模板</td></tr></tbody></table></div>
+<h4>信息缺口</h4>
+<p>工商原件 · 现任 AOR · 体育预算池 · Economic Buyer · 丢户原因</p>
+<hr/>
+<p>数字回 <code>data_traceability.md</code> · 刀刃 <code>B_knife.md</code> · 全案入口单文件见 <code>deliver/</code></p></section><section class="sec" id="knife"><div class="label">刀刃 · 10分钟</div><h2 class="sec-title">刀刃</h2><h2 class='md-h1'>B_knife · 赞意广告</h2>
+<blockquote><p><strong>证伪结论：CONDITIONAL（有条件推进）</strong></p><p>主张力 T1 · 跳出盒子可接 A「体育胜率闸门」</p></blockquote>
+<hr/>
+<h3>0:30 框</h3>
+<p>不讨论赞意会不会做年轻化。<br/>只讨论：你们把公司写成<strong>确定性系统</strong>之后，<strong>体育怎么进同一张胜率表</strong>。</p>
+<h3>1:00 担心表</h3>
+<div class='tbl'><table><thead><tr><th>担心</th><th>我们对齐</th></tr></thead><tbody><tr><td>体育太不确定</td><td>所以要闸门与 90 天停机</td></tr><tr><td>我们有人</td><td>履历 ≠ 系统在；问字段谁填</td></tr><tr><td>预算在品效</td><td>先问单列/挤占/无</td></tr></tbody></table></div>
+<h3>3:00 活证据</h3>
+<p>2024-09 官宣赞意体育「资产+玩法」一站式；2026 主叙事是确定性/胜率。<br/>缝：<strong>概念有了，试验定义进没进系统。</strong></p>
+<h3>7:00 框架（可接跳出盒子 A）</h3>
+<div class='tbl'><table><thead><tr><th>系统问题</th><th>试点先写清</th></tr></thead><tbody><tr><td>过不算过</td><td>与品效是否同一表</td></tr><tr><td>谁批谁停</td><td>90 天熔断权</td></tr><tr><td>签在哪</td><td>法人主体</td></tr><tr><td>复盘看什么</td><td>1–2 个共定指标</td></tr></tbody></table></div>
+<h3>8:30 试点</h3>
+<p>90 天对齐会：只产出闸门字段 + 签单路径 + 停机条件。不先锁大额权益。</p>
+<h3>10:00 唯一 ask</h3>
+<p><strong>认不认：</strong>「体育立项必须进你们的胜率系统；我们先写下 90 天过线标准与停机权——再谈资产包。」</p>
+<ul><li>认 → 工作会（可带跳出盒子 A 桌面演练）</li><li>不认 → 改听品效/AI，不推体育主刀</li></ul>
+<p><strong>禁用：</strong>没能力 / 缺年轻化 / 亲爱男友 X 亿 / 粉丝开场 / 未核实报价</p></section><section class="sec" id="a"><div class="label">中间层 A</div><h2 class="sec-title">A 档案 · 深谈精华</h2><h2 class='md-h1'>赞意广告深度研究档案 · 水线精华</h2>
+<blockquote><p>冰山全文：<code>research/</code> · 时间锚：2026-08-28</p><p>ifalsify：<strong>CONDITIONAL</strong> · L0 未关 · 对标比亚迪/吉利国际中间层密度</p></blockquote>
+<h3>一页结论</h3>
+<ol><li><strong>赞意不缺年轻化作品。</strong> 公开案例与「连接年轻人」定位已回答「会不会玩」；再说缺年轻化是外行。</li><li><strong>它缺的是公开财务，不是故事。</strong> 非上市、无 IR；任何预算/规模推算必须停在【待核实】。</li><li><strong>2026 主叙事是确定性系统。</strong> 胜率、产品化、AI、生意叙事——合作会被用系统语言审问。</li><li><strong>2024-09 赞意体育是新芽。</strong> 厂牌与负责人履历清楚；公开交付清单薄。缝在「试验定义进没进系统」，不是「有没有体育概念」。</li><li><strong>主刀升级单位：</strong> 从一份热闹方案 → 闸门字段 + 停机权 + 90 天复盘。</li><li><strong>最大风险是我们看错。</strong> 内部可能已有成熟体育运营；预算可能锁死在品效。因此只能 CONDITIONAL。</li></ol>
+<h3>经营图（无财报版）</h3>
+<div class='tbl'><table><thead><tr><th>维度</th><th>已证公开事实</th><th>决策含义</th></tr></thead><tbody><tr><td>身份</td><td>2012 成立；2023 中国 4A</td><td>要综合代理位，不只是小创意店</td></tr><tr><td>叙事</td><td>2026 确定性增长</td><td>外部方案必须可过线/可停</td></tr><tr><td>产品</td><td>IMC / 品效 / 社群 / AI + 体育厂牌</td><td>体育不是唯一入口</td></tr><tr><td>DTC</td><td>亲爱男友累计销售公司口径</td><td><strong>禁止</strong>当代理营收</td></tr><tr><td>体育</td><td>2024-09 官宣一站式</td><td>先要交付清单与签单主体</td></tr><tr><td>客户</td><td>快消/平台/汽车等历史曝光</td><td>现任 AOR 未知</td></tr></tbody></table></div>
+<h3>公司语言（须尊重）</h3>
+<ul><li>获客体系远大于案例；</li><li>依赖系统而非单次刷屏；</li><li>从广告公司毕业，做确定性增长伙伴；</li><li>PLAY FOR YOUNG（体育宣言）；</li><li>体育资产 + 创新玩法一站式。</li></ul>
+<p>因此我方必须：用系统语言说话；提供可停机试验；不羞辱能力；不混口径。</p>
+<h3>两种关系</h3>
+<div class='tbl'><table><thead><tr><th>关系</th><th>Job</th><th>主刀/跳出盒子</th></tr></thead><tbody><tr><td>卖给赞意自己</td><td>体育进胜率表</td><td>刀 + 概念 A 闸门</td></tr><tr><td>联合卖给品牌主</td><td>多客户可路由试验</td><td>概念 B 路由台</td></tr></tbody></table></div>
+<h3>体育资产从哪一步断（公开可见）</h3>
+<p>可见：厂牌成立、负责人履历、年轻化主张、历史内容节点（如伊利×CBA）。</p>
+<p>未能证明：12 个月立项清单、主合同主体、预算池、熔断先例、与品效共用评分。</p>
+<p>这不是「没有能力」，而是 L0 必问。</p>
+<h3>MEDDIC（对外可见假说）</h3>
+<div class='tbl'><table><thead><tr><th>字段</th><th>公开线索</th><th>L0</th></tr></thead><tbody><tr><td>Metrics</td><td>确定性 / 胜率语言</td><td>体育 KPI 是否同表</td></tr><tr><td>Economic Buyer</td><td>乌东伟线？</td><td>谁批试点钱</td></tr><tr><td>Decision Criteria</td><td>产品化、可预期</td><td>闸门字段是否强制</td></tr><tr><td>Decision Process</td><td>【未知】</td><td>谁排期、谁否决</td></tr><tr><td>Identify Pain</td><td>系统 vs 体育张力（假说）</td><td>他们自己的词</td></tr><tr><td>Champion</td><td>柴文进线？客户总监？</td><td>会面确认</td></tr></tbody></table></div>
+<h3>跳出盒子怎么用</h3>
+<div class='tbl'><table><thead><tr><th>概念</th><th>何时</th></tr></thead><tbody><tr><td>A 体育胜率闸门</td><td>谈系统收编体育</td></tr><tr><td>B 品牌主体育路由台</td><td>谈多客户产品化</td></tr></tbody></table></div>
+<p>先 A 后 B；无预算则 PIVOT 品效/AI。</p>
+<h3>深谈打开</h3>
+<p><code>ONE_PAGER</code> → <code>B_knife</code> → <code>pitchvision/</code> → <code>research/11</code> <code>10</code> <code>06</code> → <code>data_traceability</code></p>
+<h3>明确不说</h3>
+<p>能力羞辱 · 缺年轻化 · 混 GMV · 未核实报价 · 未核实现任客户敲定</p></section><section class="sec" id="ifalsify"><div class="label">证伪</div><h2 class="sec-title">ifalsify 证伪报告</h2><h2 class='md-h1'>ifalsify_report · 赞意广告</h2>
+<p><strong>日期</strong>：2026-08-28<br/><strong>用途</strong>：会前反方核查；默认不判定“成立”<br/><strong>Overall</strong>：<strong>CONDITIONAL</strong></p>
+<h3>Hypothesis（可证伪）</h3>
+<blockquote><p>赞意公开把自己定义为依靠系统、交付“确定性增长”的增长网络；2024 年又成立赞意体育，提出年轻化、产品化、品牌化、社群化、国际化。当前公开资料能证明战略表达和厂牌成立，却不足以证明体育业务已形成可重复的资产获取、权益活化、跨单元交付、风险处理和效果复盘链。若这一公开证据缺口也对应内部业务缺口，那么一次围绕“怎样把体育项目做成可验收、可复盘、可复制的增长产品”的会面有价值；若内部已经闭环，或赞意只需要临时资源采购，本假说应被否定或改向。</p></blockquote>
+<p>证据锚：<code>research/02_executive_quotes.md</code> Q1–Q5、Q16–Q18；<code>research/05_industry_context.md</code> §6、§8；<code>research/06_power_meddic.md</code> §3、§5；<code>data_traceability.md</code> 赞意体育成立与负责人条目。</p>
+<h3>Disconfirm Hunt</h3>
+<h4>F-1：公开资料少，不等于内部交付薄</h4>
+<ul><li><strong>Attacks claim</strong>：核心张力可能只是信息披露偏差，而不是能力缺口。</li><li><strong>Evidence</strong>：赞意是非上市公司，没有持续披露客户、收入、复盘指标的义务；现有资料已证明其有体育负责人和明确主张。</li><li><strong>Strength</strong>：<strong>Severe</strong></li><li><strong>Experiment</strong>：首面请对方只讲一个已完成体育项目的“客户问题—资产选择—执行责任—结果口径—复用沉淀”。若链路完整，本张力立即降级，不再说“能力仍薄”。</li></ul>
+<h4>F-2：赞意体育可能不需要外部共建，只需要单次资产或线索</h4>
+<ul><li><strong>Attacks claim</strong>：我们假设对方需要“系统补强”，但其真实采购可能只是赛事资源、达人、制作或客户线索。</li><li><strong>Evidence</strong>：<code>research/06_power_meddic.md</code> 明确存在总包、联合提案、客户直签、共同孵化等不同关系；当前合作模式未知。</li><li><strong>Strength</strong>：<strong>Severe</strong></li><li><strong>Experiment</strong>：会面先确认关系是“卖给赞意、与赞意联合卖、还是品牌主直签”。若只需单次资源，<strong>PIVOT</strong> 为明确的资源交易，不谈系统共建。</li></ul>
+<h4>F-3：“确定性增长”是全网战略，不要求每个新厂牌立即有独立系统</h4>
+<ul><li><strong>Attacks claim</strong>：把集团叙事机械套在成立不久的体育厂牌上，可能制造伪矛盾。</li><li><strong>Evidence</strong>：赞意体育于 2024-09-26 官宣；“确定性增长 / Prompts for Growth”是 2026 的全网叙事，二者公开时间和适用范围不同。</li><li><strong>Strength</strong>：<strong>Moderate</strong></li><li><strong>Experiment</strong>：请对方定义赞意体育在集团六类产品和四个核心业务单元中的位置。若体育本就作为项目能力嵌入整合营销，而非独立产品，本提法改为“协同接口”，不追问独立产品化。</li></ul>
+<h4>F-4：现有娱乐、内容、平台和社群能力可能足以覆盖体育</h4>
+<ul><li><strong>Attacks claim</strong>：体育不一定需要另建一套交付体系；赞意可复用明星、内容、抖红品效和社群能力。</li><li><strong>Evidence</strong>：<code>research/06_power_meddic.md</code> 记录四个核心业务单元及风犬娱乐、赞意体育等厂牌；<code>research/02_executive_quotes.md</code> Q10 支持其公开强调服务协同。</li><li><strong>Strength</strong>：<strong>Severe</strong></li><li><strong>Experiment</strong>：询问体育项目由谁对最终结果负责、跨单元如何分工和复盘。若已有固定负责人、共同指标、升级机制和复盘模板，<strong>KILL</strong>“协同未闭环”的说法。</li></ul>
+<h4>F-5：赞意真正优先级可能是 AI、GEO 或现有六类产品，不是体育</h4>
+<ul><li><strong>Attacks claim</strong>：体育只是业务组合中的一个方向，不一定有当前预算和管理注意力。</li><li><strong>Evidence</strong>：2026 官网与公开战略重点包括 AI、GEO、生意叙事及六类增长产品；没有公开材料证明体育是当年第一优先级。</li><li><strong>Strength</strong>：<strong>Severe</strong></li><li><strong>Experiment</strong>：问“未来两个季度，体育是主动扩张、机会型承接，还是暂不投入？”若答案为机会型或暂停，<strong>KILL</strong>体育主刀，转向对方主动提出的优先业务。</li></ul>
+<h4>F-6：没有已确认的拍板人、预算和具体商机</h4>
+<ul><li><strong>Attacks claim</strong>：即使问题真实，也可能没有可推进的商业机会。</li><li><strong>Evidence</strong>：<code>research/06_power_meddic.md</code> 将 Economic Buyer、Champion、预算、合同主体和采购流程全部列为待核实；<code>00_charter.md</code> 的会面人也未确认。</li><li><strong>Strength</strong>：<strong>Fatal-leaning</strong></li><li><strong>Experiment</strong>：首面后 72 小时内必须确认问题负责人、决策链、下一项目时间点和是否有预算池。四项均无，则停止方案化，只保留关系维护。</li></ul>
+<h4>F-7：对方可能反感被外部人定义为“交付能力薄”</h4>
+<ul><li><strong>Attacks claim</strong>：即便证据缺口存在，直接挑战能力会让会面失去信任。</li><li><strong>Evidence</strong>：赞意负责人公开强调系统、获客体系和可持续经营；“能力薄”会正面否定其自我认知。当前没有客户原话证明其承认该问题。</li><li><strong>Strength</strong>：<strong>Severe</strong></li><li><strong>Experiment</strong>：只问“哪一段最难标准化、最难复盘”，不下诊断。若对方认为链路完整，请其展示做法并承认我们的假说错误。</li></ul>
+<h4>F-8：项目效果本就受品牌产品、渠道和平台共同影响，无法承诺结果确定性</h4>
+<ul><li><strong>Attacks claim</strong>：把体育营销包装成“确定增长”可能越过代理商可控边界。</li><li><strong>Evidence</strong>：<code>research/05_industry_context.md</code> §6 已将确定性拆成过程、证据、风险、学习，并明确不应无条件保证销量。</li><li><strong>Strength</strong>：<strong>Fatal</strong>（针对“保证增长”话术）</li><li><strong>Experiment</strong>：任何合作只承诺可控交付、数据口径和停止条件；若对方要求保证销量且不提供产品、渠道和数据条件，<strong>KILL</strong>该项目承诺。</li></ul>
+<h3>Asymmetry</h3>
+<div class='tbl'><table><thead><tr><th>一侧</th><th>数量</th><th>内容</th></tr></thead><tbody><tr><td>支持假说</td><td>3</td><td>集团公开强调系统；赞意体育已成立并提出五个方向；公开材料未见完整体育项目交付与复盘链</td></tr><tr><td>反证/替代解释</td><td>8</td><td>F-1 至 F-8</td></tr><tr><td>比率</td><td><strong>3:8</strong></td><td>反方明显更多，不能把“公开没看到”升级成“内部没有”</td></tr></tbody></table></div>
+<p><strong>判断</strong>：支持证据只够发起验证，不够下诊断。置信度为<strong>低至中</strong>；首面目标是拿到一个完整项目链和真实优先级，而不是证明我们预设正确。</p>
+<h3>Claim Verdicts</h3>
+<div class='tbl'><table><thead><tr><th>主张</th><th>裁决</th><th>条件</th></tr></thead><tbody><tr><td>“确定性增长”与赞意体育之间存在值得验证的落地张力</td><td><strong>CONDITIONAL</strong></td><td>仅可说公开证据尚不足；需对方确认真实难点</td></tr><tr><td>赞意体育交付能力弱</td><td><strong>KILL</strong></td><td>没有客户、项目或内部一手证据支持</td></tr><tr><td>赞意需要外部伙伴补齐体育能力</td><td><strong>CONDITIONAL</strong></td><td>先确认缺的是资产、线索、方法、产能还是根本不缺</td></tr><tr><td>赞意应建立独立体育产品线</td><td><strong>PIVOT</strong></td><td>若体育嵌入整合营销，应改谈跨单元接口和共同复盘</td></tr><tr><td>体育项目可以保证销量增长</td><td><strong>KILL</strong></td><td>超出可控边界，且缺产品、渠道、预算和归因条件</td></tr><tr><td>用一个小项目验证可复盘交付</td><td><strong>CONDITIONAL</strong></td><td>必须有真实客户问题、共同指标、责任人和停止条件</td></tr></tbody></table></div>
+<h3>Overall Recommendation — CONDITIONAL</h3>
+<p>只允许以一个窄问题推进：</p>
+<blockquote><p>“赞意已经把增长讲成系统；在体育项目里，哪一段最难做到同样可验收、可复盘、可复制？”</p></blockquote>
+<p>满足以下三项才继续：对方承认具体难点；出现真实项目窗口；明确赞意与合作方各自责任。否则 <strong>PIVOT</strong> 到单次资源合作，或 <strong>KILL</strong> 体育主线。</p>
+<h3>Kill 话术表</h3>
+<div class='tbl'><table><thead><tr><th>禁止说</th><th>为什么不能说</th><th>可替换为</th></tr></thead><tbody><tr><td>“你们体育交付能力还很薄。”</td><td>公开披露少不能证明内部能力弱</td><td>“公开资料里我们还看不清完整交付链，想请你们纠正。”</td></tr><tr><td>“赞意缺体育资源/方法。”</td><td>缺口类型尚未得到一手确认</td><td>“目前最难补的是资产、线索、产能，还是复盘？”</td></tr><tr><td>“我们能帮你们实现确定性增长。”</td><td>无条件结果承诺，越过可控边界</td><td>“我们只承诺把交付、数据口径、风险和复盘做得可检查。”</td></tr><tr><td>“体育是你们 2026 的战略重点。”</td><td>公开材料不足以排出优先级</td><td>“体育在未来两个季度属于主动扩张还是机会型承接？”</td></tr><tr><td>“柴文进就是拍板人。”</td><td>公开负责人不等于预算或合同签字人</td><td>“业务、预算和合同分别由谁决定？”</td></tr><tr><td>“亲爱男友 7 亿元证明赞意增长模型成功。”</td><td>品牌累计销售额不是赞意营收，也未审计盈利</td><td>“亲爱男友是公司自述的经营实践，口径与盈利仍待核。”</td></tr><tr><td>“你们已经有 300 多人，足以规模交付。”</td><td>人员时点和统计主体不一致</td><td>“公开平台只有区间口径，实际团队边界请以你们为准。”</td></tr><tr><td>“加入 4A 证明交付一定成熟。”</td><td>会员身份不是项目验收证据</td><td>“4A 身份提供采购信用，项目能力仍看具体交付。”</td></tr></tbody></table></div></section><section class="sec" id="primary"><div class="label">PRIMARY 三问</div><h2 class="sec-title">PRIMARY · 三问 + 72h</h2><h2 class='md-h1'>PRIMARY_REQUIRED · 赞意广告</h2>
+<div class='tbl'><table><thead><tr><th>字段</th><th>当前值</th></tr></thead><tbody><tr><td>状态</td><td><strong>open</strong></td></tr><tr><td>证伪结论</td><td><strong>CONDITIONAL（有条件推进）</strong></td></tr><tr><td>L0 含义</td><td>来自当事人的一手回答、材料或项目记录</td></tr><tr><td>当前阻塞</td><td>会面人、合作模式、真实优先级、完整体育项目链、预算与决策人均未确认</td></tr></tbody></table></div>
+<h3>为什么必须拿 L0</h3>
+<p>公开资料能证明赞意强调系统化增长、已成立赞意体育、拥有多个业务单元；却不能证明体育业务当前优先级、内部交付链、预算、合同关系和谁能拍板。</p>
+<p>最危险的误判是把“公开没看到”说成“对方没有”。首面要让对方纠正我们，而不是拿外部资料给对方下结论。</p>
+<h3>待验证假说</h3>
+<p><strong>假说</strong>：赞意体育真正值得共建的，不是再增加一个资源清单，而是把体育项目变成可验收、可复盘、可复制的增长交付。</p>
+<p><strong>若真</strong></p>
+<ul><li>选一个真实客户问题，而非泛谈体育营销。</li><li>明确赞意、资产方/合作方、品牌主各自责任。</li><li>共同定义过程、结果口径、风险和停止条件。</li></ul>
+<p><strong>若假</strong></p>
+<ul><li>若内部已经闭环：承认判断错误，转为补充特定资产、线索或产能。</li><li>若体育不是当前优先级：停止体育主线，转向对方主动提出的业务。</li><li>若没有项目窗口、负责人或预算：不做方案，只保留关系维护。</li></ul>
+<h3>会面恰 3 问</h3>
+<ol><li><strong>“在你们最近一个体育项目里，从客户问题、资产选择到执行和复盘，最难标准化的是哪一段？”</strong></li><li><strong>“未来两个季度，赞意体育是主动扩张、机会型承接，还是暂不投入？”</strong></li><li><strong>“如果共同验证一个项目，谁对业务结果负责、谁能决定预算、什么结果会让你们继续或停止？”</strong></li></ol>
+<h3>首面后 72 小时 checklist</h3>
+<h4>业务事实</h4>
+<ul><li>[ ] 记录客户用原话描述的第一业务问题，不自行改写成“缺体育”。</li><li>[ ] 记录一个真实项目或明确的下一项目窗口；没有则标“无项目”。</li><li>[ ] 记录体育业务当前优先级：主动扩张 / 机会型承接 / 暂不投入。</li><li>[ ] 记录最难环节：资产、线索、策略、执行产能、跨单元协同、数据复盘或其他。</li></ul>
+<h4>人与决策</h4>
+<ul><li>[ ] 核对会面人真实职责及其在该项目中的角色。</li><li>[ ] 写清发起人、业务负责人、预算决定者、合同签署方和否决方；未知继续标空。</li><li>[ ] 判断对方是信息提供者、内部推动者，还是最终决定者，不因头衔猜测。</li><li>[ ] 确认合作关系：赞意总包、联合提案、品牌主直签或共同孵化。</li></ul>
+<h4>钱与流程</h4>
+<ul><li>[ ] 确认是否存在预算池；不强求敏感绝对数，但记录预算归属。</li><li>[ ] 区分资产费、服务费、媒介/制作费及第三方成本。</li><li>[ ] 记录采购、法务、数据安全、版权、排他和付款的必要节点。</li><li>[ ] 记录最近可行动日期和下一步所需材料。</li></ul>
+<h4>交付与证据</h4>
+<ul><li>[ ] 拿到一个项目的责任链：客户问题—方案—执行—结果—复盘。</li><li>[ ] 记录指标原话、数据来源、基线、验收人和停止条件。</li><li>[ ] 核对谁拥有数据、内容、案例发布权和可复用资产。</li><li>[ ] 若对方声称体系已成熟，索取可分享的模板、匿名样例或客户确认；拿不到不等于不存在。</li></ul>
+<h4>72 小时裁决</h4>
+<ul><li>[ ] <strong>继续</strong>：真实问题、项目窗口、责任人三项齐全。</li><li>[ ] <strong>改向</strong>：只缺单项资源，转为具体资源/产能合作。</li><li>[ ] <strong>停止方案化</strong>：无优先级、无项目、无负责人；只做关系跟进。</li><li>[ ] 更新 <code>ifalsify_report.md</code>，记录哪条 F 被证实或被推翻。</li></ul>
+<h3>明确不说</h3>
+<ul><li>不说“赞意体育能力薄/没有闭环”。</li><li>不说“体育是赞意 2026 第一战略重点”。</li><li>不说“我们能保证确定性增长/保证销量”。</li><li>不把柴文进、乌东伟或任何公开头衔直接等同于项目拍板权。</li><li>不把加入中国 4A 当作项目交付成熟的证明。</li><li>不把亲爱男友累计销售额当赞意营收、利润或代理业务成绩。</li><li>不报赞意精确人数、营收、利润、客户份额和预算。</li><li>不展示未经确认的权益包、赞助金额、排他关系和客户名单。</li><li>不因公开资料缺少案例，就断言内部没有案例。</li></ul></section><section class="sec" id="max"><div class="label">BD经验缺口</div><h2 class="sec-title">BD经验缺口审计</h2><h2 class='md-h1'>BD经验缺口审计 · 赞意广告</h2>
+<blockquote><p>对外名：<strong>BD经验缺口</strong>（内部文件名可保留 MAX_GAP）</p><p>组织 / 财务 / 产品 / 品牌 / 行业 · 预测宁空 · 2026-08-28</p></blockquote>
+<div class='tbl'><table><thead><tr><th>角度</th><th>覆盖？</th><th>证据位置</th><th>缺口</th></tr></thead><tbody><tr><td><strong>组织</strong> 使命/治理/生命周期</td><td>部分</td><td><code>07</code> <code>01</code> <code>02</code></td><td>股权、合伙人持股、决策流程无一手</td></tr><tr><td><strong>组织</strong> 决策链</td><td>部分</td><td><code>06</code> PRIMARY</td><td>Economic Buyer / veto 待会面</td></tr><tr><td><strong>财务</strong> 三年收入利润</td><td><strong>空</strong></td><td><code>01</code></td><td>非上市无 IR；禁止编</td></tr><tr><td><strong>财务</strong> 费用/预算科目</td><td><strong>空</strong></td><td>—</td><td>体育是否单列未知</td></tr><tr><td><strong>财务</strong> 预测</td><td><strong>空</strong></td><td>—</td><td>宁空</td></tr><tr><td><strong>产品</strong> 业务矩阵</td><td>有</td><td><code>07</code></td><td>各单元收入占比未知</td></tr><tr><td><strong>产品</strong> 体育交付物</td><td>弱</td><td><code>11</code> <code>12</code></td><td>12 个月项目清单待要</td></tr><tr><td><strong>产品</strong> 跳出盒子成熟度</td><td>结构有</td><td><code>pitchvision/</code></td><td>仅桌面概念，未试点</td></tr><tr><td><strong>品牌</strong> 对外定位演变</td><td>有</td><td><code>05</code> <code>10</code></td><td>—</td></tr><tr><td><strong>品牌</strong> 客户结构</td><td>弱</td><td><code>03</code> <code>13</code></td><td>现任 vs 历史未分开</td></tr><tr><td><strong>品牌</strong> DTC</td><td>有边界</td><td>溯源表</td><td>GMV 公司自述</td></tr><tr><td><strong>行业</strong> 代理格局</td><td>有</td><td><code>04</code> <code>05</code></td><td>—</td></tr><tr><td><strong>行业</strong> 4A / 品效 / AI</td><td>有</td><td><code>05</code> <code>10</code></td><td>—</td></tr><tr><td><strong>行业</strong> 体育营销分工</td><td>部分</td><td><code>11</code> <code>12</code></td><td>赞意在供应链位置待证实</td></tr></tbody></table></div>
+<h3>结论</h3>
+<ul><li>财务实绩与预测两格必须留空。</li><li>可交会面的判断层已够：<strong>CONDITIONAL</strong> 主刀成立。</li><li>补洞优先级：体育交付清单 &gt; 签单主体 &gt; 预算池 &gt; 工商原件。</li></ul></section><section class="sec" id="tensions"><div class="label">张力池</div><h2 class="sec-title">张力候选</h2><h2 class='md-h1'>赞意广告 · 张力清单</h2>
+<blockquote><p>当前仅作内部会前选择。冰山黄灯过门，会面只展开 1 条；不得把待验证假说说成客户事实。</p><p>证伪总判定：<strong>CONDITIONAL</strong>。</p></blockquote>
+<h3>T1【建议主刀】系统化“确定性增长” × 体育项目的可复盘链公开证据仍薄</h3>
+<p><strong>证据链</strong></p>
+<ul><li>赞意负责人公开强调“依赖的是系统”“获客体系远大于案例”（<code>research/02_executive_quotes.md</code> Q2–Q4）。</li><li>2026 公开战略提出从提供服务转向交付确定性，并将经验沉淀为产品（<code>research/05_industry_context.md</code> §6）。</li><li>赞意体育于 2024-09-26 官宣，提出年轻化、产品化、品牌化、社群化、国际化（<code>data_traceability.md</code>；<code>research/02_executive_quotes.md</code> Q16–Q18）。</li><li>现有公开材料尚不足以展示一个完整的“客户问题—资产选择—跨单元执行—风险处理—结果口径—复用沉淀”案例；这只是<strong>公开证据缺口</strong>，不等于内部能力缺口。</li></ul>
+<p><strong>张力一句话</strong>：赞意已经把增长讲成系统，体育项目能否也把一次精彩做成下一次可复制、可验收的交付？</p>
+<p><strong>会面出口</strong>：请对方用一个真实项目纠正我们；若确有难点，再共同定义一个有责任人、指标和停止条件的小验证。<br/><strong>ifalsify</strong>：<strong>CONDITIONAL</strong>；若已有完整链路，立即降级，不再说“能力薄”。</p>
+<h3>T2【备选】多厂牌全链路 × 谁对最终结果负责仍看不清</h3>
+<p><strong>证据链</strong></p>
+<ul><li>公开结构包含创意整合、抖红品效、社群/GEO、AI Growth，以及将意、万与所有、风犬娱乐、赞意体育等单元（<code>research/06_power_meddic.md</code> §1.3）。</li><li>赞意公开主张把公关、广告、媒介等服务并起来协同（<code>research/02_executive_quotes.md</code> Q10）。</li><li>公开资料不能确认体育项目的责任人、合同主体、共同指标和升级机制（<code>research/06_power_meddic.md</code> §3、§5）。</li></ul>
+<p><strong>张力一句话</strong>：能力越全，客户越需要知道“出了问题谁负责、复盘由谁收口”。<br/><strong>适用会面人</strong>：集团经营、客户负责人或跨单元负责人。<br/><strong>ifalsify</strong>：<strong>CONDITIONAL</strong>；若已有固定责任矩阵与统一复盘，则 KILL。</p>
+<h3>T3【备选】AI 提效叙事 × 客户侧验收与风险边界尚未公开</h3>
+<p><strong>证据链</strong></p>
+<ul><li>赞意 2026 公开提出用“生意叙事 + AI”支持 brief、策略和创意初稿，并计划多类智能体（<code>research/05_industry_context.md</code> §5.1）。</li><li>官网公开 AI 生态图收录 371 项产品与平台、16 类营销任务（<code>data_traceability.md</code>）。</li><li>客户采用率、节省工时、错误率、数据隔离、素材授权与责任边界均未见公开验证（<code>research/04_competitor_landscape.md</code> §7；<code>research/05_industry_context.md</code> §5、§9）。</li></ul>
+<p><strong>张力一句话</strong>：工具地图可以证明看得广，客户最终买的是可验收的效率与可承担的风险。<br/><strong>适用会面人</strong>：AI Growth、数字化、信息安全或采购。<br/><strong>ifalsify</strong>：<strong>CONDITIONAL</strong>；若对方已有客户基线、评测集和责任机制，则改谈具体场景，不挑战体系。</p>
+<h3>T4【不作主刀】经营者叙事 × 亲爱男友公开数字不能直接证明赞意盈利模型</h3>
+<p><strong>证据链</strong></p>
+<ul><li>公司认证主页称亲爱男友截至 2025 年累计销售额 7 亿元（<code>data_traceability.md</code>）。</li><li>该数字是被孵化品牌的累计销售口径，不是北京赞意互动营收，也未公开利润、权益比例或审计口径（<code>research/01_IR_financial.md</code> §3）。</li></ul>
+<p><strong>张力一句话</strong>：下场做过品牌是重要经验，但不能用一个累计销售额替代代理业务的持续盈利证据。<br/><strong>为什么不作主刀</strong>：容易变成审计质疑，偏离合作价值，也可能冒犯；只在对方主动谈经营模型时用于口径澄清。<br/><strong>ifalsify</strong>：<strong>PIVOT</strong>。</p>
+<h3>选择规则</h3>
+<div class='tbl'><table><thead><tr><th>会面对象/议题</th><th>优先张力</th></tr></thead><tbody><tr><td>赞意体育、集团经营、联合方案</td><td><strong>T1</strong></td></tr><tr><td>跨厂牌客户负责人</td><td>T2</td></tr><tr><td>AI Growth、数字化、信息安全</td><td>T3</td></tr><tr><td>对方主动谈亲爱男友经营证明</td><td>T4 仅作澄清，不作攻击</td></tr></tbody></table></div>
+<p><strong>明确不选</strong>：</p>
+<ul><li>“赞意缺年轻化”——其公开娱乐、明星、体育与平台实践直接反驳。</li><li>“体育一定是 2026 第一优先级”——没有公开证据。</li><li>“赞意体育能力弱”——公开证据不足不等于能力弱。</li></ul></section><section class="sec" id="trace"><div class="label">数据溯源</div><h2 class="sec-title">数据溯源表</h2><h2 class='md-h1'>赞意广告 · 数据溯源表</h2>
+<blockquote><p>更新时间：2026-08-28。<code>✅</code>=已用所列公开页逐项核对；<code>⚠️</code>=仅公司自述/行业平台或工商聚合页，尚未取得政府原件；<code>【待核实】</code>=不能作为会面确定事实。</p><p>分级：A=官网、官宣、政府/协会原件；B=公司认证主页/公司投稿原文/数英原文转载；C=媒体、招聘平台、工商聚合页。非上市公司没有 IR/交易所披露链。</p></blockquote>
+<div class='tbl'><table><thead><tr><th>数据点</th><th>数值</th><th>时间锚</th><th>级别</th><th>URL</th><th>核对状态</th></tr></thead><tbody><tr><td>北京赞意互动成立日</td><td>2012-07-04</td><td>工商登记；聚合页核准至2024-06-07</td><td>C（工商聚合）</td><td>https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html</td><td>⚠️待政府公示页截图</td></tr><tr><td>统一社会信用代码</td><td>91110108599658342M</td><td>聚合页核准至2024-06-07</td><td>C（工商聚合）</td><td>https://www.cnpp.cn/pinpai/4108531.html</td><td>⚠️待政府公示页截图</td></tr><tr><td>法定代表人</td><td>刘文毅</td><td>聚合页核准至2024-06-07</td><td>C（工商聚合）</td><td>https://baike.baidu.com/item/北京赞意互动广告传媒有限公司/17585287</td><td>⚠️待政府公示页截图</td></tr><tr><td>注册资本</td><td>500万元人民币</td><td>聚合页核准至2024-06-07</td><td>C（工商聚合）</td><td>https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html</td><td>⚠️待政府公示页截图</td></tr><tr><td>当前登记地址</td><td>北京市东城区东四十条94号10-2幢3层310-3室</td><td>聚合页核准至2024-06-07</td><td>C（工商聚合）</td><td>https://baike.baidu.com/item/北京赞意互动广告传媒有限公司/17585287</td><td>⚠️待政府公示页截图</td></tr><tr><td>2019地址变更</td><td>善缘街1号8层1-803 → 清河嘉园东区甲1号楼四层401-89号</td><td>2019-08-19</td><td>C（工商聚合）</td><td>https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html</td><td>⚠️待政府公示页截图</td></tr><tr><td>加入中国4A</td><td>会员单位</td><td>2023年春；监测报告列2023-03-22</td><td>A/B</td><td>https://mp.weixin.qq.com/s/VXCvOXbq_qMbfJbKFlL6uA</td><td>✅</td></tr><tr><td>赞意体育成立</td><td>赞意增长网络旗下厂牌</td><td>2024-09-26官宣</td><td>B（公司投稿原文）</td><td>https://www.digitaling.com/articles/1269316.html</td><td>✅</td></tr><tr><td>赞意体育负责人</td><td>柴文进，联合创始人、董事总经理</td><td>2024-09-26</td><td>B</td><td>https://www.digitaling.com/articles/1269316.html</td><td>✅</td></tr><tr><td>赞意体育负责人经验</td><td>19年品牌整合营销经验</td><td>截至2024-09-26，公司简历口径</td><td>B</td><td>https://www.digitaling.com/articles/1269316.html</td><td>✅公司口径</td></tr><tr><td>上海办公室公开成立</td><td>2017年底</td><td>2019专访回溯</td><td>B</td><td>https://www.digitaling.com/articles/112713.html</td><td>✅公司受访口径</td></tr><tr><td>2022业务矩阵</td><td>5项增长服务：赞意、将意、万与所有、条条起量、赞意增长</td><td>2022年10周年升级</td><td>B（赞意署名）</td><td>https://www.digitaling.com/articles/693398.html</td><td>✅</td></tr><tr><td>2026官网定位</td><td>AI时代品牌增长与整合营销公司</td><td>2026-08-28访问</td><td>A（官网）</td><td>https://www.goodideamedia.com/</td><td>✅</td></tr><tr><td>2026官网AI生态图</td><td>收录371项产品与平台、16类营销任务</td><td>2026-08-17</td><td>A（官网）</td><td>https://www.goodideamedia.com/insights/2026-ai-marketing-ecosystem-map-china/</td><td>✅</td></tr><tr><td>当前认证主页人员规模</td><td>201-500人</td><td>2026-08-28访问，非工商年报口径</td><td>B/C</td><td>https://www.digitaling.com/company/11176</td><td>⚠️区间自报</td></tr><tr><td>历史团队规模</td><td>北京上海120+名员工</td><td>相关案例介绍发布时点【待核实】</td><td>C</td><td>https://www.adguider.com/case?id=4f46281637fd0d01af4f29ac76d856be</td><td>⚠️旧口径</td></tr><tr><td>赞意公司营收/利润</td><td>未公开</td><td>截至2026-08-28检索</td><td>—</td><td>https://www.goodideamedia.com/</td><td>【待核实】不可估算</td></tr><tr><td>亲爱男友累计销售额</td><td>7亿元</td><td>截至2025年，公司认证主页口径</td><td>B</td><td>https://www.digitaling.com/company/11176</td><td>⚠️品牌销售额，不是赞意营收</td></tr><tr><td>亲爱男友历史累计销售额</td><td>5亿元</td><td>截至2022年底、3年累计，公司供稿</td><td>B</td><td>https://www.adquan.com/article/333024</td><td>⚠️品牌销售额，不是赞意营收</td></tr><tr><td>亲爱男友运营主体</td><td>北京他颜科技有限公司</td><td>工商/项目聚合页</td><td>C</td><td>https://pitchhub.36kr.com/project/1678208100578309</td><td>⚠️待政府原件</td></tr><tr><td>北京他颜科技成立日</td><td>2019-10-23</td><td>工商聚合页</td><td>C</td><td>https://pitchhub.36kr.com/project/1678208100578309</td><td>⚠️待政府原件</td></tr><tr><td>北京他颜科技注册资本</td><td>246.9136万元人民币</td><td>聚合页核准至2020-04-15</td><td>C</td><td>https://www.315jiage.cn/n323827</td><td>⚠️可能已变化</td></tr><tr><td>万与所有法律主体</td><td>上海万与所有广告有限公司</td><td>2020年成立；媒体介绍</td><td>B/C</td><td>https://www.digitaling.com/articles/867292.html</td><td>⚠️股权待工商原件</td></tr><tr><td>万与所有精确成立日</td><td>2020-11-24</td><td>企业黄页聚合</td><td>C</td><td>http://huangyewang.net/laoban/wanxing-19/</td><td>⚠️待政府原件</td></tr><tr><td>将意咨询创立</td><td>梁将军与赞意联合成立；2021年</td><td>认证主页</td><td>B</td><td>https://www.digitaling.com/company/42181</td><td>✅品牌事实；法律主体待核</td></tr><tr><td>宝洁全明星学院</td><td>2021年8月开学季；8品牌×8明星×8支短片</td><td>2021-08</td><td>B/C</td><td>https://www.brandstar.com.cn/news/3126</td><td>✅项目事实</td></tr><tr><td>泡泡玛特“大有可玩”</td><td>818超级品牌日；万与所有制作传播视频及视觉海报</td><td>年份【待核实】</td><td>B/C</td><td>https://www.brandstar.com.cn/news/3126</td><td>⚠️日期缺口</td></tr><tr><td>美团“像她的花”</td><td>赞意认领项目</td><td>2025-02-14</td><td>B（认证作品页）</td><td>https://www.digitaling.com/company/claim/11176</td><td>✅</td></tr><tr><td>康师傅特别特首发</td><td>罗永浩发布会；抖音直播首发</td><td>2025-08-21</td><td>B</td><td>https://www.digitaling.com/articles/1400755.html</td><td>✅</td></tr><tr><td>康师傅项目效果</td><td>1小时销售额280万元；2小时售罄；7天超2万人在京东天猫主动搜索</td><td>2025-08-21后</td><td>B（项目双方受访口径）</td><td>https://www.digitaling.com/articles/1400755.html</td><td>⚠️待平台后台</td></tr><tr><td>伊利脱脂纯牛奶×CBA</td><td>《回到场上》传播</td><td>2020年中</td><td>B（赞意署名）</td><td>https://www.digitaling.com/articles/332275.html</td><td>✅</td></tr><tr><td>伊利私域项目效果</td><td>总PV破百万；日活+300%；拉新成本约降20%</td><td>2020双11</td><td>B（赞意营业报告自报）</td><td>https://www.digitaling.com/articles/394156.html</td><td>⚠️待客户/平台后台</td></tr><tr><td>《这！就是街舞》宣推</td><td>80余个热搜话题</td><td>2018节目期；2019专访回溯</td><td>B（赞意受访）</td><td>https://www.digitaling.com/articles/112713.html</td><td>⚠️待微博榜单后台</td></tr></tbody></table></div>
+<h3>不得混用</h3>
+<ol><li><code>亲爱男友累计销售额</code>是被孵化品牌的交易规模口径，不是北京赞意互动的营业收入。</li><li>招聘平台的“100-499人”、数英的“201-500人”、旧案例的“120+人”时间和统计边界不同，不可拼成增长曲线。</li><li>注册资本不是估值、营收、可支配预算或实缴资本。</li><li>案例传播/销售数字若只有代理商复盘，必须保留“项目方口径”，不能写成平台审计事实。</li></ol></section><section class="sec" id="charter"><div class="label">立项</div><h2 class="sec-title">立项章程</h2><h2 class='md-h1'>Pitch 立项 · 赞意广告 / Goodidea（Cursor chat /pitchsop）</h2>
+<div class='tbl'><table><thead><tr><th>字段</th><th>内容</th></tr></thead><tbody><tr><td>日期</td><td>2026-08-28</td></tr><tr><td>客户</td><td>北京赞意互动广告传媒有限公司（赞意 Goodidea / 赞意增长网络）</td></tr><tr><td>官网</td><td>https://www.goodideamedia.com/</td></tr><tr><td>会面人 / 时长</td><td>【待核实】· 本轮先交付游说级冰山 + 会前标准件</td></tr><tr><td>成功定义</td><td>≥香飘飘后期可检查标准；可对外讲清「为什么找赞意、缺什么、问什么」</td></tr><tr><td>时间锚</td><td>2012 成立 · 2023 春加入中国 4A · 2026「确定性增长 / Prompts for Growth」叙事 · 体育营销新业务公开信息</td></tr><tr><td>红线（绝不说）</td><td>未核实员工精确人数当现状；把「亲爱男友」累计 GMV 当已审计披露；混用「赞意广告 / 赞意增长 / 将意 / 万与所有」法律主体；编造客户账单份额</td></tr><tr><td>张力 #1</td><td><strong>待 iceberg → ifalsify 后锁</strong>（候选：确定性增长叙事 vs 体育/线下资产交付能力是否闭环）</td></tr><tr><td>用户素材</td><td><code>赞意广告.txt</code>（内部简报，须与公开源交叉）</td></tr><tr><td>产出物</td><td>☑ research ☑ traceability ☑ ifalsify ☑ PRIMARY ☑ ONE_PAGER ☑ MAX_GAP ☑ B_knife ☑ 双材料 html</td></tr></tbody></table></div>
+<h3>本轮范围</h3>
+<p>在 Cursor 对话按 pitch-sop v1.6 做完整会前包。对象是<strong>增长代理商</strong>（非消费品品牌本体）：冰山要写清业务单元、客户结构、方法论与体育新业务；刀子对准可当面验证的一条张力。</p>
+<h3>客户原型初判（待证实）</h3>
+<div class='tbl'><table><thead><tr><th>信号</th><th>读法</th></tr></thead><tbody><tr><td>年轻化 / 娱乐 / 抖红品效 / AI 增长</td><td>内容与效果代理，不是纯媒体采买</td></tr><tr><td>2023 入中国 4A</td><td>要综合代理身份与议价位</td></tr><tr><td>自孵 DTC「亲爱男友」</td><td>「自己打过增长」叙事；数字须分时间锚核对</td></tr><tr><td>公开谈体育营销新业务</td><td>可能是合作入口，也可能是能力缺口</td></tr></tbody></table></div>
+<h3>禁止</h3>
+<ul><li>未过 iceberg_gate 写对外刀子</li><li>零编造；无来源数字进关键主张</li><li>把百科/二手稿当 A 源财务</li></ul></section><section class="sec" id="xbox-index"><div class="label">跳出盒子 · 索引</div><h2 class="sec-title">disruptive - 跳出盒子 · 总览</h2><h2 class='md-h1'>赞意广告 disruptive - 跳出盒子：两种新品类，不是两个 Campaign</h2>
+<h3>判定标准</h3>
+<p>赞意 2026 叙事是「从广告公司毕业，做确定性增长伙伴」。跳出盒子概念必须改的是<strong>合作品类与验收单位</strong>，不是再做一个年轻 KV。</p>
+<div class='tbl'><table><thead><tr><th></th><th>A · 体育胜率闸门 Sports Certainty Gate</th><th>B · 品牌主体育路由台 Client Sports Router</th></tr></thead><tbody><tr><td>旧品类</td><td>体育营销策划/赞助方案书</td><td>按单品牌做一次赛事 Campaign</td></tr><tr><td>新品类</td><td>把体育立项装进「胜率系统」的闸门产品</td><td>代理把多品牌客户路由到可复盘体育试验的台面</td></tr><tr><td>Job</td><td>让体育提案与品效提案过同一张过线表</td><td>让客户总监用一套字段分发试验，而不是每次重写故事</td></tr><tr><td>主受益者</td><td>赞意体育 + 合伙人层</td><td>赞意客户总监 + 品牌主增长负责人</td></tr><tr><td>Why now</td><td>2024-09 厂牌新开 × 2026 确定性叙事</td><td>公开客户池含快消/平台，体育需求分散</td></tr><tr><td>验收</td><td>闸门字段采用率、熔断触发、90 天复盘闭环</td><td>路由单数、客户复用、试点停机权清晰度</td></tr></tbody></table></div>
+<h3>为什么两个</h3>
+<ul><li>A 是<strong>对内操作系统</strong>：解决「体育进不进胜率表」。</li><li>B 是<strong>对外产品界面</strong>：解决「品牌主怎么买到可停的试验，而不是又一次热闹」。</li><li>可单独试点；若同时采用，B 的每一单必须先过 A 的闸门。</li></ul>
+<h3>不做</h3>
+<ul><li>不说赞意「不会做年轻化」；</li><li>不承诺未核实 ROI；</li><li>不把亲爱男友 GMV 当预算证明；</li><li>不替代赞意现有品效产品；</li><li>不假设品牌主会分享私域全量数据。</li></ul>
+<h3>建议会面使用</h3>
+<p>先用 A 对齐合伙人/柴文进线「系统是否接纳体育」；若认，再展 B 作为可卖给品牌主的产品形状。若体育无预算，B 也可降级为品效路由台（PIVOT）。</p></section><section class="sec" id="xbox-1"><div class="label">跳出盒子 1</div><h2 class="sec-title">体育胜率闸门 Sports Certainty Gate</h2><h3>Job Map · 体育胜率闸门</h3>
+<h2 class='md-h1'>Job Map · 体育胜率闸门</h2>
+<h3>When</h3>
+<ul><li>公司对外讲确定性增长；</li><li>体育厂牌新开，需要证明不是空挂；</li><li>品效/创意已有成熟评审习惯；</li><li>外部合作方想进场。</li></ul>
+<h3>Want</h3>
+<p>合伙人 / 赞意体育想：</p>
+<blockquote><p>“体育可以做，但必须像品效一样能说清：过线标准、谁停机、90 天留下什么。”</p></blockquote>
+<h3>But</h3>
+<div class='tbl'><table><thead><tr><th>现在 hire 的方案</th><th>实际妥协</th></tr></thead><tbody><tr><td>更大创意体育方案</td><td>热闹，难进财务语言</td></tr><tr><td>只讲负责人履历</td><td>人强 ≠ 系统在</td></tr><tr><td>先签大资产再想复盘</td><td>沉没成本绑架</td></tr><tr><td>体育独立评分</td><td>与「一个系统」叙事分裂</td></tr></tbody></table></div>
+<h3>Struggling moment</h3>
+<blockquote><p>“对外讲确定性；对内体育提案仍按感觉过会——客户问胜率时，我们只能改口讲年轻。”</p></blockquote>
+<p>（外部假说，首面验证）</p>
+<h3>New Job</h3>
+<p><strong>Install a certainty gate for sports</strong>：让体育立项先过系统，再进创意。</p>
+<h3>Functional jobs</h3>
+<ol><li>字段可填；2. 与品效可比；3. 可退回；4. 可停机；5. 可复盘；6. 外部模块可插拔。</li></ol>
+<h3>Emotional jobs</h3>
+<ul><li>合伙人不再害怕体育拖累确定性叙事；</li><li>体育团队不再觉得被系统歧视，而是被系统收编；</li><li>外部合作方知道怎么被评估。</li></ul>
+<h3>Hire / Fire</h3>
+<ul><li>Hire：闸门产品、字段教练、试点设计</li><li>Fire：无熔断的大方案、纯履历背书、绕过评审的「特批创意」</li></ul>
+<h3>Vision Card · 体育胜率闸门 Sports Certainty Gate</h3>
+<h2 class='md-h1'>Vision Card · 体育胜率闸门 Sports Certainty Gate</h2>
+<h3>一句话</h3>
+<blockquote><p>不是再给赞意体育加一场年轻玩法，而是给每一单体育立项装上一道与品效共用的<strong>过线 / 停机闸门</strong>。</p></blockquote>
+<h3>旧品类 → 新品类</h3>
+<p><strong>旧：体育营销方案书</strong><br/>讲资产多大、多年轻、多破圈；赛季末用曝光与情绪复盘。</p>
+<p><strong>新：Sports Certainty Gate（体育胜率闸门）</strong><br/>立项前必须填：胜率字段、签单主体、90 天指标、熔断权、品牌 Job；过不了闸门就不进入创意制作。</p>
+<h3>Job</h3>
+<p>当赞意要把「确定性增长」做成公司故事、同时又新开体育厂牌时，合伙人与体育负责人想要：</p>
+<blockquote><p><strong>体育不再是例外特区——它要么进同一张胜率表，要么明确标成实验预算；CFO/客户总监看到的是可停机的试验，不是又一份热闹 PPT。</strong></p></blockquote>
+<h3>Why now</h3>
+<ul><li>2024-09-26 官宣赞意体育与一站式主张（公开）；</li><li>2026 公司主叙事转向确定性 / 胜率 / 产品化（公开）；</li><li>体育天然高不确定，与主叙事存在张力（推断，须会面验证）；</li><li>公开交付清单仍薄 → 更需要闸门，而不是更大声的宣言。</li></ul>
+<h3>产品构件</h3>
+<ol><li><strong>Gate Form</strong>：过线字段（问题、资产、Job、指标、停机条件、主体）；</li><li><strong>Same Scorecard</strong>：与品效提案共用的胜率维度（可配置权重）；</li><li><strong>Kill Switch</strong>：未达门槛 / 无签单主体 / 无复盘权 → 自动不进入制作；</li><li><strong>Proof Stub</strong>：90 天只允诺「字段闭环 + 一次复盘」，不允诺销量神话；</li><li><strong>Partner Slot</strong>：外部权益/中台只能作为闸门内的可替换模块，不能绕过闸门。</li></ol>
+<h3>它改变的不是传播物，而是立项单位</h3>
+<p>旧单位：一份创意方案。<br/>新单位：一次<strong>过闸试验</strong>：</p>
+<p><code>问题 → Job → 资产模块 → 指标 → 停机权 → 签单主体 → 复盘</code></p>
+<p>若交付仍是「更酷的体育 KV」，它就不是新品类。</p>
+<h3>三个现场画面</h3>
+<ol><li><strong>内部评审：</strong> 体育提案与抖音品效提案排在同一队列，缺熔断字段的直接退回。</li><li><strong>与权益方对齐：</strong> 先问「你们能否填进闸门字段」，再谈报价。</li><li><strong>客户首面：</strong> 不展示资产清单，先展示一张空白闸门表，请对方改字段。</li></ol>
+<h3>首个最小试点</h3>
+<ul><li>不接真实大额赞助；</li><li>选 1 个内部假想品牌或 1 个愿意匿名的历史客户；</li><li>跑 2 次桌面演练：一次过闸、一次被熔断；</li><li>输出：字段字典 + 谁有权停机。</li></ul>
+<h3>可验收指标</h3>
+<ul><li>体育立项使用闸门比例；</li><li>因缺字段被退回次数；</li><li>90 天内完成复盘的比例；</li><li>合伙人是否认可「与品效同一表」（会面确认）。</li></ul>
+<p>目标值不预填。</p>
+<h3>90 天验证路径</h3>
+<ul><li><strong>0–30：</strong> 对齐是否存在体育预算与决策人；若无，KILL/PIVOT。</li><li><strong>31–60：</strong> 只做字段与桌面演练，不买权益。</li><li><strong>61–90：</strong> 若 L0 关闭，跑一个真实小试验的闸门闭环。</li></ul>
+<h3>反证（必须保留）</h3>
+<p>若赞意坚持体育是品牌故事特区、拒绝同一胜率表 → 本概念 KILL，改谈品效/AI。</p></section><section class="sec" id="xbox-2"><div class="label">跳出盒子 2</div><h2 class="sec-title">品牌主体育路由台 Client Sports Router</h2><h3>Job Map · 品牌主体育路由台</h3>
+<h2 class='md-h1'>Job Map · 品牌主体育路由台</h2>
+<h3>When</h3>
+<ul><li>多品牌客户并行；</li><li>客户要确定性而非「可能爆」；</li><li>体育/娱乐资源需要产品化出口；</li><li>客户总监时间被重复提案吃掉。</li></ul>
+<h3>Want</h3>
+<blockquote><p>“像派工单一样派体育试验：问题清楚、模板清楚、停得下来、学得走。”</p></blockquote>
+<h3>But</h3>
+<div class='tbl'><table><thead><tr><th>现在</th><th>妥协</th></tr></thead><tbody><tr><td>每个客户从头创意</td><td>不可比、不可复用</td></tr><tr><td>爆款逻辑</td><td>与确定性叙事冲突</td></tr><tr><td>资源靠人脉临时找</td><td>无法产品化</td></tr></tbody></table></div>
+<h3>Struggling moment</h3>
+<blockquote><p>“这个月三个客户都问体育/年轻，我们写了三份互不相关的方案——没有一张能告诉我哪类问题该配哪类试验。”</p></blockquote>
+<h3>New Job</h3>
+<p><strong>Route brand problems to stoppable sports trials</strong> via a shared router.</p>
+<h3>Hire / Fire</h3>
+<ul><li>Hire：路由台、模板库、字段教练</li><li>Fire：一次性宇宙级提案、无停机的大赞助冲动</li></ul>
+<h3>Vision Card · 品牌主体育路由台 Client Sports Router</h3>
+<h2 class='md-h1'>Vision Card · 品牌主体育路由台 Client Sports Router</h2>
+<h3>一句话</h3>
+<blockquote><p>不是替一个品牌再打一场赛事 Campaign，而是给赞意的客户总监一张<strong>可分发、可停机、可复用的体育试验路由台</strong>。</p></blockquote>
+<h3>旧品类 → 新品类</h3>
+<p><strong>旧：单品牌赛事 Campaign</strong><br/>每个客户从零讲故事、选明星/赛事、做 KV，结束即散。</p>
+<p><strong>新：Client Sports Router（品牌主体育路由台）</strong><br/>把「哪类客户问题 → 哪类体育试验模板 → 哪类验收字段」做成台面；客户总监像路由单一样派单，而不是每次发明宇宙。</p>
+<h3>Job</h3>
+<p>当赞意服务多品牌（快消/平台/汽车等公开客户池）且客户要确定性时，客户总监想要：</p>
+<blockquote><p><strong>用同一套试验语言服务不同品牌：选问题、选模板、选停机条件；留下可比较的学习，而不是本季最火的那支片。</strong></p></blockquote>
+<h3>Why now</h3>
+<ul><li>公开案例覆盖多品类，说明客户入口多、问题异质；</li><li>公司推产品化 / 六大产品叙事（公开稿）；</li><li>体育厂牌需要「可卖给品牌主」的形状，否则只剩对内故事；</li><li>品牌主越来越拒「可能会火」的溢价（赞意己方原话方向）。</li></ul>
+<h3>产品构件</h3>
+<ol><li><strong>Problem Cards</strong>：增长问题卡片（上市、年轻化心智、渠道动员、信任证明…）；</li><li><strong>Trial Templates</strong>：90 天试验模板（内容节点 / 小场次 / 权益小模块）；</li><li><strong>Router Sheet</strong>：客户 → 问题 → 模板 → 指标 → 停机；</li><li><strong>Learning Log</strong>：跨客户可沉淀的「什么试验有效」（脱敏）；</li><li><strong>Co-sell Slot</strong>：外部权益方按模板接口接入，不按人情插入。</li></ol>
+<h3>改变的单位</h3>
+<p>旧单位：一支 Campaign。<br/>新单位：一张<strong>路由单</strong>（可复制到下一个客户）。</p>
+<h3>三个现场画面</h3>
+<ol><li>客户总监早会：三张路由单并行，而不是三个互不相关的头脑风暴。</li><li>品牌主会：先选 Problem Card，再谈资产。</li><li>复盘会：比较两张路由单的字段完成度，而不是只比播放量。</li></ol>
+<h3>最小试点</h3>
+<ul><li>1 名客户总监 + 2 个愿意试点的品牌问题（可匿名）；</li><li>只用模板桌面走单，不强制买大权益；</li><li>产出：2 张完整路由单 + 1 次停机演练。</li></ul>
+<h3>可验收</h3>
+<ul><li>路由单从构想到评审的周期；</li><li>字段完整率；</li><li>客户是否愿意第二单复用模板；</li><li>是否出现「无停机权就不立项」。</li></ul>
+<h3>90 天</h3>
+<p>与 A 闸门绑定：无 A 则 B 只做品效路由 PIVOT；有 A 则体育模板上架。</p>
+<h3>反证</h3>
+<p>若赞意商业模式拒绝产品化、坚持按天才做单 → B KILL。</p></section><section class="sec" id="r01"><div class="label">研1 - 赞意广告 · 无 IR / 工商与公开经营口径</div><h2 class="sec-title">赞意广告 · 无 IR / 工商与公开经营口径</h2><h2 class='md-h1'>赞意广告 · 无 IR / 工商与公开经营口径</h2>
+<blockquote><p>研究截止：2026-08-28。</p><p>核心结论：北京赞意互动广告传媒有限公司不是公开上市公司，未发现证券交易所代码、招股书、年度报告、审计财务报表或投资者关系网站。因此本文件不是“财报分析”，而是<strong>无 IR 边界说明 + 工商公开信息 + 可用/不可用经营数字审计</strong>。</p></blockquote>
+<h3>一、先写清楚：无 IR</h3>
+<p>“赞意 Goodidea / 赞意增长网络”对外以代理商网络和业务品牌出现。官网展示作品、能力、洞察和招聘，但没有上市公司常见的 Investor Relations、交易所公告、年度报告、财务报表入口：<a href="https://www.goodideamedia.com/" rel="noreferrer" target="_blank">赞意官网，A</a>。</p>
+<p>截至研究日，公开检索未找到北京赞意互动的：</p>
+<ul><li>股票代码、交易所公告页；</li><li>招股书、债券募集说明书；</li><li>经审计的年度收入、净利润、现金流、应收账款、客户集中度；</li><li>股东会/董事会公告体系；</li><li>对未来年度收入、利润或人员规模的量化指引。</li></ul>
+<p>所以，不能把“未发现”改写成“公司从未融资”或“没有审计报表”。准确说法是：<strong>公众没有可用于 IR 分析的连续财务披露</strong>。任何营收、利润率、客户贡献、预算能力推算均应标【待核实】。</p>
+<h3>二、北京赞意互动工商底表</h3>
+<p>目前能打开的企业聚合页面共同指向以下字段，但尚未取得国家企业信用信息公示系统的企业详情截图。按证据纪律暂列 C 级“工商聚合”，不是最终 A 级政府原件。</p>
+<div class='tbl'><table><thead><tr><th>字段</th><th>公开值</th><th>时间锚</th><th>来源</th><th>状态</th></tr></thead><tbody><tr><td>企业全称</td><td>北京赞意互动广告传媒有限公司</td><td>聚合页截至2024-06-07</td><td><a href="https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html" rel="noreferrer" target="_blank">企知道</a></td><td>⚠️待政府原件</td></tr><tr><td>统一社会信用代码</td><td>91110108599658342M</td><td>聚合页截至2024-06-07</td><td><a href="https://www.cnpp.cn/pinpai/4108531.html" rel="noreferrer" target="_blank">CNPP工商栏</a></td><td>⚠️</td></tr><tr><td>成立日期</td><td>2012-07-04</td><td>工商登记</td><td><a href="https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html" rel="noreferrer" target="_blank">企知道</a></td><td>⚠️</td></tr><tr><td>法定代表人</td><td>刘文毅</td><td>聚合页截至2024-06-07</td><td><a href="https://baike.baidu.com/item/北京赞意互动广告传媒有限公司/17585287" rel="noreferrer" target="_blank">百度百科工商栏</a></td><td>⚠️</td></tr><tr><td>注册资本</td><td>500万元人民币</td><td>聚合页截至2024-06-07</td><td><a href="https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html" rel="noreferrer" target="_blank">企知道</a></td><td>⚠️；非估值/营收</td></tr><tr><td>企业类型</td><td>有限责任公司（自然人投资或控股）</td><td>聚合页截至2024-06-07</td><td><a href="https://www.cnpp.cn/pinpai/4108531.html" rel="noreferrer" target="_blank">CNPP工商栏</a></td><td>⚠️</td></tr><tr><td>登记机关</td><td>北京市东城区市场监督管理局</td><td>聚合页截至2024-06-07</td><td><a href="https://www.cnpp.cn/pinpai/4108531.html" rel="noreferrer" target="_blank">CNPP工商栏</a></td><td>⚠️</td></tr><tr><td>当前登记地址</td><td>北京市东城区东四十条94号10-2幢3层310-3室</td><td>聚合页截至2024-06-07</td><td><a href="https://baike.baidu.com/item/北京赞意互动广告传媒有限公司/17585287" rel="noreferrer" target="_blank">百度百科工商栏</a></td><td>⚠️</td></tr></tbody></table></div>
+<h4>地址与办公地址不能混写</h4>
+<p>工商聚合页显示，2019-08-19曾由“北京市海淀区善缘街1号8层1-803”变更为“北京市海淀区清河嘉园东区甲1号楼四层401-89号”：<a href="https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html" rel="noreferrer" target="_blank">企知道变更栏，C</a>。</p>
+<p>数英认证主页目前展示北京办公地址“东四十条94号亮点设计中心701-702”，与工商登记的“10-2幢3层310-3室”不是同一表述：<a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">数英赞意主页，B</a>。可能是办公层、园区口径和注册地址不同，也可能有更新时差。<strong>在取得营业执照/政府公示前，不应把701-702写成登记地址。</strong></p>
+<p>2019年以前/以后是否还有知春路、清河、东四十条之间的完整变更链，当前开放页面未完整呈现，列为【待核实】。</p>
+<h3>三、能否找到公开营收</h3>
+<h4>1. 北京赞意互动自身营收：没有可用公开值</h4>
+<p>未找到经审计或由公司明确披露的北京赞意互动年度营业收入、利润和现金流。官网上的“增长”是服务主张，不是财务增长率：<a href="https://www.goodideamedia.com/" rel="noreferrer" target="_blank">官网，A</a>。</p>
+<p>公开文章标题“赞意2020年营业报告”实际是年度案例/文化盘点，并非会计意义上的营业报告，不能从中提取公司收入和利润：<a href="https://www.digitaling.com/articles/394156.html" rel="noreferrer" target="_blank">赞意2020年营业报告，B</a>。</p>
+<h4>2. “亲爱男友销售额”不是赞意营收</h4>
+<p>认证主页写“截至2025年，赞意孵化并运营的DTC品牌‘亲爱男友’，累计销售额达7亿元”：<a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">数英赞意主页，B</a>。较早公司供稿写“截至2022年底，3年销售额累计5亿元人民币”：<a href="https://www.adquan.com/article/333024" rel="noreferrer" target="_blank">广告门，B</a>。</p>
+<p>这些数字只能支持“被孵化品牌的累计销售规模”这一公司自述，不能推出：</p>
+<ul><li>北京赞意互动确认收入7亿元；</li><li>赞意持有亲爱男友100%权益；</li><li>亲爱男友GMV等于财务营业收入；</li><li>2023—2025新增2亿元就是净增营收；</li><li>广告代理业务营收或利润水平。</li></ul>
+<p>亲爱男友公开对应的运营主体为北京他颜科技有限公司，36氪项目库列成立日2019-10-23、法定代表人刘苏和注册地址：<a href="https://pitchhub.36kr.com/project/1678208100578309" rel="noreferrer" target="_blank">36氪项目库，C</a>。这进一步说明必须按法律主体拆账。</p>
+<h4>3. 案例效果也不是公司收入</h4>
+<p>康师傅项目复盘给出“1小时销售额突破280万、2小时售罄、7天超2万人主动搜索”等项目结果：<a href="https://www.digitaling.com/articles/1400755.html" rel="noreferrer" target="_blank">数英专访，B</a>。伊利私域复盘给出PV、日活、拉新成本变化：<a href="https://www.digitaling.com/articles/394156.html" rel="noreferrer" target="_blank">赞意2020营业报告，B</a>。这些是客户项目效果，不是代理费收入，更不是赞意利润。</p>
+<h3>四、人数披露：有区间，没有统一口径</h3>
+<div class='tbl'><table><thead><tr><th>口径</th><th>数值</th><th>时间锚</th><th>来源</th><th>可用性</th></tr></thead><tbody><tr><td>数英企业主页</td><td>201-500人</td><td>2026-08-28访问</td><td><a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">数英</a></td><td>⚠️企业自维护/平台区间</td></tr><tr><td>BOSS招聘页</td><td>100-499人</td><td>2026-08检索页</td><td><a href="https://www.zhipin.com/companys/13c979d1cb3b215e0nx52tk~.html" rel="noreferrer" target="_blank">BOSS</a></td><td>⚠️招聘口径</td></tr><tr><td>宝洁案例介绍</td><td>北京上海120+名员工</td><td>页面对应历史时点【待核实】</td><td><a href="https://www.adguider.com/case?id=4f46281637fd0d01af4f29ac76d856be" rel="noreferrer" target="_blank">ADGuider</a></td><td>⚠️旧介绍</td></tr><tr><td>用户简报</td><td>曾披露300余名</td><td>无原始URL/日期</td><td>本案<code>赞意广告.txt</code></td><td>【待核实】不可用</td></tr></tbody></table></div>
+<p>以上统计可能分别覆盖北京赞意互动单一主体、赞意增长网络多个厂牌、办公室员工或招聘品牌。它们不构成“120→300→500”的增长序列。若销售会面要谈组织规模，只能说“公开平台显示百人级/201-500区间，但统计边界和时点待核实”，不能报一个确定人数。</p>
+<h3>五、公开经营动作的时间锚</h3>
+<ol><li><strong>2012-07-04</strong>：北京赞意互动成立（工商聚合，待政府原件）。</li><li><strong>2017年底</strong>：公司受访材料称成立上海办公室：<a href="https://www.digitaling.com/articles/112713.html" rel="noreferrer" target="_blank">数英专访，B</a>。</li><li><strong>2022年</strong>：10周年以Goodidea Growth Network名义整合五项增长服务：<a href="https://www.digitaling.com/articles/693398.html" rel="noreferrer" target="_blank">赞意署名文章，B</a>。</li><li><strong>2023年春</strong>：加入中国商务广告协会综合代理专业委员会，成为中国4A会员单位：<a href="https://mp.weixin.qq.com/s/VXCvOXbq_qMbfJbKFlL6uA" rel="noreferrer" target="_blank">赞意官微，A/B</a>；行业监测报告将事件列于2023-03-22。</li><li><strong>2024-09-26</strong>：成立赞意体育厂牌，柴文进任联合创始人、董事总经理：<a href="https://www.digitaling.com/articles/1269316.html" rel="noreferrer" target="_blank">公司投稿原文，B</a>。</li><li><strong>2026-08-28访问</strong>：官网自称“AI时代的品牌增长与整合营销公司”，展示AI可见性、整合营销等能力：<a href="https://www.goodideamedia.com/" rel="noreferrer" target="_blank">官网，A</a>。</li></ol>
+<p>这条链可以说明业务定位和组织动作发生过变化，但不能直接证明收入增长、客户续约率或各厂牌盈利。</p>
+<h3>六、明确不可用的数字</h3>
+<p>以下数字除非会前补到营业执照、企业年报、审计材料、合同或平台后台，否则禁止作为赞意公司事实：</p>
+<ul><li>赞意年度营收、净利润、毛利率、现金余额；</li><li>广告代理业务与亲爱男友之间的收入占比；</li><li>“300余名员工”及其具体年份和统计主体；</li><li>各客户年度代理费、项目预算、客户集中度；</li><li>宝洁、伊利、美团、康师傅是否仍为当前年框客户；</li><li>亲爱男友7亿元的GMV/含税收入/退款前后口径；</li><li>赞意体育、将意、万与所有、赞意增长各自收入和人员；</li><li>注册资本对应的实缴金额、估值或可用预算。</li></ul>
+<h3>七、会前核验清单</h3>
+<ol><li>在国家企业信用信息公示系统或北京市企业信用信息网导出北京赞意互动最新企业信用报告，核对成立日、法人、股东、注册资本、历次地址。</li><li>取得2023—2025企业年报中的社保人数/资产状况公示选择项；若企业选择不公示，明确记“未公示”。</li><li>向对方确认“赞意增长网络”覆盖哪些法律主体，销售合同通常由谁签署。</li><li>将亲爱男友的品牌GMV、北京他颜科技收入和赞意权益比例分开问。</li><li>询问当前总人数、北京/上海/广州/体育厂牌人数及统计日期。</li></ol>
+<h3>八、反合理化扫描</h3>
+<ul><li>[x] 没有把注册资本写成营收或估值。</li><li>[x] 没有把亲爱男友累计销售额写成赞意收入。</li><li>[x] 没有把招聘人数区间拼成增长曲线。</li><li>[x] “无IR”仅指无公开资本市场披露，不等于公司内部无审计。</li><li>[ ] 工商字段仍缺政府企业详情原件，全部保留⚠️。</li><li>[ ] “300余名”仍无一手出处，不进入确定事实。</li></ul></section><section class="sec" id="r02"><div class="label">研2 - 赞意广告 · 高管 / 合伙人原话库</div><h2 class="sec-title">赞意广告 · 高管 / 合伙人原话库</h2><h2 class='md-h1'>赞意广告 · 高管 / 合伙人原话库</h2>
+<blockquote><p>研究截止：2026-08-28。每条保留说话人、公开身份、场合、时间锚、URL与原文。</p><p>分级说明：赞意署名发布/受访全文转载为B；媒体转述为C。人物姓名存在“乌东伟/乌东面”双名：小宇宙页面明确写“主播：乌东面 Wu Dongwei / 赞意GGN CEO乌东伟”，可作为公开名映射线索，但法定姓名仍以证件/工商为准：<a href="https://www.xiaoyuzhoufm.com/episode/63c11633eab1781ef439c0a7" rel="noreferrer" target="_blank">小宇宙，B/C</a>。</p></blockquote>
+<h3>一、乌东伟 / 乌东面：公司经营与增长</h3>
+<h4>Q1｜公司要成为可持续经营的机器</h4>
+<ul><li><strong>说话人</strong>：乌东面（文章称赞意增长网络CEO）</li><li><strong>场合</strong>：与合伙人梁将军播客对谈的文字摘编</li><li><strong>时间</strong>：文章公开时间【待核实】；检索于2026-08-28</li><li><strong>级别</strong>：B（作者授权数英发表）</li><li><strong>URL</strong>：https://www.digitaling.com/articles/1257983.html</li><li><strong>原文</strong>：“公司成立之初，我就希望把它变成一个可以持续经营的机器。”</li></ul>
+<p><strong>研究含义</strong>：他公开看重组织系统，而非只靠单个作品获客。这是经营观，不等于公司已经完成规模化。</p>
+<h4>Q2｜系统而非刷屏作品</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q1</li><li><strong>原文</strong>：“没有所谓的刷屏作品却排行前几名，我们依赖的是系统。”</li></ul>
+<h4>Q3｜获客体系大于案例</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q1</li><li><strong>原文</strong>：“获客体系远大于案例，我们要做一个不走捷径的广告公司。”</li></ul>
+<h4>Q4｜广告公司规模瓶颈</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q1</li><li><strong>原文</strong>：“为什么广告公司做不大？因为他们很多时候是拿作品获客，但作品很依赖个人。一个人不可能永远是巅峰状态，他也有低谷。当低谷来了之后，团队接不上，这个公司就沉沦了。”</li></ul>
+<h4>Q5｜毛利结构是行业问题</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q1</li><li><strong>原文</strong>：“广告行业最大的问题，不在于分钱，而在于赚钱。大家的毛利结构太低了，也做不了规模化。”</li></ul>
+<p><strong>引用纪律</strong>：这是行业判断，不能据此反推赞意自身毛利率。</p>
+<h4>Q6｜未来一切公司都是内容公司</h4>
+<ul><li><strong>说话人</strong>：乌东面（数英标题称赞意CEO）</li><li><strong>场合</strong>：品牌志BrandZ对话赞意CEO</li><li><strong>时间</strong>：2023年，文章明确以赞意11周年为背景；精确发布日期【待核实】</li><li><strong>级别</strong>：B/C（完整受访原文）</li><li><strong>URL</strong>：https://www.digitaling.com/articles/992634.html</li><li><strong>原文</strong>：“为什么讲企业不懂内容是没法做到增长，因为这是一个存量的市场，未来大家在一个存量的市场去竞争。”</li></ul>
+<h4>Q7｜内容公式</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q6</li><li><strong>原文</strong>：“从创意到内容，中间差的是什么呢？这里有一个我理解的定义公式，内容=创意+平台/算法。”</li></ul>
+<h4>Q8｜明星营销不在流量，在作品</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q6</li><li><strong>原文</strong>：“明星营销的未来不在流量，在于作品。”</li></ul>
+<p><strong>上下文</strong>：他随后用刘德华、张颂文及《封神榜》演员说明“通过好的作品获得流量”。不得裁成“赞意不做流量”。</p>
+<h4>Q9｜从小圈层向外扩散</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q6</li><li><strong>原文</strong>：“在我看来，娱乐营销给我的启示是，品牌要先深入到一个小的圈层，再从这里出圈。”</li></ul>
+<h4>Q10｜内容服务链为何并起来</h4>
+<ul><li><strong>说话人</strong>：乌东面</li><li><strong>场合/时间/URL</strong>：同Q6</li><li><strong>原文</strong>：“赞意的优势在于，把人为拆开的这个公关、广告、媒介等营销服务，给它并起来了，用一个公司的形式去运转，让它们互相协调和互相影响。”</li></ul>
+<p><strong>研究含义</strong>：支持“业务单元协同”是公开战略；不证明法律主体已经合并。</p>
+<h3>二、乌东伟：娱乐营销早期方法</h3>
+<h4>Q11｜与其教育，不如娱乐</h4>
+<ul><li><strong>说话人</strong>：乌东伟（当时公开身份为赞意合伙人）</li><li><strong>场合</strong>：数英专访“创意+娱乐”</li><li><strong>时间</strong>：文章发布年份/日期页面未显示，【待核实】；文中回溯2017年底上海办公室、2018项目</li><li><strong>级别</strong>：B/C</li><li><strong>URL</strong>：https://www.digitaling.com/articles/112713.html</li><li><strong>原文</strong>：“与其‘教育’，不如‘娱乐’消费者，和消费者玩在一起。这一点，我们应该向综艺节目等各类内容生产方学习：以娱乐精神做优质内容，用消费者喜闻乐见的方式传递信息，让消费者主动追踪品牌的动态。”</li></ul>
+<h4>Q12｜Always On</h4>
+<ul><li><strong>说话人</strong>：乌东伟</li><li><strong>场合/时间/URL</strong>：同Q11</li><li><strong>原文</strong>：“内容产品宣推节奏远快于快消、甚至是互联网的推广节奏，日播剧集，周播综艺，所以做娱乐营销就必须保持Always On，因为你很难预料下一个引爆全网的话题，是否就会在下一秒发生。”</li></ul>
+<h4>Q13｜明星是激活器，不应替代品牌</h4>
+<ul><li><strong>说话人</strong>：乌东伟</li><li><strong>场合/时间/URL</strong>：同Q11</li><li><strong>原文</strong>：“品牌必须累积自身魅力，明星代言只是你的激活器或放大器，有时候让代言人干得越少，反而取得收益越大。”</li></ul>
+<h4>Q14｜粉丝营销第一步是尊重</h4>
+<ul><li><strong>说话人</strong>：乌东伟</li><li><strong>场合/时间/URL</strong>：同Q11</li><li><strong>原文</strong>：“今天很多品牌以促进销售的心态做粉丝营销，这能理解，但其实粉丝都有自己的判断力，他们知道品牌的目的是来卖货，但如果认为吃相难看就恕不奉陪了。想以粉丝为切入点打开产品销售局面，可观可行，但首先要学会尊重粉丝，我觉得粉丝是一群特别可爱的人。”</li></ul>
+<h4>Q15｜娱乐热店的目标</h4>
+<ul><li><strong>说话人</strong>：乌东伟</li><li><strong>场合/时间/URL</strong>：同Q11</li><li><strong>原文</strong>：“在上海市场，比起创意热店，我更希望被叫做：娱乐热店。同样，我也希望赞意能成为中国首家娱乐热店。”</li></ul>
+<h3>三、赞意体育：负责人原话</h3>
+<h4>Q16｜进入体育业务的理由</h4>
+<ul><li><strong>说话人</strong>：乌东伟（官宣称赞意首席执行官）</li><li><strong>场合</strong>：赞意增长网络宣布成立赞意体育</li><li><strong>时间</strong>：2024-09-26</li><li><strong>级别</strong>：B（赞意署名/公司新闻稿）</li><li><strong>URL</strong>：https://www.digitaling.com/articles/1269316.html</li><li><strong>原文</strong>：“我们对进入体育营销这一新业务领域感到无比激动。体育是连接年轻一代的桥梁，我们相信通过赞意体育，能够为品牌和消费者之间建立起更深层次的情感联系。”</li></ul>
+<h4>Q17｜赞意体育的团队主张</h4>
+<ul><li><strong>说话人</strong>：柴文进（赞意体育联合创始人、董事总经理）</li><li><strong>场合/时间/级别/URL</strong>：同Q16</li><li><strong>原文</strong>：“我们拥有专业的年轻化的团队和对体育营销的深刻理解。我们将热切地推动赞意体育改变游戏规则，为品牌和年轻消费者带来前所未有的体验。”</li></ul>
+<h4>Q18｜五个“化”与服务对象</h4>
+<ul><li><strong>说话人</strong>：柴文进</li><li><strong>场合/时间/级别/URL</strong>：同Q16</li><li><strong>原文</strong>：“体育，本就是青春炸场、梦想翱翔的舞台。赞意体育将坚持年轻化、产品化、品牌化、社群化、国际化的思维，紧扣对体育的热爱，重塑品牌和消费者之间的联结，释放体育营销的真正潜力，为年轻品牌服务、为品牌年轻化服务、为年轻的心服务。”</li></ul>
+<h3>四、合伙人 / 业务负责人原话与公开身份</h3>
+<h4>Q19｜梁将军：增长不是流量问题</h4>
+<ul><li><strong>说话人</strong>：梁将军（文章自述将意咨询创始人、赞意增长网络首席策略官）</li><li><strong>场合</strong>：复盘亲爱男友增长危机</li><li><strong>时间</strong>：文章公开时间【待核实】；文中回溯2019年底创牌</li><li><strong>级别</strong>：C（作者文章）</li><li><strong>URL</strong>：https://www.woshipm.com/share/6079481.html</li><li><strong>原文</strong>：“增长本质上不是流量问题，而是战略问题。”</li></ul>
+<p><strong>上下文纪律</strong>：这是梁将军的战略判断，不代表经审计证明，也不能据此说亲爱男友已解决全部增长问题。</p>
+<h4>Q20｜曾波：公开角色和能力，不造原话</h4>
+<p>现有赞意署名文章公开写：曾波当时任“赞意增长”合伙人/CEO，2020年加入，负责增长和电商相关业务；但当前检索页没有可逐字引用的曾波直接引语。因此本轮不伪造“原话”，只保留角色事实：<a href="https://www.digitaling.com/articles/391699.html" rel="noreferrer" target="_blank">赞意新年欢迎6位新合伙人，B</a>。</p>
+<h3>五、可用于销售理解的稳定主线</h3>
+<ol><li><strong>组织观</strong>：系统、获客体系、可持续经营机器（Q1—Q5）。</li><li><strong>业务观</strong>：内容是创意与平台/算法的结合，咨询—广告—实效需要协同（Q6—Q10）。</li><li><strong>娱乐观</strong>：明星是放大器，粉丝要被尊重，先入圈层再出圈（Q8—Q15）。</li><li><strong>体育观</strong>：赞意把体育定义为连接年轻人的桥梁，并提出五个“化”（Q16—Q18）。</li><li><strong>战略观</strong>：梁将军公开反对把增长简化成流量问题（Q19）。</li></ol>
+<h3>六、姓名与日期缺口</h3>
+<ul><li>“乌东面”与“乌东伟”：小宇宙页面把二者并列为主播名/CEO姓名，数英也有“乌东伟的小红书账号名字乌东面”的说明；但媒体另出现“乌冬面”写法。正式商务文件建议写“乌东伟（公开账号名：乌东面）”，并请本人确认。</li><li>Q1—Q5、Q11—Q15、Q19的网页正文未在抓取版本显示精确发布日期，均保留【待核实】，不可假填。</li><li>引语来自公开访谈/公司供稿，不等于逐字录音校验；若用于对外印刷，建议回看原视频/播客时间码。</li></ul></section><section class="sec" id="r03"><div class="label">研3 - 赞意广告 · 合作史与代表项目时间线</div><h2 class="sec-title">赞意广告 · 合作史与代表项目时间线</h2><h2 class='md-h1'>赞意广告 · 合作史与代表项目时间线</h2>
+<blockquote><p>研究截止：2026-08-28。只记有公开出处的项目；效果数字若仅代理自述，标「项目方口径」。失败/终止合作公开极少 → 缺口进 PRIMARY。</p></blockquote>
+<h3>一、读法</h3>
+<p>赞意对外是<strong>项目可见度很高、财务可见度很低</strong>的代理商：案例页、数英认领、行业媒体多，但续约年限、账单份额、是否仍是现任代理均【待核实】。本表证明「做过什么」，不证明「现在还握着谁」。</p>
+<h3>二、时间线（可公开核对）</h3>
+<div class='tbl'><table><thead><tr><th>时间锚</th><th>客户 / IP</th><th>项目要点</th><th>来源</th><th>级别</th></tr></thead><tbody><tr><td>2018 节目期（2019 回溯）</td><td>优酷《这！就是街舞》</td><td>宣推合作；赞意受访称 80+ 热搜话题</td><td><a href="https://www.digitaling.com/articles/112713.html" rel="noreferrer" target="_blank">数英专访</a></td><td>B；效果⚠️</td></tr><tr><td>2020 年中</td><td>伊利脱脂纯牛奶 × CBA</td><td>《回到场上》传播</td><td><a href="https://www.digitaling.com/articles/332275.html" rel="noreferrer" target="_blank">数英赞意署名</a></td><td>B</td></tr><tr><td>2020 双11</td><td>伊利私域</td><td>营业报告自报 PV/日活等</td><td><a href="https://www.digitaling.com/articles/394156.html" rel="noreferrer" target="_blank">数英</a></td><td>B⚠️ 待客户后台</td></tr><tr><td>2021-08</td><td>宝洁「全明星学院」开学季</td><td>8 品牌 × 8 明星 × 8 短片等公开描述</td><td><a href="https://www.brandstar.com.cn/news/3126" rel="noreferrer" target="_blank">BrandStar</a></td><td>B/C</td></tr><tr><td>2021-08</td><td>泡泡玛特 × 天猫超品日「大有可玩」</td><td>李雪琴 TVC；赞意创意</td><td><a href="https://www.adguider.com/case?id=c39ca9c4b2bc48d0b722398a5e8f8952" rel="noreferrer" target="_blank">ADGuider</a></td><td>C（案例库）；日期较清晰</td></tr><tr><td>用户简报亦列</td><td>腾讯公益 99 公益日 × 凤凰传奇</td><td>《一块做好事》</td><td>用户 <code>赞意广告.txt</code>；公开页【待补 URL】</td><td>线索</td></tr><tr><td>2025-02-14</td><td>美团外卖《像她的花》</td><td>赞意认领作品</td><td><a href="https://www.digitaling.com/company/claim/11176" rel="noreferrer" target="_blank">数英认领</a></td><td>B</td></tr><tr><td>2025-08-21</td><td>康师傅 × 罗永浩「特别特」泡面发布会</td><td>抖音直播首发；项目复盘销售数字</td><td><a href="https://www.digitaling.com/articles/1400755.html" rel="noreferrer" target="_blank">数英</a></td><td>B⚠️ 效果待平台</td></tr></tbody></table></div>
+<h3>三、客户名单（公开出现过，非现任证明）</h3>
+<p>用户简报与百科/数英交叉可见：宝洁、可口可乐、伊利、高通、抖音、支付宝、泡泡玛特、天猫、OPPO、北京现代、美团、康师傅、亨氏等。<br/><strong>纪律</strong>：名单 = 历史可见曝光，≠ 当前 AOR / 主代理。</p>
+<h3>四、体育相关合作线索</h3>
+<ul><li>2020 伊利 × CBA《回到场上》：证明赞意<strong>早就能做体育节点内容</strong>，不等于已有「赞意体育」厂牌交付体系。</li><li>2024-09-26 官宣「赞意体育」厂牌：见 <code>11_sports_young_marketing.md</code>。柴文进履历中的 FORMULA E、排超、亚洲杯等多为<strong>个人过往经验</strong>，未在官宣中写成赞意主体已交付案例。</li></ul>
+<h3>五、断裂与失败（公开）</h3>
+<p>截至检索日，未找到赞意主动披露的「丢户 / 解约 / 翻车复盘」。这不表示没有，只表示<strong>公开侧不可写</strong>。会面须问：过去 24 个月丢了哪些品牌、原因是什么。【待 PRIMARY】</p>
+<h3>六、对刀子的承重（不进刀正文）</h3>
+<ul><li>可说：消费品 + 平台 + 节点战役密度高，年轻化内容有作品资产。</li><li>不可说：某客户长期独家、或体育赞助采购已规模化（无公开证据）。</li></ul></section><section class="sec" id="r04"><div class="label">研4 - 04｜竞品景观：本土独立与数字增长代理</div><h2 class="sec-title">04｜竞品景观：本土独立与数字增长代理</h2><h2 class='md-h1'>04｜竞品景观：本土独立与数字增长代理</h2>
+<blockquote><p><strong>用途</strong>：冰山研究，不进 pitch。</p><p><strong>时间锚</strong>：公开资料检索至 2026-08-28。</p><p><strong>纪律</strong>：公司自述与行业媒体只能证明“公开定位/公开案例”，不能证明客户续约、项目利润或真实满意度；相关项无来源即标【待核实】。</p></blockquote>
+<h3>0. 赞意的对标基线</h3>
+<p>赞意 2012 年成立，2023 年加入中国商务广告协会综合代理专业委员会（中国 4A）。其 2026 年公开定位已从“年轻化/娱乐营销代理商”升级为“AI 时代的品牌增长服务机构”，公开业务覆盖品牌战略、新品开发、创意与整合营销、明星营销、抖音与小红书品效、社群/GEO、AI 营销工作流；同时以自有 DTC 品牌“亲爱男友”证明曾经下场经营消费品牌。</p>
+<ul><li>中国 4A 会员与 2023 定位：<a href="https://mp.weixin.qq.com/s/VXCvOXbq_qMbfJbKFlL6uA" rel="noreferrer" target="_blank">赞意正式加入中国 4A</a></li><li>2026 业务结构与“确定性增长”定位：<a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">数英公司页</a>、<a href="https://mp.weixin.qq.com/s/W8JF40yTSrlirmSPv0ya0w" rel="noreferrer" target="_blank">赞意 2026 Prompts for Growth</a></li></ul>
+<p>对标不应只问“谁更会做广告”，而应拆成四种能力：①高辨识创意；②平台品效与数据；③战略咨询；④把非标经验产品化、AI 化并稳定交付。</p>
+<hr/>
+<h3>1. SG 胜加：内容与品牌叙事型全链路集团</h3>
+<h4>定位与可查案例</h4>
+<p>胜加 2003 年成立，自称“内容传播集团”，业务覆盖品牌战略咨询、产品竞争战略、内容创意、整合传播、品牌 IP 与平台内容运营。官网列出的代表作包括 bilibili《后浪》、方太《油烟情书》、美团买药《真的值得更多人知道》、Timberland《踢不烂的你》；公开客户包括方太、美团、联想、海信、凯迪拉克、波司登、中国银联等。<br/>来源：<a href="https://www.sgad.com.cn/?page_id=16" rel="noreferrer" target="_blank">SG 胜加官网 About</a>、<a href="https://www.digitaling.com/company/11997" rel="noreferrer" target="_blank">数英公司页</a></p>
+<h4>相对赞意的钢人论述（steelman）</h4>
+<p>胜加最强论点不是“会拍片”，而是能把社会情绪、品牌观点与长内容变成公众记忆，并以方太二十余年全案合作证明长期客户经营能力（该年限为胜加公开自述）。对希望建立品牌公共角色、需要董事长级叙事而非单个平台转化的客户，胜加的作品资产与高级创意声誉可能比赞意更容易进入短名单。</p>
+<h4>赞意差异假说（推断）</h4>
+<p><strong>【推断】</strong>赞意更有机会以“娱乐资产 + 抖红品效 + 用户运营 + AI 工作流”承接从传播到经营的连续链路；胜加更像内容/品牌资产强者。赞意若只用“年轻、会玩”与胜加竞争，会落入创意声誉比较；若能证明品效闭环和标准化交付，才有不同维度。</p>
+<hr/>
+<h3>2. 时趣 Social Touch：数据与营销采购平台型对手</h3>
+<h4>定位与可查案例</h4>
+<p>时趣成立于 2011 年，公开定位为“品牌全内容营销需求服务平台”，以创造力匹配、洞察引擎和专业团队生态连接品牌需求；公开资料亦称其为中国 4A 及数字委员会成员。2024 年对外重点为“降本增效”，产品矩阵包括洞察引擎、星云创意、IP 宇宙；公开案例线索包括支付宝集五福 AIGC 互动、宁波银行 AR 扫龙，以及品牌营销报告生成服务。<br/>来源：<a href="https://pitchhub.36kr.com/project/1713125134690569" rel="noreferrer" target="_blank">36氪项目页</a>、<a href="https://social-touch.com/news/media/view?id=335" rel="noreferrer" target="_blank">时趣 AI 实践</a>、<a href="https://tech.china.com/article/20240229/022024_1486142.html" rel="noreferrer" target="_blank">2024 华南采购峰会报道</a></p>
+<h4>相对赞意的钢人论述</h4>
+<p>时趣把客户最难管理的“碎片化内容采购”做成平台和工具：匹配供应商、标准化 SKU、洞察与复盘。其钢人版本不是创意优于赞意，而是更接近采购、CMO 与执行团队共同使用的基础设施；当客户首要目标是多快好省、供应商治理和批量内容生产时，这一位置可能比创意厂牌更稳。</p>
+<h4>赞意差异假说（推断）</h4>
+<p><strong>【推断】</strong>赞意可用“生意叙事 + 核心产品 + AI 智能体”争夺更上游的策略与增长诊断，并以亲爱男友补足经营者视角；时趣的公开优势偏内容供给与采购效率。反面风险是：若赞意的 AI 仍主要是内部初稿工具、缺少客户可验收指标，时趣的平台化可见度会更强。</p>
+<hr/>
+<h3>3. 蓝色光标：规模化媒介、出海与 AI 平台型巨头</h3>
+<h4>定位与可查事实</h4>
+<p>蓝色光标为上市营销科技集团，业务包括全案推广、全案广告代理、出海广告投放和营销科技。2025 年报披露营业收入 686.93 亿元，其中出海业务 564.96 亿元；公司称 AI 驱动收入 37.25 亿元，并以 BlueAI 等产品覆盖洞察、内容、投放与效果分析。<br/>来源：<a href="http://p.hibor.org/report/6a82f4f1191a4115a2e2d907e5071c9b.html" rel="noreferrer" target="_blank">蓝色光标 2025 年报页面</a>、<a href="https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12095601&amp;stockid=300058" rel="noreferrer" target="_blank">2025 ESG 报告转载</a></p>
+<h4>相对赞意的钢人论述</h4>
+<p>蓝色光标的护城河是客户体量、媒体平台关系、全球交付网络与技术投入，不是单一创意作品。对于大规模出海投放、跨市场媒介采购、需要财务与合规承载能力的客户，它能提供赞意现阶段公开资料无法证明的规模与地域覆盖。</p>
+<h4>赞意差异假说（推断）</h4>
+<p><strong>【推断】</strong>赞意可在中国本土消费者洞察、年轻文化、娱乐/体育资产活化与创始人级灵活性上形成“小而深”的竞争；其不应在媒介采购规模或全球网络上正面对标蓝标。赞意宣称的“Marketing FDE 深入业务现场”若能落地，可能比大型集团标准产品更贴身；但客户级证据【待核实】。</p>
+<hr/>
+<h3>4. 群玉山 Mountains：品牌战略咨询与策创一体替代者</h3>
+<h4>定位与可查案例</h4>
+<p>群玉山由马晓波、姚俊、孙涛、周骏联合创立，公开定位为品牌战略咨询与深度管理机构，课题覆盖中国故事、新消费品牌战略、头部品牌升级与公关传播。公开内容展示其“策创一体”和“赛道跃迁”方法，案例线索包括蕉内、爱慕“内衣时装化”等。<br/>来源：<a href="https://www.adquan.com/company/intro/11296" rel="noreferrer" target="_blank">广告门公司页</a>、<a href="https://news.gujin-shop.com/d/87199.html" rel="noreferrer" target="_blank">群玉山与爱慕访谈</a>、<a href="https://mp.weixin.qq.com/s/o5lpfaVVEnm1ootp74CCgw" rel="noreferrer" target="_blank">马晓波访谈</a></p>
+<h4>相对赞意的钢人论述</h4>
+<p>群玉山的强项是让创始人/董事会讨论“企业要成为什么”，并把品牌议题上升为赛道、社会角色与组织共识。对处在战略跃迁、国际叙事或品牌重塑阶段的客户，其高层咨询入口可能比增长代理的全链路清单更有吸引力。</p>
+<h4>赞意差异假说（推断）</h4>
+<p><strong>【推断】</strong>赞意的优势是从战略直接下沉到新品、创意、明星、平台种草、用户运营和效果复盘，减少“咨询说完、执行断层”；群玉山则可能在高层品牌命题与内容声望更强。赞意的“生意叙事研究院 + 白皮书”显然正在补这一上游位置，但学术合作与商业效果之间仍需客户案例验证。<br/>来源：<a href="https://www.adquan.com/article/351411" rel="noreferrer" target="_blank">生意叙事 2.0 发布</a></p>
+<hr/>
+<h3>5. 华扬联众：全域数字营销与“品效销合一”对照样本</h3>
+<h4>定位与可查事实</h4>
+<p>华扬联众为上市数字营销公司，2025 年公开文件称其围绕品牌客户提供全链路营销，以数据与智能平台实现“品效销合一”和全域增长；同时明确行业正从流量红利转向技术红利，AI 内容、智能投放和效果归因成为能力要件。<br/>来源：<a href="http://static.cninfo.com.cn/finalpage/2025-08-26/1224567766.PDF" rel="noreferrer" target="_blank">2025 半年报（巨潮资讯 PDF）</a>、<a href="http://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-23/603825_20260423_BG1Y.pdf" rel="noreferrer" target="_blank">2025 年报（上交所摘要）</a></p>
+<h4>相对赞意的钢人论述</h4>
+<p>华扬的钢人版本是多年品牌客户与主流媒体数据沉淀、上市公司治理、全域投放和技术平台组合。对需要媒介、数据、合规和规模交付的客户，它仍可能比独立代理更容易通过采购门槛。</p>
+<h4>赞意差异假说（推断）</h4>
+<p><strong>【推断】</strong>赞意可强调创意文化、娱乐/体育资产、产品孵化经验与组织敏捷，避免被看作另一家数字投放公司。华扬 2025 年经营处于明显调整期，但任何财务困难都<strong>不应</strong>作为会面攻击材料；仅说明“大规模数字代理模式也面临毛利和组织转型压力”。</p>
+<hr/>
+<h3>6. 对照结论</h3>
+<div class='tbl'><table><thead><tr><th>战场</th><th>最强对手</th><th>赞意公开优势</th><th>赞意公开缺口</th></tr></thead><tbody><tr><td>高辨识品牌内容</td><td>胜加、群玉山</td><td>生意叙事、娱乐文化、全链路落地</td><td>长期客户与董事长级案例的连续证据【待核实】</td></tr><tr><td>内容采购/批量生产</td><td>时趣</td><td>抖红品效、专业厂牌协同</td><td>AI 产品客户侧 SLA 与节省比例【待核实】</td></tr><tr><td>媒介规模/出海</td><td>蓝色光标、华扬</td><td>独立、敏捷、本土年轻洞察</td><td>媒介规模与全球网络不宜硬比</td></tr><tr><td>明星/体育资产</td><td>赞意自身有特色</td><td>风犬娱乐、赞意体育、一站式活化</td><td>赞意体育成立后独立签约资产与收入【待核实】</td></tr><tr><td>经营实战</td><td>赞意相对独特</td><td>亲爱男友 DTC 实验</td><td>累计销售额口径、盈利与赞意权益关系【待核实】</td></tr></tbody></table></div>
+<h3>7. 研究缺口</h3>
+<ol><li>各家 2025–2026 客户续约率、项目毛利、核心团队流失率均无可比公开口径。</li><li>赞意“AI 智能体”尚缺独立客户验收案例、错误率与提效基线。</li><li>赞意体育是否形成独立收入、资产代理权或赛事 IP 共创，公开材料不足。</li><li>“亲爱男友累计销售额 7 亿元”为赞意公司页自述，审计口径与盈利【待核实】。</li></ol></section><section class="sec" id="r05"><div class="label">研5 - 05｜中国广告 / 增长代理行业语境（2023–2026）</div><h2 class="sec-title">05｜中国广告 / 增长代理行业语境（2023–2026）</h2><h2 class='md-h1'>05｜中国广告 / 增长代理行业语境（2023–2026）</h2>
+<blockquote><p><strong>用途</strong>：冰山行业层，不进 pitch。</p><p><strong>时间锚</strong>：公开资料检索至 2026-08-28。</p><p><strong>口径警告</strong>：市场监管总局“事业单位和规模以上企业广告业务收入”与 CTR“媒体广告刊例花费”不是同一口径，禁止横向相除。</p></blockquote>
+<h3>0. 一句话</h3>
+<p>行业总盘子仍在增长，但客户侧的项目选择更苛刻：互联网平台拿走发布环节大头，品牌预算向可归因效果、新品与可持续内容倾斜；代理商因此从“出创意/买媒介”扩展为策略、内容、平台运营、数据、AI 工作流和合规的混合服务商。所谓“确定性”，不是保证销量，而是把交付范围、证据、风险和复盘变得更可控。</p>
+<hr/>
+<h3>1. 大盘：总收入增长，不代表传统代理普遍好过</h3>
+<p>市场监管总局口径显示：</p>
+<div class='tbl'><table><thead><tr><th>年份</th><th>全国广告业事业单位和规模以上企业广告业务收入</th><th>同比</th><th>来源</th></tr></thead><tbody><tr><td>2023</td><td>13,120.7 亿元</td><td>+17.5%</td><td><a href="https://paper.people.com.cn/rmrb/html/2024-06/21/nw.D110000renmrb_20240621_2-10.htm" rel="noreferrer" target="_blank">人民日报 / 市监总局报告</a></td></tr><tr><td>2024</td><td>15,464.1 亿元</td><td>+17.9%</td><td><a href="https://www.cnfin.com/hg-lb/detail/20250410/4215212_1.html" rel="noreferrer" target="_blank">新华财经</a></td></tr><tr><td>2025</td><td>20,502.1 亿元</td><td>+32.6%</td><td><a href="http://www.chinanews.com.cn/cj/2026/06-23/10645696.shtml" rel="noreferrer" target="_blank">中新网转市场监管总局</a></td></tr></tbody></table></div>
+<p>2024 年各类媒介广告发布收入 10,310.7 亿元，其中互联网广告发布收入 8,919.1 亿元，占发布环节 86.5%，同比增长 24%。这说明增长集中在互联网发布和数字基础设施，并不能推出独立创意代理的服务费或利润同步增长。<br/>来源：<a href="https://www.cnfin.com/hg-lb/detail/20250410/4215212_1.html" rel="noreferrer" target="_blank">新华财经</a></p>
+<p>另一口径中，CTR 称 2024 年媒体广告市场刊例花费同比仅增 1.6%，饮料广告花费同比下降 12.1%。这与上表不冲突：统计对象、价格与产业链环节不同。<br/>来源：<a href="https://www.ctrchina.cn/rich/report/722" rel="noreferrer" target="_blank">CTR 2024 广告市场盘点</a></p>
+<hr/>
+<h3>2. 4A 的角色：从“全案总包”变成专业能力与采购信用的一种标识</h3>
+<p>中国 4A 聚合国际广告公司与本土大型综合代理商。赞意于 2023 年加入，公开表述把这看作成立十一年的阶段性认可。<br/>来源：<a href="https://mp.weixin.qq.com/s/VXCvOXbq_qMbfJbKFlL6uA" rel="noreferrer" target="_blank">赞意加入中国 4A</a></p>
+<h4>2.1 4A 仍有价值</h4>
+<ol><li><strong>采购信用</strong>：成熟流程、合规、财务承载、跨地区交付和人才梯队更易通过大客户供应商审查。</li><li><strong>专业分工</strong>：策略、创意、客户服务、制作、媒介与数据有相对稳定的方法和岗位语言。</li><li><strong>大型协同</strong>：国际网络和媒介集团仍能承接跨国、跨市场与大体量采购。</li></ol>
+<h4>2.2 但“4A”不再等于唯一总包</h4>
+<p>平台媒介、达人机构、内容工作室、咨询公司、技术服务商、MCN 和客户自建团队分食价值链。品牌也会按模块购买：长期品牌战略、年度社交运营、效果投放、明星/体育资产、项目创意分别交给不同供应商。广告门对车企年框比稿的行业评论明确提出“战略与核心创意、常态内容、效果营销”分模块采购是一种替代路径；这是行业观点，不是普遍制度。<br/>来源：<a href="https://www.adquan.com/article/357818" rel="noreferrer" target="_blank">广告门：年度传播比稿反思</a></p>
+<p><strong>对赞意的含义（推断）</strong>：中国 4A 身份解决“是不是合格供应商”的部分问题；真正竞争优势仍要靠专业厂牌协同与可验收结果，而非会员名号。</p>
+<hr/>
+<h3>3. 品效合一：从口号变成预算分配与组织冲突</h3>
+<p>CTR 2024 调查称，75% 广告主计划不增加预算；效果广告费用分配占比 54%，比 2023 年提升 2 个百分点。90% 受访者认同品牌与效果并非二选一，主流做法是长期品牌曝光与达人/直播转化组合。<br/>来源：<a href="https://www.ctrchina.cn/rich/report/686" rel="noreferrer" target="_blank">CTR 2024 中国广告市场趋势</a>、<a href="https://www.iadke.com/a/guanggao/toutiao/2024/0912/13639.html" rel="noreferrer" target="_blank">报告二次解读</a></p>
+<p>“品效合一”实际包含三种不同问题：</p>
+<ol><li><strong>品牌是否产生可识别的人群资产</strong>：认知、兴趣、搜索、加购等平台指标；</li><li><strong>内容是否推动交易</strong>：直播、店铺、线索或到店；</li><li><strong>长期心智是否被短期 ROI 挤压</strong>：效果归因窗口短，品牌资产回报慢。</li></ol>
+<p>赞意的 2025 巨量引擎获奖案例公开展示其用巨量云图、达人筛选与搜索/心智指标服务海尔和佳沛，说明其已进入平台营销科学协作体系；但案例中的指标由赞意/平台传播稿披露，客户财务增量和独立审计【待核实】。<br/>来源：<a href="https://www.adquan.com/article/353011" rel="noreferrer" target="_blank">广告门：赞意品效案例</a></p>
+<hr/>
+<h3>4. 抖音与小红书：不是两个媒介位，而是两套经营系统</h3>
+<p>QuestMobile 对 2024 年 1–7 月典型行业的监测称，抖音与小红书软广投放费用分别为 71.72 亿和 45.91 亿；抖音在大促前后承担高效触达和转化，小红书因搜索心智和深度内容在大促后仍具吸引力。<br/>来源：<a href="https://www.36kr.com/p/2963398954504449" rel="noreferrer" target="_blank">QuestMobile 报告的 36氪转载</a></p>
+<div class='tbl'><table><thead><tr><th>维度</th><th>抖音</th><th>小红书</th></tr></thead><tbody><tr><td>核心机制</td><td>推荐流、短视频/直播、即时反馈与交易承接</td><td>社区、搜索、收藏与深度决策</td></tr><tr><td>常见 KPI</td><td>触达、完播、转化、直播成交、人群资产</td><td>搜索、收藏、互动、口碑、种草人群</td></tr><tr><td>组织要求</td><td>快速迭代、投放与内容联动、数据操作</td><td>洞察、垂类内容、KOL/KOC 与口碑治理</td></tr><tr><td>主要风险</td><td>依赖持续投流、短期 ROI 压制品牌</td><td>商业内容同质化、归因链路较长</td></tr></tbody></table></div>
+<p>两平台均使用 5A 等人群模型，但定义不同，不能把指标机械打通。<br/>来源：<a href="https://m.36kr.com/p/2803935042614918" rel="noreferrer" target="_blank">36氪：抖音与小红书 5A 差异</a></p>
+<p><strong>对代理商的结构性影响</strong>：创意部门、媒介投放、达人采购、电商运营和数据复盘必须更近；“一支 TVC + 全网分发”不足以覆盖平台经营。</p>
+<hr/>
+<h3>5. AI 与 GEO：效率工具、服务新品和新合规负担同时出现</h3>
+<h4>5.1 AI 已从制作工具进入代理商工作流</h4>
+<p>蓝色光标 2025 年报称其 AI 已覆盖洞察、内容、投放与分析，并披露 AI 驱动收入 37.25 亿元；华扬联众公开文件把生成式内容、智能投放和效果归因列为核心竞争方向。<br/>来源：<a href="http://p.hibor.org/report/6a82f4f1191a4115a2e2d907e5071c9b.html" rel="noreferrer" target="_blank">蓝色光标 2025 年报</a>、<a href="http://big5.sse.com.cn/site/cht/www.sse.com.cn/disclosure/listedinfo/announcement/c/new/2026-04-23/603825_20260423_BG1Y.pdf" rel="noreferrer" target="_blank">华扬联众 2025 年报摘要</a></p>
+<p>赞意提出从 2026 年起，以“生意叙事 + AI”生成比稿、brief 解读、策略和创意初稿，并计划上线全域、抖音、小红书与客户专属智能体。该材料证明战略意图，不证明准确率、客户采用率和节省工时。<br/>来源：<a href="https://mp.weixin.qq.com/s/W8JF40yTSrlirmSPv0ya0w" rel="noreferrer" target="_blank">赞意 2026 Prompts for Growth</a></p>
+<h4>5.2 GEO 是真实需求方向，但市场数字污染严重</h4>
+<p>GEO 的可验证定义可以收窄为：让品牌事实、内容结构与权威来源更易被生成式搜索识别、引用和正确表达。赞意公开公司页已把“GEO 品牌可见性”纳入赞意社群业务。<br/>来源：<a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">赞意数英公司页</a></p>
+<p>网上大量“市场规模、提及率提升、几天见效”文章来自 GEO 服务商自述，来源链不透明，<strong>本稿不采用任何 GEO 市场规模与效果百分比</strong>。客户采购 GEO 前应建立基线问答集、模型/时间版本、正确率、引用质量和负面幻觉率，而不是只看“首推率”。</p>
+<h4>5.3 合规边界</h4>
+<ul><li>《生成式人工智能服务管理暂行办法》自 2023-08-15 施行，要求生成式 AI 服务遵守网络安全、数据安全、个人信息与知识产权等规则：<a href="https://www.gov.cn/zhengce/zhengceku/202307/content_6891752.htm" rel="noreferrer" target="_blank">中国政府网</a></li><li>《人工智能生成合成内容标识办法》及强制标准自 2025-09-01 施行，建立显式/隐式标识及传播核验要求：<a href="https://www.gov.cn/zhengce/zhengceku/202503/content%5F7014286.htm" rel="noreferrer" target="_blank">中国政府网</a>、<a href="https://www.miit.gov.cn/xwfb/mtbd/wzbd/art/2025/art_5e46c60f9a7141cdb584eb139f476ce9.html" rel="noreferrer" target="_blank">工信部说明</a></li></ul>
+<p>这意味着代理商的 AI 能力不仅是“更快出图”，还必须包括素材授权、事实核验、标识、提示词/版本留痕与人工审核。</p>
+<hr/>
+<h3>6. 客户为什么要“确定性”</h3>
+<p>赞意 2026 公开战略把目标写为“从做大转向做强，从提供服务转向交付确定性”，并将经验沉淀为六类产品：战略爆品上市、五全明星营销、媒介创新事件营销、事件型内容、抖红品效、物码营销。<br/>来源：<a href="https://mp.weixin.qq.com/s/W8JF40yTSrlirmSPv0ya0w" rel="noreferrer" target="_blank">赞意 2026 Prompts for Growth</a>、<a href="https://www.digitaling.com/articles/1463237.html" rel="noreferrer" target="_blank">数英：后效率时代</a></p>
+<p>这一叙事背后有五个行业原因：</p>
+<ol><li><strong>预算不扩张</strong>：可做可不做的项目更难获批；</li><li><strong>平台碎片化</strong>：同一创意难以无损迁移；</li><li><strong>采购问责</strong>：团队稳定、报价透明、风险预案、交付 SLA 都影响中标；</li><li><strong>效果归因压力</strong>：品牌、用户与销售三类回报要并列解释；</li><li><strong>AI 压价</strong>：客户会追问“既然 AI 更快，为什么服务费不降”，迫使代理商证明判断、组织和风险承担价值。</li></ol>
+<p>“确定性”应被拆为：</p>
+<ul><li><strong>过程确定性</strong>：谁做、何时交、修改与升级机制；</li><li><strong>证据确定性</strong>：数据口径、来源、可回验；</li><li><strong>风险确定性</strong>：舆情、明星、版权、AI 合规与熔断；</li><li><strong>学习确定性</strong>：项目后能否沉淀模型和复用资产；</li><li><strong>结果边界</strong>：代理商可承诺可控交付，不应无条件保证销量。</li></ul>
+<hr/>
+<h3>7. 政策、合规与采购周期</h3>
+<h4>7.1 互联网广告监管</h4>
+<p>《互联网广告管理办法》自 2023-05-01 施行，细化互联网广告主体责任和行为规范。知识介绍、体验分享、消费测评等内容附加购物链接并构成广告时，应具有可识别性；直播、弹窗等亦在监管框架内。<br/>来源：<a href="https://www.gov.cn/zhengce/202305/content_6858084.htm" rel="noreferrer" target="_blank">中国政府网全文</a></p>
+<p>中国广告协会自律规则提出：广告主采用比稿选择广告公司时，应向提供策划、创意方案的公司支付费用；这是行业自律要求，不等同强制法律。<br/>来源：<a href="http://www.china-caa.org/cnaa/showinfo/zlgz1" rel="noreferrer" target="_blank">中国广告协会自律文件</a></p>
+<h4>7.2 预算周期</h4>
+<p>公开行业文章显示，汽车等行业的年度代理比稿常集中在岁末年终，合同可能按一年或更长周期；但不同行业、集团和项目差异极大，不能外推为赞意客户的统一日历。<br/>来源：<a href="https://www.adquan.com/article/357818" rel="noreferrer" target="_blank">广告门行业评论</a></p>
+<p>以下必须作为客户级 PRIMARY 问题：</p>
+<ul><li>品牌预算何时锁定、滚动调整还是年度一次；</li><li>品牌、媒介、电商、CRM、明星/体育预算是否分池；</li><li>比稿名单由品牌、采购还是区域/总部决定；</li><li>项目金额门槛、法务与供应商准入周期；</li><li>项目制、年框、效果付费或混合收费偏好。</li></ul>
+<hr/>
+<h3>8. 对赞意的行业判断（全部为研究推断）</h3>
+<ol><li><strong>【推断】机会</strong>：赞意从年轻化创意扩到品效、社群、AI、GEO，方向与客户采购链路碎片化相匹配。</li><li><strong>【推断】风险</strong>：业务越全，越容易出现厂牌之间抢预算、重复售卖与交付责任模糊。</li><li><strong>【推断】核心验证点</strong>：所谓确定性必须落到可核指标——赢稿率、续约率、按时交付率、客户采用率、内容资产复用率、项目毛利与 AI 错误率；目前公开资料均不足。</li><li><strong>【推断】体育窗口</strong>：体育既能连接年轻文化，又需要资产采购、权益活化、内容、社群与效果复盘，理论上适合赞意全链路；但成立厂牌不等于建立资产壁垒。</li></ol>
+<h3>9. 缺口</h3>
+<ul><li>赞意 2023–2025 收入、毛利、客户集中度、续约率：非上市主体，公开无审计口径【待核实】。</li><li>六大产品的定价、SLA、客户留存与赢稿率【待核实】。</li><li>AI 智能体的模型供应商、数据隔离、评测集与责任边界【待核实】。</li><li>GEO 的行业统一标准与独立效果审计仍不成熟【待核实】。</li><li>赞意客户年度预算与采购日历必须逐客户核实，禁止套用“Q4 比稿”。</li></ul></section><section class="sec" id="r06"><div class="label">研6 - 06｜权力图与 MEDDIC：代理商采购场景</div><h2 class="sec-title">06｜权力图与 MEDDIC：代理商采购场景</h2><h2 class='md-h1'>06｜权力图与 MEDDIC：代理商采购场景</h2>
+<blockquote><p><strong>性质</strong>：冷启动权力研究，非刀子。</p><p><strong>关键边界</strong>：公开头衔不等于签字权；Economic Buyer、Champion、预算门槛与项目指标一律不能靠职位猜。</p><p><strong>时间锚</strong>：检索至 2026-08-28。</p></blockquote>
+<h3>0. 先区分两个“客户”</h3>
+<p>本案存在两层可能的采购场景：</p>
+<ol><li><strong>品牌主购买赞意服务</strong>：我们研究赞意如何赢单、谁在品牌主侧批钱；</li><li><strong>赞意购买外部体育资产/合作能力</strong>：我们希望赞意成为渠道或联合方案方，赞意内部才是买方。</li></ol>
+<p>两者的 Economic Buyer 完全不同。若不先确认合作模型，MEDDIC 会把“品牌主 CMO”和“赞意 CEO”错误塞进同一张图。</p>
+<hr/>
+<h3>1. 赞意公开组织与管理层</h3>
+<h4>1.1 公司与现任经营总责</h4>
+<div class='tbl'><table><thead><tr><th>人/单元</th><th>公开身份</th><th>可证明的职责</th><th>不可证明</th></tr></thead><tbody><tr><td><strong>刘苏 Stephy</strong></td><td>赞意创始人；亲爱男友创始人</td><td>创立赞意；公开讲品牌定位与消费品牌孵化</td><td>当前是否负责赞意日常经营、任何项目签字权【待核实】</td></tr><tr><td><strong>乌东伟（乌东面）</strong></td><td>赞意增长网络 CEO；亲爱男友创始人/联合创始团队成员（不同媒体称谓不一）</td><td>公开讲赞意经营、组织系统、生意叙事与 2026 战略</td><td>法定授权、具体采购金额门槛【待核实】</td></tr><tr><td><strong>刘文毅</strong></td><td>北京赞意互动广告传媒有限公司法定代表人（公开工商页）</td><td>工商法定代表人</td><td>与刘苏关系、实际经营角色、是否项目 EB【待核实】</td></tr><tr><td><strong>柴文进</strong></td><td>赞意体育联合创始人、董事总经理</td><td>赞意体育业务公开负责人；体育资产、赞助与活化经验</td><td>赞意体育独立预算和合同签字权【待核实】</td></tr><tr><td><strong>武美华 Penny Wu</strong></td><td>赞意合伙人、风犬娱乐总经理</td><td>明星/娱乐资产识别、签约、激活与 ROI 方法</td><td>赞意体育或集团预算权限【待核实】</td></tr><tr><td><strong>梁将军</strong></td><td>将意咨询创始人、赞意增长网络首席策略官（公开白皮书页）</td><td>生意叙事、品牌咨询与策略</td><td>对销售/采购的审批权【待核实】</td></tr><tr><td><strong>徐玮 Will</strong></td><td>赞意上海合伙人（公开职业页/历史采访）</td><td>上海办公室经营与客户管理的公开历史</td><td>2026 职务是否不变、金额权限【待核实】</td></tr></tbody></table></div>
+<p>来源：</p>
+<ul><li>刘苏与亲爱男友：<a href="https://m.36kr.com/p/1121088579006470" rel="noreferrer" target="_blank">36氪融资报道</a>、<a href="https://www.digitaling.com/articles/883896.html" rel="noreferrer" target="_blank">数英创业访谈</a></li><li>乌东伟现任 CEO：<a href="https://www.digitaling.com/articles/1257983.html" rel="noreferrer" target="_blank">数英经营访谈</a>、<a href="https://www.digitaling.com/articles/992634.html" rel="noreferrer" target="_blank">数英 CEO 访谈</a></li><li>工商主体与法定代表人：<a href="https://qiye.qizhidao.com/company/66dc465b29b19d9bc308711572f1a04d.html" rel="noreferrer" target="_blank">企知道公司页</a></li><li>柴文进与赞意体育：<a href="https://www.digitaling.com/articles/1269316.html" rel="noreferrer" target="_blank">赞意体育成立公告</a></li><li>武美华与风犬娱乐：<a href="https://www.digitaling.com/articles/1217551.html" rel="noreferrer" target="_blank">风犬娱乐成立公告</a></li><li>梁将军与研究院：<a href="https://www.yydm.cn/doc-view-49952.html" rel="noreferrer" target="_blank">生意叙事 2.0 页面</a></li><li>徐玮与上海办公室：<a href="https://www.digitaling.com/articles/365210.html" rel="noreferrer" target="_blank">数英探店</a></li></ul>
+<h4>1.2 头衔冲突处理</h4>
+<p>早期资料称刘苏为“赞意 CEO”，近年公开访谈与 2026 公司叙事称乌东伟/乌东面为“赞意增长网络 CEO”。本稿采用：</p>
+<ul><li><strong>创始人：刘苏</strong>（高置信）；</li><li><strong>现任增长网络 CEO：乌东伟</strong>（近年公开来源支持）；</li><li>刘苏当前集团正式职务、刘文毅与刘苏关系、各主体股权/授权链：<strong>【待核实】</strong>。</li></ul>
+<p>不得把名字相近或历史头衔自行合并。</p>
+<h4>1.3 专业单元</h4>
+<p>赞意 2026 公开公司页列出四个核心业务单元：</p>
+<ol><li>GoodIdea Creative &amp; IMC：创意与整合营销；</li><li>GoodIdea Media：抖音、小红书品效；</li><li>GoodIdea Engagement：账号、社群、GEO；</li><li>GoodIdea AI Growth：AI 场景诊断、工作流、Skill/智能体原型与培训。</li></ol>
+<p>另有将意咨询、万与所有、风犬娱乐、赞意体育等专业厂牌。<br/>来源：<a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">赞意数英公司页</a>、<a href="https://www.adquan.com/company/intro/1375" rel="noreferrer" target="_blank">广告门公司页</a></p>
+<hr/>
+<h3>2. 权力图：场景 A——品牌主采购赞意</h3>
+<pre>[品牌主董事长/CEO/事业部总经理]
+          │ 经营目标与超额预算
+          ▼
+[CMO/市场负责人] ── [电商/增长负责人] ── [销售/渠道负责人]
+          │                 │                     │
+          └──── brief / KPI / 业务共识 ───────────┘
+                            │
+                    [采购 + 财务 + 法务]
+                    准入/比价/合同/付款/合规
+                            │
+                         [赞意]
+          策略/创意/品效/娱乐体育/社群/AI 的组合交付</pre>
+<h4>可能的 Economic Buyer 集合</h4>
+<ul><li>年度全案或品牌战略：品牌主 CEO、事业部总经理或 CMO 之一可能承担经济决策；</li><li>平台投放/内容电商：增长、电商或媒介负责人可能掌握预算；</li><li>明星/体育大资产：品牌负责人、法务、采购与最高经营层可能共同决策；</li><li>AI 工作流：市场负责人之外，CIO/数字化、信息安全、采购可能拥有否决权。</li></ul>
+<p>以上均是<strong>角色集合，不是已确认人名</strong>。<br/><strong>Economic Buyer =【待 PRIMARY 核实】。</strong></p>
+<h4>可能的否决者</h4>
+<p>采购（供应商准入/比价）、法务（版权、肖像、排他、数据）、财务（付款与预算）、信息安全（AI 与数据）、销售渠道（无法落地时反对）。谁拥有最终 veto：<strong>【待 PRIMARY 核实】</strong>。</p>
+<hr/>
+<h3>3. 权力图：场景 B——赞意采购或联合引入体育资产</h3>
+<pre>[赞意增长网络 CEO / 合伙人团队]
+              │ 战略与资源配置【权限待核实】
+              ├──────────────┐
+              ▼              ▼
+[赞意体育：柴文进]      [相关客户负责人 / Creative &amp; IMC]
+ 资产筛选、权益设计       客户 brief、创意、交付与收入责任
+              │              │
+              └──── 联合方案 ─┘
+                         │
+       [财务 / 法务 / 采购 / 合同主体【未公开】]
+                         │
+               [体育资产方 / 赛事 / 联盟]</pre>
+<h4>两种商业关系必须二选一或明确混合</h4>
+<ol><li><strong>赞意转售/总包</strong>：赞意向品牌主签约，再采购体育资产或服务；赞意内部可能是直接 EB。</li><li><strong>联合提案/客户直签</strong>：品牌主直接购买资产，赞意提供策略与活化；品牌主仍是资产 EB，赞意是影响者或方案伙伴。</li><li><strong>共同孵化 IP</strong>：涉及出资、知识产权和收益分成；需要集团级审批的可能性更高，但<strong>【待 PRIMARY 核实】</strong>。</li></ol>
+<hr/>
+<h3>4. MEDDIC（品牌主采购赞意）</h3>
+<h4>M｜Metrics</h4>
+<p>公开案例显示赞意使用过曝光、互动、抖音人群资产、搜索、内容效率与销售等指标；风犬娱乐提出把销量、品牌资产、用户资产并列衡量。<br/>来源：<a href="https://www.adquan.com/article/353011" rel="noreferrer" target="_blank">赞意巨量案例</a>、<a href="https://www.adquan.com/article/355223" rel="noreferrer" target="_blank">风犬娱乐明星营销 3.0</a></p>
+<p>但对任何新商机，下列指标全部是<strong>【待 PRIMARY 核实】</strong>：</p>
+<ul><li>业务结果：GMV、销量、线索、到店、单客成本、渠道动销；</li><li>品牌结果：品牌搜索、心智人群、关键联想、品牌提升研究；</li><li>用户结果：可运营用户、会员、社群留存与复购；</li><li>交付结果：上线准时率、内容通过率、危机响应、资产复用；</li><li>体育结果：权益使用率、观赛/参与、社群沉淀、赞助认知与销售联动。</li></ul>
+<p>禁止用公开案例 KPI 替代新客户 KPI。</p>
+<h4>E｜Economic Buyer</h4>
+<p><strong>状态：❌【待 PRIMARY 核实】</strong></p>
+<p>必须问：</p>
+<ol><li>哪个预算池付款：品牌、媒介、电商、CRM、创新、体育还是区域市场？</li><li>谁可以最终说 yes，谁只能推荐？</li><li>多大金额需要 CEO/董事会/集团采购？</li><li>若为赞意联合体育项目，品牌主直签资产还是赞意总包？</li></ol>
+<h4>Dc｜Decision Criteria</h4>
+<p>所有下列均为<strong>采购假说【待 PRIMARY 核实】</strong>：</p>
+<ul><li>对真实业务问题的理解，而非奖项导向；</li><li>同类案例与核心团队稳定性；</li><li>策略、创意、平台、资源和执行是否能一体化；</li><li>报价透明、第三方成本与加价机制；</li><li>品牌安全、艺人/体育风险、版权与 AI 合规；</li><li>数据回传、效果归因和复盘；</li><li>能否把项目沉淀为长期品牌/用户资产。</li></ul>
+<p>公开行业自律规则提出付费比稿，但客户是否执行、比稿费金额均<strong>【待 PRIMARY 核实】</strong>。<br/>来源：<a href="http://www.china-caa.org/cnaa/showinfo/zlgz1" rel="noreferrer" target="_blank">中国广告协会自律文件</a></p>
+<h4>Dp｜Decision Process</h4>
+<p>可能流程：业务问题与预算确认 → 供应商初筛 → brief/保密协议 → 比稿或 workshop → 创意/执行/价格评审 → 采购谈判 → 法务与合规 → 签约 → 项目验收。<br/>这是行业流程假说，赞意具体客户流程<strong>【待 PRIMARY 核实】</strong>。</p>
+<p>必须确认：</p>
+<ul><li>长名单/短名单谁定；</li><li>评分权重和到会人；</li><li>是否拆包给多家；</li><li>现任代理是否拥有续约优势；</li><li>签约主体与付款账期；</li><li>未中标方案的知识产权处理。</li></ul>
+<h4>I｜Identify Pain</h4>
+<p>可由公开行业支撑的压力：预算不扩张、平台碎片化、品效归因、AI 压价与合规增加。<br/>但“哪一条痛到愿意换代理/买新项目”必须由客户原话确认：<strong>【待 PRIMARY 核实】</strong>。</p>
+<h4>C｜Champion</h4>
+<p>Champion 不是“喜欢创意的人”，而是愿意为方案调资源、透露真实流程并在内部承担声誉风险的人。</p>
+<ul><li>品牌主侧 Champion：<strong>【待 PRIMARY 核实】</strong>；</li><li>赞意侧联合体育 Champion：柴文进是公开业务负责人，但是否愿为特定合作投入政治资本：<strong>【待 PRIMARY 核实】</strong>；</li><li>任何现有引荐人是否只是信息源、教练或真正 Champion：<strong>【待 PRIMARY 核实】</strong>。</li></ul>
+<h4>P｜Paper Process</h4>
+<p>全部<strong>【待 PRIMARY 核实】</strong>：</p>
+<ul><li>供应商入库、比价/招标、反商业贿赂；</li><li>NDA、版权、肖像、音乐、赛事素材与品类排他；</li><li>AI 生成内容标识、数据安全、模型输入边界；</li><li>付款里程碑、验收、税率、账期；</li><li>取消赛事/艺人舆情/不可抗力与熔断；</li><li>数据归属、案例发布权和奖项申报权。</li></ul>
+<hr/>
+<h3>5. MEDDIC（赞意作为体育合作对象）</h3>
+<div class='tbl'><table><thead><tr><th>字段</th><th>当前可知</th><th>状态</th></tr></thead><tbody><tr><td>M</td><td>赞意体育公开提出“品牌提升、社群链接、资产沉淀”；无客户级量表</td><td>【待 PRIMARY 核实】</td></tr><tr><td>E</td><td>乌东伟负责增长网络经营；柴文进负责体育业务；具体签批未知</td><td>【待 PRIMARY 核实】</td></tr><tr><td>Dc</td><td>年轻化、产品化、品牌化、社群化、国际化为公开主张，不等于采购标准</td><td>【待 PRIMARY 核实】</td></tr><tr><td>Dp</td><td>资产筛选—权益设计—活化—整合营销为公开服务链；内部决策流程未知</td><td>【待 PRIMARY 核实】</td></tr><tr><td>I</td><td>赞意希望把非标服务变为“确定性交付”；对外部合作的真实缺口未知</td><td>【待 PRIMARY 核实】</td></tr><tr><td>C</td><td>柴文进是自然业务接口，但 Champion 未证</td><td>【待 PRIMARY 核实】</td></tr><tr><td>P</td><td>合同主体、转售权、排他、分成、案例权均未知</td><td>【待 PRIMARY 核实】</td></tr></tbody></table></div>
+<hr/>
+<h3>6. 首次会面必须拿到的 12 个事实</h3>
+<ol><li>本次关系是卖给赞意、与赞意联合卖，还是品牌主直签；</li><li>赞意体育 2026 的收入目标和优先行业；</li><li>柴文进的预算/签约权限；</li><li>集团 CEO、客户负责人、体育负责人之间的 RACI；</li><li>现有客户 brief 中最常见的体育诉求；</li><li>赞意缺的是资产、销售线索、交付产能还是方法；</li><li>品牌主常用的项目 KPI 原话；</li><li>资产费、服务费、媒介费是否分开；</li><li>谁承担赛事取消、权益冲突与舆情风险；</li><li>客户/赞意谁拥有数据、内容和案例发布权；</li><li>从首次 brief 到合同的平均节点（不要求先报平均天数）；</li><li>什么证据足以让赞意愿意把外部合作方带进客户会议。</li></ol>
+<h3>7. 冷启动裁决</h3>
+<ul><li>公开资料足以确认：赞意有增长网络 CEO、专业厂牌负责人和多单元协同结构。</li><li>公开资料不足以确认：任何具体商机的 EB、Champion、指标、金额、采购流程。</li><li>当前 MEDDIC 状态：<strong>M/Dc 有行业假说；E/Dp/C/P 均未闭环</strong>。</li><li>在 PRIMARY 完成前，不得说“柴文进会拍板”“乌东伟一定批预算”或“品牌 CMO 就是买方”。</li></ul></section><section class="sec" id="r07"><div class="label">研7 - 赞意广告 · 组织与品牌单元边界</div><h2 class="sec-title">赞意广告 · 组织与品牌单元边界</h2><h2 class='md-h1'>赞意广告 · 组织与品牌单元边界</h2>
+<blockquote><p>研究截止：2026-08-28。核心纪律：<strong>对外品牌名 ≠ 法律主体</strong>；混写会把 DTC 销售额误读成代理营收。</p></blockquote>
+<h3>一、法律主体（当前可查）</h3>
+<div class='tbl'><table><thead><tr><th>名称</th><th>角色</th><th>证据</th><th>状态</th></tr></thead><tbody><tr><td>北京赞意互动广告传媒有限公司</td><td>主法律实体（成立 2012-07-04；法人刘文毅；注册资本 500 万）</td><td>工商聚合页，见 <code>01_IR_financial.md</code></td><td>⚠️ 待政府原件</td></tr><tr><td>北京他颜科技有限公司</td><td>「亲爱男友」运营主体线索</td><td>36氪/聚合页</td><td>⚠️</td></tr><tr><td>上海万与所有广告有限公司</td><td>「万与所有」设计品牌主体线索</td><td>数英等</td><td>⚠️ 股权关系待核</td></tr><tr><td>「将意咨询」</td><td>梁将军与赞意联合创立（2021 口径）</td><td><a href="https://www.digitaling.com/company/42181" rel="noreferrer" target="_blank">数英公司页</a></td><td>品牌✅；法人【待核实】</td></tr><tr><td>「赞意体育」</td><td>2024-09 厂牌；数英页示规模 0–10 人</td><td><a href="https://www.digitaling.com/company/49433" rel="noreferrer" target="_blank">数英</a></td><td>厂牌✅；是否独立法人【待核实】</td></tr></tbody></table></div>
+<p>官网办公地址（非必然等于工商登记）：北京东四十条亮点文创园；上海瑞虹企业天地。<a href="https://www.goodideamedia.com/" rel="noreferrer" target="_blank">官网</a></p>
+<h3>二、2022 矩阵（赞意 10 周年自述）</h3>
+<p>来源：<a href="https://www.digitaling.com/articles/693398.html" rel="noreferrer" target="_blank">赞意10岁上新</a>（B）</p>
+<div class='tbl'><table><thead><tr><th>单元</th><th>公开职责</th></tr></thead><tbody><tr><td>赞意</td><td>年轻人洞察的生意型创意品效战役（品牌升级、新品、电商、娱乐、ESG 等）</td></tr><tr><td>将意咨询</td><td>品牌定位、内容架构、体验交付</td></tr><tr><td>OAA 万与所有</td><td>VI / 包装 / 品牌书等视觉</td></tr><tr><td>条条起量</td><td>抖音等平台内容电商品效</td></tr><tr><td>赞意增长</td><td>微信生态用户 / 私域 / CLV</td></tr></tbody></table></div>
+<p>集团对外名：<strong>赞意增长网络 Goodidea Growth Network（GGN）</strong>。</p>
+<h3>三、2025–2026 认证主页矩阵（数英）</h3>
+<p>来源：<a href="https://www.digitaling.com/company/11176" rel="noreferrer" target="_blank">数英赞意主页</a></p>
+<div class='tbl'><table><thead><tr><th>单元</th><th>公开职责</th></tr></thead><tbody><tr><td>赞意创意与整合营销 GoodIdea Creative &amp; IMC</td><td>Big Idea → 跨渠道执行</td></tr><tr><td>赞意品效 GoodIdea Media</td><td>抖音 / 小红书种草与效果</td></tr><tr><td>赞意社群 GoodIdea Engagement</td><td>用户资产 + GEO / AI 可见性</td></tr><tr><td>赞意 AI 增长 GoodIdea AI Growth</td><td>AI 营销工作流 / Marketing FDE</td></tr></tbody></table></div>
+<p><strong>推断（须标）</strong>：2022「五大服务」与 2026「四大单元」是同一网络的不同对外切片，不是两家公司。条条起量 / 将意 / 万与所有是否仍独立对外获客 → 【待 PRIMARY】。</p>
+<h3>四、关键人物（公开）</h3>
+<div class='tbl'><table><thead><tr><th>人</th><th>公开身份</th><th>注意</th></tr></thead><tbody><tr><td>乌东伟 / 乌东面</td><td>CEO / 合伙人；双名公开映射见原话库</td><td>法定名以证件为准</td></tr><tr><td>梁将军</td><td>将意相关；与乌东面播客对谈</td><td></td></tr><tr><td>柴文进</td><td>赞意体育联合创始人、董事总经理（2024-09-26）</td><td><a href="https://www.digitaling.com/articles/1269316.html" rel="noreferrer" target="_blank">数英官宣</a></td></tr><tr><td>刘文毅</td><td>工商法定代表人</td><td>与日常对外「CEO 乌东伟」不是同一公开角色</td></tr></tbody></table></div>
+<h3>五、亲爱男友（DTC）</h3>
+<ul><li>公司叙事：赞意孵化运营的男士理容 DTC；累计销售额有「至 2022 底 5 亿 / 3 年」「至 2025 年 7 亿」两档公司口径（见溯源表）。</li><li><strong>禁止</strong>：把该数字当北京赞意互动营收或利润。</li></ul>
+<h3>六、对合作方的含义</h3>
+<p>若我方面向赞意谈体育资产 / 中台能力：</p>
+<ol><li>进门可能是 <strong>赞意体育（柴文进线）</strong> 或 <strong>创意 IMC / 品效</strong>（品牌客户战役线）。</li><li>决策可能落到 <strong>GGN 合伙人层（乌东伟）</strong>，不是登记法人刘文毅。</li><li>交付边界要问清：是厂牌分包，还是主合同仍落在北京赞意互动。</li></ol></section><section class="sec" id="r08"><div class="label">研8 - 08｜横纵完整版（代理商视角）</div><h2 class="sec-title">08｜横纵完整版（代理商视角）</h2><h2 class='md-h1'>08｜横纵完整版（代理商视角）</h2>
+<blockquote><p>研究截止：2026-08-28。冰山承重篇；≥50% 内容默认不进 pitch。</p></blockquote>
+<h3>横轴：竞品与替代</h3>
+<div class='tbl'><table><thead><tr><th>替代选项</th><th>客户为何选它</th><th>赞意钢人反击点</th><th>证据温度</th></tr></thead><tbody><tr><td>本土内容集团（如胜加类）</td><td>社会级作品、长期品牌叙事</td><td>赞意强调品效闭环 + 年轻娱乐资产</td><td>见 <code>04</code></td></tr><tr><td>数据/采购平台型（如时趣类）</td><td>降本、匹配、规模化内容生产</td><td>赞意强调生意叙事与战役创意</td><td>见 <code>04</code></td></tr><tr><td>国际 4A</td><td>全球治理、大客户合规</td><td>赞意：本土年轻化速度 + 4A 身份</td><td>2023 入会</td></tr><tr><td>客户内建内容/直播团队</td><td>控成本、沉淀私域</td><td>代理仍提供非标创意与跨品牌方法论</td><td>【待核实】比例</td></tr><tr><td>平台直客（抖音/小红书销售）</td><td>流量与工具一体</td><td>赞意品效自称懂机制与达人</td><td>自述</td></tr><tr><td><strong>体育营销专项公司 / 权益方直销</strong></td><td>资产真、赛程清</td><td>赞意体育主张「资产+玩法」一站式，但厂牌新、公开交付清单薄</td><td>见 <code>11</code></td></tr></tbody></table></div>
+<h3>纵轴：战略 → 组织 → 产品 → 交付 → 商业模式</h3>
+<ol><li><strong>战略</strong>：2012 成立 → 娱乐/年轻化 → 2022 GGN 五大服务 → 2023 中国 4A → 2024 赞意体育 → 2026「确定性增长 / AI」。</li><li><strong>组织</strong>：合伙人网络 + 多品牌单元；法人与品牌名分离（见 <code>07</code>）。</li><li><strong>产品</strong>：战役创意、品效、私域、咨询、视觉、体育厂牌、AI 工作流；2026 称梳理明星营销等 6 大产品【以公司稿为准，细节待核】。</li><li><strong>交付</strong>：项目制为主；标准化/AI 化是公开方向，成熟度【待核实】。</li><li><strong>商业模式</strong>：代理费/项目费（未披露）；另有 DTC「亲爱男友」叙事（销售额≠代理营收）。</li></ol>
+<h3>不进 pitch 的块</h3>
+<ul><li>注册资本、员工区间拼增长曲线</li><li>亲爱男友 GMV 当赞意财力证明</li><li>竞品黑材料与未证实丢户传闻</li><li>对「确定性」口号的冷嘲（可在证伪里攻击，不当开场羞辱）</li></ul>
+<h3>对刀刃的唯一承重句（候选，待 ifalsify）</h3>
+<blockquote><p>赞意正把公司故事写成「可预期的增长系统」，同时又新开了一条天然高不确定的体育资产线——<strong>系统要的是可复盘试点，不是再多一个年轻口号。</strong></p></blockquote></section><section class="sec" id="r09"><div class="label">研9 - 09｜查了但不进 pitch</div><h2 class="sec-title">09｜查了但不进 pitch</h2><h2 class='md-h1'>09｜查了但不进 pitch</h2>
+<div class='tbl'><table><thead><tr><th>主题</th><th>为何查</th><th>为何不说</th><th>若客户主动问起</th></tr></thead><tbody><tr><td>亲爱男友累计 5 亿 / 7 亿</td><td>公司实力叙事</td><td>易被听成赞意营收；口径是品牌交易额、公司自述</td><td>「那是 DTC 品牌销售口径，和代理账单分开看」</td></tr><tr><td>员工 120+ / 201–500 / 0–10（体育）</td><td>规模感</td><td>统计边界与时间不同，拼曲线=编造</td><td>问编制与外包比例</td></tr><tr><td>法定代表人刘文毅 vs CEO 乌东伟</td><td>决策链</td><td>易变成八卦或质疑合法性</td><td>确认签约主体与业务决策人</td></tr><tr><td>竞品失败案例传闻</td><td>steelman 需要</td><td>无一级证据则是黑材料</td><td>只谈可公开对标维度</td></tr><tr><td>体育厂牌规模 0–10</td><td>能力边界</td><td>开场贬低对方新业务=破局失败</td><td>问 12 个月交付清单</td></tr><tr><td>未公开的丢户名单</td><td>MEDDIC</td><td>零公开来源</td><td>PRIMARY 三问之一</td></tr><tr><td>广告业「后效率时代」宏大评论</td><td>行业语境</td><td>易变行业课，刀刃忌科普</td><td>压缩成一句客户语言</td></tr></tbody></table></div>
+<p><strong>原则</strong>：不说不等于不知；知而不说写在本文件，防止下游重复挖井或误把禁忌当卖点。</p></section><section class="sec" id="r10"><div class="label">研10 - 10｜确定性增长系统：公开叙事如何变成评审语言</div><h2 class="sec-title">10｜确定性增长系统：公开叙事如何变成评审语言</h2><h2 class='md-h1'>10｜确定性增长系统：公开叙事如何变成评审语言</h2>
+<blockquote><p>冰山加厚篇 · 对标 BYD/Geely 金标厚度 · 2026-08-28</p></blockquote>
+<h3>一、公开叙事（B）</h3>
+<p>赞意 2026 方向稿强调：品牌要的是风险被理解、决策有依据、结果可预期；公司从「做大广告公司」转向「交付确定性」。人才 PATH、生意叙事方法论、产品化与 AI 智能体是公开抓手。<br/>来源线索：微信「Prompts for Growth」、数英「后效率时代」稿。</p>
+<h3>二、对合作方意味着什么</h3>
+<p>若对方真把确定性当操作系统，则外部方案会被问：</p>
+<ol><li>过线标准是什么？</li><li>谁有权停？</li><li>90 天留下什么可比较的学习？</li></ol>
+<p><strong>体育若答不出这三问，就会被系统当成噪声。</strong></p>
+<h3>三、与体育厂牌的交汇</h3>
+<p>见 <code>11</code>：厂牌主张「资产+玩法一站式」。一站式若无闸门，只是服务范围变宽，不是确定性升级。</p>
+<h3>四、不进 pitch</h3>
+<ul><li>把 PATH/AI 产品细节当已落地事实（成熟度【待核实】）</li><li>嘲笑「确定性」口号</li></ul>
+<h3>五、对跳出盒子的承重</h3>
+<p>A 概念「体育胜率闸门」直接吃这一篇：没有系统语言，闸门没有宿主。</p></section><section class="sec" id="r11"><div class="label">研11 - 11｜年轻化 · 娱乐 · 体育营销（专项）</div><h2 class="sec-title">11｜年轻化 · 娱乐 · 体育营销（专项）</h2><h2 class='md-h1'>11｜年轻化 · 娱乐 · 体育营销（专项）</h2>
+<blockquote><p>研究截止：2026-08-28。对体育资产合作方最相关的一篇。</p></blockquote>
+<h3>一、一句话</h3>
+<p>赞意长期卖「连接年轻人」；<strong>2024-09-26 才官宣「赞意体育」厂牌</strong>。此前有体育节点内容（如伊利×CBA），但公开侧尚无「已规模化赞助采购台账」。</p>
+<h3>二、官宣事实（B）</h3>
+<p>来源：<a href="https://www.digitaling.com/articles/1269316.html" rel="noreferrer" target="_blank">数英 · 赞意增长网络宣布正式开启体育营销新业务</a>（2024-09-26，作者授权）</p>
+<div class='tbl'><table><thead><tr><th>点</th><th>原文要点</th></tr></thead><tbody><tr><td>动作</td><td>进军中国体育营销；成立「赞意体育」厂牌</td></tr><tr><td>CEO</td><td>乌东伟：体育是连接年轻一代的桥梁</td></tr><tr><td>负责人</td><td>柴文进：联合创始人、董事总经理</td></tr><tr><td>宣言</td><td>PLAY FOR YOUNG</td></tr><tr><td>模式主张</td><td>体育资产 + 创新玩法一站式：选资产 → 权益设计 → 活化 → 匹配品牌整体营销</td></tr><tr><td>批评对象</td><td>同质化、形式化体育营销；赞助/活化/品推分离的传统方式</td></tr><tr><td>五化</td><td>年轻化、产品化、品牌化、社群化、国际化</td></tr></tbody></table></div>
+<p>柴文进履历（同文）：FORMULA E、排超、2023 亚洲杯、爱奇艺/腾讯/优酷体育等商业化与品牌推广经验；农夫山泉、海尔、青岛啤酒、露露等赞助策略经验。<strong>这些是个人履历，不是赞意体育已交付清单。</strong></p>
+<p>数英「赞意体育」主页：创立 2024；规模展示 0–10 人；地址北京朝阳西大望路爱机工场。<a href="https://www.digitaling.com/company/49433" rel="noreferrer" target="_blank">数英公司页</a></p>
+<h3>三、更早的体育内容能力（非厂牌）</h3>
+<ul><li>2020 伊利脱脂纯牛奶 × CBA《回到场上》：<a href="https://www.digitaling.com/articles/332275.html" rel="noreferrer" target="_blank">数英</a></li><li>说明：赞意创意侧碰过体育赛事节点；<strong>不等于</strong>已有稳定赞助权益供应链。</li></ul>
+<h3>四、与「确定性增长」叙事的张力（推断）</h3>
+<p>2026 公司主叙事是从广告公司走向「确定性增长伙伴」（生意叙事 + 产品化 + AI）。<br/>体育营销天然高不确定性（赛程、舆情、权益落地、销售归因）。</p>
+<p><strong>【推断】</strong>赞意体育若要嵌进「确定性」故事，必须能回答：资产怎么选、试点怎么验、90 天内可复盘什么——否则会被客户当成又一个「年轻玩法」供应商。这正是外部体育资产/中台合作可切入的缝。</p>
+<h3>五、会面可问（进 PRIMARY，不进刀）</h3>
+<ol><li>赞意体育是否独立签单？主合同落在哪个法人？</li><li>过去 12 个月已落地的赞助/活化项目清单（可匿名）？</li><li>与创意 IMC / 品效如何分成与协作？</li><li>客户要「确定性」时，体育提案如何过内部胜率评审？</li></ol>
+<h3>六、不进 pitch</h3>
+<ul><li>柴文进履历里的国际赛事名称堆砌（易变成人事吹捧）</li><li>未核实的「年青人热爱的文化体育公司」愿景口号当事实</li><li>把数英「0–10 人」写成嘲讽点（可能滞后或仅厂牌编制）</li></ul></section><section class="sec" id="r12"><div class="label">研12 - 12｜体育采购路径：代理商怎么买 / 怎么卖</div><h2 class="sec-title">12｜体育采购路径：代理商怎么买 / 怎么卖</h2><h2 class='md-h1'>12｜体育采购路径：代理商怎么买 / 怎么卖</h2>
+<h3>可能路径（行业结构 · 标推断处已标明）</h3>
+<div class='tbl'><table><thead><tr><th>路径</th><th>谁签主合同</th><th>赞意角色</th><th>风险</th></tr></thead><tbody><tr><td>品牌主直采权益</td><td>品牌主</td><td>活化/内容</td><td>代理被架空</td></tr><tr><td>代理总包</td><td>赞意主体</td><td>选资产+创意+执行</td><td>要闸门与熔断</td></tr><tr><td>联合提案</td><td>双方/三方</td><td>策略+创意</td><td>分成与归属撕扯</td></tr><tr><td>只卖策略不碰权益</td><td>咨询口径</td><td>将意/IMC</td><td>难碰体育厂牌 KPI</td></tr></tbody></table></div>
+<p><strong>【推断】</strong>赞意体育官宣的「一站式」更接近总包叙事；是否真有采购权与预算【待 PRIMARY】。</p>
+<h3>对权益方的含义</h3>
+<ul><li>先问路径，再报价。</li><li>若路径=直采，改谈「如何成为赞意路由台的优选模块」（概念 B）。</li><li>若路径=总包，先过闸门 A。</li></ul>
+<h3>查了不说</h3>
+<p>未证实的分成比例、未公开的独家协议。</p></section><section class="sec" id="r13"><div class="label">研13 - 13｜客户组合 × 体育试验适配（公开客户池）</div><h2 class="sec-title">13｜客户组合 × 体育试验适配（公开客户池）</h2><h2 class='md-h1'>13｜客户组合 × 体育试验适配（公开客户池）</h2>
+<blockquote><p>只基于公开出现过的客户名，<strong>不宣称现任 AOR</strong>。</p></blockquote>
+<h3>适配假说（须会面验证）</h3>
+<div class='tbl'><table><thead><tr><th>客户类型（公开出现）</th><th>可能的体育 Job</th><th>路由提示</th></tr></thead><tbody><tr><td>快消（伊利/康师傅/亨氏等）</td><td>节点心智、渠道动员</td><td>小场次/内容节点模板</td></tr><tr><td>平台（美团/天猫/抖音等）</td><td>场景证明、流量协同</td><td>慎大赞助；重可停试验</td></tr><tr><td>汽车（北京现代等）</td><td>体验/试驾相关</td><td>与 BYD 类命题不同，勿套用</td></tr><tr><td>潮玩（泡泡玛特）</td><td>人群情绪</td><td>娱乐资产可能优先于传统体育</td></tr><tr><td>DTC 亲爱男友</td><td>自有品牌试验田</td><td>利益冲突：代理 vs 自有品牌资源抢夺【待核实】</td></tr></tbody></table></div>
+<h3>纪律</h3>
+<p>名单=历史可见；续约未知。B 概念「路由台」用问题卡片，不绑死客户名对外宣传。</p></section><section class="sec" id="r14"><div class="label">研14 - 14｜联合销售与反证：为什么这两个创意可能不该做</div><h2 class="sec-title">14｜联合销售与反证：为什么这两个创意可能不该做</h2><h2 class='md-h1'>14｜联合销售与反证：为什么这两个创意可能不该做</h2>
+<h3>支持做的条件</h3>
+<ol><li>存在体育预算或可挤占的试验额度；</li><li>决策人认可「与品效同一胜率表」；</li><li>签单主体清晰；</li><li>至少接受桌面闸门演练。</li></ol>
+<h3>不该做的红灯（对应 ifalsify）</h3>
+<div class='tbl'><table><thead><tr><th>红灯</th><th>动作</th></tr></thead><tbody><tr><td>体育只是 PR 故事</td><td>KILL 体育主刀</td></tr><tr><td>拒绝熔断</td><td>不报价</td></tr><tr><td>只要资产清单不要字段</td><td>不是买家</td></tr><tr><td>把外部方当临时劳务</td><td>关系不对等，停</td></tr><tr><td>用亲爱男友 GMV 催大预算</td><td>口径错误，停</td></tr></tbody></table></div>
+<h3>对跳出盒子的约束</h3>
+<p>A/B 都是<strong>条件创意</strong>：L0 未关前只作结构讨论，不作为已售产品。</p></section><section class="sec" id="r15"><div class="label">研15 - 赞意广告 · research 索引</div><h2 class="sec-title">赞意广告 · research 索引</h2><h2 class='md-h1'>赞意广告 · research 索引</h2>
+<blockquote><p>2026-08-28 · 对标比亚迪/吉利国际游说金标结构</p></blockquote>
+<h3>文件</h3>
+<div class='tbl'><table><thead><tr><th>文件</th><th>职责</th></tr></thead><tbody><tr><td>01</td><td>无 IR 边界 + 工商</td></tr><tr><td>02</td><td>高管原话库</td></tr><tr><td>03</td><td>合作史时间线</td></tr><tr><td>04</td><td>竞品钢人</td></tr><tr><td>05</td><td>行业语境</td></tr><tr><td>06</td><td>权力 / MEDDIC</td></tr><tr><td>07</td><td>组织与品牌单元</td></tr><tr><td>08</td><td>横纵完整版</td></tr><tr><td>09</td><td>查了不说</td></tr><tr><td>10</td><td>确定性系统叙事</td></tr><tr><td>11</td><td>体育 / 年轻化专项</td></tr><tr><td>12</td><td>体育买/卖路径</td></tr><tr><td>13</td><td>客户池 × 体育适配</td></tr><tr><td>14</td><td>联合销售反证</td></tr><tr><td>README</td><td>本索引</td></tr></tbody></table></div>
+<h3>时间锚</h3>
+<p>2012 成立 · 2022 GGN · 2023 中国 4A · 2024-09 赞意体育 · 2026 确定性增长</p>
+<h3>跳出盒子</h3>
+<p><code>../pitchvision/</code> · A 体育胜率闸门 · B 品牌主体育路由台</p>
+<h3>最大缺口（PRIMARY）</h3>
+<p>工商原件 · 现任客户 · 体育预算/交付 · 决策链</p></section>
+  <p class="foot">赞意广告 Goodidea · 生成自 case MD 真源 · 单文件导出供离机审阅</p>
+</main>
+</div>
+</body>
+</html>

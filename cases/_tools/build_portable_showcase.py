@@ -207,7 +207,15 @@ def load_md(path: Path) -> tuple[str, str]:
     return md_to_html(path.read_text(encoding="utf-8"))
 
 
-def build(slug: str, brand: str, outfile: str, claim: str, concept_names: list[str]) -> Path:
+def build(
+    slug: str,
+    brand: str,
+    outfile: str,
+    claim: str,
+    concept_names: list[str],
+    *,
+    also_copy_to: Path | None = None,
+) -> Path:
     case = CASES / slug
     toc: list[tuple[str, str, str]] = []  # group, id, label
     parts: list[str] = []
@@ -262,11 +270,19 @@ def build(slug: str, brand: str, outfile: str, claim: str, concept_names: list[s
             last_g = g
         toc_html.append(f'<a href="#{html.escape(aid)}">{html.escape(label)}</a>')
 
+    has_xbox = any(aid.startswith("xbox-") for _, aid, _ in toc)
+    if has_xbox and concept_names:
+        mid = (
+            f'<a href="#xbox-1"><strong>③ {html.escape(LABEL)}</strong>'
+            f"{html.escape(concept_names[0])}</a>"
+        )
+    else:
+        mid = '<a href="#primary"><strong>③ PRIMARY</strong>三问 + 72h</a>'
     hero_cards = f"""
     <div class="cards">
       <a href="#one"><strong>① 一页纸</strong>会前对齐</a>
       <a href="#knife"><strong>② 刀刃</strong>10 分钟开门</a>
-      <a href="#xbox-1"><strong>③ {html.escape(LABEL)}</strong>{html.escape(concept_names[0] if concept_names else '创意')}</a>
+      {mid}
       <a href="#a"><strong>④ 深谈 A</strong>判断层</a>
       <a href="#r01"><strong>⑤ 冰山</strong>最厚调研</a>
       <a href="#ifalsify"><strong>证伪</strong>CONDITIONAL</a>
@@ -322,6 +338,11 @@ def build(slug: str, brand: str, outfile: str, claim: str, concept_names: list[s
     copy.write_text(doc, encoding="utf-8")
     print(f"wrote {out} ({out.stat().st_size/1024:.1f} KB)")
     print(f"copy  {copy}")
+    if also_copy_to is not None:
+        also_copy_to = Path(also_copy_to)
+        also_copy_to.parent.mkdir(parents=True, exist_ok=True)
+        also_copy_to.write_text(doc, encoding="utf-8")
+        print(f"copy  {also_copy_to}")
     return out
 
 
@@ -339,6 +360,22 @@ def main() -> None:
         "GEELY_全案入口_可转发.html",
         "让 100 个市场不复制中国，也不让 100 个市场各自重新发明吉利——World+ 的地方真实，与 One Geely 的可学习协同，要靠协议而不靠更大声量。",
         ["World+ Market Twin 市场孪生学习协议", "Trust Passport Network 信任护照网络"],
+    )
+    build(
+        "赞意广告",
+        "赞意广告 Goodidea",
+        "赞意广告_全案入口_可转发.html",
+        "他们已把增长写成确定性系统；体育厂牌新开。下一道门不是更年轻的口号，而是体育能否进同一张胜率表——先闸门，再路由。",
+        ["体育胜率闸门 Sports Certainty Gate", "品牌主体育路由台 Client Sports Router"],
+    )
+    nio_compare = CASES / "nio" / "compare" / "1_AI_Force" / "蔚来NIO_全案入口_可转发_离机可读.html"
+    build(
+        "nio",
+        "蔚来 NIO",
+        "NIO_全案入口_可转发.html",
+        "姚明与申花已证明两种体育逻辑；乐道破万峰值未成台阶。下一道门不是统一热度，而是三品牌分层 OS——精神 / 家庭社群 / 青年触点，任一层可单独成立。",
+        [],
+        also_copy_to=nio_compare,
     )
 
 

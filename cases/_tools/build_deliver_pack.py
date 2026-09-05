@@ -405,6 +405,7 @@ def build_case(slug: str, *, do_pdf: bool) -> None:
     brand = {
         "byd": "比亚迪 BYD",
         "geely-international": "吉利国际 Geely International",
+        "赞意广告": "赞意广告 Goodidea",
     }.get(slug, slug)
     out = case / "deliver"
     out.mkdir(parents=True, exist_ok=True)
@@ -482,10 +483,10 @@ python3 cases/_tools/build_deliver_pack.py {slug} --pdf
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("slug", choices=["byd", "geely-international", "all"])
+    ap.add_argument("slug", choices=["byd", "geely-international", "赞意广告", "all"])
     ap.add_argument("--pdf", action="store_true", help="Chrome headless → deliver/pdf/")
     args = ap.parse_args()
-    slugs = ["byd", "geely-international"] if args.slug == "all" else [args.slug]
+    slugs = ["byd", "geely-international", "赞意广告"] if args.slug == "all" else [args.slug]
     for s in slugs:
         build_case(s, do_pdf=args.pdf)
 

@@ -5,8 +5,8 @@ alwaysApply: true
 
 # 自建引擎 · 工程经理记忆
 
-1. **先读** `docs/ENGINEERING_PROGRAM.md`。北星：本机界面+品质证明 → 说服 → 公司云全员 sales。
-2. **当前 = 期 L**。期 C（公司云/Cloud Agent/全员自助）未说服前不要擅自开工。
-3. 路演：先开 `路演/README.md`（或 `python3 -m engine.serve` → `/路演/`）；启动：`python3 -m engine.serve`。
-4. 橱窗 `路演/`（成品链）+ `ui/`+`cases/` 真源；`engine/` 展示可审计门禁；DeepSeek 一键 ≠ 终态。
+1. **先读** `docs/ENGINEERING_PROGRAM.md`，并遵守 **双轨**（见同目录 `dual-track-lobby.mdc`）。
+2. **轨 A = 产品机**：`20260824 rebuild` + DeepSeek；期 L；不做期 C。
+3. **轨 B = 游说金标**：用户报公司名 → 按 BYD/Geely 标准交齐 → Desktop 离机单文件；禁止再三请示。
+4. 路演：`路演/README.md` 或 `python3 -m engine.serve`；橱窗链 `cases/` 金标，DeepSeek 一键 ≠ 终态。
 5. 借 mason 思路，不接其生产机。

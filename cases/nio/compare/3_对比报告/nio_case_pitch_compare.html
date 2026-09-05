@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>蔚来 NIO · Pitch 对比 · AI Force vs BD Force</title>
+<style>
+:root{
+  --ink:#152028;--muted:#5a6a76;--line:#c9d2da;--bg:#eef2f4;--paper:#fbfcfd;--panel:#ffffff;
+  --accent:#1d4ed8;--accent-soft:#dbeafe;--warn:#8a5a12;--warn-soft:#f7efd9;
+  --kill:#9b2c2c;--kill-soft:#f8e8e8;--ok:#1a6b45;--ok-soft:#edf7f1;--chip:#dce6ec;
+  --ours:#1d4ed8;--theirs:#7c3aed;--theirs-soft:#ede9fe;
+}
+*{box-sizing:border-box}html,body{margin:0}
+body{
+  font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB",sans-serif;color:var(--ink);
+  background:radial-gradient(1200px 500px at 8% -10%, #d9e4f5 0%, transparent 55%),
+             radial-gradient(900px 420px at 100% 0%, #e8e0f5 0%, transparent 50%),var(--bg);
+  font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased;
+}
+.page{max-width:980px;margin:20px auto 40px;padding:24px 26px 30px;background:var(--paper);border:1px solid var(--line);box-shadow:0 10px 36px rgba(21,32,40,.06)}
+.top{padding-bottom:14px;margin-bottom:12px;border-bottom:2px solid var(--ink)}
+.brand{font-size:22px;font-weight:750;margin:0;line-height:1.25}
+.brand span{color:var(--accent);font-weight:650;font-size:14px;margin-left:8px}
+.sub{margin:8px 0 0;color:var(--muted);font-size:13px}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.badge{font-size:12px;font-weight:700;padding:4px 9px;border:1px solid var(--line);background:var(--chip)}
+.badge.ours{background:var(--accent-soft);border-color:#bfdbfe;color:var(--ours)}
+.badge.theirs{background:var(--theirs-soft);border-color:#ddd6fe;color:var(--theirs)}
+.badge.cond{background:var(--warn-soft);border-color:#e0c788;color:var(--warn)}
+.verdict{background:linear-gradient(90deg,var(--accent-soft),#f3f6f8 65%);border-left:4px solid var(--accent);padding:14px 16px;margin:14px 0 18px}
+.verdict .lead{font-size:16px;font-weight:700;margin:0 0 8px}
+.verdict p{margin:0 0 6px;font-weight:500}
+.verdict p:last-child{margin:0}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px 12px;margin:0 0 18px;padding:10px 12px;background:#f4f7f9;border:1px solid var(--line);font-size:13px}
+nav.toc a{color:var(--accent);text-decoration:none;font-weight:650}
+nav.toc a:hover{text-decoration:underline}
+h2{font-size:17px;margin:28px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+h2 .n{color:var(--accent);margin-right:6px}
+h3{font-size:15px;margin:14px 0 8px;color:var(--accent)}
+p{margin:0 0 10px}
+.block{background:var(--panel);border:1px solid var(--line);padding:14px 16px;margin:0 0 12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.col-ours{border-top:3px solid var(--ours)}
+.col-theirs{border-top:3px solid var(--theirs)}
+.lbl{display:inline-block;font-size:11px;font-weight:750;padding:3px 8px;margin-bottom:8px;border:1px solid}
+.lbl.ours{background:var(--accent-soft);border-color:#bfdbfe;color:var(--ours)}
+.lbl.theirs{background:var(--theirs-soft);border-color:#ddd6fe;color:var(--theirs)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin:0 0 10px}
+th,td{border-bottom:1px solid var(--line);padding:8px 9px;text-align:left;vertical-align:top}
+th{color:var(--muted);font-weight:650;font-size:12px;background:#f4f7f9}
+tr:last-child td{border-bottom:none}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:650}
+.em{font-weight:700}
+.win{color:var(--ok);font-weight:700}
+.draw{color:var(--warn);font-weight:650}
+.up{color:var(--ok)}.down{color:var(--kill)}
+ul.facts{margin:6px 0 8px;padding-left:20px}
+ul.facts li{margin:0 0 6px}
+.quote{border-left:3px solid var(--line);padding:10px 12px;margin:8px 0;background:#f7f9fb;font-size:13.5px}
+.quote.ours{border-left-color:var(--ours)}
+.quote.theirs{border-left-color:var(--theirs)}
+.score{display:grid;grid-template-columns:1.3fr .75fr .75fr 1fr;gap:0;border:1px solid var(--line);font-size:13px}
+.score div{padding:8px 9px;border-bottom:1px solid var(--line);border-right:1px solid var(--line)}
+.score div:nth-child(4n){border-right:none}
+.score .hd{background:#f4f7f9;font-weight:700;color:var(--muted);font-size:12px}
+.extract{background:var(--ok-soft);border:1px solid #b7d8c6;padding:12px 14px;margin:0 0 8px}
+.extract strong{color:var(--ok)}
+.avoid{background:var(--kill-soft);border:1px solid #e3b4b4;padding:12px 14px;margin:0 0 8px}
+.avoid strong{color:var(--kill)}
+.callout{background:var(--warn-soft);border:1px solid #e0c788;padding:12px 14px;margin:12px 0}
+.plain{background:#f4f7f9;border:1px solid var(--line);padding:12px 14px;margin:0 0 12px}
+.foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.meta{font-size:12px;color:var(--muted)}
+@media (max-width:820px){.two{grid-template-columns:1fr}.score{grid-template-columns:1fr}}
+@media print{body{background:#fff}.page{margin:0;box-shadow:none;border:none}@page{margin:12mm}}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="top">
+  <h1 class="brand">蔚来 NIO<span>两套 Pitch 怎么比</span></h1>
+  <p class="sub">
+    只比销售内容，不比美工。·
+    <strong>AI Force</strong> = 本仓库跑出来的全案 ·
+    <strong>BD Force</strong> = NBA BD 最后交给客户的 PPT ·
+    写作日 2026-09-01
+  </p>
+  <div class="badges">
+    <span class="badge ours">AI Force · 刀 / 一页纸 / 冰山 / 证伪</span>
+    <span class="badge theirs">BD Force · 9 页短板 + 19 页战略提案</span>
+    <span class="badge cond">比什么：怎么开场、怎么挖需求、怎么接到方案、深不深、勾不勾人</span>
+  </div>
+</header>
+
+<div class="verdict">
+  <p class="lead">先说结论：两套材料干的不是同一件事。</p>
+  <p><strong>AI Force</strong> 先讲清客户内部矛盾，再问「方向认不认」——像诊断。</p>
+  <p><strong>BD Force</strong> 默认客户已经想合作，直接摆出能买的活动、排期和价钱——像标书。</p>
+  <p>谁更好？看对面是谁：要先想清楚「该不该花、怎么花才不伤品牌」→ AI Force 更稳；已经要定「做成什么样、赶上哪场比赛、多少钱」→ BD Force 更强。</p>
+</div>
+
+<nav class="toc">
+  <a href="#s0">材料各有什么</a>
+  <a href="#s1">谁强谁弱（一表）</a>
+  <a href="#s2">怎么开场</a>
+  <a href="#s3">需求挖到哪</a>
+  <a href="#s4">需求和方案怎么接</a>
+  <a href="#s5">深度比什么</a>
+  <a href="#s6">哪个更勾人</a>
+  <a href="#s7">最后要什么 / 有没有报价</a>
+  <a href="#s8">风险</a>
+  <a href="#s9">BD Force 值得学的</a>
+  <a href="#s10">别学的</a>
+  <a href="#s11">合在一起怎么用</a>
+</nav>
+
+<!-- 0 -->
+<h2 id="s0"><span class="n">0.</span>两边材料各有什么</h2>
+<div class="two">
+  <div class="block col-ours">
+    <span class="lbl ours">AI Force</span>
+    <p>文件夹：<code>1_AI_Force/</code>（单文件全案，和比亚迪同款壳）</p>
+    <ul class="facts">
+      <li>10 分钟刀：只打一个矛盾，只问一个问题</li>
+      <li>会前一页纸：经营数字 + 销售该问什么</li>
+      <li>证伪：先写「什么情况下这方案不成立」</li>
+      <li>三问 + 72 小时清单：当面没问清，不准报价</li>
+      <li>底下还有一整层行业/公司研究（冰山）</li>
+    </ul>
+  </div>
+  <div class="block col-theirs">
+    <span class="lbl theirs">BD Force</span>
+    <p>文件夹：<code>2_BD_Force/</code></p>
+    <ul class="facts">
+      <li>短 PPT（9 页）：先写三品牌各缺什么，再给 NBA 解法，再讲粉丝匹配</li>
+      <li>长 PPT（19 页）：公益球场、中国赛用车、乐道街球、周边、下半年时间表、两档报价</li>
+      <li>性质：可以直接拿去谈合作的提案，不是「先诊断再决定」的稿子</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 1 -->
+<h2 id="s1"><span class="n">1.</span>谁强谁弱（一眼看完）</h2>
+<p class="meta">下表只比销售内容，不比设计。</p>
+<div class="score">
+  <div class="hd">比什么</div><div class="hd">AI Force</div><div class="hd">BD Force</div><div class="hd">谁更好用</div>
+  <div>开场有没有「刺」</div><div class="win">有</div><div>基本没有</div><div class="win">AI Force</div>
+  <div>有没有挖到「谁拍板、钱怎么过」</div><div class="win">有</div><div>几乎没有</div><div class="win">AI Force</div>
+  <div>需求接到方案：讲得清不清</div><div class="win">更清</div><div>更快落到货</div><div class="win">AI Force（逻辑）</div>
+  <div>方案能不能马上想象出来</div><div>偏骨架</div><div class="win">很具体</div><div class="win">BD Force</div>
+  <div>让人觉得「现在就得选边」</div><div class="win">靠结构痛点</div><div>靠赛事档期</div><div class="draw">看人</div>
+  <div>让人觉得「我想要这个合作」</div><div>一般</div><div class="win">强</div><div class="win">BD Force</div>
+  <div>过财务/费用审查稳不稳</div><div class="win">更稳</div><div>先报价、风险更大</div><div class="win">AI Force</div>
+  <div>有没有价钱和权益清单</div><div>故意没有</div><div class="win">有</div><div class="win">BD Force</div>
+  <div>有没有写「失败了怎么办」</div><div class="win">有</div><div>几乎没有</div><div class="win">AI Force</div>
+  <div>有没有接到蔚来自己的 App / House / Day</div><div>说到原则，细节少</div><div class="win">写得很具体</div><div class="win">BD Force · 可学</div>
+</div>
+
+<!-- 2 -->
+<h2 id="s2"><span class="n">2.</span>怎么开场：有没有一句话把人钉住</h2>
+<div class="two">
+  <div class="block col-ours">
+    <span class="lbl ours">AI Force</span>
+    <div class="quote ours">乐道刚破万，但第二个月就掉了一点；蔚来还在讲自己的品牌精神。同一套体育故事同时服务两边，多半有一边受伤。</div>
+    <p><span class="em">用的是客户自己的数（可当场算）：</span></p>
+    <ul class="facts">
+      <li>乐道：5 月 <span class="num">12,029</span> → 6 月 <span class="num">11,743</span>（约 <span class="down">−2.4%</span>）</li>
+      <li>同月全公司交付还在涨：<span class="num">37,705</span> → <span class="num">40,597</span></li>
+      <li>6 月三品牌：蔚来 <span class="num">21,908</span> 涨 · 乐道落 · 萤火虫 <span class="num">6,946</span> 涨最快——三条线方向不一样</li>
+    </ul>
+    <p>开场还借了客户已经做过的事：姚明（精神）、申花（家庭社群）——说明不是从零推销曝光。</p>
+  </div>
+  <div class="block col-theirs">
+    <span class="lbl theirs">BD Force</span>
+    <div class="quote theirs">短板先列需求：要拉新、要提高老用户价值、要品牌精神；再分蔚来 / 乐道 / 萤火虫各写一页解法。</div>
+    <ul class="facts">
+      <li>这是「需求清单」，不是「你内部有个矛盾，现在必须选」</li>
+      <li>长板里接近「催一下」的句子是：下半年用大赛热度，填上新车红利过后的空档——这是<strong>赛程日历在催</strong>，不是客户内部在痛</li>
+      <li>「What We Heard」写的是公益、姚基金、中国赛用车、街球帮乐道曝光——更像合作意向复述，没钉住预算和拍板人</li>
+    </ul>
+  </div>
+</div>
+<div class="callout"><strong>白话：</strong>AI Force 像医生先说病灶；BD Force 像供应商先展厅。病灶说得准的时候，前者更有力；客户已经想逛展厅时，后者更快。</div>
+
+<!-- 3 -->
+<h2 id="s3"><span class="n">3.</span>需求挖到哪一层</h2>
+<table>
+  <thead><tr><th>问的是什么</th><th>AI Force</th><th>BD Force</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>拉新、认知、年轻化这类表面诉求</td>
+      <td>有写，但不当主戏</td>
+      <td class="win">短板主戏就是这个</td>
+    </tr>
+    <tr>
+      <td>客户已经做过的体育合作，能不能复用</td>
+      <td class="win">姚明模板 + 申花模板 + 萤火虫还空着</td>
+      <td>提到姚基金 / 中国赛 / 街球，但很少说「模板可复制」</td>
+    </tr>
+    <tr>
+      <td>三品牌会不会互相抢戏、互相伤害</td>
+      <td class="win">这是主矛盾</td>
+      <td>分品牌写了方案，但没把「会撕裂」说破</td>
+    </tr>
+    <tr>
+      <td>钱怎么批、谁能否决</td>
+      <td class="win">专门问费用闸门；没问清不准报价</td>
+      <td>几乎没写；直接报价</td>
+    </tr>
+    <tr>
+      <td>NBA 粉丝和买车人群合不合</td>
+      <td>故意不当开场（避免一上来像卖曝光）</td>
+      <td class="win">写得很满：3.23 亿粉丝、购车意向高等</td>
+    </tr>
+    <tr>
+      <td>能不能接到蔚来自己的 App、门店、NIO Day</td>
+      <td>原则说「补不了他们的社群」</td>
+      <td class="win">蔚来值兑票、House 展车、Day 做成全明星——写进方案了</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- 4 -->
+<h2 id="s4"><span class="n">4.</span>需求和方案怎么接上</h2>
+<div class="two">
+  <div class="block col-ours">
+    <span class="lbl ours">AI Force：先定结构，再谈货</span>
+    <p>三品牌各接一类事：</p>
+    <ul class="facts">
+      <li><strong>蔚来</strong>：精神层（沿姚明那条）</li>
+      <li><strong>乐道</strong>：家庭社群（申花那种可参与形态，换项目）</li>
+      <li><strong>萤火虫</strong>：青年文化（现在还是空白）</li>
+    </ul>
+    <p>做法：先认方向 → 一城先试 → 指标客户定 → 不行就停。钱当面不谈。</p>
+  </div>
+  <div class="block col-theirs">
+    <span class="lbl theirs">BD Force：人群对上了，就摆货</span>
+    <ul class="facts">
+      <li><strong>蔚来</strong>：中国赛官方用车、House 展车、积分兑好票、生活周边、NIO Day 做成全明星周末</li>
+      <li><strong>乐道</strong>：街球城市站、热搜、达人试乘、名人赛红毯、前备箱投篮等</li>
+      <li><strong>萤火虫</strong>：短板有一页（聚星/街潮）；长板执行里戏份很少</li>
+      <li><strong>集团</strong>：退役材料做球场、公益捐赠、车主球局</li>
+    </ul>
+  </div>
+</div>
+<div class="plain">
+  <strong>差别一句话：</strong>AI Force 用「你们已经验证过的做法」证明还缺一套总架构；BD Force 用「联盟手里现成的活动」证明马上能办成什么样。前者好过内部审查，后者好开品牌灵感会。
+</div>
+
+<!-- 5 -->
+<h2 id="s5"><span class="n">5.</span>深度：两边深的地方不一样</h2>
+<h3>AI Force 深在「公司怎么运转」</h3>
+<div class="block">
+  <ul class="facts">
+    <li>交付、收入、毛利、Non-GAAP / GAAP 一起报，不单报好看的一面</li>
+    <li>Q1 GAAP 仍亏 <span class="num">3.321 亿</span>；现金 <span class="num">482 亿</span> 不等于能批大赞助</li>
+    <li>Q2 交付 <span class="num">107,658</span> 很强，但仍用乐道「破万没站住」讲结构问题，不拿交付吓人</li>
+    <li>谁拍板、预算在不在表上：公开材料没有 → 标成必须当面问</li>
+  </ul>
+</div>
+<h3>BD Force 深在「落地长什么样」</h3>
+<div class="block">
+  <ul class="facts">
+    <li>粉丝与购车匹配：3.23 亿、一线占比、TGI、购纯电意向等</li>
+    <li>中国赛：哪台车当接待车、House 展哪台、怎么用蔚来值兑票</li>
+    <li>乐道：街球哪些城市、哪几天、名人赛哪天在重庆</li>
+    <li>下半年：几月官宣、几月中国赛、几月激活——有一条时间轴</li>
+    <li>两档价：大约 <span class="num">100 万美金</span> 一档，和 <span class="num">400–440 万美金</span> 一档（含称谓、排他、权益清单）</li>
+  </ul>
+</div>
+<div class="plain">
+  <strong>白话：</strong>AI Force 把公司账和决策坑挖深了；BD Force 把活动和价钱写细了。短板末页其实也有 SWOT、三年收入等研究，但堆在最后，没有喂回开场那一刀。
+</div>
+
+<!-- 6 -->
+<h2 id="s6"><span class="n">6.</span>哪个更勾人</h2>
+<table>
+  <thead><tr><th></th><th>AI Force 勾的是</th><th>BD Force 勾的是</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>感觉</td>
+      <td>「再这么做会伤品牌 / 峰值站不住」</td>
+      <td>「巨星座驾、场边好票、热搜、全明星嘉年华」</td>
+    </tr>
+    <tr>
+      <td>开场习惯</td>
+      <td>不用粉丝大数开场</td>
+      <td>正是用粉丝、匹配度开场</td>
+    </tr>
+    <tr>
+      <td>时间压力</td>
+      <td>乐道刚起来、还没站住——客户自己的窗口</td>
+      <td>中国赛、街球排期——联盟赛程窗口</td>
+    </tr>
+    <tr>
+      <td>收尾一句</td>
+      <td>「三品牌分层，方向认不认？」</td>
+      <td>「座座皆 MVP」这类品牌金句</td>
+    </tr>
+  </tbody>
+</table>
+<p>对面要讲清「为什么这样花钱」→ AI Force 更勾。对面已经想「合作长什么样」→ BD Force 更勾。</p>
+
+<!-- 7 -->
+<h2 id="s7"><span class="n">7.</span>最后要什么，有没有报价</h2>
+<div class="two">
+  <div class="block col-ours">
+    <span class="lbl ours">AI Force</span>
+    <div class="quote ours">唯一要求：三品牌分层这个方向，认不认？认了，再开 30 分钟把试验边界写清楚。</div>
+    <p>进门先问三件事（答什么，下一步就变）：</p>
+    <ol>
+      <li>乐道「家庭破圈」的预算和考核，是跟申花一条线，还是另有负责人？</li>
+      <li>姚明这条，算 ES9 一个车成功就行，还是要做成三品牌都能复用的模板？</li>
+      <li>做体育先过钱的上限，还是先过品牌一致性？如果体育根本不在预算表里——这轮不报价。</li>
+    </ol>
+  </div>
+  <div class="block col-theirs">
+    <span class="lbl theirs">BD Force</span>
+    <p>长板直接给合作包，例如：</p>
+    <ul class="facts">
+      <li>高档：约 400 / 420 / 440 万美金（跨赛季），含官方称谓、品类独家、中国赛、街球/名人赛、定制活动等</li>
+      <li>轻量：约 100 万美金一档，四层结构类似，份量缩小</li>
+    </ul>
+    <p class="meta">销售上很成熟；但对「费用紧、还没认方向」的桌，容易显得跳得太快。</p>
+  </div>
+</div>
+
+<!-- 8 -->
+<h2 id="s8"><span class="n">8.</span>风险：谁更老实</h2>
+<div class="two">
+  <div class="block col-ours">
+    <span class="lbl ours">AI Force</span>
+    <ul class="facts">
+      <li>结论是「有条件推进」，不是「稳了」</li>
+      <li>写明：别用粉丝开场、别拿现金催单、别未核实就说排他、别当场甩价</li>
+      <li>客户只要一场开业热闹、或拍板人不在场 → 方案要改或停</li>
+    </ul>
+  </div>
+  <div class="block col-theirs">
+    <span class="lbl theirs">BD Force</span>
+    <ul class="facts">
+      <li>把「行业排他」写成卖点——公开材料往往核不准</li>
+      <li>绿球场故事很炫，但首面很难当场验证能不能落地</li>
+      <li>大额多年报价，和「公司刚上岸、账上还亏」可能打架，又缺少「试不好就停」</li>
+      <li>萤火虫短板有页，长板执行几乎被蔚来+乐道占满</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 9 -->
+<h2 id="s9"><span class="n">9.</span>BD Force 值得学的（可直接搬）</h2>
+<div class="extract"><strong>1. 先写「我们听到了什么」</strong><br/>哪怕现在写得薄，姿态是对的。AI Force 可以写成：姚明怎么谈的、申花长什么样、三条线交付怎么走——听完再下刀。</div>
+<div class="extract"><strong>2. 「新车热过去之后的空档」这句话</strong><br/>好懂，也好进营销排期。不用换主矛盾，加进「第一城试验挂在哪段赛程」即可。</div>
+<div class="extract"><strong>3. 把活动写到能看见</strong><br/>兑票、用哪台车、哪座城市哪几天——方向认了之后，AI Force 的详细方案层该长这样。</div>
+<div class="extract"><strong>4. 每个品牌对上一个有名字的 IP</strong><br/>别只说「精神 / 家庭 / 青年」，要能说出中国赛、街球、Jr.NBA 这类具体名字。</div>
+<div class="extract"><strong>5. 两档菜单的结构</strong><br/>学「轻量档 / 完整档」怎么分层（授权、赛事、定制、内容），不要一上来甩未核实的排他和大价。</div>
+<div class="extract"><strong>6. 接到蔚来自己的系统</strong><br/>App 积分、House、NIO Day、Life——显得懂对方，不是外面贴一张广告。</div>
+<div class="extract"><strong>7. 收尾要有一句好记的话</strong><br/>分析可以准，还要有一句能往上传的品牌句（学功能，不抄原文）。</div>
+
+<!-- 10 -->
+<h2 id="s10"><span class="n">10.</span>别学的</h2>
+<div class="avoid"><strong>一上来就甩粉丝大数</strong> —— AI Force 故意不用这个开场；可放附录，别当第一分钟。</div>
+<div class="avoid"><strong>没核实就写「独家 / 排他」</strong> —— 当面问清再写。</div>
+<div class="avoid"><strong>首面主打绿球场故事</strong> —— 创意可以留后面；第一面优先讲结构矛盾和已验证做法。</div>
+<div class="avoid"><strong>研究写很多，却不喂回开场</strong> —— 有深度不等于会用深度。</div>
+<div class="avoid"><strong>多年大报价却没有试错刹车</strong> —— 若出菜单，必须带上限和叫停条件。</div>
+
+<!-- 11 -->
+<h2 id="s11"><span class="n">11.</span>合在一起怎么用</h2>
+<div class="block">
+  <p><span class="em">前半场用 AI Force：</span>听完 → 替对方说清操心 → 打一个矛盾 → 问三句 → 分层结构 → 问方向认不认。</p>
+  <p><span class="em">方向认了，再用 BD Force 后半场：</span>下半年空档排期 × 分品牌具体 IP × 接到蔚来自己的系统 × 轻量/完整两档菜单 × 写明试不好就停。</p>
+  <p><span class="em">一句话：</span>AI Force 负责「该不该做、怎么做才不伤自己」；BD Force 负责「做成什么样、什么时候、多少钱」。</p>
+</div>
+
+<div class="callout">
+  <strong>开会前看一眼：</strong><br/>
+  对面要先想明白再花钱 → 先打 AI Force。<br/>
+  对面已经在问「中国赛能不能赶上、合作长什么样」→ 方向认了马上切 BD Force 那种细方案，否则会显得只有概念。
+</div>
+
+<footer class="foot">
+  <div>
+    <code>1_AI_Force/</code> · <code>2_BD_Force/</code> · <code>3_对比报告/</code><br/>
+    AI Force 真源：<code>cases/nio/</code> · BD Force：PPT + 文本抽取在 <code>2_BD_Force/</code>
+  </div>
+  <div>只比销售内容 · 2026-09-01</div>
+</footer>
+
+</div>
+</body>
+</html>

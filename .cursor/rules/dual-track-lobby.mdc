@@ -1,0 +1,32 @@
+---
+description: 双轨作业 — 产品机(DeepSeek) vs 游说金标(Cursor→Desktop)
+alwaysApply: true
+---
+
+# 工程经理 · 双轨作业流（硬记忆）
+
+用户目标拆成**两件互不替代的事**。新会话先认轨，再动手。
+
+## 轨 A · 产品机（开发 iPitch）
+
+- **在哪**：`20260824 rebuild/`（本机 uvicorn + 门禁 + 编排）
+- **算力**：DeepSeek 多阶段 API；禁止一键吐全文当终态
+- **成功**：界面可开跑、护照诚实、机制/回归可演示；DeepSeek 产出 ≠ 游说金标
+- **纲领**：`docs/ENGINEERING_PROGRAM.md` · `20260824 rebuild/docs/PM_CHARTER.md`
+
+## 轨 B · 游说金标（本聊天 /pitchsop）
+
+- **触发**：用户只报**公司名**或丢素材（如「赞意」「做 XX」）
+- **算力**：Cursor 高级模型；契约 `cases/DELIVERABLE_CONTRACT.md`
+- **默认一路交齐（禁止中途请示「要不要 HTML/审美/跳出盒子」）**：
+  1. `cases/{slug}/` 冰山 + 中层 + 刀 + ifalsify/PRIMARY/BD经验缺口 + 跳出盒子×2  
+  2. `build_deliver_pack.py` + `build_portable_showcase.py`（同 BYD/Geely 壳与审美）  
+  3. 复制到 **`~/Desktop/temp/{名}_全案入口_可转发_离机可读.html`**
+- **品质锚**：桌面上的比亚迪 / 吉利国际离机单文件
+- **细则**：`cases/_SHOWCASE_NOTE.md`
+
+## 红线
+
+- 禁止把轨 A 的 DeepSeek 草稿说成轨 B 终态  
+- 禁止轨 B 做到一半停下来问要不要继续做格式  
+- 两轨可并行，但**出口与话术必须分清**

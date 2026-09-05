@@ -1,7 +1,8 @@
 # 交付宪法 · 会前包 / 游说主案
 
 > 真源契约。新会话与 `_tools` 构建器、样例廊、路演文案均须对齐本文件。  
-> 游说主案：比亚迪 / 吉利国际 · 更新 2026-08-26
+> 游说主案：比亚迪 / 吉利国际 / 赞意广告 · 更新 2026-08-28  
+> **作业流**：用户只报公司名 → Agent **默认一路交到** §5 可转发单文件 + Desktop 离机副本，**禁止**中途请示「要不要 HTML/跳出盒子/审美」。细节见 `_SHOWCASE_NOTE.md`。
 
 ---
 
@@ -78,11 +79,12 @@ ONE_PAGER（5 min）
 |----|------|------|----|----------|---------|--------------|
 | byd | ✅ | ✅ | ✅ | ✅ 全球信任协议 / 五分钟技术联赛 | ✅ | ✅ |
 | geely-international | ✅ | ✅ | ✅ | ✅ World+ Twin / Trust Passport | ✅ | ✅ |
+| 赞意广告 | ✅ | ✅ | ✅ | ✅ 体育胜率闸门 / 品牌主体育路由台 | ✅ | ✅ |
 
 入口：
 
-- 廊内：`cases/byd/deliver/index.html` · `cases/geely-international/deliver/index.html`
-- 离机：`cases/_export/BYD_全案入口_可转发.html` · `GEELY_全案入口_可转发.html`
+- 廊内：`cases/byd/deliver/index.html` · `cases/geely-international/deliver/index.html` · `cases/赞意广告/deliver/index.html`
+- 离机：`cases/_export/` · Desktop `*_全案入口_可转发_离机可读.html`（含赞意）
 
 ## 8. 算力诚实
 
